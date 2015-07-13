@@ -8,6 +8,7 @@
 
 #include "GameScene.h"
 
+#include "Player.h"
 #include "SceneManager.h"
 
 using namespace cocos2d;
@@ -29,6 +30,13 @@ void GameScene::onEnter() {
     Node::onEnter();
 
     Size visibleSize = Director::getInstance()->getVisibleSize();
+
+    // setup player
+    player = Player::create();
+    player->setAnchorPoint(Vec2(0.5f, 0.5f));
+    player->setPosition(Vec2(visibleSize.width * 0.5f, visibleSize.height * 0.5f));
+
+    this->addChild(player);
 
     // setup menus
     ui::Button *backButton = ui::Button::create();

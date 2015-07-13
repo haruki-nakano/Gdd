@@ -11,11 +11,14 @@
 
 #include "CocosGUI.h"
 
+class Player;
+
 class GameScene : public cocos2d::Node {
 public:
     CREATE_FUNC(GameScene);
 
 protected:
+    Player *player;
     // Lifecycle
     bool init() override;
     void onEnter() override;
