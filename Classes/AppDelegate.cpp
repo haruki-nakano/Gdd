@@ -41,6 +41,26 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
 
+    cocos2d::Size frameSize = glview->getFrameSize();
+    float targetSize = frameSize.height > frameSize.width ? frameSize.height : frameSize.width;
+
+    FileUtils::getInstance()->addSearchPath("res");
+    FileUtils::getInstance()->addSearchPath("fonts");
+
+    std::vector<std::string> searchResolutionOrder(1);
+
+    if (targetSize < 481.0f) {
+        searchResolutionOrder[0] = "resources-1x";
+    } else if (targetSize < 1335.0f) {
+        searchResolutionOrder[0] = "resources-2x";
+    } else if (targetSize < 1921.0f) {
+        searchResolutionOrder[0] = "resources-3x";
+    } else {
+        searchResolutionOrder[0] = "resources-4x";
+    }
+
+    FileUtils::getInstance()->setSearchResolutionsOrder(searchResolutionOrder);
+
     register_all_packages();
 
     // create a scene. it's an autorelease object
