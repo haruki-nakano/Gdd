@@ -19,7 +19,7 @@ public:
     void returnToLobby();
 
 private:
-    GameScene *gameScene;
+    GameScene *_gameScene;
 
     SceneManager();
     ~SceneManager();

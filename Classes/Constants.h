@@ -12,4 +12,6 @@
 static const std::string CODE_NAME = "Yuzu";
 static const std::string GAME_NAME = "Not decided yet";
 
+static const float INITIAL_STEP_INTERVAL = 1.0f / 60.0f;
+
 #endif

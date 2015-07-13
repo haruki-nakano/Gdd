@@ -15,9 +15,15 @@ class Player : public cocos2d::Sprite {
 public:
     CREATE_FUNC(Player);
 
+    void step();
+    void setDirection(cocos2d::Vec2 direction);
+    void stop();
+
 private:
     bool init() override;
     void onEnter() override;
+
+    cocos2d::Vec2 _direction;
 };
 
 #endif /* defined(__Yuzu__Player__) */

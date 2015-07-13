@@ -18,16 +18,21 @@ public:
     CREATE_FUNC(GameScene);
 
 protected:
-    Player *player;
     // Lifecycle
     bool init() override;
     void onEnter() override;
     void setupTouchHandling();
 
     // Game Logic
+    void setGameActive(bool active);
+    void step(float dt);
 
     // UI
     void backButtonPressed(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType eEventType);
+
+    bool _active;
+    float _stepInterval;
+    Player *_player;
 };
 
 #endif /* defined(__Yuzu__GameScene__) */

@@ -25,7 +25,7 @@ SceneManager *SceneManager::getInstance() {
 }
 
 SceneManager::SceneManager() {
-    gameScene = nullptr;
+    _gameScene = nullptr;
 }
 
 SceneManager::~SceneManager() {
@@ -36,16 +36,16 @@ SceneManager::~SceneManager() {
 
 void SceneManager::enterGameScene(bool networked) {
     Scene *scene = Scene::create();
-    this->gameScene = GameScene::create();
+    _gameScene = GameScene::create();
 
-    scene->addChild(gameScene);
+    scene->addChild(_gameScene);
 
     Director::getInstance()->pushScene(scene);
 }
 
 void SceneManager::returnToLobby() {
-    if (gameScene) {
+    if (_gameScene) {
         Director::getInstance()->popScene();
-        gameScene = nullptr;
+        _gameScene = nullptr;
     }
 }
