@@ -8,6 +8,8 @@
 
 #include "TitleScene.h"
 
+#include "Lobby.h"
+
 USING_NS_CC;
 
 Scene *TitleScene::createScene() {
@@ -24,9 +26,9 @@ bool TitleScene::init() {
         return false;
     }
 
-    LayerColor *background = LayerColor::create(Color4B(255, 255, 255, 255));
+    Lobby *lobby = Lobby::create();
 
-    this->addChild(background);
+    this->addChild(lobby);
 
     return true;
 }
