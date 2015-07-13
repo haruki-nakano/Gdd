@@ -8,6 +8,8 @@
 
 #include "Lobby.h"
 
+#include "SceneManager.h"
+
 using namespace cocos2d;
 
 bool Lobby::init() {
@@ -40,14 +42,14 @@ void Lobby::setupUI() {
 
     ui::Button *singlePlayerButton = ui::Button::create();
     singlePlayerButton->setAnchorPoint(Vec2(0.5f, 0.0f));
-    singlePlayerButton->setPosition(Vec2(visibleSize.width / 2.0f, visibleSize.height * 0.4f));
+    singlePlayerButton->setPosition(Vec2(visibleSize.width / 2.0f, visibleSize.height * 0.3f));
     singlePlayerButton->loadTextures("singlePlayerButton.png", "singlePlayerButtonPressed.png");
     singlePlayerButton->addTouchEventListener(CC_CALLBACK_2(Lobby::singlePlayerPressed, this));
     this->addChild(singlePlayerButton);
 
     ui::Button *multiPlayerButton = ui::Button::create();
     multiPlayerButton->setAnchorPoint(Vec2(0.5f, 1.0f));
-    multiPlayerButton->setPosition(singlePlayerButton->getPosition() - Vec2(0.0f, 20.0f));
+    multiPlayerButton->setPosition(singlePlayerButton->getPosition() - Vec2(0.0f, visibleSize.width * 0.01f));
     multiPlayerButton->loadTextures("multiplayerButton.png", "multiplayerButtonPressed.png");
     multiPlayerButton->addTouchEventListener(CC_CALLBACK_2(Lobby::multiPlayerPressed, this));
     this->addChild(multiPlayerButton);
@@ -57,7 +59,7 @@ void Lobby::setupUI() {
 
 void Lobby::singlePlayerPressed(cocos2d::Ref *pSender, ui::Widget::TouchEventType eEventType) {
     if (eEventType == ui::Widget::TouchEventType::ENDED) {
-        // SceneManager::getInstance()->enterGameScene(false);
+        SceneManager::getInstance()->enterGameScene(false);
     }
 }
 
