@@ -11,13 +11,18 @@
 
 #include "cocos2d.h"
 
+class Bullet;
+
 class Player : public cocos2d::Sprite {
 public:
     CREATE_FUNC(Player);
 
     void step();
-    void setDirection(cocos2d::Vec2 direction);
+    void setDirection(const cocos2d::Vec2 direction);
+
+    // Players action
     void stop();
+    Bullet *createBullet();
 
 private:
     bool init() override;

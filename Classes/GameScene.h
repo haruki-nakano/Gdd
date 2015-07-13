@@ -12,6 +12,7 @@
 #include "CocosGUI.h"
 
 class Player;
+class Stage;
 
 class GameScene : public cocos2d::Node {
 public:
@@ -32,7 +33,7 @@ protected:
 
     bool _active;
     float _stepInterval;
-    Player *_player;
+    Stage *_stage;
 };
 
 #endif /* defined(__Yuzu__GameScene__) */

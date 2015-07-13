@@ -11,6 +11,7 @@
 #include "Constants.h"
 #include "Player.h"
 #include "SceneManager.h"
+#include "Stage.h"
 
 using namespace cocos2d;
 
@@ -35,12 +36,12 @@ void GameScene::onEnter() {
 
     Size visibleSize = Director::getInstance()->getVisibleSize();
 
-    // setup player
-    _player = Player::create();
-    _player->setAnchorPoint(Vec2(0.5f, 0.5f));
-    _player->setPosition(Vec2(visibleSize.width * 0.5f, visibleSize.height * 0.5f));
+    // setup stage
+    _stage = Stage::create();
+    _stage->setAnchorPoint(Vec2(0.5f, 0.5f));
+    _stage->setPosition(visibleSize * 0.5f);
 
-    this->addChild(_player);
+    this->addChild(_stage);
 
     // setup menus
     ui::Button *backButton = ui::Button::create();
@@ -58,24 +59,31 @@ void GameScene::onEnter() {
 
 void GameScene::setupTouchHandling() {
     static Vec2 firstTouchPos;
+    static bool isTap;
 
     auto touchListener = EventListenerTouchOneByOne::create();
 
     touchListener->onTouchBegan = [&](Touch *touch, Event *event) {
         firstTouchPos = this->convertTouchToNodeSpace(touch);
+        isTap = true;
         return true;
     };
 
     touchListener->onTouchMoved = [&](Touch *touch, Event *event) {
         Vec2 touchPos = this->convertTouchToNodeSpace(touch);
+        isTap = false;
         float distance = touchPos.distance(firstTouchPos);
         distance = sqrtf(distance);
-        _player->setDirection((touchPos - firstTouchPos) / distance);
+        _stage->getPlayer()->setDirection((touchPos - firstTouchPos) / distance);
     };
 
     touchListener->onTouchEnded = [&](Touch *touch, Event *event) {
-        // TODO
-        _player->stop();
+        if (isTap) {
+            Bullet *bullet = _stage->getPlayer()->createBullet();
+            _stage->addBullet(bullet);
+        } else {
+            _stage->getPlayer()->stop();
+        }
     };
 
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
@@ -96,7 +104,7 @@ void GameScene::setGameActive(bool active) {
 }
 
 void GameScene::step(float dt) {
-    _player->step();
+    _stage->step();
 }
 
 #pragma mark -
