@@ -18,6 +18,9 @@ class GameScene : public cocos2d::Node {
 public:
     CREATE_FUNC(GameScene);
 
+    void setNetworkedSession(bool networkedSession);
+    void receivedData(const void *data, unsigned long length);
+
 protected:
     // Lifecycle
     bool init() override;
@@ -32,8 +35,12 @@ protected:
     void backButtonPressed(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType eEventType);
 
     bool _active;
+    bool _networkedSession;
     float _stepInterval;
     Stage *_stage;
+
+    // Networking
+    void sendGameStateOverNetwork();
 };
 
 #endif /* defined(__Yuzu__GameScene__) */

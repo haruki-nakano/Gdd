@@ -29,6 +29,8 @@ private:
     void onEnter() override;
 
     cocos2d::Vec2 _direction;
+    int idd;
+    std::string name;
 };
 
 #endif /* defined(__Yuzu__Player__) */

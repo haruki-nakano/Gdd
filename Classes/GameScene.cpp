@@ -9,6 +9,7 @@
 #include "GameScene.h"
 
 #include "Constants.h"
+#include "JSONPacker.h"
 #include "Player.h"
 #include "SceneManager.h"
 #include "Stage.h"
@@ -27,6 +28,7 @@ bool GameScene::init() {
     this->addChild(background);
 
     _active = false;
+    _networkedSession = false;
     _stepInterval = INITIAL_STEP_INTERVAL;
 
     return true;
@@ -38,8 +40,8 @@ void GameScene::onEnter() {
 
     // setup stage
     _stage = Stage::create();
-    _stage->setAnchorPoint(Vec2(0.5f, 0.5f));
-    _stage->setPosition(visibleSize * 0.5f);
+    _stage->setAnchorPoint(Vec2(0.0f, 0.0f));
+    _stage->setPosition(Vec2(0.0f, 0.0f));
 
     this->addChild(_stage);
 
@@ -59,12 +61,14 @@ void GameScene::onEnter() {
 
 void GameScene::setupTouchHandling() {
     static Vec2 firstTouchPos;
+    static Vec2 lastSyncPos;
     static bool isTap;
 
     auto touchListener = EventListenerTouchOneByOne::create();
 
     touchListener->onTouchBegan = [&](Touch *touch, Event *event) {
         firstTouchPos = this->convertTouchToNodeSpace(touch);
+        lastSyncPos = firstTouchPos;
         isTap = true;
         return true;
     };
@@ -75,6 +79,10 @@ void GameScene::setupTouchHandling() {
         float distance = touchPos.distance(firstTouchPos);
         distance = sqrtf(distance);
         _stage->getPlayer()->setDirection((touchPos - firstTouchPos) / distance);
+        if (_networkedSession && lastSyncPos.distance(touchPos) > 2.0f) {
+            sendGameStateOverNetwork();
+            lastSyncPos = touchPos;
+        }
     };
 
     touchListener->onTouchEnded = [&](Touch *touch, Event *event) {
@@ -87,6 +95,39 @@ void GameScene::setupTouchHandling() {
     };
 
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
+}
+
+#pragma mark -
+#pragma mark Networks
+
+void GameScene::setNetworkedSession(bool networkedSession) {
+    _networkedSession = networkedSession;
+}
+
+void GameScene::receivedData(const void *data, unsigned long length) {
+    const char *cstr = reinterpret_cast<const char *>(data);
+    std::string json = std::string(cstr, length);
+
+    JSONPacker::GameState state = JSONPacker::unpackGameStateJSON(json);
+
+    if (state.gameOver) {
+        // TODO
+    }
+
+    CCLOG("received date: %f", (float)clock() / CLOCKS_PER_SEC);
+    _stage->setState(state);
+}
+
+void GameScene::sendGameStateOverNetwork() {
+    CCLOG("send date: %f", (float)clock() / CLOCKS_PER_SEC);
+    JSONPacker::GameState state;
+
+    state.name = NetworkingWrapper::getDeviceName();
+    state.gameOver = false;
+    state.position = _stage->getPlayer()->getPosition();
+
+    std::string json = JSONPacker::packGameStateJSON(state);
+    SceneManager::getInstance()->sendData(json.c_str(), json.length());
 }
 
 #pragma mark -

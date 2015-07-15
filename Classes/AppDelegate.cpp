@@ -41,6 +41,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
 
+    glview->setDesignResolutionSize(1136, 640, ResolutionPolicy::FIXED_WIDTH);
+
     cocos2d::Size frameSize = glview->getFrameSize();
     float targetSize = frameSize.height > frameSize.width ? frameSize.height : frameSize.width;
 
@@ -49,6 +51,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     std::vector<std::string> searchResolutionOrder(1);
 
+    searchResolutionOrder[0] = "resources-2x";
+    /*
     if (targetSize < 481.0f) {
         searchResolutionOrder[0] = "resources-1x";
     } else if (targetSize < 1335.0f) {
@@ -58,7 +62,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     } else {
         searchResolutionOrder[0] = "resources-4x";
     }
-
+     */
     FileUtils::getInstance()->setSearchResolutionsOrder(searchResolutionOrder);
 
     register_all_packages();

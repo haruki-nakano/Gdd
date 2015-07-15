@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="staggered" renderorder="right-down" width="32" height="24" tilewidth="64" tileheight="64" staggeraxis="y" staggerindex="odd" nextobjectid="1">
+ <tileset firstgid="1" name="simpleMap" tilewidth="64" tileheight="64">
+  <image source="simpleMap.png" width="66" height="192"/>
+ </tileset>
+ <layer name="background" width="32" height="24">
+  <data encoding="base64" compression="zlib">
+   eJzN0kEKACAIRFGt+9+5bYSFm+aP4Pp9xAi/SQOfasjw8dUNp+3gqxp2bxr4yobq5rSv+oOu/cs/7/zaCfo/7FvDgH2l3WkgfYX9aiB9pV01kD5h7w20r5oFO+AAyA==
+  </data>
+ </layer>
+</map>

@@ -27,6 +27,8 @@ bool Lobby::init() {
 void Lobby::onEnter() {
     Node::onEnter();
 
+    SceneManager::getInstance()->receiveMultiplayerInvitations();
+
     setupUI();
 }
 
@@ -65,6 +67,6 @@ void Lobby::singlePlayerPressed(cocos2d::Ref *pSender, ui::Widget::TouchEventTyp
 
 void Lobby::multiPlayerPressed(cocos2d::Ref *pSender, ui::Widget::TouchEventType eEventType) {
     if (eEventType == ui::Widget::TouchEventType::ENDED) {
-        // SceneManager::getInstance()->showPeerList();
+        SceneManager::getInstance()->showPeerList();
     }
 }
