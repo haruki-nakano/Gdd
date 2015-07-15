@@ -22,11 +22,12 @@ enum class FieldType {
     WALL = 3,
 };
 
-enum class MovingDirection {
-    RIGHT = 0,
-    LEFT = 1,
-    UP = 2,
-    DOWN = 3,
+enum class MovingState {
+    STOP = 0,
+    RIGHT = 1,
+    LEFT = 2,
+    UP = 3,
+    DOWN = 4,
 };
 
 #endif

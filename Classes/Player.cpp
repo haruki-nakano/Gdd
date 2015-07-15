@@ -9,6 +9,7 @@
 #include "Player.h"
 
 #include "Bullet.h"
+#include "Constants.h"
 #include "MathUtils.h"
 
 using namespace cocos2d;
@@ -28,18 +29,37 @@ void Player::onEnter() {
 void Player::step() {
     Vec2 currentPosition = this->getPosition();
 
-    this->setPosition(currentPosition + _direction);
+    this->setPosition(currentPosition + _direction * MOVE_FACTOR);
 }
 
-void Player::setDirection(const Vec2 direction) {
-    _direction = direction;
+void Player::setMovingState(const MovingState movingState) {
+    float angle;
+    switch (movingState) {
+        case MovingState::STOP:
+            _direction = Vec2(0.0f, 0.0f);
+            return;
 
-    float angle = MathUtils::degreesAngle(direction);
+        case MovingState::LEFT:
+            angle = -45.0f;
+            _direction = Vec2(-1.0f, 1.0f);
+            break;
+
+        case MovingState::RIGHT:
+            angle = 135.0f;
+            _direction = Vec2(1.0f, -1.0f);
+            break;
+
+        case MovingState::UP:
+            angle = 45.0f;
+            _direction = Vec2(1.0f, 1.0f);
+            break;
+
+        case MovingState::DOWN:
+            angle = -135.0f;
+            _direction = Vec2(-1.0f, -1.0f);
+            break;
+    }
     this->setRotation(angle);
-}
-
-void Player::stop() {
-    _direction = Vec2(0.0f, 0.0f);
 }
 
 Bullet *Player::createBullet() {

@@ -58,6 +58,7 @@ void Stage::onEnter() {
 }
 
 void Stage::step() {
+    Vec2 pos = _players[0]->getPosition();
     _players[0]->step();
 
     for (size_t i = 0; i < _bullets.size(); i++) {

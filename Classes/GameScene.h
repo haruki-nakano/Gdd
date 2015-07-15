@@ -11,6 +11,8 @@
 
 #include "CocosGUI.h"
 
+#include "Constants.h"
+
 class Player;
 class Stage;
 
@@ -41,6 +43,9 @@ protected:
 
     // Networking
     void sendGameStateOverNetwork();
+
+    // Utility
+    MovingState convertVec2ToMovingState(cocos2d::Vec2 v);
 };
 
 #endif /* defined(__Yuzu__GameScene__) */
