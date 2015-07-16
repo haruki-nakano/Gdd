@@ -31,7 +31,11 @@ private:
     bool init() override;
     void onEnter() override;
 
-    cocos2d::TMXTiledMap *_map;
+    bool collideWith(cocos2d::Vec2 coordinate);
+    cocos2d::Vec2 convertPositionToCoordinate(cocos2d::Vec2 position);
+
+    cocos2d::experimental::TMXTiledMap *_map;
+    cocos2d::experimental::TMXLayer *_backgroundLayer;
     std::vector<Player *> _players;
     std::vector<Bullet *> _bullets;
 };

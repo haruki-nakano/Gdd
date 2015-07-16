@@ -29,7 +29,7 @@ void Bullet::step() {
     Vec2 currentPosition = this->getPosition();
 
     // Vec2 delta = Vec2::forAngle(CC_DEGREES_TO_RADIANS(90.0f - _angle)) * 10.0f;
-    Vec2 delta = MathUtils::forDegreesAngle(_angle) * 10.0f;
+    Vec2 delta = MathUtils::forDegreesAngle(_angle) * 25.0f;
     this->setPosition(currentPosition + delta);
 }
 

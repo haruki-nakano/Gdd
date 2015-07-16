@@ -19,21 +19,23 @@ class Player : public cocos2d::Sprite {
 public:
     CREATE_FUNC(Player);
 
+    constexpr static const float MOVE_FACTOR = 10.0f;
+
     void step();
     void setMovingState(const MovingState movingState);
+    MovingState getMovingState();
 
     // Players action
     void stop();
     Bullet *createBullet();
 
 private:
-    constexpr static const float MOVE_FACTOR = 5.0f;
     bool init() override;
     void onEnter() override;
 
     cocos2d::Vec2 _direction;
-    MovingState moving;
-    std::string name;
+    MovingState _moving;
+    std::string _name;
 };
 
 #endif /* defined(__Yuzu__Player__) */

@@ -33,6 +33,7 @@ void Player::step() {
 }
 
 void Player::setMovingState(const MovingState movingState) {
+    _moving = movingState;
     float angle;
     switch (movingState) {
         case MovingState::STOP:
@@ -60,6 +61,10 @@ void Player::setMovingState(const MovingState movingState) {
             break;
     }
     this->setRotation(angle);
+}
+
+MovingState Player::getMovingState() {
+    return _moving;
 }
 
 Bullet *Player::createBullet() {

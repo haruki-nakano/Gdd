@@ -36,8 +36,7 @@
 - (void)startAdvertisingAvailability {
     self.peerID = [[MCPeerID alloc] initWithDisplayName:[UIDevice currentDevice].name];
 
-    _session =
-        [[MCSession alloc] initWithPeer:self.peerID securityIdentity:nil encryptionPreference:MCEncryptionRequired];
+    _session = [[MCSession alloc] initWithPeer:self.peerID securityIdentity:nil encryptionPreference:MCEncryptionNone];
     _session.delegate = self;
 
     _advertiserAssistant =
@@ -75,7 +74,7 @@
 
 - (void)sendData:(NSData *)data {
     NSError *error;
-    [self.session sendData:data toPeers:self.session.connectedPeers withMode:MCSessionSendDataReliable error:&error];
+    [self.session sendData:data toPeers:self.session.connectedPeers withMode:MCSessionSendDataUnreliable error:&error];
 }
 
 #pragma mark - MCBrowserViewControllerDelegate methods

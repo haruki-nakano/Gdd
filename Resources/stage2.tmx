@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="isometric" renderorder="right-down" width="128" height="128" tilewidth="64" tileheight="32" nextobjectid="9">
+ <tileset firstgid="1" name="isometric_grass_and_water_light" tilewidth="64" tileheight="64">
+  <image source="isometric_grass_and_water_light.png" width="256" height="384"/>
+ </tileset>
+ <layer name="background" width="128" height="128">
+  <properties>
+   <property name="x" value="1"/>
+   <property name="y" value="1"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzt2suOgjAABVCMP+Bu/v9PZ2WCTVta6As9ixNHicJwL+X53LbtCQAAAAAAAAAAAAAAAAAAC3sssAzIH/mjA8gf+SN/5M+Y/HXgd8kf+f82+X+/2Dj/yEyjn7+F8n8kptE3/9EdeASvsfx14Hs7IP+1/AWvo/IPuxD+rQNjOyD/37Tf/kd0IDbuh12ITadf/qHRHdhnLf+5HXhu7TsQO76LbffGgDU60CL/3H48ts3n8g8/o3/+ZztQsr2m9vmprF0fnNOB2sxLs8nlnhsDUu/pk/9RB85ujyXj/FHmOjCmA0cZnnGUf+4ekQ6M7UCP/Pc5xz6LnQfqwJz8Yx1osc5TWebuBaTmqwN9OzAy/7AHpfPVgX75hx3olX+Yfc14L/++HWi9nnP5ps4Dj+avA/06MCP/2jFAB/p3YEb+tef+OnCP/MPfC8eZK+d9OtC+Az3W7fu3Xtvn8caVfYAO9DUi/7AD8l9L6w7E8t/vc3RgLS3X6yuR/2P7HAfOLoMOrN2BVP5vr4v568C988/di6rtgB6s24Gj/Pfjwdn8Wy4zba8HlHbgyvyNAWt24H2sV0oH1nImg6sduHJNUv5zOxB7tuOttgOyXMPZY7HYdT4duKcz12RS93p67wOY14Ew/7AHuQ7s9xE182SdDsS299L8W1wLYm4Hap/vOnoeQP5rKsmz5POSDsh/PbX5H30n9135r6llVrkOyH9drbKS/33FzvmudkD+99Lz3ov876NHVvK/l9Z5yf9+Wu4P5H9frZ4hmf1/MC8/+d/flf2B/L9HbQ9k/51izwbFps9eTsZ1Yf9+9jIxvwcAAAAAAAAAAAAAAAAAAAAAUOofMsPMhA==
+  </data>
+ </layer>
+</map>
