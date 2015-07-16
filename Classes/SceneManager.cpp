@@ -77,7 +77,7 @@ void SceneManager::receivedData(const void *data, unsigned long length) {
 void SceneManager::stateChanged(ConnectionState state) {
     switch (state) {
         case ConnectionState::CONNECTING:
-            CCLOG("Connecting..");
+            CCLOG("Connecting...");
             break;
         case ConnectionState::NOT_CONNECTED:
             CCLOG("Not connected");

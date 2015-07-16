@@ -45,17 +45,14 @@ void Player::setMoveState(const MoveState MoveState) {
             break;
 
         case MoveState::RIGHT:
-            angle = 135.0f;
             _direction = Vec2(1.0f, -0.5f);
             break;
 
         case MoveState::UP:
-            angle = 45.0f;
             _direction = Vec2(1.0f, 0.5f);
             break;
 
         case MoveState::DOWN:
-            angle = -135.0f;
             _direction = Vec2(-1.0f, -0.5f);
             break;
     }

@@ -35,13 +35,6 @@ void Lobby::onEnter() {
 void Lobby::setupUI() {
     Size visibleSize = Director::getInstance()->getVisibleSize();
 
-    /*
-    Sprite *logo = Sprite::create("logo.png");
-    logo->setAnchorPoint(Vec2(0.5f, 0.5f));
-    logo->setPosition(Vec2(visibleSize.width * 0.5f, visibleSize.height * 0.75f));
-    this->addChild(logo);
-     */
-
     ui::Button *singlePlayerButton = ui::Button::create();
     singlePlayerButton->setAnchorPoint(Vec2(0.5f, 0.0f));
     singlePlayerButton->setPosition(Vec2(visibleSize.width / 2.0f, visibleSize.height * 0.3f));

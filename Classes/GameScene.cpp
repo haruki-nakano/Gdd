@@ -25,6 +25,7 @@ bool GameScene::init() {
         return false;
     }
 
+    // TODO: Add background image
     LayerColor *background = LayerColor::create(Color4B(255, 255, 255, 255));
     this->addChild(background);
 
@@ -47,6 +48,7 @@ void GameScene::onEnter() {
     this->addChild(_stage);
 
     // setup menus
+    // TODO: Use other button image
     ui::Button *backButton = ui::Button::create();
     backButton->setAnchorPoint(Vec2(0.0f, 1.0f));
     backButton->setPosition(Vec2(0.0f, visibleSize.height));
@@ -113,15 +115,15 @@ void GameScene::receivedData(const void *data, unsigned long length) {
     JSONPacker::GameState state = JSONPacker::unpackGameStateJSON(json);
 
     if (state.gameOver) {
-        // TODO
+        // TODO: Implement here
     }
 
-    CCLOG("received date: %f", (float)clock() / CLOCKS_PER_SEC);
+    // CCLOG("received date: %f", (float)clock() / CLOCKS_PER_SEC);
     _stage->setState(state);
 }
 
 void GameScene::sendGameStateOverNetwork() {
-    CCLOG("send date: %f", (float)clock() / CLOCKS_PER_SEC);
+    // CCLOG("send date: %f", (float)clock() / CLOCKS_PER_SEC);
     JSONPacker::GameState state;
 
     state.name = NetworkingWrapper::getDeviceName();
@@ -169,6 +171,7 @@ MoveState GameScene::convertVec2ToMoveState(cocos2d::Vec2 v) {
 
     float angle = MathUtils::degreesAngle(v);
 
+    // TODO: Fix angles
     if (-180 <= angle && angle < -90.0f) {
         return MoveState::DOWN;
     } else if (-90.0f <= angle && angle < 0.0f) {
