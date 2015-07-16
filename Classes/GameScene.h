@@ -45,7 +45,7 @@ protected:
     void sendGameStateOverNetwork();
 
     // Utility
-    MovingState convertVec2ToMovingState(cocos2d::Vec2 v);
+    MoveState convertVec2ToMoveState(cocos2d::Vec2 v);
 };
 
 #endif /* defined(__Yuzu__GameScene__) */

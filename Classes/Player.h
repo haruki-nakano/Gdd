@@ -22,8 +22,8 @@ public:
     constexpr static const float MOVE_FACTOR = 10.0f;
 
     void step();
-    void setMovingState(const MovingState movingState);
-    MovingState getMovingState();
+    void setMoveState(const MoveState MoveState);
+    MoveState getMoveState();
 
     // Players action
     void stop();
@@ -34,7 +34,7 @@ private:
     void onEnter() override;
 
     cocos2d::Vec2 _direction;
-    MovingState _moving;
+    MoveState _moving;
     std::string _name;
 };
 

@@ -8,6 +8,7 @@
 
 #include "Bullet.h"
 #include "MathUtils.h"
+#include "Constants.h"
 
 using namespace cocos2d;
 
@@ -28,8 +29,7 @@ void Bullet::onEnter() {
 void Bullet::step() {
     Vec2 currentPosition = this->getPosition();
 
-    // Vec2 delta = Vec2::forAngle(CC_DEGREES_TO_RADIANS(90.0f - _angle)) * 10.0f;
-    Vec2 delta = MathUtils::forDegreesAngle(_angle) * 25.0f;
+    Vec2 delta = MathUtils::forDegreesAngle(_angle) * DEFAULT_BULLET_SPEED;
     this->setPosition(currentPosition + delta);
 }
 

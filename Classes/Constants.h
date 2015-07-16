@@ -15,6 +15,12 @@ static const std::string GAME_NAME = "Rubber duck wars";
 static const int MAX_PLAYERS = 2;
 static const float INITIAL_STEP_INTERVAL = 1.0f / 60.0f;
 
+static const float DEFAULT_BULLET_SPEED = 25.0f;
+static const float DEFAULT_PLAYER_SPEED = 25.0f;
+
+static const float TILE_WIDTH = 64.0f;
+static const float TILE_HEIGHT = 32.0f;
+
 enum class FieldType {
     EMPTY = 0,
     GRASS = 1,
@@ -22,7 +28,7 @@ enum class FieldType {
     WALL = 3,
 };
 
-enum class MovingState {
+enum class MoveState {
     STOP = 0,
     RIGHT = 1,
     LEFT = 2,

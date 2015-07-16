@@ -32,38 +32,38 @@ void Player::step() {
     this->setPosition(currentPosition + _direction * MOVE_FACTOR);
 }
 
-void Player::setMovingState(const MovingState movingState) {
-    _moving = movingState;
+void Player::setMoveState(const MoveState MoveState) {
+    _moving = MoveState;
     float angle;
-    switch (movingState) {
-        case MovingState::STOP:
+    switch (MoveState) {
+        case MoveState::STOP:
             _direction = Vec2(0.0f, 0.0f);
             return;
 
-        case MovingState::LEFT:
-            angle = -45.0f;
-            _direction = Vec2(-1.0f, 1.0f);
+        case MoveState::LEFT:
+            _direction = Vec2(-1.0f, 0.5f);
             break;
 
-        case MovingState::RIGHT:
+        case MoveState::RIGHT:
             angle = 135.0f;
-            _direction = Vec2(1.0f, -1.0f);
+            _direction = Vec2(1.0f, -0.5f);
             break;
 
-        case MovingState::UP:
+        case MoveState::UP:
             angle = 45.0f;
-            _direction = Vec2(1.0f, 1.0f);
+            _direction = Vec2(1.0f, 0.5f);
             break;
 
-        case MovingState::DOWN:
+        case MoveState::DOWN:
             angle = -135.0f;
-            _direction = Vec2(-1.0f, -1.0f);
+            _direction = Vec2(-1.0f, -0.5f);
             break;
     }
+    angle = MathUtils::degreesAngle(_direction);
     this->setRotation(angle);
 }
 
-MovingState Player::getMovingState() {
+MoveState Player::getMoveState() {
     return _moving;
 }
 

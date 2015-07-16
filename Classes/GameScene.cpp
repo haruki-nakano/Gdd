@@ -79,8 +79,8 @@ void GameScene::setupTouchHandling() {
         isTap = false;
         float distance = touchPos.distance(firstTouchPos);
         distance = sqrtf(distance);
-        MovingState move = convertVec2ToMovingState((touchPos - firstTouchPos) / distance);
-        _stage->getPlayer()->setMovingState(move);
+        MoveState move = convertVec2ToMoveState((touchPos - firstTouchPos) / distance);
+        _stage->getPlayer()->setMoveState(move);
         if (_networkedSession && lastSyncPos.distance(touchPos) > 2.0f) {
             sendGameStateOverNetwork();
             lastSyncPos = touchPos;
@@ -92,7 +92,7 @@ void GameScene::setupTouchHandling() {
             Bullet *bullet = _stage->getPlayer()->createBullet();
             _stage->addBullet(bullet);
         } else {
-            _stage->getPlayer()->setMovingState(MovingState::STOP);
+            _stage->getPlayer()->setMoveState(MoveState::STOP);
         }
     };
 
@@ -162,20 +162,20 @@ void GameScene::backButtonPressed(cocos2d::Ref *pSender, ui::Widget::TouchEventT
 #pragma mark -
 #pragma mark UtilityMethods
 
-MovingState GameScene::convertVec2ToMovingState(cocos2d::Vec2 v) {
+MoveState GameScene::convertVec2ToMoveState(cocos2d::Vec2 v) {
     if (v.distance(Vec2(0.0f, 0.0f)) < 1.0f) {
-        return MovingState::STOP;
+        return MoveState::STOP;
     }
 
     float angle = MathUtils::degreesAngle(v);
 
     if (-180 <= angle && angle < -90.0f) {
-        return MovingState::DOWN;
+        return MoveState::DOWN;
     } else if (-90.0f <= angle && angle < 0.0f) {
-        return MovingState::LEFT;
+        return MoveState::LEFT;
     } else if (0.0f <= angle && angle < 90.0f) {
-        return MovingState::UP;
+        return MoveState::UP;
     } else {
-        return MovingState::RIGHT;
+        return MoveState::RIGHT;
     }
 }

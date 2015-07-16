@@ -58,30 +58,30 @@ void Stage::onEnter() {
 
 void Stage::step() {
     Vec2 pos = _players[0]->getPosition();
-    MovingState moving = _players[0]->getMovingState();
+    MoveState moving = _players[0]->getMoveState();
     Vec2 currentPosition = this->getPosition();
     switch (moving) {
-        case MovingState::STOP:
+        case MoveState::STOP:
             break;
 
-        case MovingState::LEFT:
-            this->setPosition(currentPosition + Vec2(1.0f, -1.0f) * Player::MOVE_FACTOR);
-            _players[0]->setPosition(pos + Vec2(-1.0f, 1.0f) * Player::MOVE_FACTOR);
+        case MoveState::LEFT:
+            this->setPosition(currentPosition + Vec2(1.0f, -0.5f) * Player::MOVE_FACTOR);
+            _players[0]->setPosition(pos + Vec2(-1.0f, 0.5f) * Player::MOVE_FACTOR);
             break;
 
-        case MovingState::RIGHT:
-            this->setPosition(currentPosition + Vec2(-1.0f, 1.0f) * Player::MOVE_FACTOR);
-            _players[0]->setPosition(pos + Vec2(1.0f, -1.0f) * Player::MOVE_FACTOR);
+        case MoveState::RIGHT:
+            this->setPosition(currentPosition + Vec2(-1.0f, 0.5f) * Player::MOVE_FACTOR);
+            _players[0]->setPosition(pos + Vec2(1.0f, -0.5f) * Player::MOVE_FACTOR);
             break;
 
-        case MovingState::UP:
-            this->setPosition(currentPosition + Vec2(-1.0f, -1.0f) * Player::MOVE_FACTOR);
-            _players[0]->setPosition(pos + Vec2(1.0f, 1.0f) * Player::MOVE_FACTOR);
+        case MoveState::UP:
+            this->setPosition(currentPosition + Vec2(-1.0f, -0.5f) * Player::MOVE_FACTOR);
+            _players[0]->setPosition(pos + Vec2(1.0f, 0.5f) * Player::MOVE_FACTOR);
             break;
 
-        case MovingState::DOWN:
-            this->setPosition(currentPosition + Vec2(1.0f, 1.0f) * Player::MOVE_FACTOR);
-            _players[0]->setPosition(pos + Vec2(-1.0f, -1.0f) * Player::MOVE_FACTOR);
+        case MoveState::DOWN:
+            this->setPosition(currentPosition + Vec2(1.0f, 0.5f) * Player::MOVE_FACTOR);
+            _players[0]->setPosition(pos + Vec2(-1.0f, -0.5f) * Player::MOVE_FACTOR);
             break;
     }
     // _players[0]->step();
