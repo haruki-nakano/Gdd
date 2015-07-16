@@ -22,8 +22,12 @@ public:
     constexpr static const float MOVE_FACTOR = 10.0f;
 
     void step();
+
     void setMoveState(const MoveState MoveState);
     MoveState getMoveState();
+
+    void setDirection(const Direction direction);
+    Direction getDirection();
 
     // Players action
     void stop();
@@ -35,6 +39,7 @@ private:
 
     cocos2d::Vec2 _directionVec;
     MoveState _moving;
+    Direction _direction;
     std::string _name;
 
     // PlayerImages

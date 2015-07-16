@@ -71,6 +71,14 @@ MoveState Player::getMoveState() {
     return _moving;
 }
 
+void Player::setDirection(const Direction direction) {
+    _direction = direction;
+}
+
+Direction Player::getDirection() {
+    return _direction;
+}
+
 Bullet *Player::createBullet() {
     Bullet *bullet = Bullet::create();
     bullet->setPosition(this->getPosition());

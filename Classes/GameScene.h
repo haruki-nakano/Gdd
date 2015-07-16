@@ -12,6 +12,7 @@
 #include "CocosGUI.h"
 
 #include "Constants.h"
+#include "Bullet.h"
 
 class Player;
 class Stage;
@@ -42,7 +43,7 @@ protected:
     Stage *_stage;
 
     // Networking
-    void sendGameStateOverNetwork();
+    void sendGameStateOverNetwork(Bullet *newBullet);
 
     // Utility
     MoveState convertVec2ToMoveState(cocos2d::Vec2 v);

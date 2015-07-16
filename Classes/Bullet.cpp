@@ -36,3 +36,7 @@ void Bullet::step() {
 void Bullet::setDirection(Vec2 v) {
     _direction = v;
 }
+
+cocos2d::Vec2 Bullet::getDirectionVec() {
+    return _direction;
+}

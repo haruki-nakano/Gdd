@@ -17,6 +17,7 @@ public:
     void step();
     void setAngle(float angle);
     void setDirection(cocos2d::Vec2 v);
+    cocos2d::Vec2 getDirectionVec();
 
 private:
     bool init() override;

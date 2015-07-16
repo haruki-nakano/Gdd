@@ -56,6 +56,7 @@ void Stage::step() {
     Vec2 lastPlayerPos = player->getPosition();
     Vec2 currentPosition = this->getPosition();
     player->step();
+    getOpponent()->step();
 
     this->setPosition(this->getPosition() - (player->getPosition() - lastPlayerPos));
 
@@ -78,5 +79,10 @@ Player *Stage::getOpponent() {
 }
 
 void Stage::setState(JSONPacker::GameState state) {
-    getOpponent()->setPosition(state.position);
+    getOpponent()->setPosition(state.opponentPosition);
+    getOpponent()->setMoveState(state.opponentMoveState);
+    
+    if (state.newBullet) {
+        addBullet(state.newBullet);
+    }
 }

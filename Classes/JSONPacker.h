@@ -10,13 +10,18 @@
 #define __Yuzu__JSONPacker__
 
 #include "cocos2d.h"
+#include "json/document.h"
+
+#include "Bullet.h"
+#include "Constants.h"
 
 namespace JSONPacker {
 struct GameState {
     std::string name;
     bool gameOver;
-    cocos2d::Vec2 position;
-    
+    cocos2d::Vec2 opponentPosition;
+    MoveState opponentMoveState;
+    Bullet *newBullet;
 };
 
 GameState unpackGameStateJSON(std::string json);

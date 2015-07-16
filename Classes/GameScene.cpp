@@ -82,9 +82,10 @@ void GameScene::setupTouchHandling() {
         float distance = touchPos.distance(firstTouchPos);
         distance = sqrtf(distance);
         MoveState move = convertVec2ToMoveState((touchPos - firstTouchPos) / distance);
+        MoveState lastMoveState = _stage->getPlayer()->getMoveState();
         _stage->getPlayer()->setMoveState(move);
-        if (_networkedSession && lastSyncPos.distance(touchPos) > 2.0f) {
-            sendGameStateOverNetwork();
+        if (_networkedSession && move != lastMoveState) { // lastSyncPos.distance(touchPos) > 2.0f) {
+            sendGameStateOverNetwork(nullptr);
             lastSyncPos = touchPos;
         }
     };
@@ -93,8 +94,14 @@ void GameScene::setupTouchHandling() {
         if (isTap) {
             Bullet *bullet = _stage->getPlayer()->createBullet();
             _stage->addBullet(bullet);
+            if (_networkedSession) {
+                sendGameStateOverNetwork(bullet);
+            }
         } else {
             _stage->getPlayer()->setMoveState(MoveState::STOP);
+            if (_networkedSession) {
+                sendGameStateOverNetwork(nullptr);
+            }
         }
     };
 
@@ -122,13 +129,15 @@ void GameScene::receivedData(const void *data, unsigned long length) {
     _stage->setState(state);
 }
 
-void GameScene::sendGameStateOverNetwork() {
+void GameScene::sendGameStateOverNetwork(Bullet *newBullet) {
     // CCLOG("send date: %f", (float)clock() / CLOCKS_PER_SEC);
     JSONPacker::GameState state;
 
     state.name = NetworkingWrapper::getDeviceName();
     state.gameOver = false;
-    state.position = _stage->getPlayer()->getPosition();
+    state.opponentPosition = _stage->getPlayer()->getPosition();
+    state.opponentMoveState = _stage->getPlayer()->getMoveState();
+    state.newBullet = newBullet;
 
     std::string json = JSONPacker::packGameStateJSON(state);
     SceneManager::getInstance()->sendData(json.c_str(), json.length());
