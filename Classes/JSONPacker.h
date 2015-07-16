@@ -16,6 +16,7 @@ struct GameState {
     std::string name;
     bool gameOver;
     cocos2d::Vec2 position;
+    
 };
 
 GameState unpackGameStateJSON(std::string json);

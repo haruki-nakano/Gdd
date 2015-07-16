@@ -15,9 +15,14 @@
 using namespace cocos2d;
 
 bool Player::init() {
-    if (!Sprite::initWithFile("player.png")) {
+    if (!Sprite::initWithFile("playerUp.png")) {
         return false;
     }
+
+    _imgLeft = Director::getInstance()->getTextureCache()->addImage("playerLeft.png");
+    _imgUp = Director::getInstance()->getTextureCache()->addImage("playerUp.png");
+    _imgRight = Director::getInstance()->getTextureCache()->addImage("playerRight.png");
+    _imgDown = Director::getInstance()->getTextureCache()->addImage("playerDown.png");
 
     return true;
 }
@@ -29,35 +34,37 @@ void Player::onEnter() {
 void Player::step() {
     Vec2 currentPosition = this->getPosition();
 
-    this->setPosition(currentPosition + _direction * MOVE_FACTOR);
+    if (_moving != MoveState::STOP) {
+        this->setPosition(currentPosition + _directionVec * MOVE_FACTOR);
+    }
 }
 
 void Player::setMoveState(const MoveState MoveState) {
     _moving = MoveState;
-    float angle;
     switch (MoveState) {
         case MoveState::STOP:
-            _direction = Vec2(0.0f, 0.0f);
-            return;
+            break;
 
         case MoveState::LEFT:
-            _direction = Vec2(-1.0f, 0.5f);
+            this->setTexture(_imgLeft);
+            _directionVec = Vec2(-1.0f, 0.5f);
             break;
 
         case MoveState::RIGHT:
-            _direction = Vec2(1.0f, -0.5f);
+            this->setTexture(_imgRight);
+            _directionVec = Vec2(1.0f, -0.5f);
             break;
 
         case MoveState::UP:
-            _direction = Vec2(1.0f, 0.5f);
+            this->setTexture(_imgUp);
+            _directionVec = Vec2(1.0f, 0.5f);
             break;
 
         case MoveState::DOWN:
-            _direction = Vec2(-1.0f, -0.5f);
+            this->setTexture(_imgDown);
+            _directionVec = Vec2(-1.0f, -0.5f);
             break;
     }
-    angle = MathUtils::degreesAngle(_direction);
-    this->setRotation(angle);
 }
 
 MoveState Player::getMoveState() {
@@ -67,6 +74,6 @@ MoveState Player::getMoveState() {
 Bullet *Player::createBullet() {
     Bullet *bullet = Bullet::create();
     bullet->setPosition(this->getPosition());
-    bullet->setAngle(this->getRotation());
+    bullet->setDirection(_directionVec);
     return bullet;
 }

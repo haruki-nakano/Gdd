@@ -33,9 +33,15 @@ private:
     bool init() override;
     void onEnter() override;
 
-    cocos2d::Vec2 _direction;
+    cocos2d::Vec2 _directionVec;
     MoveState _moving;
     std::string _name;
+
+    // PlayerImages
+    cocos2d::Texture2D *_imgLeft;
+    cocos2d::Texture2D *_imgRight;
+    cocos2d::Texture2D *_imgUp;
+    cocos2d::Texture2D *_imgDown;
 };
 
 #endif /* defined(__Yuzu__Player__) */

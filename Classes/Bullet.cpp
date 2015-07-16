@@ -17,7 +17,7 @@ bool Bullet::init() {
         return false;
     }
 
-    _angle = 0.0f;
+    _direction = Vec2(0.0f, 0.0f);
 
     return true;
 }
@@ -29,10 +29,10 @@ void Bullet::onEnter() {
 void Bullet::step() {
     Vec2 currentPosition = this->getPosition();
 
-    Vec2 delta = MathUtils::forDegreesAngle(_angle) * DEFAULT_BULLET_SPEED;
+    Vec2 delta = _direction * DEFAULT_BULLET_SPEED;
     this->setPosition(currentPosition + delta);
 }
 
-void Bullet::setAngle(float angle) {
-    _angle = angle;
+void Bullet::setDirection(Vec2 v) {
+    _direction = v;
 }

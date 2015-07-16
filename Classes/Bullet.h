@@ -16,12 +16,13 @@ public:
     CREATE_FUNC(Bullet);
     void step();
     void setAngle(float angle);
+    void setDirection(cocos2d::Vec2 v);
 
 private:
     bool init() override;
     void onEnter() override;
 
-    float _angle;
+    cocos2d::Vec2 _direction;
 };
 
 #endif /* defined(__Yuzu__Bullet__) */
