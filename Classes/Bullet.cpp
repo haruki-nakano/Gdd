@@ -26,10 +26,10 @@ void Bullet::onEnter() {
     Sprite::onEnter();
 }
 
-void Bullet::step() {
+void Bullet::step(float dt) {
     Vec2 currentPosition = this->getPosition();
 
-    Vec2 delta = _direction * DEFAULT_BULLET_SPEED;
+    Vec2 delta = _direction * DEFAULT_BULLET_SPEED * dt;
     this->setPosition(currentPosition + delta);
 }
 

@@ -20,21 +20,26 @@ class Stage : public cocos2d::Node {
 public:
     CREATE_FUNC(Stage);
 
-    void step();
+    void step(float dt);
     void addBullet(Bullet *);
 
     Player *getPlayer();
     Player *getOpponent();
     void setState(JSONPacker::GameState state);
+    cocos2d::Vec2 getInitialPosition(bool isHost);
 
 private:
     bool init() override;
     void onEnter() override;
 
+    bool colliedWith(Player *player);
+
     cocos2d::experimental::TMXTiledMap *_map;
     cocos2d::experimental::TMXLayer *_backgroundLayer;
     std::vector<Player *> _players;
     std::vector<Bullet *> _bullets;
+    cocos2d::Vec2 _hostInitialPosition;
+    cocos2d::Vec2 _clientInitialPosition;
 };
 
 #endif /* defined(__Yuzu__Stage__) */

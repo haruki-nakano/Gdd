@@ -39,7 +39,15 @@ SceneManager::~SceneManager() {
 void SceneManager::enterGameScene(bool networked) {
     Scene *scene = Scene::create();
     _gameScene = GameScene::create();
-    _gameScene->setNetworkedSession(networked);
+
+    bool isHost = true;
+    if (networked) {
+        std::vector<std::string> peers = _networkingWrapper->getPeerList();
+        auto me = _networkingWrapper->getDeviceName();
+        // TODO: Is is possible to conflict device names.
+        isHost = peers[0].compare(me) > 0;
+    }
+    _gameScene->setNetworkedSession(networked, isHost);
 
     scene->addChild(_gameScene);
 

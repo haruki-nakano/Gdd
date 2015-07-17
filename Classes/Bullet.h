@@ -14,7 +14,7 @@
 class Bullet : public cocos2d::Sprite {
 public:
     CREATE_FUNC(Bullet);
-    void step();
+    void step(float dt);
     void setAngle(float angle);
     void setDirection(cocos2d::Vec2 v);
     cocos2d::Vec2 getDirectionVec();

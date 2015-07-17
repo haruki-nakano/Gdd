@@ -33,6 +33,14 @@ void Stage::onEnter() {
     _map = cocos2d::experimental::TMXTiledMap::create(DEFAULT_STAGE_FILE);
     _backgroundLayer = _map->getLayer(DEFAULT_BACKGROUND_LAYER_NAME);
 
+    // Search initial Position
+    Vec2 hostInitialCoordinate = Vec2(_backgroundLayer->getProperty("hostInitialPositionX").asFloat(),
+                                      _backgroundLayer->getProperty("hostInitialPositionY").asFloat());
+    Vec2 clientInitialCoordinate = Vec2(_backgroundLayer->getProperty("clientInitialPositionX").asFloat(),
+                                        _backgroundLayer->getProperty("clientInitialPositionY").asFloat());
+    _hostInitialPosition = _backgroundLayer->getPositionAt(hostInitialCoordinate);
+    _clientInitialPosition = _backgroundLayer->getPositionAt(clientInitialCoordinate);
+
     // setup map
     _map->setAnchorPoint(Vec2(0.0f, 0.0f));
     auto size = Director::getInstance()->getVisibleSize();
@@ -51,17 +59,17 @@ void Stage::onEnter() {
     }
 }
 
-void Stage::step() {
+void Stage::step(float dt) {
     auto player = this->getPlayer();
     Vec2 lastPlayerPos = player->getPosition();
     Vec2 currentPosition = this->getPosition();
-    player->step();
-    getOpponent()->step();
+    player->step(dt);
+    getOpponent()->step(dt);
 
     this->setPosition(this->getPosition() - (player->getPosition() - lastPlayerPos));
 
     for (size_t i = 0; i < _bullets.size(); i++) {
-        _bullets[i]->step();
+        _bullets[i]->step(dt);
     }
 }
 
@@ -79,10 +87,16 @@ Player *Stage::getOpponent() {
 }
 
 void Stage::setState(JSONPacker::GameState state) {
-    getOpponent()->setPosition(state.opponentPosition);
+    if (getOpponent()->isCorrectUpdate(state.opponentPosition)) {
+        getOpponent()->setPosition(state.opponentPosition);
+    }
     getOpponent()->setMoveState(state.opponentMoveState);
-    
+
     if (state.newBullet) {
         addBullet(state.newBullet);
     }
+}
+
+cocos2d::Vec2 Stage::getInitialPosition(bool isHost) {
+    return isHost ? _hostInitialPosition : _clientInitialPosition;
 }

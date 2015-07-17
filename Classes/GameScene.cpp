@@ -31,7 +31,6 @@ bool GameScene::init() {
 
     _active = false;
     _networkedSession = false;
-    _stepInterval = INITIAL_STEP_INTERVAL;
 
     return true;
 }
@@ -46,6 +45,11 @@ void GameScene::onEnter() {
     _stage->setPosition(Vec2(0.0f, 0.0f));
 
     this->addChild(_stage);
+
+    if (_networkedSession) {
+        _stage->getPlayer()->setPosition(_stage->getInitialPosition(_isHost));
+        _stage->getPlayer()->setPosition(_stage->getInitialPosition(!_isHost));
+    }
 
     // setup menus
     // TODO: Use other button image
@@ -84,7 +88,8 @@ void GameScene::setupTouchHandling() {
         MoveState move = convertVec2ToMoveState((touchPos - firstTouchPos) / distance);
         MoveState lastMoveState = _stage->getPlayer()->getMoveState();
         _stage->getPlayer()->setMoveState(move);
-        if (_networkedSession && move != lastMoveState) { // lastSyncPos.distance(touchPos) > 2.0f) {
+        if (_networkedSession && (move != lastMoveState || lastSyncPos.distance(touchPos) > 10.0f)) {
+            // if (_networkedSession && move != lastMoveState) {
             sendGameStateOverNetwork(nullptr);
             lastSyncPos = touchPos;
         }
@@ -95,11 +100,16 @@ void GameScene::setupTouchHandling() {
             Bullet *bullet = _stage->getPlayer()->createBullet();
             _stage->addBullet(bullet);
             if (_networkedSession) {
+                // TODO: Try here many times
                 sendGameStateOverNetwork(bullet);
             }
         } else {
             _stage->getPlayer()->setMoveState(MoveState::STOP);
             if (_networkedSession) {
+                // TODO: Is it effective?
+                sendGameStateOverNetwork(nullptr);
+                sendGameStateOverNetwork(nullptr);
+                sendGameStateOverNetwork(nullptr);
                 sendGameStateOverNetwork(nullptr);
             }
         }
@@ -111,8 +121,9 @@ void GameScene::setupTouchHandling() {
 #pragma mark -
 #pragma mark Networks
 
-void GameScene::setNetworkedSession(bool networkedSession) {
+void GameScene::setNetworkedSession(bool networkedSession, bool isHost) {
     _networkedSession = networkedSession;
+    _isHost = isHost;
 }
 
 void GameScene::receivedData(const void *data, unsigned long length) {
@@ -149,16 +160,14 @@ void GameScene::sendGameStateOverNetwork(Bullet *newBullet) {
 void GameScene::setGameActive(bool active) {
     _active = active;
     if (active) {
-        this->schedule(CC_SCHEDULE_SELECTOR(GameScene::step), _stepInterval);
         this->scheduleUpdate();
     } else {
-        this->unschedule(CC_SCHEDULE_SELECTOR(GameScene::step));
         this->unscheduleUpdate();
     }
 }
 
-void GameScene::step(float dt) {
-    _stage->step();
+void GameScene::update(float dt) {
+    _stage->step(dt);
 }
 
 #pragma mark -
@@ -173,7 +182,7 @@ void GameScene::backButtonPressed(cocos2d::Ref *pSender, ui::Widget::TouchEventT
 #pragma mark -
 #pragma mark UtilityMethods
 
-MoveState GameScene::convertVec2ToMoveState(cocos2d::Vec2 v) {
+MoveState GameScene::convertVec2ToMoveState(const cocos2d::Vec2 v) {
     if (v.distance(Vec2(0.0f, 0.0f)) < 1.0f) {
         return MoveState::STOP;
     }

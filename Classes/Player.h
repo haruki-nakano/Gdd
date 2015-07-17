@@ -19,9 +19,9 @@ class Player : public cocos2d::Sprite {
 public:
     CREATE_FUNC(Player);
 
-    constexpr static const float MOVE_FACTOR = 10.0f;
+    void step(float dt);
 
-    void step();
+    bool isCorrectUpdate(const cocos2d::Vec2 position);
 
     void setMoveState(const MoveState MoveState);
     MoveState getMoveState();

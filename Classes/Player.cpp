@@ -10,6 +10,7 @@
 
 #include "Bullet.h"
 #include "Constants.h"
+#include "GameScene.h"
 #include "MathUtils.h"
 
 using namespace cocos2d;
@@ -31,12 +32,16 @@ void Player::onEnter() {
     Sprite::onEnter();
 }
 
-void Player::step() {
+void Player::step(float dt) {
     Vec2 currentPosition = this->getPosition();
 
     if (_moving != MoveState::STOP) {
-        this->setPosition(currentPosition + _directionVec * MOVE_FACTOR);
+        this->setPosition(currentPosition + _directionVec * DEFAULT_PLAYER_SPEED * dt);
     }
+}
+
+bool Player::isCorrectUpdate(const Vec2 position) {
+    return GameScene::convertVec2ToMoveState(position - this->getPosition()) == _moving;
 }
 
 void Player::setMoveState(const MoveState MoveState) {
