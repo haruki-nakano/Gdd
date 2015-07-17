@@ -42,6 +42,8 @@ public:
 
     static const char *getDeviceName();
 
+    std::vector<std::string> getPeerList();
+
     void disconnect();
 
 private:

@@ -77,6 +77,18 @@
     [self.session sendData:data toPeers:self.session.connectedPeers withMode:MCSessionSendDataUnreliable error:&error];
 }
 
+- (NSArray *)getPeerList {
+    NSMutableArray *peerDisplayNames = [@[] mutableCopy];
+
+    if (self.session && self.session.connectedPeers) {
+        for (MCPeerID *otherPeerID in self.session.connectedPeers) {
+            [peerDisplayNames addObject:[NSString stringWithString:otherPeerID.displayName]];
+        }
+    }
+
+    return [NSArray arrayWithArray:peerDisplayNames];
+}
+
 #pragma mark - MCBrowserViewControllerDelegate methods
 
 // Override this method to filter out peers based on application specific needs

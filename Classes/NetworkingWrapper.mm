@@ -55,6 +55,19 @@ const char *NetworkingWrapper::getDeviceName() {
     return [deviceName UTF8String];
 }
 
+std::vector<std::string> NetworkingWrapper::getPeerList() {
+    NSArray *peerList = [this->networkManager getPeerList];
+
+    std::vector<std::string> returnVector;
+
+    for (NSString *peerName in peerList) {
+        std::string peerString = std::string([peerName UTF8String]);
+        returnVector.push_back(peerString);
+    }
+
+    return returnVector;
+}
+
 #pragma mark -
 #pragma mark NetworkManager Delegate Methods
 

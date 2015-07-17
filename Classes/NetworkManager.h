@@ -25,4 +25,6 @@ class NetworkManagerDelegate;
 
 - (void)disconnect;
 
+- (NSArray *)getPeerList;
+
 @end
