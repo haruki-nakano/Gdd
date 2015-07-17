@@ -42,11 +42,13 @@ void Stage::onEnter() {
     _clientInitialPosition = _backgroundLayer->getPositionAt(clientInitialCoordinate);
 
     // setup map
+    //_map->setAnchorPoint(Vec2(0.0f, 0.0f));
     _map->setAnchorPoint(Vec2(0.0f, 0.0f));
     auto size = Director::getInstance()->getVisibleSize();
-    _map->setPosition(size * 0.5f + _map->getContentSize() * -0.5f);
+    // _map->setPosition(size * 0.5f + _map->getContentSize() * -0.5f);
+    _map->setPosition(Vec2(0.0f, 0.0f));
 
-    this->addChild(_map);
+        this->addChild(_map);
 
     // setup player
     for (int i = 0; i < MAX_PLAYERS; i++) {

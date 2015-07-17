@@ -48,7 +48,11 @@ void GameScene::onEnter() {
 
     if (_networkedSession) {
         _stage->getPlayer()->setPosition(_stage->getInitialPosition(_isHost));
-        _stage->getPlayer()->setPosition(_stage->getInitialPosition(!_isHost));
+        _stage->getOpponent()->setPosition(_stage->getInitialPosition(!_isHost));
+
+        _stage->setPosition(
+            Vec2(Director::getInstance()->getVisibleSize().width * 0.5 - _stage->getPlayer()->getPosition().x,
+                 Director::getInstance()->getVisibleSize().height * 0.5 - _stage->getPlayer()->getPosition().y));
     }
 
     // setup menus
