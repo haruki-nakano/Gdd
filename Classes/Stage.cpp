@@ -33,32 +33,42 @@ void Stage::onEnter() {
     _map = cocos2d::experimental::TMXTiledMap::create(DEFAULT_STAGE_FILE);
     _backgroundLayer = _map->getLayer(DEFAULT_BACKGROUND_LAYER_NAME);
 
-    // Search initial Position
-    Vec2 hostInitialCoordinate = Vec2(_backgroundLayer->getProperty("hostInitialPositionX").asFloat(),
-                                      _backgroundLayer->getProperty("hostInitialPositionY").asFloat());
-    Vec2 clientInitialCoordinate = Vec2(_backgroundLayer->getProperty("clientInitialPositionX").asFloat(),
-                                        _backgroundLayer->getProperty("clientInitialPositionY").asFloat());
-    _hostInitialPosition = _backgroundLayer->getPositionAt(hostInitialCoordinate);
-    _clientInitialPosition = _backgroundLayer->getPositionAt(clientInitialCoordinate);
-
     // setup map
-    //_map->setAnchorPoint(Vec2(0.0f, 0.0f));
     _map->setAnchorPoint(Vec2(0.0f, 0.0f));
-    auto size = Director::getInstance()->getVisibleSize();
-    // _map->setPosition(size * 0.5f + _map->getContentSize() * -0.5f);
     _map->setPosition(Vec2(0.0f, 0.0f));
 
-        this->addChild(_map);
+    this->addChild(_map);
 
     // setup player
     for (int i = 0; i < MAX_PLAYERS; i++) {
         Player *player = Player::create();
         player->setAnchorPoint(Vec2(0.5f, 0.5f));
-        player->setPosition(Vec2(size.width * 0.5f, size.height * 0.5f));
 
         this->addChild(player);
         _players.push_back(player);
     }
+}
+
+void Stage::initializePlayersPosition(bool isHost) {
+    auto hostInitialCoordinate = Vec2(_backgroundLayer->getProperty("hostInitialPositionX").asFloat(),
+                                      _backgroundLayer->getProperty("hostInitialPositionY").asFloat());
+    auto clientInitialCoordinate = Vec2(_backgroundLayer->getProperty("clientInitialPositionX").asFloat(),
+                                        _backgroundLayer->getProperty("clientInitialPositionY").asFloat());
+    Vec2 hostInitialPosition = _backgroundLayer->getPositionAt(hostInitialCoordinate);
+    Vec2 clientInitialPosition = _backgroundLayer->getPositionAt(clientInitialCoordinate);
+
+    if (isHost) {
+        getPlayer()->setPosition(hostInitialPosition);
+        getOpponent()->setPosition(clientInitialPosition);
+    } else {
+        getPlayer()->setPosition(clientInitialPosition);
+        getOpponent()->setPosition(hostInitialPosition);
+    }
+
+    // Scroll to put a player center on the screen
+    Size size = Director::getInstance()->getVisibleSize();
+    Vec2 pos = getPlayer()->getPosition();
+    this->setPosition(Vec2(size.width * 0.5 - pos.x, size.height * 0.5 - pos.y));
 }
 
 void Stage::step(float dt) {
@@ -97,8 +107,4 @@ void Stage::setState(JSONPacker::GameState state) {
     if (state.newBullet) {
         addBullet(state.newBullet);
     }
-}
-
-cocos2d::Vec2 Stage::getInitialPosition(bool isHost) {
-    return isHost ? _hostInitialPosition : _clientInitialPosition;
 }

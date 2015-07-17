@@ -26,7 +26,7 @@ public:
     Player *getPlayer();
     Player *getOpponent();
     void setState(JSONPacker::GameState state);
-    cocos2d::Vec2 getInitialPosition(bool isHost);
+    void initializePlayersPosition(bool isHost);
 
 private:
     bool init() override;
@@ -38,8 +38,6 @@ private:
     cocos2d::experimental::TMXLayer *_backgroundLayer;
     std::vector<Player *> _players;
     std::vector<Bullet *> _bullets;
-    cocos2d::Vec2 _hostInitialPosition;
-    cocos2d::Vec2 _clientInitialPosition;
 };
 
 #endif /* defined(__Yuzu__Stage__) */
