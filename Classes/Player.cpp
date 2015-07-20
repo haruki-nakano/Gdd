@@ -44,6 +44,7 @@ void Player::onEnter() {
     playerPhysics->setCollisionBitmask(COLLISION_MASK_PLAYER);
     playerPhysics->setContactTestBitmask(CONTACT_MASK_PLAYER);
 
+    this->setTag(CATEGORY_MASK_PLAYER);
     this->setPhysicsBody(playerPhysics);
 }
 
@@ -120,6 +121,7 @@ Bullet *Player::createBullet() {
     Bullet *bullet = Bullet::create();
     bullet->setPosition(this->getPosition());
     bullet->setDirection(_directionVec);
+    bullet->setTag(this->getTag() == TAG_PLAYER ? TAG_PLAYER_BULLET : TAG_OPPOPENT_BULLET);
 
     return bullet;
 }

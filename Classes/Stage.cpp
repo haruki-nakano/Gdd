@@ -60,14 +60,16 @@ void Stage::onEnter() {
                 tilePhysics->setCategoryBitmask(CATEGORY_MASK_WALL);
                 tilePhysics->setCollisionBitmask(COLLISION_MASK_WALL);
                 tilePhysics->setContactTestBitmask(CONTACT_MASK_WALL);
+
+                tile->setTag(TAG_WALL);
                 tile->setPhysicsBody(tilePhysics);
             }
         }
     }
 
     // setup map
-    _map->setAnchorPoint(Vec2(0.0f, 0.0f));
-    _map->setPosition(Vec2(0.0f, 0.0f));
+    _map->setAnchorPoint(Vec2::ZERO);
+    _map->setPosition(Vec2::ZERO);
 
     this->addChild(_map);
 
@@ -77,7 +79,10 @@ void Stage::onEnter() {
         this->addChild(player);
         _players.push_back(player);
     }
+    getPlayer()->setTag(TAG_PLAYER);
+    getOpponent()->setTag(TAG_OPPOPENT);
 
+    // setup contact handling
     auto contactListener = EventListenerPhysicsContact::create();
     contactListener->onContactBegin = CC_CALLBACK_1(Stage::onContactBegin, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
@@ -148,6 +153,16 @@ void Stage::setState(JSONPacker::GameState state) {
 }
 
 bool Stage::onContactBegin(cocos2d::PhysicsContact &contact) {
-    CCLOG("onContactBegin");
-    return true;
+    auto nodeA = contact.getShapeA()->getBody()->getNode();
+    auto nodeB = contact.getShapeB()->getBody()->getNode();
+
+    CCLOG("onContactBegin: %d %d", nodeA->getTag(), nodeB->getTag());
+    // My shot hits other player
+
+    // A shot hits wall
+
+    // Other players shot hits me
+
+    // bodies can collide
+    return false;
 }

@@ -41,6 +41,7 @@ GameState unpackGameStateJSON(std::string json) {
         Bullet *bullet = Bullet::create();
         bullet->setPosition(pos);
         bullet->setDirection(direction);
+        bullet->setTag(TAG_OPPOPENT_BULLET);
 
         gameState.newBullet = bullet;
     } else {

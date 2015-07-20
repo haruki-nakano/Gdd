@@ -37,6 +37,7 @@ void Bullet::onEnter() {
     bulletPhysics->setContactTestBitmask(CONTACT_MASK_BULLET);
     bulletPhysics->setVelocity(_direction * DEFAULT_BULLET_SPEED);
 
+    this->setTag(CATEGORY_MASK_BULLET);
     this->setPhysicsBody(bulletPhysics);
 }
 

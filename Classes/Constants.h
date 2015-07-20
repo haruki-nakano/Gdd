@@ -27,9 +27,15 @@ static const float TILE_WIDTH = 64.0f;
 static const float TILE_HEIGHT = 32.0f;
 
 // Physics
-static const int CATEGORY_MASK_BULLET = 0x1;
-static const int CATEGORY_MASK_WALL = 0x2;
-static const int CATEGORY_MASK_PLAYER = 0x4;
+static const int TAG_PLAYER = 1;
+static const int TAG_PLAYER_BULLET = 2;
+static const int TAG_OPPOPENT = 3;
+static const int TAG_OPPOPENT_BULLET = 4;
+static const int TAG_WALL = 5;
+
+static const int CATEGORY_MASK_PLAYER = 0x1;
+static const int CATEGORY_MASK_BULLET = 0x2;
+static const int CATEGORY_MASK_WALL = 0x4;
 
 static const int CONTACT_MASK_PLAYER = CATEGORY_MASK_BULLET;
 static const int CONTACT_MASK_WALL = CATEGORY_MASK_BULLET;
