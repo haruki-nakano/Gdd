@@ -18,8 +18,17 @@ bool Bullet::init() {
     }
 
     _direction = Vec2(0.0f, 0.0f);
+    _lifePoint = DEFAULT_BULLET_LIFE;
 
-    PhysicsBody *bulletPhysics = PhysicsBody::createBox(Size(5.0f, 5.0f));
+    return true;
+}
+
+void Bullet::onEnter() {
+    Sprite::onEnter();
+
+    this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+
+    PhysicsBody *bulletPhysics = PhysicsBody::createBox(this->getBoundingBox().size);
     bulletPhysics->setDynamic(true);
     bulletPhysics->setGravityEnable(false);
     bulletPhysics->setRotationEnable(false);
@@ -29,18 +38,23 @@ bool Bullet::init() {
     bulletPhysics->setContactTestBitmask(0);
 
     this->setPhysicsBody(bulletPhysics);
-
-    return true;
 }
 
-void Bullet::onEnter() {
-    Sprite::onEnter();
+void Bullet::step(float dt) {
+    _lifePoint--;
+}
+
+int Bullet::getLifePoint() {
+    return _lifePoint;
 }
 
 void Bullet::setDirection(Vec2 v) {
     _direction = v;
 
-    this->getPhysicsBody()->setVelocity(_direction * DEFAULT_BULLET_SPEED);
+    auto physics = this->getPhysicsBody();
+    if (physics) {
+        physics->setVelocity(_direction * DEFAULT_BULLET_SPEED);
+    }
 }
 
 cocos2d::Vec2 Bullet::getDirectionVec() {

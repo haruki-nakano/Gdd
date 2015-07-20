@@ -41,7 +41,6 @@ void Stage::onEnter() {
             }
         }
     }
-    // TOOD
     auto collisionLayer = _map->getLayer(DEFAULT_COLLISION_LAYER_NAME);
     size = collisionLayer->getLayerSize();
     for (int y = 0; y < size.height; y++) {
@@ -49,6 +48,7 @@ void Stage::onEnter() {
             auto tile = collisionLayer->getTileAt(Vec2(x, y));
             if (tile) {
                 tile->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+                // TODO: We should use Polygon instead of EdgePolygon
                 Vec2 v[4];
                 Vec2 s = Vec2(32, 16);
                 v[0] = Vec2(-s.x, 0);
@@ -74,16 +74,6 @@ void Stage::onEnter() {
     // setup player
     for (int i = 0; i < MAX_PLAYERS; i++) {
         Player *player = Player::create();
-        player->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-
-        PhysicsBody *playerPhysics = PhysicsBody::createBox(player->getBoundingBox().size);
-        playerPhysics->setDynamic(true);
-        playerPhysics->setGravityEnable(false);
-        playerPhysics->setRotationEnable(false);
-        playerPhysics->setCategoryBitmask(CATEGORY_MASK_PLAYER);
-        playerPhysics->setCollisionBitmask(CONTACT_MASK_PLAYER);
-        playerPhysics->setContactTestBitmask(0);
-        player->setPhysicsBody(playerPhysics);
         this->addChild(player);
         _players.push_back(player);
     }
@@ -100,21 +90,33 @@ void Stage::initializePlayersPosition(bool isHost) {
     if (isHost) {
         getPlayer()->setPosition(hostInitialPosition);
         getOpponent()->setPosition(clientInitialPosition);
+        getPlayer()->setDirection(Direction::UP);
+        getOpponent()->setDirection(Direction::DOWN);
     } else {
         getPlayer()->setPosition(clientInitialPosition);
         getOpponent()->setPosition(hostInitialPosition);
+        getPlayer()->setDirection(Direction::DOWN);
+        getOpponent()->setDirection(Direction::UP);
     }
 
     // Scroll to put a player center on the screen
-    Size size = Director::getInstance()->getVisibleSize();
-    Vec2 pos = getPlayer()->getPosition();
-    this->setPosition(Vec2(size.width * 0.5 - pos.x, size.height * 0.5 - pos.y));
+    step(0);
 }
 
 void Stage::step(float dt) {
     Size size = Director::getInstance()->getVisibleSize();
     Vec2 pos = getPlayer()->getPosition();
     this->setPosition(Vec2(size.width * 0.5 - pos.x, size.height * 0.5 - pos.y));
+
+    for (int i = 0; i < _bullets.size(); i++) {
+        Bullet *bullet = _bullets[i];
+        bullet->step(dt);
+        if (bullet->getLifePoint() < 0) {
+            _bullets.erase(_bullets.begin() + i);
+            bullet->removeFromParent();
+            i--;
+        }
+    }
 }
 
 void Stage::addBullet(Bullet *bullet) {

@@ -14,15 +14,18 @@
 class Bullet : public cocos2d::Sprite {
 public:
     CREATE_FUNC(Bullet);
-    void setAngle(float angle);
     void setDirection(cocos2d::Vec2 v);
     cocos2d::Vec2 getDirectionVec();
+
+    void step(float dt);
+    int getLifePoint();
 
 private:
     bool init() override;
     void onEnter() override;
 
     cocos2d::Vec2 _direction;
+    int _lifePoint;
 };
 
 #endif /* defined(__Yuzu__Bullet__) */

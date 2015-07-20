@@ -33,6 +33,18 @@ bool Player::init() {
 
 void Player::onEnter() {
     Sprite::onEnter();
+
+    this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+
+    PhysicsBody *playerPhysics = PhysicsBody::createBox(this->getBoundingBox().size);
+    playerPhysics->setDynamic(true);
+    playerPhysics->setGravityEnable(false);
+    playerPhysics->setRotationEnable(false);
+    playerPhysics->setCategoryBitmask(CATEGORY_MASK_PLAYER);
+    playerPhysics->setCollisionBitmask(CONTACT_MASK_PLAYER);
+    playerPhysics->setContactTestBitmask(0);
+
+    this->setPhysicsBody(playerPhysics);
 }
 
 bool Player::isCorrectUpdate(const Vec2 position) {
@@ -77,7 +89,27 @@ MoveState Player::getMoveState() {
 }
 
 void Player::setDirection(const Direction direction) {
+    if (_direction == direction) {
+        return;
+    }
     _direction = direction;
+    switch (direction) {
+        case Direction::LEFT:
+            this->setTexture(_imgLeft);
+            break;
+
+        case Direction::RIGHT:
+            this->setTexture(_imgRight);
+            break;
+
+        case Direction::UP:
+            this->setTexture(_imgUp);
+            break;
+
+        case Direction::DOWN:
+            this->setTexture(_imgDown);
+            break;
+    }
 }
 
 Direction Player::getDirection() {
@@ -86,7 +118,6 @@ Direction Player::getDirection() {
 
 Bullet *Player::createBullet() {
     Bullet *bullet = Bullet::create();
-    bullet->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
     bullet->setPosition(this->getPosition());
     bullet->setDirection(_directionVec);
 

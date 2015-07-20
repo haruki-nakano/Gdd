@@ -38,9 +38,9 @@
  <layer name="background" width="25" height="25">
   <properties>
    <property name="clientInitialPositionX" value="11"/>
-   <property name="clientInitialPositionY" value="0"/>
+   <property name="clientInitialPositionY" value="1"/>
    <property name="hostInitialPositionX" value="11"/>
-   <property name="hostInitialPositionY" value="21"/>
+   <property name="hostInitialPositionY" value="22"/>
   </properties>
   <data encoding="base64" compression="zlib">
    eJx1ltuSgjAQRBOI190FBRX+/0s3VE2XhzY+TEHMXHt6BteU0lplqfJTZQ5ZGnKq0oXkKgXnPs4l7nq8r/AxxN0m5yq/cb/JZPYZuu5b8XW35T6GnOz+gfpUg8co0PeapD81dHRWLRN+1x3zJXasSTI08OX7OWo4VLlXOSJGn/aYMFf+fg07zyWbD9Xk+pRWrur5BB1icQh/2/OvygW9IW+8P8S1RIwBd/IrnF7hewldr0P+aUfstvOMvDLwLziLw+L41XpDO3Jad8SI3GMvHhZDMpmN9zNbTGF+RFxhd4HfFc/B8GrNJftza+Bd0nsO6Z8xOvOjvpS050KGL8bxnbI0YpCzqplzzVrkS/bUU41r2mMlzivPW/rEUPVli0M+izOj1eM7rIsYC2Irf/JHcea03+PcxWP65Du54RhyDzrvfB6px7y4A/w7wF3AndCZnb4pjq849Iy6hKMw9Dp8NsmxKe25wVngTtYMkQfkdKv3xN15z1m4w/9Wwyu9Z9nx8W/Qt+8I6xFXyTNyy+ef+HEfEEvnoeodEZ+8ZM87O/u+Iec8lu9U7jraev+5g2nj37Cu8U7fxCqnTw63Yn773+O4Ov/+Aeq/ETA=
