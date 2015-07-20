@@ -32,6 +32,38 @@ void Stage::onEnter() {
 
     _map = cocos2d::experimental::TMXTiledMap::create(DEFAULT_STAGE_FILE);
     _backgroundLayer = _map->getLayer(DEFAULT_BACKGROUND_LAYER_NAME);
+    auto size = _backgroundLayer->getLayerSize();
+    for (int y = 0; y < size.height; y++) {
+        for (int x = 0; x < size.width; x++) {
+            auto tile = _backgroundLayer->getTileAt(Vec2(x, y));
+            if (tile) {
+                tile->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+            }
+        }
+    }
+    // TOOD
+    auto collisionLayer = _map->getLayer(DEFAULT_COLLISION_LAYER_NAME);
+    size = collisionLayer->getLayerSize();
+    for (int y = 0; y < size.height; y++) {
+        for (int x = 0; x < size.width; x++) {
+            auto tile = collisionLayer->getTileAt(Vec2(x, y));
+            if (tile) {
+                tile->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+                Vec2 v[4];
+                Vec2 s = Vec2(32, 16);
+                v[0] = Vec2(-s.x, 0);
+                v[1] = Vec2(0, s.y);
+                v[2] = Vec2(s.x, 0);
+                v[3] = Vec2(0, -s.y);
+                PhysicsBody *tilePhysics = PhysicsBody::createEdgePolygon(v, 4);
+                tilePhysics->setDynamic(false);
+                tilePhysics->setCategoryBitmask(CATEGORY_MASK_WALL);
+                tilePhysics->setCollisionBitmask(CONTACT_MASK_WALL);
+                tilePhysics->setContactTestBitmask(0);
+                tile->setPhysicsBody(tilePhysics);
+            }
+        }
+    }
 
     // setup map
     _map->setAnchorPoint(Vec2(0.0f, 0.0f));
@@ -42,8 +74,16 @@ void Stage::onEnter() {
     // setup player
     for (int i = 0; i < MAX_PLAYERS; i++) {
         Player *player = Player::create();
-        player->setAnchorPoint(Vec2(0.5f, 0.5f));
+        player->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 
+        PhysicsBody *playerPhysics = PhysicsBody::createBox(player->getBoundingBox().size);
+        playerPhysics->setDynamic(true);
+        playerPhysics->setGravityEnable(false);
+        playerPhysics->setRotationEnable(false);
+        playerPhysics->setCategoryBitmask(CATEGORY_MASK_PLAYER);
+        playerPhysics->setCollisionBitmask(CONTACT_MASK_PLAYER);
+        playerPhysics->setContactTestBitmask(0);
+        player->setPhysicsBody(playerPhysics);
         this->addChild(player);
         _players.push_back(player);
     }
@@ -72,17 +112,9 @@ void Stage::initializePlayersPosition(bool isHost) {
 }
 
 void Stage::step(float dt) {
-    auto player = this->getPlayer();
-    Vec2 lastPlayerPos = player->getPosition();
-    Vec2 currentPosition = this->getPosition();
-    player->step(dt);
-    getOpponent()->step(dt);
-
-    this->setPosition(this->getPosition() - (player->getPosition() - lastPlayerPos));
-
-    for (size_t i = 0; i < _bullets.size(); i++) {
-        _bullets[i]->step(dt);
-    }
+    Size size = Director::getInstance()->getVisibleSize();
+    Vec2 pos = getPlayer()->getPosition();
+    this->setPosition(Vec2(size.width * 0.5 - pos.x, size.height * 0.5 - pos.y));
 }
 
 void Stage::addBullet(Bullet *bullet) {
@@ -107,4 +139,9 @@ void Stage::setState(JSONPacker::GameState state) {
     if (state.newBullet) {
         addBullet(state.newBullet);
     }
+}
+
+bool Stage::onContactBegin(cocos2d::PhysicsContact &contact) {
+    CCLOG("onContactBegin");
+    return true;
 }

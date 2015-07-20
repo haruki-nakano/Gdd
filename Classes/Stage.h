@@ -32,7 +32,7 @@ private:
     bool init() override;
     void onEnter() override;
 
-    bool colliedWith(Player *player);
+    bool onContactBegin(cocos2d::PhysicsContact &contact);
 
     cocos2d::experimental::TMXTiledMap *_map;
     cocos2d::experimental::TMXLayer *_backgroundLayer;

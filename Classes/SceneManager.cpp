@@ -37,7 +37,10 @@ SceneManager::~SceneManager() {
 #pragma mark Public Methods
 
 void SceneManager::enterGameScene(bool networked) {
-    Scene *scene = Scene::create();
+    Scene *scene = Scene::createWithPhysics();
+#if defined (COCOS2D_DEBUG)
+    scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+#endif
     _gameScene = GameScene::create();
 
     bool isHost = true;
@@ -45,6 +48,7 @@ void SceneManager::enterGameScene(bool networked) {
         std::vector<std::string> peers = _networkingWrapper->getPeerList();
         auto me = _networkingWrapper->getDeviceName();
         // TODO: Is is possible to conflict device names.
+        while(peers.size() == 0) {;}
         isHost = peers[0].compare(me) > 0;
     }
     _gameScene->setNetworkedSession(networked, isHost);

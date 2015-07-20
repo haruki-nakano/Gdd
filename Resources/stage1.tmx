@@ -37,20 +37,18 @@
  </tileset>
  <layer name="background" width="25" height="25">
   <properties>
-   <property name="clientInitialPositionX" value="12"/>
-   <property name="clientInitialPositionY" value="1"/>
-   <property name="hostInitialPositionX" value="12"/>
-   <property name="hostInitialPositionY" value="23"/>
+   <property name="clientInitialPositionX" value="11"/>
+   <property name="clientInitialPositionY" value="0"/>
+   <property name="hostInitialPositionX" value="11"/>
+   <property name="hostInitialPositionY" value="21"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJx1lttywjAMROVgyqVtAoFC/v9L68xoh5PFPGhIYktrrVYyS0QszZ7Nvpvd0n7y24L1Q7MhrTSreN/le821HZ7lv9qYa6sdE0cYs/kX7PXYwtfaevYp7WDrd+SnHByjYr/npP1zZ4/elcuM71rjeckdc5KNHX75fMwc9s2uzb6AsYstJzwrv5/Tz89SLIZy8v203llV8xl7yMU+462/v81OqA114/UhrzUxRqwprnh6ZGzp2PNQfPqRu/X9hnMV8F/xLg1L42erDf2oaa2RI2qPtbgbhmw2H69nMUxx/gVccXdC3AW/o/HV60vW59Lhu8arDxmfGIPFUV1qbLVQEIs4PlOeHQxqVjmzr5mLYsmf+5Qj5yM1r3Ne4p1D5VcMh3qWZibLx2fYkBhPYOv81I9wbrGd45zFU7zrndpwDjkHXXfej9zHc3EG+D3AWcCZMJif7hTnVxr6i9edtoBDz8N7kxqbY6sN9gJnsnqIOqCme7Un76579sIV8dccHvHqZefH76BP9wjzkVapM2rL+5/8cR6QS9eh8p2AT12y5oO9+7yh5hzLZypnHX29/pzB9PE7bOg8Mza5KvGu4R7mp/89zqvr7x+TnxEn
+   eJx1ltuSgjAQRBOI190FBRX+/0s3VE2XhzY+TEHMXHt6BteU0lplqfJTZQ5ZGnKq0oXkKgXnPs4l7nq8r/AxxN0m5yq/cb/JZPYZuu5b8XW35T6GnOz+gfpUg8co0PeapD81dHRWLRN+1x3zJXasSTI08OX7OWo4VLlXOSJGn/aYMFf+fg07zyWbD9Xk+pRWrur5BB1icQh/2/OvygW9IW+8P8S1RIwBd/IrnF7hewldr0P+aUfstvOMvDLwLziLw+L41XpDO3Jad8SI3GMvHhZDMpmN9zNbTGF+RFxhd4HfFc/B8GrNJftza+Bd0nsO6Z8xOvOjvpS050KGL8bxnbI0YpCzqplzzVrkS/bUU41r2mMlzivPW/rEUPVli0M+izOj1eM7rIsYC2Irf/JHcea03+PcxWP65Du54RhyDzrvfB6px7y4A/w7wF3AndCZnb4pjq849Iy6hKMw9Dp8NsmxKe25wVngTtYMkQfkdKv3xN15z1m4w/9Wwyu9Z9nx8W/Qt+8I6xFXyTNyy+ef+HEfEEvnoeodEZ+8ZM87O/u+Iec8lu9U7jraev+5g2nj37Cu8U7fxCqnTw63Yn773+O4Ov/+Aeq/ETA=
   </data>
  </layer>
- <objectgroup name="wall">
-  <object id="1" x="0" y="800" width="832" height="32"/>
-  <object id="2" x="-32" y="0" width="32" height="832"/>
-  <object id="3" x="-32" y="-32" width="832" height="32"/>
-  <object id="5" x="864" y="800"/>
-  <object id="6" x="800" y="-32" width="32" height="832"/>
- </objectgroup>
+ <layer name="collision" width="25" height="25">
+  <data encoding="base64" compression="zlib">
+   eJzjZmBgEKYh5gFiIQbaApFRO0btGLVj1I5RO0btGLVj1I5BZAcXEAvSEHMCMQA+wgbR
+  </data>
+ </layer>
 </map>

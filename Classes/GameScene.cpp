@@ -75,6 +75,7 @@ void GameScene::setupTouchHandling() {
     auto touchListener = EventListenerTouchOneByOne::create();
 
     touchListener->onTouchBegan = [&](Touch *touch, Event *event) {
+        auto player = _stage->getPlayer()->getPosition();
         firstTouchPos = this->convertTouchToNodeSpace(touch);
         lastSyncPos = firstTouchPos;
         isTap = true;
@@ -98,6 +99,8 @@ void GameScene::setupTouchHandling() {
 
     touchListener->onTouchEnded = [&](Touch *touch, Event *event) {
         if (isTap) {
+            auto p = _stage->getPlayer();
+            auto pos = p->getPosition();
             Bullet *bullet = _stage->getPlayer()->createBullet();
             _stage->addBullet(bullet);
             if (_networkedSession) {

@@ -30,7 +30,6 @@ public:
     Direction getDirection();
 
     // Players action
-    void stop();
     Bullet *createBullet();
 
 private:
