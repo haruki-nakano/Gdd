@@ -58,8 +58,8 @@ void Stage::onEnter() {
                 PhysicsBody *tilePhysics = PhysicsBody::createEdgePolygon(v, 4);
                 tilePhysics->setDynamic(false);
                 tilePhysics->setCategoryBitmask(CATEGORY_MASK_WALL);
-                tilePhysics->setCollisionBitmask(CONTACT_MASK_WALL);
-                tilePhysics->setContactTestBitmask(0);
+                tilePhysics->setCollisionBitmask(COLLISION_MASK_WALL);
+                tilePhysics->setContactTestBitmask(CONTACT_MASK_WALL);
                 tile->setPhysicsBody(tilePhysics);
             }
         }
@@ -77,6 +77,10 @@ void Stage::onEnter() {
         this->addChild(player);
         _players.push_back(player);
     }
+
+    auto contactListener = EventListenerPhysicsContact::create();
+    contactListener->onContactBegin = CC_CALLBACK_1(Stage::onContactBegin, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 }
 
 void Stage::initializePlayersPosition(bool isHost) {

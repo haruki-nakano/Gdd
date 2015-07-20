@@ -33,9 +33,9 @@ void Bullet::onEnter() {
     bulletPhysics->setGravityEnable(false);
     bulletPhysics->setRotationEnable(false);
     bulletPhysics->setCategoryBitmask(CATEGORY_MASK_BULLET);
-    bulletPhysics->setCollisionBitmask(CONTACT_MASK_BULLET);
+    bulletPhysics->setCollisionBitmask(COLLISION_MASK_BULLET);
+    bulletPhysics->setContactTestBitmask(CONTACT_MASK_BULLET);
     bulletPhysics->setVelocity(_direction * DEFAULT_BULLET_SPEED);
-    bulletPhysics->setContactTestBitmask(0);
 
     this->setPhysicsBody(bulletPhysics);
 }

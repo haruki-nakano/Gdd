@@ -41,8 +41,8 @@ void Player::onEnter() {
     playerPhysics->setGravityEnable(false);
     playerPhysics->setRotationEnable(false);
     playerPhysics->setCategoryBitmask(CATEGORY_MASK_PLAYER);
-    playerPhysics->setCollisionBitmask(CONTACT_MASK_PLAYER);
-    playerPhysics->setContactTestBitmask(0);
+    playerPhysics->setCollisionBitmask(COLLISION_MASK_PLAYER);
+    playerPhysics->setContactTestBitmask(CONTACT_MASK_PLAYER);
 
     this->setPhysicsBody(playerPhysics);
 }
