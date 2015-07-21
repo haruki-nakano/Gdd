@@ -62,6 +62,15 @@ void GameScene::onEnter() {
 
     this->addChild(backButton);
 
+    _playerLifeBar = LifeBar::create();
+    _playerLifeBar->setPosition(Vec2(visibleSize.width * 0.5 - 256.0f, visibleSize.height - 32.0f));
+    
+    _opponentsLifeBar = LifeBar::create();
+    _opponentsLifeBar->setPosition(Vec2(visibleSize.width * 0.5 + 256.0f, visibleSize.height - 32.0f));
+    
+    this->addChild(_playerLifeBar);
+    this->addChild(_opponentsLifeBar);
+
     setupTouchHandling();
 
     setGameActive(true);
@@ -99,6 +108,7 @@ void GameScene::setupTouchHandling() {
 
     touchListener->onTouchEnded = [&](Touch *touch, Event *event) {
         if (isTap) {
+            // TODO: Fix here for the game balance
             Vec2 touchPos = this->convertTouchToNodeSpace(touch);
             auto playerPos = _stage->getPlayer()->getPosition();
             auto stagePos = _stage->getPosition();

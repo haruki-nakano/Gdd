@@ -174,6 +174,7 @@ bool Stage::onContactBegin(cocos2d::PhysicsContact &contact) {
     if (player && bullet) {
         player->hitShot();
         bullet->setLifePoint(-1);
+        return false;
     }
 
     // Other players shot hits me
@@ -187,6 +188,7 @@ bool Stage::onContactBegin(cocos2d::PhysicsContact &contact) {
     if (player && bullet) {
         player->hitShot();
         bullet->setLifePoint(-1);
+        return false;
     }
 
     // If a shot hits wall, remove the shot from the stage

@@ -63,6 +63,7 @@ void Player::setMoveState(const MoveState MoveState) {
 
         case MoveState::LEFT:
             this->setTexture(_imgLeft);
+            // TODO: Fix here for the game balance
             _directionVec = Vec2(-1.0f, 0.5f);
             this->getPhysicsBody()->setVelocity(_directionVec * DEFAULT_PLAYER_SPEED);
             break;

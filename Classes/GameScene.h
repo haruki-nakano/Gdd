@@ -13,6 +13,7 @@
 
 #include "Constants.h"
 #include "Bullet.h"
+#include "LifeBar.h"
 
 class Player;
 class Stage;
@@ -46,8 +47,8 @@ protected:
     bool _networkedSession;
     bool _isHost;
     Stage *_stage;
-    cocos2d::ui::Text *playerLifePointLabel;
-    cocos2d::ui::Text *opponentsLifePointLabel;
+    LifeBar *_playerLifeBar;
+    LifeBar *_opponentsLifeBar;
 
     // Networking
     void sendGameStateOverNetwork(Bullet *newBullet);

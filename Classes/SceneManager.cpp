@@ -47,8 +47,6 @@ void SceneManager::enterGameScene(bool networked) {
     if (networked) {
         std::vector<std::string> peers = _networkingWrapper->getPeerList();
         auto me = _networkingWrapper->getDeviceName();
-        // TODO: Is is possible to conflict device names.
-        while(peers.size() == 0) {;}
         isHost = peers[0].compare(me) > 0;
     }
     _gameScene->setNetworkedSession(networked, isHost);
