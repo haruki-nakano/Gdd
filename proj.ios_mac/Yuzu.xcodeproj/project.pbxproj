@@ -86,6 +86,8 @@
 		7125E7CB1B5485980005D5B1 /* JSONPacker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7125E7C91B5485980005D5B1 /* JSONPacker.cpp */; };
 		7125E7CC1B5485980005D5B1 /* JSONPacker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7125E7C91B5485980005D5B1 /* JSONPacker.cpp */; };
 		7125E7CE1B54C11E0005D5B1 /* MultipeerConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7125E7CD1B54C11D0005D5B1 /* MultipeerConnectivity.framework */; };
+		71A052391B5EC11A0051813D /* LifeBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 71A052371B5EC11A0051813D /* LifeBar.cpp */; };
+		71A0523A1B5EC11A0051813D /* LifeBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 71A052371B5EC11A0051813D /* LifeBar.cpp */; };
 		71DCDF181B583337006CDC3E /* playerDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 71DCDF161B583337006CDC3E /* playerDown.png */; };
 		71DCDF191B583337006CDC3E /* playerDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 71DCDF161B583337006CDC3E /* playerDown.png */; };
 		71DCDF1A1B583337006CDC3E /* playerUp.png in Resources */ = {isa = PBXBuildFile; fileRef = 71DCDF171B583337006CDC3E /* playerUp.png */; };
@@ -211,6 +213,8 @@
 		7125E7C91B5485980005D5B1 /* JSONPacker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JSONPacker.cpp; sourceTree = "<group>"; };
 		7125E7CA1B5485980005D5B1 /* JSONPacker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONPacker.h; sourceTree = "<group>"; };
 		7125E7CD1B54C11D0005D5B1 /* MultipeerConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultipeerConnectivity.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/MultipeerConnectivity.framework; sourceTree = DEVELOPER_DIR; };
+		71A052371B5EC11A0051813D /* LifeBar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LifeBar.cpp; sourceTree = "<group>"; };
+		71A052381B5EC11A0051813D /* LifeBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifeBar.h; sourceTree = "<group>"; };
 		71DCDF161B583337006CDC3E /* playerDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playerDown.png; sourceTree = "<group>"; };
 		71DCDF171B583337006CDC3E /* playerUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playerUp.png; sourceTree = "<group>"; };
 		71DCDF1C1B58379F006CDC3E /* bullet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bullet.png; sourceTree = "<group>"; };
@@ -434,6 +438,8 @@
 				7125E7971B54307F0005D5B1 /* SceneManager.h */,
 				7125E7871B5423680005D5B1 /* TitleScene.cpp */,
 				7125E7881B5423680005D5B1 /* TitleScene.h */,
+				71A052371B5EC11A0051813D /* LifeBar.cpp */,
+				71A052381B5EC11A0051813D /* LifeBar.h */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -626,6 +632,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
+				71A052391B5EC11A0051813D /* LifeBar.cpp in Sources */,
 				7125E7C61B5481600005D5B1 /* NetworkingWrapper.mm in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				7125E79C1B54342B0005D5B1 /* Player.cpp in Sources */,
@@ -656,6 +663,7 @@
 				7125E7CC1B5485980005D5B1 /* JSONPacker.cpp in Sources */,
 				7125E78A1B5423680005D5B1 /* TitleScene.cpp in Sources */,
 				7125E7B31B545A800005D5B1 /* Stage.cpp in Sources */,
+				71A0523A1B5EC11A0051813D /* LifeBar.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

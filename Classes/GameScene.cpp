@@ -99,9 +99,13 @@ void GameScene::setupTouchHandling() {
 
     touchListener->onTouchEnded = [&](Touch *touch, Event *event) {
         if (isTap) {
-            auto p = _stage->getPlayer();
-            auto pos = p->getPosition();
+            Vec2 touchPos = this->convertTouchToNodeSpace(touch);
+            auto playerPos = _stage->getPlayer()->getPosition();
+            auto stagePos = _stage->getPosition();
+            Vec2 playerVisiblePos = playerPos + stagePos;
             Bullet *bullet = _stage->getPlayer()->createBullet();
+            float distance = touchPos.distance(playerVisiblePos);
+            bullet->setDirection((touchPos - playerVisiblePos) / distance);
             _stage->addBullet(bullet);
             if (_networkedSession) {
                 // TODO: Try here many times
@@ -140,18 +144,18 @@ void GameScene::receivedData(const void *data, unsigned long length) {
         // TODO: Implement here
     }
 
-    // CCLOG("received date: %f", (float)clock() / CLOCKS_PER_SEC);
     _stage->setState(state);
 }
 
 void GameScene::sendGameStateOverNetwork(Bullet *newBullet) {
-    // CCLOG("send date: %f", (float)clock() / CLOCKS_PER_SEC);
     JSONPacker::GameState state;
 
     state.name = NetworkingWrapper::getDeviceName();
     state.gameOver = false;
     state.opponentPosition = _stage->getPlayer()->getPosition();
     state.opponentMoveState = _stage->getPlayer()->getMoveState();
+    state.playersLifePoint = _stage->getOpponent()->getLifePoint();
+    state.opponentsLifePoint = _stage->getPlayer()->getLifePoint();
     state.newBullet = newBullet;
 
     std::string json = JSONPacker::packGameStateJSON(state);
@@ -181,6 +185,9 @@ void GameScene::backButtonPressed(cocos2d::Ref *pSender, ui::Widget::TouchEventT
     if (eEventType == ui::Widget::TouchEventType::ENDED) {
         SceneManager::getInstance()->returnToLobby();
     }
+}
+
+void updateLifePoints(int playerLifePoint, int opponentLifePoint) {
 }
 
 #pragma mark -

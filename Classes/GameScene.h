@@ -39,12 +39,15 @@ protected:
     void update(float dt) override;
 
     // UI
+    void updateLifePoints(int playerLifePoint, int opponentLifePoint);
     void backButtonPressed(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType eEventType);
 
     bool _active;
     bool _networkedSession;
     bool _isHost;
     Stage *_stage;
+    cocos2d::ui::Text *playerLifePointLabel;
+    cocos2d::ui::Text *opponentsLifePointLabel;
 
     // Networking
     void sendGameStateOverNetwork(Bullet *newBullet);

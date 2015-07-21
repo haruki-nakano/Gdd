@@ -33,6 +33,8 @@ public:
     Bullet *createBullet();
 
     void hitShot();
+    void setLifePoint(int lifePoints);
+    int getLifePoint();
 
 private:
     bool init() override;

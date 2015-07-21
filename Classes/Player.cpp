@@ -132,3 +132,11 @@ void Player::hitShot() {
     _lifePoint--;
     CCLOG("HP: %d", _lifePoint);
 }
+
+void Player::setLifePoint(int lifePoint) {
+    _lifePoint = lifePoint;
+}
+
+int Player::getLifePoint() {
+    return _lifePoint;
+}
