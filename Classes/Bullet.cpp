@@ -49,6 +49,10 @@ int Bullet::getLifePoint() {
     return _lifePoint;
 }
 
+void Bullet::setLifePoint(int lifePoint) {
+    _lifePoint = lifePoint;
+}
+
 void Bullet::setDirection(Vec2 v) {
     _direction = v;
 

@@ -19,6 +19,7 @@ public:
 
     void step(float dt);
     int getLifePoint();
+    void setLifePoint(int lifePoint);
 
 private:
     bool init() override;

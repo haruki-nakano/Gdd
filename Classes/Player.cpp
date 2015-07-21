@@ -28,6 +28,8 @@ bool Player::init() {
     _moving = MoveState::STOP;
     _directionVec = Vec2::ZERO;
 
+    _lifePoint = DEFAULT_PLAYER_LIFE;
+
     return true;
 }
 
@@ -124,4 +126,9 @@ Bullet *Player::createBullet() {
     bullet->setTag(this->getTag() == TAG_PLAYER ? TAG_PLAYER_BULLET : TAG_OPPOPENT_BULLET);
 
     return bullet;
+}
+
+void Player::hitShot() {
+    _lifePoint--;
+    CCLOG("HP: %d", _lifePoint);
 }

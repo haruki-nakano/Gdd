@@ -32,6 +32,8 @@ public:
     // Players action
     Bullet *createBullet();
 
+    void hitShot();
+
 private:
     bool init() override;
     void onEnter() override;
@@ -40,6 +42,7 @@ private:
     MoveState _moving;
     Direction _direction;
     std::string _name;
+    int _lifePoint;
 
     // PlayerImages
     cocos2d::Texture2D *_imgLeft;

@@ -156,12 +156,50 @@ bool Stage::onContactBegin(cocos2d::PhysicsContact &contact) {
     auto nodeA = contact.getShapeA()->getBody()->getNode();
     auto nodeB = contact.getShapeB()->getBody()->getNode();
 
-    CCLOG("onContactBegin: %d %d", nodeA->getTag(), nodeB->getTag());
-    // My shot hits other player
+    int tagA = nodeA->getTag();
+    int tagB = nodeB->getTag();
 
-    // A shot hits wall
+    // CCLOG("onContactBegin: %d %d", nodeA->getTag(), nodeB->getTag());
+
+    // My shot hits other player
+    Player *player = nullptr;
+    Bullet *bullet = nullptr;
+    if (tagA == TAG_OPPOPENT && tagB == TAG_PLAYER_BULLET) {
+        player = dynamic_cast<Player *>(nodeA);
+        bullet = dynamic_cast<Bullet *>(nodeB);
+    } else if (tagB == TAG_OPPOPENT && tagA == TAG_PLAYER_BULLET) {
+        player = dynamic_cast<Player *>(nodeB);
+        bullet = dynamic_cast<Bullet *>(nodeA);
+    }
+    if (player && bullet) {
+        player->hitShot();
+        bullet->setLifePoint(-1);
+    }
 
     // Other players shot hits me
+    if (tagA == TAG_PLAYER && tagB == TAG_OPPOPENT_BULLET) {
+        player = dynamic_cast<Player *>(nodeA);
+        bullet = dynamic_cast<Bullet *>(nodeB);
+    } else if (tagB == TAG_PLAYER && tagA == TAG_OPPOPENT_BULLET) {
+        player = dynamic_cast<Player *>(nodeB);
+        bullet = dynamic_cast<Bullet *>(nodeA);
+    }
+    if (player && bullet) {
+        player->hitShot();
+        bullet->setLifePoint(-1);
+    }
+
+    // If a shot hits wall, remove the shot from the stage
+    if (tagA == TAG_WALL && (tagB == TAG_PLAYER_BULLET || tagB == TAG_OPPOPENT_BULLET)) {
+        bullet = dynamic_cast<Bullet *>(nodeB);
+    } else if (tagB == TAG_WALL && (tagA == TAG_PLAYER_BULLET || tagA == TAG_OPPOPENT_BULLET)) {
+        bullet = dynamic_cast<Bullet *>(nodeA);
+    }
+
+    if (bullet) {
+        bullet->setLifePoint(-1);
+        return false;
+    }
 
     // bodies can collide
     return false;

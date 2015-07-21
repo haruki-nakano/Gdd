@@ -18,6 +18,7 @@ static const std::string DEFAULT_COLLISION_LAYER_NAME = "collision";
 
 static const int MAX_PLAYERS = 2;
 
+static const int DEFAULT_PLAYER_LIFE = 32;
 static const int DEFAULT_BULLET_LIFE = 30;
 
 static const float DEFAULT_BULLET_SPEED = 1000.0f;
