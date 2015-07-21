@@ -166,6 +166,9 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
     if (player && bullet) {
         player->hitShot();
         bullet->setLifePoint(-1.0f);
+        if (player->getLifePoint() <= 0) {
+            gameOver();
+        }
         return false;
     }
 
@@ -180,6 +183,9 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
     if (player && bullet) {
         player->hitShot();
         bullet->setLifePoint(-1.0f);
+        if (player->getLifePoint() <= 0) {
+            gameOver();
+        }
         return false;
     }
 
@@ -213,8 +219,8 @@ void GameScene::receivedData(const void *data, unsigned long length) {
 
     JSONPacker::GameState state = JSONPacker::unpackGameStateJSON(json);
 
-    if (state.gameOver) {
-        // TODO: Implement here
+    if (state.playersLifePoint <= 0 || state.opponentsLifePoint <= 0) {
+        gameOver();
     }
 
     _stage->setState(state);
@@ -224,7 +230,6 @@ void GameScene::sendGameStateOverNetwork(Bullet *newBullet) {
     JSONPacker::GameState state;
 
     state.name = NetworkingWrapper::getDeviceName();
-    state.gameOver = false;
     state.opponentPosition = _stage->getPlayer()->getPosition();
     state.opponentMoveState = _stage->getPlayer()->getMoveState();
     state.playersLifePoint = _stage->getOpponent()->getLifePoint();
@@ -249,6 +254,34 @@ void GameScene::setGameActive(bool active) {
 
 void GameScene::update(float dt) {
     _stage->step(dt);
+}
+
+void GameScene::gameOver() {
+    this->setGameActive(false);
+
+    if (_networkedSession) {
+        sendGameStateOverNetwork(nullptr);
+        sendGameStateOverNetwork(nullptr);
+        sendGameStateOverNetwork(nullptr);
+        sendGameStateOverNetwork(nullptr);
+    }
+
+    int playerLife = _stage->getPlayer()->getLifePoint();
+    int opponentLife = _stage->getOpponent()->getLifePoint();
+    std::string messageContent;
+    std::string playerScoreString = StringUtils::toString(playerLife);
+    std::string opponentScoreString = StringUtils::toString(opponentLife);
+    if (playerLife > opponentLife) {
+        messageContent = "You win! (" + playerScoreString + ", " + opponentScoreString + ")";
+    } else if (opponentLife > playerLife) {
+        messageContent = "You lose... (" + playerScoreString + ", " + opponentScoreString + ")";
+    } else {
+        messageContent = "Draw";
+    }
+
+    MessageBox(messageContent.c_str(), "GAMEOVER");
+
+    SceneManager::getInstance()->returnToLobby();
 }
 
 #pragma mark -

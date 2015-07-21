@@ -39,6 +39,7 @@ protected:
     void setGameActive(bool active);
     void step(float dt);
     void update(float dt) override;
+    void gameOver();
 
     // UI
     void updateLifePoints(int playerLifePoint, int opponentLifePoint);

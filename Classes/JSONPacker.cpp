@@ -24,7 +24,6 @@ GameState unpackGameStateJSON(std::string json) {
     GameState gameState;
 
     gameState.name = document["name"].GetString();
-    gameState.gameOver = document["gameOver"].GetBool();
     gameState.opponentMoveState = static_cast<MoveState>(document["moveState"].GetInt());
     gameState.playersLifePoint = document["playersLifePoint"].GetInt();
     gameState.opponentsLifePoint = document["oponentsLifePoint"].GetInt();
@@ -57,7 +56,6 @@ std::string packGameStateJSON(const GameState gameState) {
     rapidjson::Document document;
     document.SetObject();
     document.AddMember("name", gameState.name.c_str(), document.GetAllocator());
-    document.AddMember("gameOver", gameState.gameOver, document.GetAllocator());
     document.AddMember("moveState", static_cast<int>(gameState.opponentMoveState), document.GetAllocator());
     document.AddMember("playersLifePoint", gameState.playersLifePoint, document.GetAllocator());
     document.AddMember("oponentsLifePoint", gameState.opponentsLifePoint, document.GetAllocator());
