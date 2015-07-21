@@ -9,6 +9,7 @@
 #include "LifeBar.h"
 
 #include "cocos2d.h"
+#include "Constants.h"
 
 using namespace cocos2d;
 
@@ -22,18 +23,20 @@ bool LifeBar::init() {
 void LifeBar::onEnter() {
     Node::onEnter();
 
-    auto bar = Sprite::create("life.png");
+    _bar = Sprite::create("life.png");
     auto bg = Sprite::create("life_bg.png");
 
-    bar->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+    _bar->setAnchorPoint(Vec2::ANCHOR_MIDDLE_LEFT);
     bg->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 
-    bar->setPosition(Vec2::ZERO);
+    _bar->setPosition(Vec2(9.0f - bg->getBoundingBox().size.width * 0.5, 0.0f));
     bg->setPosition(Vec2::ZERO);
 
     this->addChild(bg);
-    this->addChild(bar);
+    this->addChild(_bar);
 }
 
-void setLifePoint(int lifePoints) {
+void LifeBar::setLifePoint(int lifePoints) {
+    float remains = clampf((float)lifePoints / (float)DEFAULT_PLAYER_LIFE, 0.0f, 100.0f);
+    _bar->setScaleX(remains);
 }

@@ -32,8 +32,6 @@ private:
     bool init() override;
     void onEnter() override;
 
-    bool onContactBegin(cocos2d::PhysicsContact &contact);
-
     cocos2d::experimental::TMXTiledMap *_map;
     cocos2d::experimental::TMXLayer *_backgroundLayer;
     std::vector<Player *> _players;

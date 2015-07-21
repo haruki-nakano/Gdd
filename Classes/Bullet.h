@@ -18,15 +18,15 @@ public:
     cocos2d::Vec2 getDirectionVec();
 
     void step(float dt);
-    int getLifePoint();
-    void setLifePoint(int lifePoint);
+    float getLifePoint();
+    void setLifePoint(float lifePoint);
 
 private:
     bool init() override;
     void onEnter() override;
 
     cocos2d::Vec2 _direction;
-    int _lifePoint;
+    float _lifePoint;
 };
 
 #endif /* defined(__Yuzu__Bullet__) */

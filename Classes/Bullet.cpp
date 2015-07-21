@@ -41,14 +41,14 @@ void Bullet::onEnter() {
 }
 
 void Bullet::step(float dt) {
-    _lifePoint--;
+    _lifePoint -= dt;
 }
 
-int Bullet::getLifePoint() {
+float Bullet::getLifePoint() {
     return _lifePoint;
 }
 
-void Bullet::setLifePoint(int lifePoint) {
+void Bullet::setLifePoint(float lifePoint) {
     _lifePoint = lifePoint;
 }
 

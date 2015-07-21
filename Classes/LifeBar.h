@@ -13,11 +13,13 @@ class LifeBar : public cocos2d::Node {
 public:
     CREATE_FUNC(LifeBar);
 
+    void setLifePoint(int lifePoints);
+
 private:
     bool init() override;
     void onEnter() override;
 
-    void setLifePoint(int lifePoints);
+    cocos2d::Sprite *_bar;
 };
 
 #endif /* defined(__Yuzu__LifeBar__) */

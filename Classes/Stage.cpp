@@ -81,11 +81,6 @@ void Stage::onEnter() {
     }
     getPlayer()->setTag(TAG_PLAYER);
     getOpponent()->setTag(TAG_OPPOPENT);
-
-    // setup contact handling
-    auto contactListener = EventListenerPhysicsContact::create();
-    contactListener->onContactBegin = CC_CALLBACK_1(Stage::onContactBegin, this);
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 }
 
 void Stage::initializePlayersPosition(bool isHost) {
@@ -120,7 +115,7 @@ void Stage::step(float dt) {
     for (int i = 0; i < _bullets.size(); i++) {
         Bullet *bullet = _bullets[i];
         bullet->step(dt);
-        if (bullet->getLifePoint() < 0) {
+        if (bullet->getLifePoint() < 0.0f) {
             _bullets.erase(_bullets.begin() + i);
             bullet->removeFromParent();
             i--;
@@ -142,67 +137,17 @@ Player *Stage::getOpponent() {
 }
 
 void Stage::setState(JSONPacker::GameState state) {
-    if (getOpponent()->isCorrectUpdate(state.opponentPosition)) {
-        getOpponent()->setPosition(state.opponentPosition);
+    Player *player = getPlayer();
+    Player *opponent = getOpponent();
+    if (opponent->isCorrectUpdate(state.opponentPosition)) {
+        opponent->setPosition(state.opponentPosition);
     }
-    getOpponent()->setMoveState(state.opponentMoveState);
+    opponent->setMoveState(state.opponentMoveState);
+
+    player->setLifePoint(MIN(state.playersLifePoint, player->getLifePoint()));
+    opponent->setLifePoint(MIN(state.opponentsLifePoint, opponent->getLifePoint()));
 
     if (state.newBullet) {
         addBullet(state.newBullet);
     }
-}
-
-bool Stage::onContactBegin(cocos2d::PhysicsContact &contact) {
-    auto nodeA = contact.getShapeA()->getBody()->getNode();
-    auto nodeB = contact.getShapeB()->getBody()->getNode();
-
-    int tagA = nodeA->getTag();
-    int tagB = nodeB->getTag();
-
-    // CCLOG("onContactBegin: %d %d", nodeA->getTag(), nodeB->getTag());
-
-    // My shot hits other player
-    Player *player = nullptr;
-    Bullet *bullet = nullptr;
-    if (tagA == TAG_OPPOPENT && tagB == TAG_PLAYER_BULLET) {
-        player = dynamic_cast<Player *>(nodeA);
-        bullet = dynamic_cast<Bullet *>(nodeB);
-    } else if (tagB == TAG_OPPOPENT && tagA == TAG_PLAYER_BULLET) {
-        player = dynamic_cast<Player *>(nodeB);
-        bullet = dynamic_cast<Bullet *>(nodeA);
-    }
-    if (player && bullet) {
-        player->hitShot();
-        bullet->setLifePoint(-1);
-        return false;
-    }
-
-    // Other players shot hits me
-    if (tagA == TAG_PLAYER && tagB == TAG_OPPOPENT_BULLET) {
-        player = dynamic_cast<Player *>(nodeA);
-        bullet = dynamic_cast<Bullet *>(nodeB);
-    } else if (tagB == TAG_PLAYER && tagA == TAG_OPPOPENT_BULLET) {
-        player = dynamic_cast<Player *>(nodeB);
-        bullet = dynamic_cast<Bullet *>(nodeA);
-    }
-    if (player && bullet) {
-        player->hitShot();
-        bullet->setLifePoint(-1);
-        return false;
-    }
-
-    // If a shot hits wall, remove the shot from the stage
-    if (tagA == TAG_WALL && (tagB == TAG_PLAYER_BULLET || tagB == TAG_OPPOPENT_BULLET)) {
-        bullet = dynamic_cast<Bullet *>(nodeB);
-    } else if (tagB == TAG_WALL && (tagA == TAG_PLAYER_BULLET || tagA == TAG_OPPOPENT_BULLET)) {
-        bullet = dynamic_cast<Bullet *>(nodeA);
-    }
-
-    if (bullet) {
-        bullet->setLifePoint(-1);
-        return false;
-    }
-
-    // bodies can collide
-    return false;
 }

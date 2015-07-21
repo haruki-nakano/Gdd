@@ -130,14 +130,20 @@ Bullet *Player::createBullet() {
 }
 
 void Player::hitShot() {
-    _lifePoint--;
-    CCLOG("HP: %d", _lifePoint);
+    setLifePoint(getLifePoint() - 1);
 }
 
 void Player::setLifePoint(int lifePoint) {
     _lifePoint = lifePoint;
+    if (_lifeBar) {
+        _lifeBar->setLifePoint(lifePoint);
+    }
 }
 
 int Player::getLifePoint() {
     return _lifePoint;
+}
+
+void Player::setLifeBar(LifeBar *lifeBar) {
+    _lifeBar = lifeBar;
 }

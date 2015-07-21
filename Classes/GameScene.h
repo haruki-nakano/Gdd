@@ -33,6 +33,7 @@ protected:
     bool init() override;
     void onEnter() override;
     void setupTouchHandling();
+    bool onContactBegin(cocos2d::PhysicsContact &contact);
 
     // Game Logic
     void setGameActive(bool active);

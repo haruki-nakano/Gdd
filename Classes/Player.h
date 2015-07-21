@@ -14,6 +14,7 @@
 #include "Constants.h"
 
 class Bullet;
+class LifeBar;
 
 class Player : public cocos2d::Sprite {
 public:
@@ -35,11 +36,13 @@ public:
     void hitShot();
     void setLifePoint(int lifePoints);
     int getLifePoint();
+    void setLifeBar(LifeBar *lifeBar);
 
 private:
     bool init() override;
     void onEnter() override;
 
+    LifeBar *_lifeBar;
     cocos2d::Vec2 _directionVec;
     MoveState _moving;
     Direction _direction;
