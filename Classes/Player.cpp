@@ -64,25 +64,50 @@ void Player::setMoveState(const MoveState MoveState) {
         case MoveState::LEFT:
             this->setTexture(_imgLeft);
             // TODO: Fix here for the game balance
-            _directionVec = Vec2(-1.0f, 0.5f);
+            _directionVec = Vec2(-1.18f, 0.0f);
             this->getPhysicsBody()->setVelocity(_directionVec * DEFAULT_PLAYER_SPEED);
             break;
 
         case MoveState::RIGHT:
             this->setTexture(_imgRight);
-            _directionVec = Vec2(1.0f, -0.5f);
+            _directionVec = Vec2(1.18f, 0.0f);
             this->getPhysicsBody()->setVelocity(_directionVec * DEFAULT_PLAYER_SPEED);
             break;
 
         case MoveState::UP:
             this->setTexture(_imgUp);
-            _directionVec = Vec2(1.0f, 0.5f);
+            _directionVec = Vec2(0.0f, 0.75f);
             this->getPhysicsBody()->setVelocity(_directionVec * DEFAULT_PLAYER_SPEED);
             break;
 
         case MoveState::DOWN:
             this->setTexture(_imgDown);
+            _directionVec = Vec2(0.0f, -0.75f);
+            this->getPhysicsBody()->setVelocity(_directionVec * DEFAULT_PLAYER_SPEED);
+            break;
+
+        case MoveState::UPPER_LEFT:
+            this->setTexture(_imgLeft);
+            // TODO: Fix here for the game balance
+            _directionVec = Vec2(-1.0f, 0.5f);
+            this->getPhysicsBody()->setVelocity(_directionVec * DEFAULT_PLAYER_SPEED);
+            break;
+
+        case MoveState::UPPER_RIGHT:
+            this->setTexture(_imgRight);
+            _directionVec = Vec2(1.0f, 0.5f);
+            this->getPhysicsBody()->setVelocity(_directionVec * DEFAULT_PLAYER_SPEED);
+            break;
+
+        case MoveState::LOWER_LEFT:
+            this->setTexture(_imgLeft);
             _directionVec = Vec2(-1.0f, -0.5f);
+            this->getPhysicsBody()->setVelocity(_directionVec * DEFAULT_PLAYER_SPEED);
+            break;
+
+        case MoveState::LOWER_RIGHT:
+            this->setTexture(_imgRight);
+            _directionVec = Vec2(1.0f, -0.5f);
             this->getPhysicsBody()->setVelocity(_directionVec * DEFAULT_PLAYER_SPEED);
             break;
     }

@@ -59,6 +59,10 @@ enum class MoveState {
     LEFT = 2,
     UP = 3,
     DOWN = 4,
+    UPPER_RIGHT = 5,
+    UPPER_LEFT = 6,
+    LOWER_RIGHT = 7,
+    LOWER_LEFT = 8,
 };
 
 enum class Direction {

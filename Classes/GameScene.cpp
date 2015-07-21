@@ -307,13 +307,23 @@ MoveState GameScene::convertVec2ToMoveState(const cocos2d::Vec2 v) {
     float angle = MathUtils::degreesAngle(v);
 
     // TODO: Fix angles
-    if (-180 <= angle && angle < -90.0f) {
+    if (angle < (-180.0f + 22.5f) || (180.0f - 22.5f) < angle) {
         return MoveState::DOWN;
-    } else if (-90.0f <= angle && angle < 0.0f) {
+    } else if ((-135.0f - 22.5f) <= angle && angle < (-135.0f + 22.5f)) {
+        return MoveState::LOWER_LEFT;
+    } else if ((-90.0f - 22.5f) <= angle && angle < (-90.0f + 22.5f)) {
         return MoveState::LEFT;
-    } else if (0.0f <= angle && angle < 90.0f) {
+    } else if ((-45.0f - 22.5f) <= angle && angle < (-45.0f + 22.5f)) {
+        return MoveState::UPPER_LEFT;
+    } else if ((0.0f - 22.5f) <= angle && angle < (0.0f + 22.5f)) {
         return MoveState::UP;
-    } else {
+    } else if ((45.0f - 22.5f) <= angle && angle < (45.0f + 22.5f)) {
+        return MoveState::UPPER_RIGHT;
+    } else if ((90.0f - 22.5f) <= angle && angle < (90.0f + 22.5f)) {
         return MoveState::RIGHT;
+    } else if ((135.0f - 22.5f) <= angle && angle < (135.0f + 22.5f)) {
+        return MoveState::LOWER_RIGHT;
+    } else {
+        return MoveState::STOP;
     }
 }
