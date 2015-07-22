@@ -88,10 +88,17 @@ void GameScene::setupTouchHandling() {
     static Vec2 firstTouchPos;
     static Vec2 lastSyncPos;
     static bool isTap;
+    static int firstFingerId = -1;
+    static int numFingers = 0;
 
     auto touchListener = EventListenerTouchOneByOne::create();
 
     touchListener->onTouchBegan = [&](Touch *touch, Event *event) {
+        numFingers++;
+        if (numFingers != 1) {
+            return true;
+        }
+        firstFingerId = touch->getID();
         auto player = _stage->getPlayer()->getPosition();
         firstTouchPos = this->convertTouchToNodeSpace(touch);
         lastSyncPos = firstTouchPos;
@@ -100,6 +107,9 @@ void GameScene::setupTouchHandling() {
     };
 
     touchListener->onTouchMoved = [&](Touch *touch, Event *event) {
+        if (touch->getID() != firstFingerId) {
+            return;
+        }
         Vec2 touchPos = this->convertTouchToNodeSpace(touch);
         isTap = false;
         float distance = touchPos.distance(firstTouchPos);
@@ -115,7 +125,7 @@ void GameScene::setupTouchHandling() {
     };
 
     touchListener->onTouchEnded = [&](Touch *touch, Event *event) {
-        if (isTap) {
+        if (isTap || touch->getID() != firstFingerId) {
             // TODO: Fix here for the game balance
             Vec2 touchPos = this->convertTouchToNodeSpace(touch);
             auto playerPos = _stage->getPlayer()->getPosition();
@@ -139,6 +149,11 @@ void GameScene::setupTouchHandling() {
                 sendGameStateOverNetwork(nullptr);
             }
         }
+
+        if (numFingers == 1) {
+            firstFingerId = -1;
+        }
+        numFingers--;
     };
 
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
