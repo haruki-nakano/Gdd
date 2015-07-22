@@ -15,6 +15,9 @@
 
 using namespace cocos2d;
 
+#pragma mark -
+#pragma mark Initialize
+
 bool Stage::init() {
     if (!Node::init()) {
         return false;
@@ -32,9 +35,9 @@ void Stage::onEnter() {
 
     _map = cocos2d::experimental::TMXTiledMap::create(DEFAULT_STAGE_FILE);
     _backgroundLayer = _map->getLayer(DEFAULT_BACKGROUND_LAYER_NAME);
-    auto size = _backgroundLayer->getLayerSize();
-    for (int y = 0; y < size.height; y++) {
-        for (int x = 0; x < size.width; x++) {
+    _size = _backgroundLayer->getLayerSize();
+    for (int y = 0; y < _size.height; y++) {
+        for (int x = 0; x < _size.width; x++) {
             auto tile = _backgroundLayer->getTileAt(Vec2(x, y));
             if (tile) {
                 tile->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
@@ -42,7 +45,7 @@ void Stage::onEnter() {
         }
     }
     auto collisionLayer = _map->getLayer(DEFAULT_COLLISION_LAYER_NAME);
-    size = collisionLayer->getLayerSize();
+    auto size = collisionLayer->getLayerSize();
     for (int y = 0; y < size.height; y++) {
         for (int x = 0; x < size.width; x++) {
             auto tile = collisionLayer->getTileAt(Vec2(x, y));
@@ -107,9 +110,13 @@ void Stage::initializePlayersPosition(bool isHost) {
     step(0);
 }
 
+#pragma mark -
+#pragma mark Public Method
+
 void Stage::step(float dt) {
     Size size = Director::getInstance()->getVisibleSize();
     Vec2 pos = getPlayer()->getPosition();
+    // Set players position to center of the screen
     this->setPosition(Vec2(size.width * 0.5 - pos.x, size.height * 0.5 - pos.y));
 
     for (int i = 0; i < _bullets.size(); i++) {
@@ -121,12 +128,29 @@ void Stage::step(float dt) {
             i--;
         }
     }
+
+    // Set water state
+    Vec2 coordinate = convertPositionToTileCoordinate(pos);
+    if (isCorrectTileCoordinate(coordinate)) {
+        int gid = _backgroundLayer->getTileGIDAt(coordinate);
+        getPlayer()->setOpacity(gid < 8 ? 255 : 128);
+    }
+
+    coordinate = convertPositionToTileCoordinate(getOpponent()->getPosition());
+    if (isCorrectTileCoordinate(coordinate)) {
+        Size size = _backgroundLayer->getLayerSize();
+        int gid = _backgroundLayer->getTileGIDAt(coordinate);
+        getOpponent()->setOpacity(gid < 8 ? 255 : 0);
+    }
 }
 
 void Stage::addBullet(Bullet *bullet) {
     _bullets.push_back(bullet);
     addChild(bullet);
 }
+
+#pragma mark -
+#pragma mark Getter/Setter
 
 Player *Stage::getPlayer() {
     return _players[0];
@@ -150,4 +174,20 @@ void Stage::setState(JSONPacker::GameState state) {
     if (state.newBullet) {
         addBullet(state.newBullet);
     }
+}
+
+#pragma mark -
+#pragma mark Utility
+
+bool Stage::isCorrectTileCoordinate(Vec2 tileCoordinate) {
+    return tileCoordinate.x < _size.width && tileCoordinate.y < _size.height && tileCoordinate.x >= 0 &&
+           tileCoordinate.y >= 0;
+}
+
+Vec2 Stage::convertPositionToTileCoordinate(Vec2 pos) {
+    auto ms = _map->getTileSize();
+    auto ls = _backgroundLayer->getLayerSize();
+
+    return Vec2(roundf(pos.x / ms.width - pos.y / ms.height - ls.width / 2.0f + ls.height - 0.5f),
+                roundf(ls.width / 2.0f + ls.height - 1.5f - pos.x / ms.width - pos.y / ms.height));
 }
