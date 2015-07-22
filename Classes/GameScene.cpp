@@ -125,15 +125,17 @@ void GameScene::setupTouchHandling() {
     };
 
     touchListener->onTouchEnded = [&](Touch *touch, Event *event) {
-        if (isTap || touch->getID() != firstFingerId) {
+        if ((isTap || touch->getID() != firstFingerId) && (ALLOW_MORE_THAN_TWO_TAP || numFingers < 3)) {
             // TODO: Fix here for the game balance
-            Vec2 touchPos = this->convertTouchToNodeSpace(touch);
-            auto playerPos = _stage->getPlayer()->getPosition();
-            auto stagePos = _stage->getPosition();
-            Vec2 playerVisiblePos = playerPos + stagePos;
             Bullet *bullet = _stage->getPlayer()->createBullet();
-            float distance = touchPos.distance(playerVisiblePos);
-            bullet->setDirection((touchPos - playerVisiblePos) / distance);
+            if (!USE_SIMPLE_AIMING) {
+                Vec2 touchPos = this->convertTouchToNodeSpace(touch);
+                auto playerPos = _stage->getPlayer()->getPosition();
+                auto stagePos = _stage->getPosition();
+                Vec2 playerVisiblePos = playerPos + stagePos;
+                float distance = touchPos.distance(playerVisiblePos);
+                bullet->setDirection((touchPos - playerVisiblePos) / distance);
+            }
             _stage->addBullet(bullet);
             if (_networkedSession) {
                 // TODO: Try here many times
@@ -150,6 +152,13 @@ void GameScene::setupTouchHandling() {
             }
         }
 
+        if (numFingers == 1) {
+            firstFingerId = -1;
+        }
+        numFingers--;
+    };
+
+    touchListener->onTouchCancelled = [&](Touch *touch, Event *event) {
         if (numFingers == 1) {
             firstFingerId = -1;
         }

@@ -16,6 +16,9 @@ static const std::string DEFAULT_STAGE_FILE = "stage1.tmx";
 static const std::string DEFAULT_BACKGROUND_LAYER_NAME = "background";
 static const std::string DEFAULT_COLLISION_LAYER_NAME = "collision";
 
+static const bool USE_SIMPLE_AIMING = false;
+static const bool ALLOW_MORE_THAN_TWO_TAP = false;
+
 static const int MAX_PLAYERS = 2;
 
 static const int DEFAULT_PLAYER_LIFE = 32;
