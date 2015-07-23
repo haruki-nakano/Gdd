@@ -9,9 +9,9 @@
 #include "Stage.h"
 
 #include "Constants.h"
+#include "Bullet.h"
+#include "Egg.h"
 #include "Player.h"
-#include "Bullet.h"
-#include "Bullet.h"
 
 using namespace cocos2d;
 
@@ -84,6 +84,9 @@ void Stage::onEnter() {
     }
     getPlayer()->setTag(TAG_PLAYER);
     getOpponent()->setTag(TAG_OPPOPENT);
+
+    auto egg = Egg::create();
+    this->addChild(egg);
 }
 
 void Stage::initializePlayersPosition(bool isHost) {
@@ -129,6 +132,16 @@ void Stage::step(float dt) {
         }
     }
 
+    for (int i = 0; i < _eggs.size(); i++) {
+        Egg *egg = _eggs[i];
+        CCLOG("%d", egg->getLifePoint());
+        if (egg->getLifePoint() < 0) {
+            _eggs.erase(_eggs.begin() + i);
+            egg->removeFromParent();
+            i--;
+        }
+    }
+
     // Set water state
     Vec2 coordinate = convertPositionToTileCoordinate(pos);
     if (isCorrectTileCoordinate(coordinate)) {
@@ -149,11 +162,33 @@ void Stage::step(float dt) {
             getOpponent()->setIsSwimming(true, true);
         }
     }
+
+    // Generate eggs
+    if (random(0, 32) == 1) {
+        generateEgg();
+    }
 }
 
 void Stage::addBullet(Bullet *bullet) {
     _bullets.push_back(bullet);
-    addChild(bullet);
+    this->addChild(bullet);
+}
+
+void Stage::generateEgg() {
+    // TODO: FIx here
+    Egg *egg = Egg::create();
+    float x = (float)random(1, (int)_size.width);
+    float y = (float)random(1, (int)_size.height);
+    Vec2 coordinate = Vec2(x, y);
+    if (!isCorrectTileCoordinate(coordinate) || _backgroundLayer->getTileGIDAt(coordinate) >= 8) {
+        return;
+    }
+
+    auto sp = _backgroundLayer->getTileAt(coordinate);
+    Vec2 pos = sp->getPosition();
+    egg->setPosition(pos);
+    _eggs.push_back(egg);
+    this->addChild(egg);
 }
 
 #pragma mark -

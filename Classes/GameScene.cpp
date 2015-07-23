@@ -220,9 +220,32 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
     } else if (tagB == TAG_WALL && (tagA == TAG_PLAYER_BULLET || tagA == TAG_OPPOPENT_BULLET)) {
         bullet = dynamic_cast<Bullet *>(nodeA);
     }
-
     if (bullet) {
         bullet->setLifePoint(-1.0f);
+        return false;
+    }
+
+    // If a player contacts egg
+    if (tagA == TAG_EGG && (tagB == TAG_PLAYER || tagB == TAG_OPPOPENT)) {
+        CCLOG("bar");
+        return false;
+    } else if (tagB == TAG_EGG && (tagA == TAG_PLAYER || tagA == TAG_OPPOPENT)) {
+        CCLOG("foo");
+        return false;
+    }
+
+    // If a player contacts egg
+    Egg *egg = nullptr;
+    if (tagA == TAG_EGG && (tagB == TAG_PLAYER_BULLET || tagB == TAG_OPPOPENT_BULLET)) {
+        egg = dynamic_cast<Egg *>(nodeA);
+        bullet = dynamic_cast<Bullet *>(nodeB);
+    } else if (tagB == TAG_EGG && (tagA == TAG_PLAYER_BULLET || tagA == TAG_OPPOPENT_BULLET)) {
+        egg = dynamic_cast<Egg *>(nodeB);
+        bullet = dynamic_cast<Bullet *>(nodeA);
+    }
+    if (egg && bullet) {
+        bullet->setLifePoint(-1.0f);
+        egg->setLifePoint(egg->getLifePoint() - 1);
         return false;
     }
 

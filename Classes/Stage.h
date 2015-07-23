@@ -11,6 +11,7 @@
 
 #include "cocos2d.h"
 #include "Constants.h"
+#include "Egg.h"
 #include "JSONPacker.h"
 
 class Bullet;
@@ -22,6 +23,7 @@ public:
 
     void step(float dt);
     void addBullet(Bullet *);
+    void generateEgg();
 
     Player *getPlayer();
     Player *getOpponent();
@@ -40,6 +42,7 @@ private:
     cocos2d::Size _size;
     std::vector<Player *> _players;
     std::vector<Bullet *> _bullets;
+    std::vector<Egg *> _eggs;
 };
 
 #endif /* defined(__Yuzu__Stage__) */

@@ -63,7 +63,7 @@ bool Player::isSwimming() {
 void Player::setIsSwimming(bool swimming, bool isOpponent) {
     int waterOpacity = isOpponent ? 0 : 128;
     if (_isSwimming != swimming) {
-        this->setOpacity(swimming ? 128 : 255);
+        this->setOpacity(swimming ? waterOpacity : 255);
     }
     _isSwimming = swimming;
 }

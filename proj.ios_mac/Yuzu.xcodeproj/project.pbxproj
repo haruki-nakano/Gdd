@@ -57,6 +57,10 @@
 		521A8EA919F11F5000D177D7 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 521A8EA819F11F5000D177D7 /* fonts */; };
 		521A8EAA19F11F5000D177D7 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 521A8EA819F11F5000D177D7 /* fonts */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
+		710AD8911B6165280062580E /* Egg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 710AD88F1B6165280062580E /* Egg.cpp */; };
+		710AD8921B6165280062580E /* Egg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 710AD88F1B6165280062580E /* Egg.cpp */; };
+		710AD8941B616A7E0062580E /* egg.png in Resources */ = {isa = PBXBuildFile; fileRef = 710AD8931B616A7E0062580E /* egg.png */; };
+		710AD8951B616A7E0062580E /* egg.png in Resources */ = {isa = PBXBuildFile; fileRef = 710AD8931B616A7E0062580E /* egg.png */; };
 		71128FF71B56D1C400B9216A /* stage1.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 71128FF61B56D1C400B9216A /* stage1.tmx */; };
 		71128FF81B56D1C400B9216A /* stage1.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 71128FF61B56D1C400B9216A /* stage1.tmx */; };
 		71128FFD1B57134400B9216A /* stage2.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 71128FFA1B57134400B9216A /* stage2.tmx */; };
@@ -188,6 +192,9 @@
 		521A8E6319F0C34300D177D7 /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
 		521A8EA819F11F5000D177D7 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		710AD88F1B6165280062580E /* Egg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Egg.cpp; sourceTree = "<group>"; };
+		710AD8901B6165280062580E /* Egg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Egg.h; sourceTree = "<group>"; };
+		710AD8931B616A7E0062580E /* egg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = egg.png; sourceTree = "<group>"; };
 		71128FF61B56D1C400B9216A /* stage1.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = stage1.tmx; sourceTree = "<group>"; };
 		71128FFA1B57134400B9216A /* stage2.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = stage2.tmx; sourceTree = "<group>"; };
 		711290021B58191C00B9216A /* isometric_grass_and_water_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = isometric_grass_and_water_light.png; sourceTree = "<group>"; };
@@ -356,6 +363,7 @@
 				46880B7619C43A67006E1F66 /* CloseNormal.png */,
 				46880B7719C43A67006E1F66 /* CloseSelected.png */,
 				71DCDF1C1B58379F006CDC3E /* bullet.png */,
+				710AD8931B616A7E0062580E /* egg.png */,
 				711290021B58191C00B9216A /* isometric_grass_and_water_light.png */,
 				71A052411B5EE0370051813D /* life_bg.png */,
 				71A052421B5EE0370051813D /* life.png */,
@@ -381,8 +389,6 @@
 				46880B8519C43A87006E1F66 /* AppDelegate.h */,
 				7125E78B1B5423A40005D5B1 /* Constants.h */,
 				7125E7B41B54781D0005D5B1 /* MathUtils.h */,
-				7125E7C91B5485980005D5B1 /* JSONPacker.cpp */,
-				7125E7CA1B5485980005D5B1 /* JSONPacker.h */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -455,6 +461,8 @@
 			children = (
 				7125E7AC1B5456A10005D5B1 /* Bullet.cpp */,
 				7125E7AD1B5456A10005D5B1 /* Bullet.h */,
+				710AD88F1B6165280062580E /* Egg.cpp */,
+				710AD8901B6165280062580E /* Egg.h */,
 				71A052371B5EC11A0051813D /* LifeBar.cpp */,
 				71A052381B5EC11A0051813D /* LifeBar.h */,
 				7125E79A1B54342B0005D5B1 /* Player.cpp */,
@@ -468,6 +476,8 @@
 		7125E7C81B5481650005D5B1 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				7125E7C91B5485980005D5B1 /* JSONPacker.cpp */,
+				7125E7CA1B5485980005D5B1 /* JSONPacker.h */,
 				7125E7C11B5481600005D5B1 /* NetworkingWrapper.h */,
 				7125E7C21B5481600005D5B1 /* NetworkingWrapper.mm */,
 				7125E7C31B5481600005D5B1 /* NetworkManager.h */,
@@ -606,6 +616,7 @@
 				711290091B582F7800B9216A /* playerRight.png in Resources */,
 				71128FF71B56D1C400B9216A /* stage1.tmx in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
+				710AD8941B616A7E0062580E /* egg.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
 				521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */,
 				46880B7B19C43A67006E1F66 /* CloseNormal.png in Resources */,
@@ -629,6 +640,7 @@
 				7112900A1B582F7800B9216A /* playerRight.png in Resources */,
 				71A052461B5EE0370051813D /* life.png in Resources */,
 				46880B7E19C43A67006E1F66 /* CloseSelected.png in Resources */,
+				710AD8951B616A7E0062580E /* egg.png in Resources */,
 				71128FFE1B57134400B9216A /* stage2.tmx in Resources */,
 				71A052441B5EE0370051813D /* life_bg.png in Resources */,
 				71DCDF1B1B583337006CDC3E /* playerUp.png in Resources */,
@@ -654,6 +666,7 @@
 				7125E7AE1B5456A10005D5B1 /* Bullet.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				7125E7CB1B5485980005D5B1 /* JSONPacker.cpp in Sources */,
+				710AD8911B6165280062580E /* Egg.cpp in Sources */,
 				7125E7931B542CA80005D5B1 /* GameScene.cpp in Sources */,
 				7125E7C71B5481600005D5B1 /* NetworkManager.mm in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
@@ -668,6 +681,7 @@
 				7125E7941B542CA80005D5B1 /* GameScene.cpp in Sources */,
 				7125E79D1B54342B0005D5B1 /* Player.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
+				710AD8921B6165280062580E /* Egg.cpp in Sources */,
 				7125E7AF1B5456A10005D5B1 /* Bullet.cpp in Sources */,
 				7125E7991B54307F0005D5B1 /* SceneManager.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
