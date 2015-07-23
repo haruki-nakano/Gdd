@@ -23,6 +23,9 @@ public:
     void step(float dt);
 
     bool isCorrectUpdate(const cocos2d::Vec2 position);
+    bool isSwimming();
+    // Fix argument
+    void setIsSwimming(bool swimming, bool opponent);
 
     void setMoveState(const MoveState MoveState);
     MoveState getMoveState();
@@ -48,6 +51,7 @@ private:
     Direction _direction;
     std::string _name;
     int _lifePoint;
+    bool _isSwimming;
 
     // PlayerImages
     cocos2d::Texture2D *_imgLeft;

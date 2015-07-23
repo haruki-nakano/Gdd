@@ -125,7 +125,8 @@ void GameScene::setupTouchHandling() {
     };
 
     touchListener->onTouchEnded = [&](Touch *touch, Event *event) {
-        if ((isTap || touch->getID() != firstFingerId) && (ALLOW_MORE_THAN_TWO_TAP || numFingers < 3)) {
+        if ((!_stage->getPlayer()->isSwimming() || ALLOW_WATER_SHOT) && (isTap || touch->getID() != firstFingerId) &&
+            (ALLOW_MORE_THAN_TWO_TAP || numFingers < 3)) {
             // TODO: Fix here for the game balance
             Bullet *bullet = _stage->getPlayer()->createBullet();
             if (!USE_SIMPLE_AIMING) {

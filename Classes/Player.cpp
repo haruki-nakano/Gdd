@@ -30,6 +30,8 @@ bool Player::init() {
 
     _lifePoint = DEFAULT_PLAYER_LIFE;
 
+    _isSwimming = false;
+
     return true;
 }
 
@@ -52,6 +54,18 @@ void Player::onEnter() {
 
 bool Player::isCorrectUpdate(const Vec2 position) {
     return GameScene::convertVec2ToMoveState(position - this->getPosition()) == _moving;
+}
+
+bool Player::isSwimming() {
+    return _isSwimming;
+}
+
+void Player::setIsSwimming(bool swimming, bool isOpponent) {
+    int waterOpacity = isOpponent ? 0 : 128;
+    if (_isSwimming != swimming) {
+        this->setOpacity(swimming ? 128 : 255);
+    }
+    _isSwimming = swimming;
 }
 
 void Player::setMoveState(const MoveState MoveState) {

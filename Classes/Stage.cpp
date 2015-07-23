@@ -133,23 +133,20 @@ void Stage::step(float dt) {
     Vec2 coordinate = convertPositionToTileCoordinate(pos);
     if (isCorrectTileCoordinate(coordinate)) {
         int gid = _backgroundLayer->getTileGIDAt(coordinate);
-        auto opacity = getPlayer()->getOpacity();
-        if (opacity != 255 && gid < 8) {
-            getPlayer()->setOpacity(255);
-        } else if (opacity != 128 && gid >= 8) {
-            getPlayer()->setOpacity(128);
+        if (gid < 8) {
+            getPlayer()->setIsSwimming(false, false);
+        } else if (gid >= 8) {
+            getPlayer()->setIsSwimming(true, false);
         }
     }
 
     coordinate = convertPositionToTileCoordinate(getOpponent()->getPosition());
     if (isCorrectTileCoordinate(coordinate)) {
-        Size size = _backgroundLayer->getLayerSize();
         int gid = _backgroundLayer->getTileGIDAt(coordinate);
-        auto opacity = getOpponent()->getOpacity();
-        if (opacity != 255 && gid < 8) {
-            getOpponent()->setOpacity(255);
-        } else if (opacity != 0 && gid >= 8) {
-            getOpponent()->setOpacity(0);
+        if (gid < 8) {
+            getOpponent()->setIsSwimming(false, true);
+        } else if (gid >= 8) {
+            getOpponent()->setIsSwimming(true, true);
         }
     }
 }
