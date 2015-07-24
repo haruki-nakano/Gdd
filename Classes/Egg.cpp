@@ -20,6 +20,7 @@ bool Egg::init() {
 
     // TODO: fix here
     _lifePoint = 10;
+    _owner = nullptr;
 
     return true;
 }
@@ -40,11 +41,21 @@ void Egg::onEnter() {
     this->setPhysicsBody(physics);
 }
 
+#pragma mark -
+#pragma mark Getter/Setter
+
 int Egg::getLifePoint() {
     return _lifePoint;
 }
 
 void Egg::setLifePoint(int lifePoint) {
     _lifePoint = lifePoint;
-    CCLOG("%d", _lifePoint);
+}
+
+Player *Egg::getOwner() {
+    return _owner;
+}
+
+void Egg::setOwner(Player *player) {
+    _owner = player;
 }

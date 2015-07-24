@@ -23,7 +23,7 @@ static const bool ALLOW_WATER_SHOT = true;
 
 static const int MAX_PLAYERS = 2;
 
-static const int DEFAULT_PLAYER_LIFE = 32;
+static const int MAX_PLAYER_LIFE = 32;
 static const float DEFAULT_BULLET_LIFE = 0.64f;
 
 static const float DEFAULT_BULLET_SPEED = 500.0f;

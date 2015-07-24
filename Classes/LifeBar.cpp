@@ -37,6 +37,6 @@ void LifeBar::onEnter() {
 }
 
 void LifeBar::setLifePoint(int lifePoints) {
-    float remains = clampf((float)lifePoints / (float)DEFAULT_PLAYER_LIFE, 0.0f, 100.0f);
+    float remains = clampf((float)lifePoints / (float)MAX_PLAYER_LIFE, 0.0f, 100.0f);
     _bar->setScaleX(remains);
 }

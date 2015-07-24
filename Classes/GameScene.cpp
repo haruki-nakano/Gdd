@@ -234,14 +234,16 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
         return false;
     }
 
-    // If a player contacts egg
+    // If a bullet contacts egg
     Egg *egg = nullptr;
     if (tagA == TAG_EGG && (tagB == TAG_PLAYER_BULLET || tagB == TAG_OPPOPENT_BULLET)) {
         egg = dynamic_cast<Egg *>(nodeA);
         bullet = dynamic_cast<Bullet *>(nodeB);
+        egg->setOwner(tagB == TAG_PLAYER_BULLET ? _stage->getPlayer() : _stage->getOpponent());
     } else if (tagB == TAG_EGG && (tagA == TAG_PLAYER_BULLET || tagA == TAG_OPPOPENT_BULLET)) {
         egg = dynamic_cast<Egg *>(nodeB);
         bullet = dynamic_cast<Bullet *>(nodeA);
+        egg->setOwner(tagA == TAG_PLAYER_BULLET ? _stage->getPlayer() : _stage->getOpponent());
     }
     if (egg && bullet) {
         bullet->setLifePoint(-1.0f);

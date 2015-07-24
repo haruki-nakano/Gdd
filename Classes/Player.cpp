@@ -16,7 +16,7 @@
 using namespace cocos2d;
 
 bool Player::init() {
-    if (!Sprite::initWithFile("playerUp.png")) {
+    if (!Sprite::initWithFile("playerLeft.png")) {
         return false;
     }
 
@@ -24,11 +24,15 @@ bool Player::init() {
     _imgUp = Director::getInstance()->getTextureCache()->addImage("playerUp.png");
     _imgRight = Director::getInstance()->getTextureCache()->addImage("playerRight.png");
     _imgDown = Director::getInstance()->getTextureCache()->addImage("playerDown.png");
+    _imgUpperLeft = Director::getInstance()->getTextureCache()->addImage("playerUpperLeft.png");
+    _imgUpperRight = Director::getInstance()->getTextureCache()->addImage("playerUpperRight.png");
+    _imgLowerLeft = Director::getInstance()->getTextureCache()->addImage("playerLowerLeft.png");
+    _imgLowerRight = Director::getInstance()->getTextureCache()->addImage("playerLowerRight.png");
 
     _moving = MoveState::STOP;
     _directionVec = Vec2::ZERO;
 
-    _lifePoint = DEFAULT_PLAYER_LIFE;
+    _lifePoint = MAX_PLAYER_LIFE;
 
     _isSwimming = false;
 
@@ -101,26 +105,26 @@ void Player::setMoveState(const MoveState MoveState) {
             break;
 
         case MoveState::UPPER_LEFT:
-            this->setTexture(_imgLeft);
+            this->setTexture(_imgUpperLeft);
             // TODO: Fix here for the game balance
             _directionVec = Vec2(-1.0f, 0.5f);
             this->getPhysicsBody()->setVelocity(_directionVec * DEFAULT_PLAYER_SPEED);
             break;
 
         case MoveState::UPPER_RIGHT:
-            this->setTexture(_imgRight);
+            this->setTexture(_imgUpperRight);
             _directionVec = Vec2(1.0f, 0.5f);
             this->getPhysicsBody()->setVelocity(_directionVec * DEFAULT_PLAYER_SPEED);
             break;
 
         case MoveState::LOWER_LEFT:
-            this->setTexture(_imgLeft);
+            this->setTexture(_imgLowerLeft);
             _directionVec = Vec2(-1.0f, -0.5f);
             this->getPhysicsBody()->setVelocity(_directionVec * DEFAULT_PLAYER_SPEED);
             break;
 
         case MoveState::LOWER_RIGHT:
-            this->setTexture(_imgRight);
+            this->setTexture(_imgLowerRight);
             _directionVec = Vec2(1.0f, -0.5f);
             this->getPhysicsBody()->setVelocity(_directionVec * DEFAULT_PLAYER_SPEED);
             break;
@@ -173,9 +177,11 @@ void Player::hitShot() {
 }
 
 void Player::setLifePoint(int lifePoint) {
-    _lifePoint = lifePoint;
+    int clampPoint = MAX(MIN(lifePoint, MAX_PLAYER_LIFE), 0);
+    _lifePoint = clampPoint;
+
     if (_lifeBar) {
-        _lifeBar->setLifePoint(lifePoint);
+        _lifeBar->setLifePoint(clampPoint);
     }
 }
 

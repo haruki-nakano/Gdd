@@ -58,6 +58,10 @@ private:
     cocos2d::Texture2D *_imgRight;
     cocos2d::Texture2D *_imgUp;
     cocos2d::Texture2D *_imgDown;
+    cocos2d::Texture2D *_imgUpperLeft;
+    cocos2d::Texture2D *_imgUpperRight;
+    cocos2d::Texture2D *_imgLowerLeft;
+    cocos2d::Texture2D *_imgLowerRight;
 };
 
 #endif /* defined(__Yuzu__Player__) */

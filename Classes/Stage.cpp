@@ -136,6 +136,9 @@ void Stage::step(float dt) {
         Egg *egg = _eggs[i];
         CCLOG("%d", egg->getLifePoint());
         if (egg->getLifePoint() < 0) {
+            // TODO Replace magic number
+            Player* owner = egg->getOwner();
+            owner->setLifePoint(owner->getLifePoint() + 5);
             _eggs.erase(_eggs.begin() + i);
             egg->removeFromParent();
             i--;
@@ -164,7 +167,7 @@ void Stage::step(float dt) {
     }
 
     // Generate eggs
-    if (random(0, 32) == 1) {
+    if (random(0, 128) == 1) {
         generateEgg();
     }
 }
