@@ -14,14 +14,20 @@
 
 #include "Bullet.h"
 #include "Constants.h"
+#include "Egg.h"
 
 namespace JSONPacker {
 struct GameState {
     std::string name;
     int playersLifePoint;
     int opponentsLifePoint;
+    int eggLifePoint;
+    cocos2d::Vec2 eggPosition;
     cocos2d::Vec2 opponentPosition;
     MoveState opponentMoveState;
+    EventType event;
+
+    // Optional data
     Bullet *newBullet;
 };
 

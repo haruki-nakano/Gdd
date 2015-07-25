@@ -85,8 +85,9 @@ void Stage::onEnter() {
     getPlayer()->setTag(TAG_PLAYER);
     getOpponent()->setTag(TAG_OPPOPENT);
 
-    auto egg = Egg::create();
-    this->addChild(egg);
+    _egg = Egg::create();
+    _egg->setLifePoint(-1);
+    this->addChild(_egg);
 }
 
 void Stage::initializePlayersPosition(bool isHost) {
@@ -132,19 +133,6 @@ void Stage::step(float dt) {
         }
     }
 
-    for (int i = 0; i < _eggs.size(); i++) {
-        Egg *egg = _eggs[i];
-        CCLOG("%d", egg->getLifePoint());
-        if (egg->getLifePoint() < 0) {
-            // TODO Replace magic number
-            Player* owner = egg->getOwner();
-            owner->setLifePoint(owner->getLifePoint() + 5);
-            _eggs.erase(_eggs.begin() + i);
-            egg->removeFromParent();
-            i--;
-        }
-    }
-
     // Set water state
     Vec2 coordinate = convertPositionToTileCoordinate(pos);
     if (isCorrectTileCoordinate(coordinate)) {
@@ -165,11 +153,6 @@ void Stage::step(float dt) {
             getOpponent()->setIsSwimming(true, true);
         }
     }
-
-    // Generate eggs
-    if (random(0, 128) == 1) {
-        generateEgg();
-    }
 }
 
 void Stage::addBullet(Bullet *bullet) {
@@ -178,8 +161,7 @@ void Stage::addBullet(Bullet *bullet) {
 }
 
 void Stage::generateEgg() {
-    // TODO: FIx here
-    Egg *egg = Egg::create();
+    // TODO: Fix here
     float x = (float)random(1, (int)_size.width);
     float y = (float)random(1, (int)_size.height);
     Vec2 coordinate = Vec2(x, y);
@@ -189,9 +171,9 @@ void Stage::generateEgg() {
 
     auto sp = _backgroundLayer->getTileAt(coordinate);
     Vec2 pos = sp->getPosition();
-    egg->setPosition(pos);
-    _eggs.push_back(egg);
-    this->addChild(egg);
+    _egg->setPosition(pos);
+    // TODO
+    _egg->setLifePoint(10);
 }
 
 #pragma mark -
@@ -203,6 +185,10 @@ Player *Stage::getPlayer() {
 
 Player *Stage::getOpponent() {
     return _players[1];
+}
+
+Egg *Stage::getEgg() {
+    return _egg;
 }
 
 void Stage::setState(JSONPacker::GameState state) {
@@ -218,6 +204,14 @@ void Stage::setState(JSONPacker::GameState state) {
 
     if (state.newBullet) {
         addBullet(state.newBullet);
+    }
+
+    if (state.eggPosition != Vec2::ZERO) {
+        // New egg is created
+        _egg->setPosition(state.eggPosition);
+        _egg->setLifePoint(state.eggLifePoint);
+    } else {
+        _egg->setLifePoint(MIN(state.eggLifePoint, _egg->getLifePoint()));
     }
 }
 

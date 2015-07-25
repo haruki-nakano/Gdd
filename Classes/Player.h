@@ -24,6 +24,7 @@ public:
 
     bool isCorrectUpdate(const cocos2d::Vec2 position);
     bool isSwimming();
+    
     // Fix argument
     void setIsSwimming(bool swimming, bool opponent);
 

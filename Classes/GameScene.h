@@ -15,6 +15,7 @@
 #include "Bullet.h"
 #include "LifeBar.h"
 
+class Egg;
 class Player;
 class Stage;
 
@@ -42,7 +43,6 @@ protected:
     void gameOver();
 
     // UI
-    void updateLifePoints(int playerLifePoint, int opponentLifePoint);
     void backButtonPressed(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType eEventType);
 
     bool _active;
@@ -53,7 +53,7 @@ protected:
     LifeBar *_opponentsLifeBar;
 
     // Networking
-    void sendGameStateOverNetwork(Bullet *newBullet);
+    void sendGameStateOverNetwork(EventType event, Bullet *newBullet = nullptr, bool newEgg = false);
 };
 
 #endif /* defined(__Yuzu__GameScene__) */

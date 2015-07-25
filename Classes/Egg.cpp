@@ -21,6 +21,7 @@ bool Egg::init() {
     // TODO: fix here
     _lifePoint = 10;
     _owner = nullptr;
+    _lastBrokenTime = 0;
 
     return true;
 }
@@ -50,6 +51,18 @@ int Egg::getLifePoint() {
 
 void Egg::setLifePoint(int lifePoint) {
     _lifePoint = lifePoint;
+    if (lifePoint <= 0) {
+        // TODO
+        setVisible(false);
+        setPosition(-1.0, -1.0);
+        _lastBrokenTime = clock();
+    } else {
+        setVisible(true);
+    }
+}
+
+clock_t Egg::getLastBrokenTime() {
+    return _lastBrokenTime;
 }
 
 Player *Egg::getOwner() {

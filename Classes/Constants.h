@@ -12,7 +12,7 @@
 static const std::string CODE_NAME = "Yuzu";
 static const std::string GAME_NAME = "Rubber Duck Wars";
 
-static const std::string DEFAULT_STAGE_FILE = "stage2.tmx";
+static const std::string DEFAULT_STAGE_FILE = "stage1.tmx";
 static const std::string DEFAULT_BACKGROUND_LAYER_NAME = "background";
 static const std::string DEFAULT_COLLISION_LAYER_NAME = "collision";
 
@@ -24,9 +24,9 @@ static const bool ALLOW_WATER_SHOT = true;
 static const int MAX_PLAYERS = 2;
 
 static const int MAX_PLAYER_LIFE = 32;
-static const float DEFAULT_BULLET_LIFE = 0.64f;
+static const float DEFAULT_BULLET_LIFE = 0.32;
 
-static const float DEFAULT_BULLET_SPEED = 500.0f;
+static const float DEFAULT_BULLET_SPEED = 1000.0f;
 static const float DEFAULT_PLAYER_SPEED = 250.0f;
 
 static const float TILE_WIDTH = 64.0f;
@@ -55,6 +55,17 @@ static const int COLLISION_MASK_WALL = CATEGORY_MASK_PLAYER;
 static const int COLLISION_MASK_BULLET = 0;
 static const int COLLISION_MASK_EGG = 0;
 
+enum class EventType {
+    CHANGE_PLAYERS_DIRECTION = 0,
+    HIT_PLAYER = 1,
+    FIRE_BULLT = 2,
+    STOP_PLAYERS_MOVING = 3,
+    GAME_OVER = 4,
+    HIT_EGG = 5,
+    APPEAR_EGG = 6,
+    GET_ITEM = 7,
+};
+
 enum class FieldType {
     EMPTY = 0,
     GRASS = 1,
@@ -79,6 +90,14 @@ enum class Direction {
     LEFT = 1,
     UP = 2,
     DOWN = 3,
+};
+
+enum class FieldItem {
+    NONE = 0,
+    HEAL = 1,
+    SPEED_UP = 2,
+    SUPER_SHOT = 3,
+    SUPER_STAR = 4,
 };
 
 #endif

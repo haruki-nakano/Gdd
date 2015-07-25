@@ -113,13 +113,14 @@ void GameScene::setupTouchHandling() {
         Vec2 touchPos = this->convertTouchToNodeSpace(touch);
         isTap = false;
         float distance = touchPos.distance(firstTouchPos);
+        // FIXME: a
         distance = sqrtf(distance);
         MoveState move = convertVec2ToMoveState((touchPos - firstTouchPos) / distance);
         MoveState lastMoveState = _stage->getPlayer()->getMoveState();
         _stage->getPlayer()->setMoveState(move);
         if (_networkedSession && (move != lastMoveState || lastSyncPos.distance(touchPos) > 10.0f)) {
             // if (_networkedSession && move != lastMoveState) {
-            sendGameStateOverNetwork(nullptr);
+            sendGameStateOverNetwork(EventType::CHANGE_PLAYERS_DIRECTION);
             lastSyncPos = touchPos;
         }
     };
@@ -140,16 +141,16 @@ void GameScene::setupTouchHandling() {
             _stage->addBullet(bullet);
             if (_networkedSession) {
                 // TODO: Try here many times
-                sendGameStateOverNetwork(bullet);
+                sendGameStateOverNetwork(EventType::FIRE_BULLT, bullet);
             }
         } else {
             _stage->getPlayer()->setMoveState(MoveState::STOP);
             if (_networkedSession) {
                 // TODO: Is it effective?
-                sendGameStateOverNetwork(nullptr);
-                sendGameStateOverNetwork(nullptr);
-                sendGameStateOverNetwork(nullptr);
-                sendGameStateOverNetwork(nullptr);
+                sendGameStateOverNetwork(EventType::STOP_PLAYERS_MOVING);
+                sendGameStateOverNetwork(EventType::STOP_PLAYERS_MOVING);
+                sendGameStateOverNetwork(EventType::STOP_PLAYERS_MOVING);
+                sendGameStateOverNetwork(EventType::STOP_PLAYERS_MOVING);
             }
         }
 
@@ -248,6 +249,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
     if (egg && bullet) {
         bullet->setLifePoint(-1.0f);
         egg->setLifePoint(egg->getLifePoint() - 1);
+        sendGameStateOverNetwork(EventType::HIT_EGG);
         return false;
     }
 
@@ -276,15 +278,24 @@ void GameScene::receivedData(const void *data, unsigned long length) {
     _stage->setState(state);
 }
 
-void GameScene::sendGameStateOverNetwork(Bullet *newBullet) {
+void GameScene::sendGameStateOverNetwork(EventType event, Bullet *newBullet, bool newEgg) {
     JSONPacker::GameState state;
 
+    state.event = event;
     state.name = NetworkingWrapper::getDeviceName();
     state.opponentPosition = _stage->getPlayer()->getPosition();
     state.opponentMoveState = _stage->getPlayer()->getMoveState();
     state.playersLifePoint = _stage->getOpponent()->getLifePoint();
     state.opponentsLifePoint = _stage->getPlayer()->getLifePoint();
     state.newBullet = newBullet;
+
+    Egg *egg = _stage->getEgg();
+    state.eggLifePoint = egg->getLifePoint();
+    if (newEgg) {
+        state.eggPosition = egg->getPosition();
+    } else {
+        state.eggPosition = Vec2::ZERO;
+    }
 
     std::string json = JSONPacker::packGameStateJSON(state);
     SceneManager::getInstance()->sendData(json.c_str(), json.length());
@@ -303,17 +314,26 @@ void GameScene::setGameActive(bool active) {
 }
 
 void GameScene::update(float dt) {
+    static clock_t delta;
     _stage->step(dt);
+
+    //  Host is in charge of generating egg.
+    if (_isHost && _stage->getEgg()->getLifePoint() <= 0 && _stage->getEgg()->getLastBrokenTime() + delta < clock()) {
+        // TODO: should depend on time
+        delta = random(5, 20) * CLOCKS_PER_SEC;
+        _stage->generateEgg();
+        sendGameStateOverNetwork(EventType::APPEAR_EGG, nullptr, true);
+    }
 }
 
 void GameScene::gameOver() {
     this->setGameActive(false);
 
     if (_networkedSession) {
-        sendGameStateOverNetwork(nullptr);
-        sendGameStateOverNetwork(nullptr);
-        sendGameStateOverNetwork(nullptr);
-        sendGameStateOverNetwork(nullptr);
+        sendGameStateOverNetwork(EventType::GAME_OVER);
+        sendGameStateOverNetwork(EventType::GAME_OVER);
+        sendGameStateOverNetwork(EventType::GAME_OVER);
+        sendGameStateOverNetwork(EventType::GAME_OVER);
     }
 
     int playerLife = _stage->getPlayer()->getLifePoint();
@@ -341,9 +361,6 @@ void GameScene::backButtonPressed(cocos2d::Ref *pSender, ui::Widget::TouchEventT
     if (eEventType == ui::Widget::TouchEventType::ENDED) {
         SceneManager::getInstance()->returnToLobby();
     }
-}
-
-void updateLifePoints(int playerLifePoint, int opponentLifePoint) {
 }
 
 #pragma mark -

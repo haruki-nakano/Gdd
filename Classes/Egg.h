@@ -19,12 +19,13 @@ public:
     void setLifePoint(int lifePoint);
     Player *getOwner();
     void setOwner(Player *player);
+    clock_t getLastBrokenTime();
 
 private:
     bool init() override;
     void onEnter() override;
 
-    cocos2d::Vec2 _direction;
+    clock_t _lastBrokenTime;
     int _lifePoint;
     Player *_owner;
 };

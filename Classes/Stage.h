@@ -27,6 +27,7 @@ public:
 
     Player *getPlayer();
     Player *getOpponent();
+    Egg *getEgg();
     void setState(JSONPacker::GameState state);
     void initializePlayersPosition(bool isHost);
 
@@ -42,7 +43,7 @@ private:
     cocos2d::Size _size;
     std::vector<Player *> _players;
     std::vector<Bullet *> _bullets;
-    std::vector<Egg *> _eggs;
+    Egg *_egg;
 };
 
 #endif /* defined(__Yuzu__Stage__) */

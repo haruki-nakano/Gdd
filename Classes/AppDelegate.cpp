@@ -44,7 +44,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     glview->setDesignResolutionSize(1136, 640, ResolutionPolicy::FIXED_WIDTH);
 
     cocos2d::Size frameSize = glview->getFrameSize();
-    float targetSize = frameSize.height > frameSize.width ? frameSize.height : frameSize.width;
+    // float targetSize = frameSize.height > frameSize.width ? frameSize.height : frameSize.width;
 
     FileUtils::getInstance()->addSearchPath("res");
     FileUtils::getInstance()->addSearchPath("fonts");

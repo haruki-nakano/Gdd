@@ -25,6 +25,7 @@ GameState unpackGameStateJSON(std::string json) {
 
     gameState.name = document["name"].GetString();
     gameState.opponentMoveState = static_cast<MoveState>(document["moveState"].GetInt());
+    gameState.event = static_cast<EventType>(document["eventType"].GetInt());
     gameState.playersLifePoint = document["playersLifePoint"].GetInt();
     gameState.opponentsLifePoint = document["oponentsLifePoint"].GetInt();
 
@@ -49,6 +50,12 @@ GameState unpackGameStateJSON(std::string json) {
         gameState.newBullet = nullptr;
     }
 
+    rapidjson::Value &eggPosition = document["egg"]["position"];
+    Vec2 pos = Vec2(eggPosition["x"].GetDouble(), eggPosition["y"].GetDouble());
+
+    gameState.eggLifePoint = document["egg"]["lifePoint"].GetInt();
+    gameState.eggPosition = pos;
+
     return gameState;
 }
 
@@ -56,6 +63,7 @@ std::string packGameStateJSON(const GameState gameState) {
     rapidjson::Document document;
     document.SetObject();
     document.AddMember("name", gameState.name.c_str(), document.GetAllocator());
+    document.AddMember("eventType", static_cast<int>(gameState.event), document.GetAllocator());
     document.AddMember("moveState", static_cast<int>(gameState.opponentMoveState), document.GetAllocator());
     document.AddMember("playersLifePoint", gameState.playersLifePoint, document.GetAllocator());
     document.AddMember("oponentsLifePoint", gameState.opponentsLifePoint, document.GetAllocator());
@@ -66,6 +74,7 @@ std::string packGameStateJSON(const GameState gameState) {
 
     document.AddMember("position", positionJson, document.GetAllocator());
 
+    // Bullet
     if (gameState.newBullet) {
         rapidjson::Value bulletJson(rapidjson::kObjectType);
 
@@ -83,6 +92,19 @@ std::string packGameStateJSON(const GameState gameState) {
         document.AddMember("bullet", bulletJson, document.GetAllocator());
     }
 
+    // Egg
+    rapidjson::Value eggJson(rapidjson::kObjectType);
+
+    rapidjson::Value eggPositionJson(rapidjson::kObjectType);
+    eggPositionJson.AddMember("x", gameState.eggPosition.x, document.GetAllocator());
+    eggPositionJson.AddMember("y", gameState.eggPosition.y, document.GetAllocator());
+
+    eggJson.AddMember("position", eggPositionJson, document.GetAllocator());
+    eggJson.AddMember("lifePoint", gameState.eggLifePoint, document.GetAllocator());
+
+    document.AddMember("egg", eggJson, document.GetAllocator());
+
+    // Flush
     rapidjson::StringBuffer buffer;
     rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
     document.Accept(writer);
