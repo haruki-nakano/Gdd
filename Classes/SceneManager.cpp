@@ -39,7 +39,7 @@ SceneManager::~SceneManager() {
 void SceneManager::enterGameScene(bool networked) {
     Scene *scene = Scene::createWithPhysics();
 #if defined(COCOS2D_DEBUG)
-    //scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+// scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 #endif
     _gameScene = GameScene::create();
 
@@ -54,7 +54,7 @@ void SceneManager::enterGameScene(bool networked) {
 
     scene->addChild(_gameScene);
 
-    Director::getInstance()->pushScene(scene);
+    Director::getInstance()->pushScene(TransitionFade::create(0.5f, scene, Color3B::BLACK));
 }
 
 void SceneManager::returnToLobby() {
