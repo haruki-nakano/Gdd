@@ -27,6 +27,9 @@ public:
 
     Player *getPlayer();
     Player *getOpponent();
+    // FIXME: Improve
+    // replace around getOpponent
+    // std::vector<Player *> getPlayers();
     Egg *getEgg();
     void setState(JSONPacker::GameState state);
     void initializePlayersPosition(bool isHost);

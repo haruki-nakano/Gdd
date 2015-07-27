@@ -49,6 +49,7 @@ protected:
     Stage *_stage;
     LifeBar *_playerLifeBar;
     LifeBar *_opponentsLifeBar;
+    
 
     // Networking
     void sendGameStateOverNetwork(EventType event, Bullet *newBullet = nullptr, bool newEgg = false);

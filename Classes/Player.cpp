@@ -20,6 +20,8 @@ bool Player::init() {
         return false;
     }
 
+    // FIXME: Improve
+    // Use initialier
     _imgLeft = Director::getInstance()->getTextureCache()->addImage("playerLeft.png");
     _imgUp = Director::getInstance()->getTextureCache()->addImage("playerUp.png");
     _imgRight = Director::getInstance()->getTextureCache()->addImage("playerRight.png");
@@ -32,7 +34,9 @@ bool Player::init() {
     _moving = MoveState::STOP;
     _directionVec = Vec2::ZERO;
 
-    _lifePoint = MAX_PLAYER_LIFE;
+    _lifePoint = INITIAL_PLAYER_LIFE;
+    _hitCount = 0;
+    _healCount = 0;
 
     _isSwimming = false;
 
@@ -171,19 +175,45 @@ Bullet *Player::createBullet() {
     return bullet;
 }
 
-void Player::hitShot() {
-    setLifePoint(getLifePoint() - 1);
+void Player::bulletHits(Bullet *bullet) {
+    _hitCount++;
+    updateLifePoint();
 }
 
-void Player::setLifePoint(int lifePoint) {
-    int clampPoint = MAX(MIN(lifePoint, MAX_PLAYER_LIFE), 0);
-    _lifePoint = clampPoint;
+void Player::setHitCount(int hitCount) {
+    _hitCount = hitCount;
+    updateLifePoint();
+}
+
+int Player::getHitCount() {
+    return _hitCount;
+}
+
+void Player::gotHeal() {
+    // FIXME: Do not use magic number
+    int heal = MIN(5, INITIAL_PLAYER_LIFE - getLifePoint());
+    _healCount += heal;
+    updateLifePoint();
+}
+
+void Player::setHealCount(int healCount) {
+    _healCount = healCount;
+    updateLifePoint();
+}
+
+int Player::getHealCount() {
+    return _healCount;
+}
+
+void Player::updateLifePoint() {
+    _lifePoint = INITIAL_PLAYER_LIFE - _hitCount + _healCount;
+    // Clamp
+    _lifePoint = MAX(MIN(_lifePoint, INITIAL_PLAYER_LIFE), 0);
 
     if (_lifeBar) {
-        _lifeBar->setLifePoint(clampPoint);
+        _lifeBar->setLifePoint(_lifePoint);
     }
 }
-
 int Player::getLifePoint() {
     return _lifePoint;
 }

@@ -104,8 +104,7 @@ void GameScene::update(float dt) {
 
     //  Host is in charge of generating egg.
     if (_isHost && _stage->getEgg()->getLifePoint() <= 0 && _stage->getEgg()->getLastBrokenTime() + delta < clock()) {
-        // FIXME: Critical
-        delta = random(5, 20) * CLOCKS_PER_SEC;
+        delta = random(MIN_EGG_INTERVAL_SEC, MAX_EGG_INTERVAL_SEC) * CLOCKS_PER_SEC;
         _stage->generateEgg();
         sendGameStateOverNetwork(EventType::APPEAR_EGG, nullptr, true);
     }
@@ -248,7 +247,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
         bullet = dynamic_cast<Bullet *>(nodeA);
     }
     if (player && bullet) {
-        player->hitShot();
+        player->bulletHits(bullet);
         bullet->setLifePoint(-1.0f);
         if (player->getLifePoint() <= 0) {
             gameOver();
@@ -265,7 +264,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
         bullet = dynamic_cast<Bullet *>(nodeA);
     }
     if (player && bullet) {
-        player->hitShot();
+        player->bulletHits(bullet);
         bullet->setLifePoint(-1.0f);
         if (player->getLifePoint() <= 0) {
             gameOver();
@@ -298,13 +297,19 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
     if (tagA == TAG_EGG && (tagB == TAG_PLAYER_BULLET || tagB == TAG_OPPOPENT_BULLET)) {
         egg = dynamic_cast<Egg *>(nodeA);
         bullet = dynamic_cast<Bullet *>(nodeB);
+        player = tagB == TAG_PLAYER_BULLET ? _stage->getPlayer() : _stage->getOpponent();
     } else if (tagB == TAG_EGG && (tagA == TAG_PLAYER_BULLET || tagA == TAG_OPPOPENT_BULLET)) {
         egg = dynamic_cast<Egg *>(nodeB);
         bullet = dynamic_cast<Bullet *>(nodeA);
+        player = tagA == TAG_PLAYER_BULLET ? _stage->getPlayer() : _stage->getOpponent();
     }
     if (egg && bullet) {
         bullet->setLifePoint(-1.0f);
         egg->setLifePoint(egg->getLifePoint() - 1);
+        // Egg is broken
+        if (egg->getLifePoint() == 0) {
+            player->gotHeal();
+        }
         sendGameStateOverNetwork(EventType::HIT_EGG);
         return false;
     }
@@ -336,11 +341,11 @@ void GameScene::receivedData(const void *data, unsigned long length) {
 
     JSONPacker::GameState state = JSONPacker::unpackGameStateJSON(json);
 
-    if (state.playersLifePoint <= 0 || state.opponentsLifePoint <= 0) {
+    _stage->setState(state);
+
+    if (_stage->getPlayer()->getLifePoint() <= 0 || _stage->getOpponent()->getLifePoint() <= 0) {
         gameOver();
     }
-
-    _stage->setState(state);
 }
 
 void GameScene::sendGameStateOverNetwork(EventType event, Bullet *newBullet, bool newEgg) {
@@ -352,8 +357,10 @@ void GameScene::sendGameStateOverNetwork(EventType event, Bullet *newBullet, boo
     state.name = NetworkingWrapper::getDeviceName();
     state.opponentPosition = _stage->getPlayer()->getPosition();
     state.opponentMoveState = _stage->getPlayer()->getMoveState();
-    state.playersLifePoint = _stage->getOpponent()->getLifePoint();
-    state.opponentsLifePoint = _stage->getPlayer()->getLifePoint();
+    state.playersHitCount = _stage->getOpponent()->getHitCount();
+    state.opponentsHitCount = _stage->getPlayer()->getHitCount();
+    state.playersHealCount = _stage->getOpponent()->getHealCount();
+    state.opponentsHealCount = _stage->getPlayer()->getHealCount();
     state.newBullet = newBullet;
 
     Egg *egg = _stage->getEgg();

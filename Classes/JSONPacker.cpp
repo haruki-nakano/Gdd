@@ -26,8 +26,10 @@ GameState unpackGameStateJSON(std::string json) {
     gameState.name = document["name"].GetString();
     gameState.opponentMoveState = static_cast<MoveState>(document["moveState"].GetInt());
     gameState.event = static_cast<EventType>(document["eventType"].GetInt());
-    gameState.playersLifePoint = document["playersLifePoint"].GetInt();
-    gameState.opponentsLifePoint = document["oponentsLifePoint"].GetInt();
+    gameState.playersHitCount = document["playersHitCount"].GetInt();
+    gameState.opponentsHitCount = document["oponentsHitCount"].GetInt();
+    gameState.playersHealCount = document["playersHealCount"].GetInt();
+    gameState.opponentsHealCount = document["oponentsHealCount"].GetInt();
 
     rapidjson::Value &position = document["position"];
     float x = (float)position["x"].GetDouble();
@@ -65,8 +67,10 @@ std::string packGameStateJSON(const GameState gameState) {
     document.AddMember("name", gameState.name.c_str(), document.GetAllocator());
     document.AddMember("eventType", static_cast<int>(gameState.event), document.GetAllocator());
     document.AddMember("moveState", static_cast<int>(gameState.opponentMoveState), document.GetAllocator());
-    document.AddMember("playersLifePoint", gameState.playersLifePoint, document.GetAllocator());
-    document.AddMember("oponentsLifePoint", gameState.opponentsLifePoint, document.GetAllocator());
+    document.AddMember("playersHitCount", gameState.playersHitCount, document.GetAllocator());
+    document.AddMember("oponentsHitCount", gameState.opponentsHitCount, document.GetAllocator());
+    document.AddMember("playersHealCount", gameState.playersHealCount, document.GetAllocator());
+    document.AddMember("oponentsHealCount", gameState.opponentsHealCount, document.GetAllocator());
 
     rapidjson::Value positionJson(rapidjson::kObjectType);
     positionJson.AddMember("x", gameState.opponentPosition.x, document.GetAllocator());

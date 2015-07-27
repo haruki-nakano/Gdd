@@ -18,7 +18,7 @@ bool Bullet::init() {
     }
 
     _direction = Vec2(0.0f, 0.0f);
-    _lifePoint = DEFAULT_BULLET_LIFE;
+    _lifePoint = INITIAL_BULLET_LIFE;
 
     return true;
 }

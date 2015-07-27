@@ -47,7 +47,7 @@ void SceneManager::enterGameScene(bool networked) {
     if (networked) {
         std::vector<std::string> peers = _networkingWrapper->getPeerList();
         auto me = _networkingWrapper->getDeviceName();
-        // Fix here
+        // FIXME: Sometime peers size gets zero.
         isHost = peers[0].compare(me) > 0;
     }
     _gameScene->setNetworkedSession(networked, isHost);
@@ -95,6 +95,12 @@ void SceneManager::stateChanged(ConnectionState state) {
             break;
         case ConnectionState::CONNECTED:
             _networkingWrapper->stopAdvertisingAvailability();
+            /*
+            // FIXME: this is ugly hack
+            CCLOG(_networkingWrapper->getPeerList().size() != 0 ? "Success" : "Failed");
+            std::chrono::seconds duration(1);
+            std::this_thread::sleep_for(duration);
+            */
             enterGameScene(true);
             break;
     }

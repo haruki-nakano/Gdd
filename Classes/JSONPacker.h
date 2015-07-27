@@ -19,8 +19,10 @@
 namespace JSONPacker {
 struct GameState {
     std::string name;
-    int playersLifePoint;
-    int opponentsLifePoint;
+    int playersHitCount;
+    int opponentsHitCount;
+    int playersHealCount;
+    int opponentsHealCount;
     int eggLifePoint;
     cocos2d::Vec2 eggPosition;
     cocos2d::Vec2 opponentPosition;

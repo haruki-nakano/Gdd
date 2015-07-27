@@ -198,8 +198,12 @@ void Stage::setState(JSONPacker::GameState state) {
     }
     opponent->setMoveState(state.opponentMoveState);
 
-    player->setLifePoint(MIN(state.playersLifePoint, player->getLifePoint()));
-    opponent->setLifePoint(MIN(state.opponentsLifePoint, opponent->getLifePoint()));
+    // We accept false positive due to the network deplay
+    player->setHitCount(MAX(state.playersHitCount, player->getHitCount()));
+    opponent->setHitCount(MAX(state.opponentsHitCount, opponent->getHitCount()));
+
+    player->setHealCount(MAX(state.playersHealCount, player->getHealCount()));
+    opponent->setHealCount(MAX(state.opponentsHealCount, opponent->getHealCount()));
 
     if (state.newBullet) {
         addBullet(state.newBullet);

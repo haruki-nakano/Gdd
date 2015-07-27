@@ -24,7 +24,7 @@ public:
 
     bool isCorrectUpdate(const cocos2d::Vec2 position);
     bool isSwimming();
-    
+
     // Fix argument
     void setIsSwimming(bool swimming, bool opponent);
 
@@ -37,14 +37,22 @@ public:
     // Players action
     Bullet *createBullet();
 
-    void hitShot();
-    void setLifePoint(int lifePoints);
+    void bulletHits(Bullet *bullet);
+    void setHitCount(int hitCount);
+    int getHitCount();
+
+    void gotHeal();
+    void setHealCount(int healCount);
+    int getHealCount();
+
     int getLifePoint();
     void setLifeBar(LifeBar *lifeBar);
 
 private:
     bool init() override;
     void onEnter() override;
+
+    void updateLifePoint();
 
     LifeBar *_lifeBar;
     cocos2d::Vec2 _directionVec;
@@ -53,6 +61,8 @@ private:
     std::string _name;
     int _lifePoint;
     bool _isSwimming;
+    int _hitCount;
+    int _healCount;
 
     // PlayerImages
     cocos2d::Texture2D *_imgLeft;
