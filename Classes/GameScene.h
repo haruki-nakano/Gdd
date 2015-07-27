@@ -26,15 +26,10 @@ public:
     void setNetworkedSession(bool networkedSession, bool isHost);
     void receivedData(const void *data, unsigned long length);
 
-    // Utility
-    static MoveState convertVec2ToMoveState(const cocos2d::Vec2 v);
-
 protected:
     // Lifecycle
     bool init() override;
     void onEnter() override;
-    void setupTouchHandling();
-    bool onContactBegin(cocos2d::PhysicsContact &contact);
 
     // Game Logic
     void setGameActive(bool active);
@@ -42,7 +37,9 @@ protected:
     void update(float dt) override;
     void gameOver();
 
-    // UI
+    // Event
+    void setupTouchHandling();
+    bool onContactBegin(cocos2d::PhysicsContact &contact);
     void backButtonPressed(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType eEventType);
 
     bool _active;

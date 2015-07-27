@@ -57,7 +57,7 @@ void Player::onEnter() {
 }
 
 bool Player::isCorrectUpdate(const Vec2 position) {
-    return GameScene::convertVec2ToMoveState(position - this->getPosition()) == _moving;
+    return MathUtils::convertVec2ToMoveState(position - this->getPosition()) == _moving;
 }
 
 bool Player::isSwimming() {

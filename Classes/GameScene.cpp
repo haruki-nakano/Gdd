@@ -31,9 +31,11 @@ bool GameScene::init() {
 
     _active = false;
     _networkedSession = false;
+    _isHost = true;
 
     return true;
 }
+
 void GameScene::onEnter() {
     Node::onEnter();
 
@@ -115,7 +117,7 @@ void GameScene::setupTouchHandling() {
         float distance = touchPos.distance(firstTouchPos);
         // FIXME: Improvement
         distance = sqrtf(distance);
-        MoveState move = convertVec2ToMoveState((touchPos - firstTouchPos) / distance);
+        MoveState move = MathUtils::convertVec2ToMoveState((touchPos - firstTouchPos) / distance);
         MoveState lastMoveState = _stage->getPlayer()->getMoveState();
         _stage->getPlayer()->setMoveState(move);
         if (_networkedSession && (move != lastMoveState || lastSyncPos.distance(touchPos) > 10.0f)) {
@@ -279,6 +281,8 @@ void GameScene::receivedData(const void *data, unsigned long length) {
 void GameScene::sendGameStateOverNetwork(EventType event, Bullet *newBullet, bool newEgg) {
     JSONPacker::GameState state;
 
+    // FIXME: Improve
+    // What contents should be send?
     state.event = event;
     state.name = NetworkingWrapper::getDeviceName();
     state.opponentPosition = _stage->getPlayer()->getPosition();
@@ -358,36 +362,5 @@ void GameScene::gameOver() {
 void GameScene::backButtonPressed(cocos2d::Ref *pSender, ui::Widget::TouchEventType eEventType) {
     if (eEventType == ui::Widget::TouchEventType::ENDED) {
         SceneManager::getInstance()->returnToLobby();
-    }
-}
-
-#pragma mark -
-#pragma mark UtilityMethods
-
-MoveState GameScene::convertVec2ToMoveState(const cocos2d::Vec2 v) {
-    if (v.distance(Vec2(0.0f, 0.0f)) < 1.0f) {
-        return MoveState::STOP;
-    }
-
-    float angle = MathUtils::degreesAngle(v);
-
-    if (angle < (-180.0f + 22.5f) || (180.0f - 22.5f) < angle) {
-        return MoveState::DOWN;
-    } else if ((-135.0f - 22.5f) <= angle && angle < (-135.0f + 22.5f)) {
-        return MoveState::LOWER_LEFT;
-    } else if ((-90.0f - 22.5f) <= angle && angle < (-90.0f + 22.5f)) {
-        return MoveState::LEFT;
-    } else if ((-45.0f - 22.5f) <= angle && angle < (-45.0f + 22.5f)) {
-        return MoveState::UPPER_LEFT;
-    } else if ((0.0f - 22.5f) <= angle && angle < (0.0f + 22.5f)) {
-        return MoveState::UP;
-    } else if ((45.0f - 22.5f) <= angle && angle < (45.0f + 22.5f)) {
-        return MoveState::UPPER_RIGHT;
-    } else if ((90.0f - 22.5f) <= angle && angle < (90.0f + 22.5f)) {
-        return MoveState::RIGHT;
-    } else if ((135.0f - 22.5f) <= angle && angle < (135.0f + 22.5f)) {
-        return MoveState::LOWER_RIGHT;
-    } else {
-        return MoveState::STOP;
     }
 }
