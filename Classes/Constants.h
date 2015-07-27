@@ -12,14 +12,15 @@
 static const std::string CODE_NAME = "Yuzu";
 static const std::string GAME_NAME = "Rubber Duck Wars";
 
-static const std::string DEFAULT_STAGE_FILE = "stage2.tmx";
+static const std::string DEFAULT_STAGE_FILE = "stage1.tmx";
 static const std::string DEFAULT_BACKGROUND_LAYER_NAME = "background";
 static const std::string DEFAULT_COLLISION_LAYER_NAME = "collision";
 
 // Game Options
 static const bool USE_SIMPLE_AIMING = false;
 static const bool ALLOW_MORE_THAN_TWO_TAP = false;
-static const bool ALLOW_WATER_SHOT = true;
+static const bool ALLOW_WATER_SHOT = false;
+static const bool HIGH_SPEED_IN_WATER = true;
 
 static const int MAX_PLAYERS = 2;
 

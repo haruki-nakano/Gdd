@@ -72,6 +72,7 @@ void Player::setIsSwimming(bool swimming, bool isOpponent) {
     int waterOpacity = isOpponent ? 0 : 128;
     if (_isSwimming != swimming) {
         this->setOpacity(swimming ? waterOpacity : 255);
+        setMoveState(getMoveState());
     }
     _isSwimming = swimming;
 }
@@ -87,51 +88,45 @@ void Player::setMoveState(const MoveState MoveState) {
             this->setTexture(_imgLeft);
             // FIXME: Improvement
             _directionVec = Vec2(-1.18f, 0.0f);
-            this->getPhysicsBody()->setVelocity(_directionVec * DEFAULT_PLAYER_SPEED);
             break;
 
         case MoveState::RIGHT:
             this->setTexture(_imgRight);
             _directionVec = Vec2(1.18f, 0.0f);
-            this->getPhysicsBody()->setVelocity(_directionVec * DEFAULT_PLAYER_SPEED);
             break;
 
         case MoveState::UP:
             this->setTexture(_imgUp);
             _directionVec = Vec2(0.0f, 0.75f);
-            this->getPhysicsBody()->setVelocity(_directionVec * DEFAULT_PLAYER_SPEED);
             break;
 
         case MoveState::DOWN:
             this->setTexture(_imgDown);
             _directionVec = Vec2(0.0f, -0.75f);
-            this->getPhysicsBody()->setVelocity(_directionVec * DEFAULT_PLAYER_SPEED);
             break;
 
         case MoveState::UPPER_LEFT:
             this->setTexture(_imgUpperLeft);
             _directionVec = Vec2(-1.0f, 0.5f);
-            this->getPhysicsBody()->setVelocity(_directionVec * DEFAULT_PLAYER_SPEED);
             break;
 
         case MoveState::UPPER_RIGHT:
             this->setTexture(_imgUpperRight);
             _directionVec = Vec2(1.0f, 0.5f);
-            this->getPhysicsBody()->setVelocity(_directionVec * DEFAULT_PLAYER_SPEED);
             break;
 
         case MoveState::LOWER_LEFT:
             this->setTexture(_imgLowerLeft);
             _directionVec = Vec2(-1.0f, -0.5f);
-            this->getPhysicsBody()->setVelocity(_directionVec * DEFAULT_PLAYER_SPEED);
             break;
 
         case MoveState::LOWER_RIGHT:
             this->setTexture(_imgLowerRight);
             _directionVec = Vec2(1.0f, -0.5f);
-            this->getPhysicsBody()->setVelocity(_directionVec * DEFAULT_PLAYER_SPEED);
             break;
     }
+    this->getPhysicsBody()->setVelocity(_directionVec * DEFAULT_PLAYER_SPEED *
+                                        (isSwimming() && HIGH_SPEED_IN_WATER ? 1.8f : 1.0f));
 }
 
 MoveState Player::getMoveState() {
@@ -216,7 +211,7 @@ void Player::updateLifePoint() {
     }
 
     if (lastLifePoint > _lifePoint) {
-        Sequence* blink = Sequence::create(Blink::create(0.4f, 4), Show::create(), NULL);
+        Sequence *blink = Sequence::create(Blink::create(0.4f, 4), Show::create(), NULL);
         this->runAction(blink);
     }
 }

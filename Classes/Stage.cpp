@@ -162,8 +162,8 @@ void Stage::addBullet(Bullet *bullet) {
 
 void Stage::generateEgg() {
     // FIXME: Critical
-    float x = (float)random(1, (int)_size.width);
-    float y = (float)random(1, (int)_size.height);
+    float x = (float)random(1, (int)_size.width-1);
+    float y = (float)random(1, (int)_size.height-1);
     Vec2 coordinate = Vec2(x, y);
     if (!isCorrectTileCoordinate(coordinate) || _backgroundLayer->getTileGIDAt(coordinate) >= 8) {
         return;
