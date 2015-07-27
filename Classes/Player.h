@@ -35,7 +35,7 @@ public:
     Direction getDirection();
 
     // Players action
-    std::vector<Bullet *> createBullets(cocos2d::Vec2 touchPos);
+    std::vector<Bullet *> createBullets(cocos2d::Vec2 touchPos, cocos2d::Vec2 stagePos);
 
     void bulletHits(Bullet *bullet);
     void setHitCount(int hitCount);

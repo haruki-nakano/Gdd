@@ -161,20 +161,19 @@ Direction Player::getDirection() {
     return _direction;
 }
 
-std::vector<Bullet *> Player::createBullets(Vec2 touchPos) {
+std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
     std::vector<Bullet *> bullets;
-    for (int i = 1; i <= 3; i++) {
+    for (int i = 0; i < 3; i++) {
         Bullet *bullet = Bullet::create();
         bullet->setPosition(this->getPosition());
-        bullet->setDirection(Vec2(random(-1.0f, 1.0f), random(-1.0f, 1.0f)));
-        /*
         bullet->setDirection(_directionVec);
         if (!USE_SIMPLE_AIMING) {
-            Vec2 playerVisiblePos = this->getPosition();
+            Vec2 playerVisiblePos = this->getPosition() + stagePos;
             float distance = touchPos.distance(playerVisiblePos);
-            bullet->setDirection((touchPos - playerVisiblePos - Vec2(i * 20, i * 20)) / distance);
+            Vec2 v = (touchPos - playerVisiblePos) / distance;
+            float angle = MathUtils::degreesAngle(v);
+            bullet->setDirection(MathUtils::forDegreesAngle(angle - 10.0f * (i - 1)));
         }
-         */
         bullet->setTag(this->getTag() == TAG_PLAYER ? TAG_PLAYER_BULLET : TAG_OPPOPENT_BULLET);
         bullets.push_back(bullet);
     }
