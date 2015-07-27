@@ -23,6 +23,7 @@ class GameScene : public cocos2d::Node {
 public:
     CREATE_FUNC(GameScene);
 
+    // Networking
     void setNetworkedSession(bool networkedSession, bool isHost);
     void receivedData(const void *data, unsigned long length);
 

@@ -86,6 +86,62 @@ void GameScene::onEnter() {
     setGameActive(true);
 }
 
+#pragma mark -
+#pragma mark Game Logics
+
+void GameScene::setGameActive(bool active) {
+    _active = active;
+    if (active) {
+        this->scheduleUpdate();
+    } else {
+        this->unscheduleUpdate();
+    }
+}
+
+void GameScene::update(float dt) {
+    static clock_t delta;
+    _stage->step(dt);
+
+    //  Host is in charge of generating egg.
+    if (_isHost && _stage->getEgg()->getLifePoint() <= 0 && _stage->getEgg()->getLastBrokenTime() + delta < clock()) {
+        // FIXME: Critical
+        delta = random(5, 20) * CLOCKS_PER_SEC;
+        _stage->generateEgg();
+        sendGameStateOverNetwork(EventType::APPEAR_EGG, nullptr, true);
+    }
+}
+
+void GameScene::gameOver() {
+    this->setGameActive(false);
+
+    if (_networkedSession) {
+        sendGameStateOverNetwork(EventType::GAME_OVER);
+        sendGameStateOverNetwork(EventType::GAME_OVER);
+        sendGameStateOverNetwork(EventType::GAME_OVER);
+        sendGameStateOverNetwork(EventType::GAME_OVER);
+    }
+
+    int playerLife = _stage->getPlayer()->getLifePoint();
+    int opponentLife = _stage->getOpponent()->getLifePoint();
+    std::string messageContent;
+    std::string playerScoreString = StringUtils::toString(playerLife);
+    std::string opponentScoreString = StringUtils::toString(opponentLife);
+    if (playerLife > opponentLife) {
+        messageContent = "You win! (" + playerScoreString + ", " + opponentScoreString + ")";
+    } else if (opponentLife > playerLife) {
+        messageContent = "You lose... (" + playerScoreString + ", " + opponentScoreString + ")";
+    } else {
+        messageContent = "Draw";
+    }
+
+    MessageBox(messageContent.c_str(), "GAMEOVER");
+
+    SceneManager::getInstance()->returnToLobby();
+}
+
+#pragma mark -
+#pragma mark Event
+
 void GameScene::setupTouchHandling() {
     static Vec2 firstTouchPos;
     static Vec2 lastSyncPos;
@@ -258,7 +314,16 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
 }
 
 #pragma mark -
-#pragma mark Networks
+#pragma mark UI Methods
+
+void GameScene::backButtonPressed(cocos2d::Ref *pSender, ui::Widget::TouchEventType eEventType) {
+    if (eEventType == ui::Widget::TouchEventType::ENDED) {
+        SceneManager::getInstance()->returnToLobby();
+    }
+}
+
+#pragma mark -
+#pragma mark Networking
 
 void GameScene::setNetworkedSession(bool networkedSession, bool isHost) {
     _networkedSession = networkedSession;
@@ -301,66 +366,4 @@ void GameScene::sendGameStateOverNetwork(EventType event, Bullet *newBullet, boo
 
     std::string json = JSONPacker::packGameStateJSON(state);
     SceneManager::getInstance()->sendData(json.c_str(), json.length());
-}
-
-#pragma mark -
-#pragma mark Game Logics
-
-void GameScene::setGameActive(bool active) {
-    _active = active;
-    if (active) {
-        this->scheduleUpdate();
-    } else {
-        this->unscheduleUpdate();
-    }
-}
-
-void GameScene::update(float dt) {
-    static clock_t delta;
-    _stage->step(dt);
-
-    //  Host is in charge of generating egg.
-    if (_isHost && _stage->getEgg()->getLifePoint() <= 0 && _stage->getEgg()->getLastBrokenTime() + delta < clock()) {
-        // FIXME: Critical
-        delta = random(5, 20) * CLOCKS_PER_SEC;
-        _stage->generateEgg();
-        sendGameStateOverNetwork(EventType::APPEAR_EGG, nullptr, true);
-    }
-}
-
-void GameScene::gameOver() {
-    this->setGameActive(false);
-
-    if (_networkedSession) {
-        sendGameStateOverNetwork(EventType::GAME_OVER);
-        sendGameStateOverNetwork(EventType::GAME_OVER);
-        sendGameStateOverNetwork(EventType::GAME_OVER);
-        sendGameStateOverNetwork(EventType::GAME_OVER);
-    }
-
-    int playerLife = _stage->getPlayer()->getLifePoint();
-    int opponentLife = _stage->getOpponent()->getLifePoint();
-    std::string messageContent;
-    std::string playerScoreString = StringUtils::toString(playerLife);
-    std::string opponentScoreString = StringUtils::toString(opponentLife);
-    if (playerLife > opponentLife) {
-        messageContent = "You win! (" + playerScoreString + ", " + opponentScoreString + ")";
-    } else if (opponentLife > playerLife) {
-        messageContent = "You lose... (" + playerScoreString + ", " + opponentScoreString + ")";
-    } else {
-        messageContent = "Draw";
-    }
-
-    MessageBox(messageContent.c_str(), "GAMEOVER");
-
-    SceneManager::getInstance()->returnToLobby();
-}
-
-#pragma mark -
-#pragma mark UI Methods
-
-void GameScene::backButtonPressed(cocos2d::Ref *pSender, ui::Widget::TouchEventType eEventType) {
-    if (eEventType == ui::Widget::TouchEventType::ENDED) {
-        SceneManager::getInstance()->returnToLobby();
-    }
 }
