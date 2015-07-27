@@ -30,9 +30,8 @@ void Egg::onEnter() {
     this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 
     // FIXME: Critical
-    PhysicsMaterial material = PhysicsMaterial(10000.0, 0.0f, 10000.0f);
-    PhysicsBody *physics = PhysicsBody::createBox(this->getBoundingBox().size, material);
-    physics->setDynamic(true);
+    PhysicsBody *physics = PhysicsBody::createBox(this->getBoundingBox().size);
+    physics->setDynamic(false);
     physics->setGravityEnable(false);
     physics->setRotationEnable(false);
     physics->setCategoryBitmask(CATEGORY_MASK_EGG);

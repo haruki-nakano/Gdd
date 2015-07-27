@@ -165,6 +165,7 @@ void GameScene::setupTouchHandling() {
 
     touchListener->onTouchMoved = [&](Touch *touch, Event *event) {
         if (touch->getID() != firstFingerId) {
+            CCLOG("not 1st");
             return;
         }
         Vec2 touchPos = this->convertTouchToNodeSpace(touch);
@@ -186,21 +187,16 @@ void GameScene::setupTouchHandling() {
         if ((!_stage->getPlayer()->isSwimming() || ALLOW_WATER_SHOT) && (isTap || touch->getID() != firstFingerId) &&
             (ALLOW_MORE_THAN_TWO_TAP || numFingers < 3)) {
             // FIXME: Improvement
-            Bullet *bullet = _stage->getPlayer()->createBullet();
-            if (!USE_SIMPLE_AIMING) {
-                Vec2 touchPos = this->convertTouchToNodeSpace(touch);
-                auto playerPos = _stage->getPlayer()->getPosition();
-                auto stagePos = _stage->getPosition();
-                Vec2 playerVisiblePos = playerPos + stagePos;
-                float distance = touchPos.distance(playerVisiblePos);
-                bullet->setDirection((touchPos - playerVisiblePos) / distance);
+            Vec2 touchPos = this->convertTouchToNodeSpace(touch);
+            std::vector<Bullet *> bullets = _stage->getPlayer()->createBullets(touchPos);
+            for (Bullet *bullet : bullets) {
+                _stage->addBullet(bullet);
+                if (_networkedSession) {
+                    // FIXME: Improvement
+                    sendGameStateOverNetwork(EventType::FIRE_BULLT, bullet);
+                }
             }
-            _stage->addBullet(bullet);
-            if (_networkedSession) {
-                // FIXME: Improvement
-                sendGameStateOverNetwork(EventType::FIRE_BULLT, bullet);
-            }
-        } else {
+        } else if (!isTap && touch->getID() == firstFingerId) {
             _stage->getPlayer()->setMoveState(MoveState::STOP);
             if (_networkedSession) {
                 // FIXME: Improvement
