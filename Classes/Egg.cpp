@@ -29,7 +29,8 @@ void Egg::onEnter() {
 
     this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 
-    PhysicsBody *physics = PhysicsBody::createBox(this->getBoundingBox().size);
+    PhysicsMaterial material = PhysicsMaterial(10000.0, 0.0f, 10000.0f);
+    PhysicsBody *physics = PhysicsBody::createBox(this->getBoundingBox().size, material);
     physics->setDynamic(true);
     physics->setGravityEnable(false);
     physics->setRotationEnable(false);
@@ -48,6 +49,7 @@ int Egg::getLifePoint() {
 }
 
 void Egg::setLifePoint(int lifePoint) {
+    int lastLifePoint = _lifePoint;
     _lifePoint = lifePoint;
     if (lifePoint <= 0) {
         // Set disable if egg is broken
@@ -57,6 +59,10 @@ void Egg::setLifePoint(int lifePoint) {
         _lastBrokenTime = clock();
     } else {
         setVisible(true);
+        if (lastLifePoint > lifePoint) {
+            Sequence *blink = Sequence::create(Blink::create(0.4f, 4), Show::create(), NULL);
+            this->runAction(blink);
+        }
     }
 }
 

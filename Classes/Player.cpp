@@ -206,12 +206,18 @@ int Player::getHealCount() {
 }
 
 void Player::updateLifePoint() {
+    int lastLifePoint = _lifePoint;
     _lifePoint = INITIAL_PLAYER_LIFE - _hitCount + _healCount;
     // Clamp
     _lifePoint = MAX(MIN(_lifePoint, INITIAL_PLAYER_LIFE), 0);
 
     if (_lifeBar) {
         _lifeBar->setLifePoint(_lifePoint);
+    }
+
+    if (lastLifePoint > _lifePoint) {
+        Sequence* blink = Sequence::create(Blink::create(0.4f, 4), Show::create(), NULL);
+        this->runAction(blink);
     }
 }
 int Player::getLifePoint() {
