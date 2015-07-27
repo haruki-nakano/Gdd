@@ -23,11 +23,13 @@ static const bool ALLOW_WATER_SHOT = true;
 
 static const int MAX_PLAYERS = 2;
 
+// FIXME: Improvement
 static const int MAX_PLAYER_LIFE = 32;
 static const float DEFAULT_BULLET_LIFE = 0.32;
+static const float INITIAL_EGG_LIFE = 10;
 
 static const float DEFAULT_BULLET_SPEED = 1000.0f;
-static const float DEFAULT_PLAYER_SPEED = 250.0f;
+static const float DEFAULT_PLAYER_SPEED = 200.0f;
 
 static const float TILE_WIDTH = 64.0f;
 static const float TILE_HEIGHT = 32.0f;

@@ -51,7 +51,7 @@ void Stage::onEnter() {
             auto tile = collisionLayer->getTileAt(Vec2(x, y));
             if (tile) {
                 tile->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-                // TODO: We should use Polygon instead of EdgePolygon
+                // FIXME: Critical
                 Vec2 v[4];
                 Vec2 s = Vec2(32, 16);
                 v[0] = Vec2(-s.x, 0);
@@ -161,7 +161,7 @@ void Stage::addBullet(Bullet *bullet) {
 }
 
 void Stage::generateEgg() {
-    // TODO: Fix here
+    // FIXME: Critical
     float x = (float)random(1, (int)_size.width);
     float y = (float)random(1, (int)_size.height);
     Vec2 coordinate = Vec2(x, y);
@@ -172,8 +172,7 @@ void Stage::generateEgg() {
     auto sp = _backgroundLayer->getTileAt(coordinate);
     Vec2 pos = sp->getPosition();
     _egg->setPosition(pos);
-    // TODO
-    _egg->setLifePoint(10);
+    _egg->setLifePoint(INITIAL_EGG_LIFE);
 }
 
 #pragma mark -

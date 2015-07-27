@@ -113,7 +113,7 @@ void GameScene::setupTouchHandling() {
         Vec2 touchPos = this->convertTouchToNodeSpace(touch);
         isTap = false;
         float distance = touchPos.distance(firstTouchPos);
-        // FIXME: a
+        // FIXME: Improvement
         distance = sqrtf(distance);
         MoveState move = convertVec2ToMoveState((touchPos - firstTouchPos) / distance);
         MoveState lastMoveState = _stage->getPlayer()->getMoveState();
@@ -128,7 +128,7 @@ void GameScene::setupTouchHandling() {
     touchListener->onTouchEnded = [&](Touch *touch, Event *event) {
         if ((!_stage->getPlayer()->isSwimming() || ALLOW_WATER_SHOT) && (isTap || touch->getID() != firstFingerId) &&
             (ALLOW_MORE_THAN_TWO_TAP || numFingers < 3)) {
-            // TODO: Fix here for the game balance
+            // FIXME: Improvement
             Bullet *bullet = _stage->getPlayer()->createBullet();
             if (!USE_SIMPLE_AIMING) {
                 Vec2 touchPos = this->convertTouchToNodeSpace(touch);
@@ -140,13 +140,13 @@ void GameScene::setupTouchHandling() {
             }
             _stage->addBullet(bullet);
             if (_networkedSession) {
-                // TODO: Try here many times
+                // FIXME: Improvement
                 sendGameStateOverNetwork(EventType::FIRE_BULLT, bullet);
             }
         } else {
             _stage->getPlayer()->setMoveState(MoveState::STOP);
             if (_networkedSession) {
-                // TODO: Is it effective?
+                // FIXME: Improvement
                 sendGameStateOverNetwork(EventType::STOP_PLAYERS_MOVING);
                 sendGameStateOverNetwork(EventType::STOP_PLAYERS_MOVING);
                 sendGameStateOverNetwork(EventType::STOP_PLAYERS_MOVING);
@@ -240,11 +240,9 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
     if (tagA == TAG_EGG && (tagB == TAG_PLAYER_BULLET || tagB == TAG_OPPOPENT_BULLET)) {
         egg = dynamic_cast<Egg *>(nodeA);
         bullet = dynamic_cast<Bullet *>(nodeB);
-        egg->setOwner(tagB == TAG_PLAYER_BULLET ? _stage->getPlayer() : _stage->getOpponent());
     } else if (tagB == TAG_EGG && (tagA == TAG_PLAYER_BULLET || tagA == TAG_OPPOPENT_BULLET)) {
         egg = dynamic_cast<Egg *>(nodeB);
         bullet = dynamic_cast<Bullet *>(nodeA);
-        egg->setOwner(tagA == TAG_PLAYER_BULLET ? _stage->getPlayer() : _stage->getOpponent());
     }
     if (egg && bullet) {
         bullet->setLifePoint(-1.0f);
@@ -319,7 +317,7 @@ void GameScene::update(float dt) {
 
     //  Host is in charge of generating egg.
     if (_isHost && _stage->getEgg()->getLifePoint() <= 0 && _stage->getEgg()->getLastBrokenTime() + delta < clock()) {
-        // TODO: should depend on time
+        // FIXME: Critical
         delta = random(5, 20) * CLOCKS_PER_SEC;
         _stage->generateEgg();
         sendGameStateOverNetwork(EventType::APPEAR_EGG, nullptr, true);
@@ -373,7 +371,6 @@ MoveState GameScene::convertVec2ToMoveState(const cocos2d::Vec2 v) {
 
     float angle = MathUtils::degreesAngle(v);
 
-    // TODO: Fix angles
     if (angle < (-180.0f + 22.5f) || (180.0f - 22.5f) < angle) {
         return MoveState::DOWN;
     } else if ((-135.0f - 22.5f) <= angle && angle < (-135.0f + 22.5f)) {

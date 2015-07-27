@@ -17,8 +17,6 @@ public:
 
     int getLifePoint();
     void setLifePoint(int lifePoint);
-    Player *getOwner();
-    void setOwner(Player *player);
     clock_t getLastBrokenTime();
 
 private:
@@ -27,7 +25,6 @@ private:
 
     clock_t _lastBrokenTime;
     int _lifePoint;
-    Player *_owner;
 };
 
 #endif /* defined(__Yuzu__Egg__) */

@@ -18,9 +18,7 @@ bool Egg::init() {
 
     this->setTag(TAG_EGG);
 
-    // TODO: fix here
-    _lifePoint = 10;
-    _owner = nullptr;
+    _lifePoint = INITIAL_EGG_LIFE;
     _lastBrokenTime = 0;
 
     return true;
@@ -52,9 +50,10 @@ int Egg::getLifePoint() {
 void Egg::setLifePoint(int lifePoint) {
     _lifePoint = lifePoint;
     if (lifePoint <= 0) {
-        // TODO
+        // Set disable if egg is broken
         setVisible(false);
-        setPosition(-1.0, -1.0);
+        // FIXME: Critical
+        setPosition(-1, -1);
         _lastBrokenTime = clock();
     } else {
         setVisible(true);
@@ -63,12 +62,4 @@ void Egg::setLifePoint(int lifePoint) {
 
 clock_t Egg::getLastBrokenTime() {
     return _lastBrokenTime;
-}
-
-Player *Egg::getOwner() {
-    return _owner;
-}
-
-void Egg::setOwner(Player *player) {
-    _owner = player;
 }
