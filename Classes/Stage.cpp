@@ -193,9 +193,9 @@ Egg *Stage::getEgg() {
 void Stage::setState(JSONPacker::GameState state) {
     Player *player = getPlayer();
     Player *opponent = getOpponent();
-    if (opponent->isCorrectUpdate(state.opponentPosition)) {
-        opponent->setPosition(state.opponentPosition);
-    }
+    // if (opponent->isCorrectUpdate(state.opponentPosition)) {
+    opponent->setPosition(state.opponentPosition);
+    //}
     opponent->setMoveState(state.opponentMoveState);
 
     // We accept false positive due to the network deplay

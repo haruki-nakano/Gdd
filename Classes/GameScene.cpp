@@ -130,8 +130,6 @@ void GameScene::gameOver() {
     if (_networkedSession) {
         sendGameStateOverNetwork(EventType::GAME_OVER);
         sendGameStateOverNetwork(EventType::GAME_OVER);
-        sendGameStateOverNetwork(EventType::GAME_OVER);
-        sendGameStateOverNetwork(EventType::GAME_OVER);
     }
 
     int playerLife = _stage->getPlayer()->getLifePoint();
@@ -214,8 +212,6 @@ void GameScene::setupTouchHandling() {
             _stage->getPlayer()->setMoveState(MoveState::STOP);
             if (_networkedSession) {
                 // FIXME: Improvement
-                sendGameStateOverNetwork(EventType::STOP_PLAYERS_MOVING);
-                sendGameStateOverNetwork(EventType::STOP_PLAYERS_MOVING);
                 sendGameStateOverNetwork(EventType::STOP_PLAYERS_MOVING);
                 sendGameStateOverNetwork(EventType::STOP_PLAYERS_MOVING);
             }

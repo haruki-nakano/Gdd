@@ -34,8 +34,9 @@ bool Player::init() {
     _moving = MoveState::STOP;
     _directionVec = Vec2::ZERO;
 
-    // Exclude STRAIGHT_GUN(0)
+    // Exclude STRAIGHT_GUN: 0
     _gun = static_cast<Gun>(random(1, static_cast<int>(Gun::SIZE) - 1));
+    _gun = Gun::CHARGER;
 
     _lifePoint = INITIAL_PLAYER_LIFE;
     _hitCount = 0;
@@ -165,6 +166,8 @@ Direction Player::getDirection() {
 }
 
 std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
+    static clock_t lastCreatedTime;
+
     std::vector<Bullet *> bullets;
     Vec2 playerVisiblePos = this->getPosition() + stagePos;
     float distance = touchPos.distance(playerVisiblePos);
@@ -234,6 +237,22 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
             bullet->setLifePoint(INITIAL_BULLET_LIFE * 10.0f);
             bullet->setTag(this->getTag() == TAG_PLAYER ? TAG_PLAYER_BULLET : TAG_OPPOPENT_BULLET);
             bullets.push_back(bullet);
+            break;
+        }
+        case Gun::CHARGER: {
+            if (clock() - lastCreatedTime < CLOCKS_PER_SEC * 2) {
+                break;
+            }
+
+            lastCreatedTime = clock();
+            for (int i = 0; i < 10; i++) {
+                Bullet *bullet = Bullet::create();
+                bullet->setPosition(this->getPosition());
+                bullet->setDirection(v * (2.0f - 0.2f * i));
+                bullet->setLifePoint(INITIAL_BULLET_LIFE * 2.0);
+                bullet->setTag(this->getTag() == TAG_PLAYER ? TAG_PLAYER_BULLET : TAG_OPPOPENT_BULLET);
+                bullets.push_back(bullet);
+            }
             break;
         }
         default:
