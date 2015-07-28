@@ -30,7 +30,7 @@ struct GameState {
     EventType event;
 
     // Optional data
-    Bullet *newBullet;
+    std::vector<Bullet *> newBullets;
 };
 
 GameState unpackGameStateJSON(std::string json);

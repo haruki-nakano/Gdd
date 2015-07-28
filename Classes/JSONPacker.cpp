@@ -36,20 +36,26 @@ GameState unpackGameStateJSON(std::string json) {
     float y = (float)position["y"].GetDouble();
     gameState.opponentPosition = Vec2(x, y);
 
-    if (document.HasMember("bullet")) {
-        rapidjson::Value &bulletPosition = document["bullet"]["position"];
-        rapidjson::Value &bulletDirection = document["bullet"]["direction"];
+    gameState.newBullets = std::vector<Bullet *>();
+    rapidjson::Value &bullets = document["bulletArray"];
+    auto size = bullets.Size();
+    for (rapidjson::SizeType i = 0; i < size; i++) {
+        rapidjson::Value &bulletJson = bullets[i];
+
+        float lifePoint = bulletJson["lifePoint"].GetDouble();
+
+        rapidjson::Value &bulletPosition = bulletJson["position"];
+        rapidjson::Value &bulletDirection = bulletJson["direction"];
         Vec2 pos = Vec2(bulletPosition["x"].GetDouble(), bulletPosition["y"].GetDouble());
         Vec2 direction = Vec2(bulletDirection["x"].GetDouble(), bulletDirection["y"].GetDouble());
 
         Bullet *bullet = Bullet::create();
         bullet->setPosition(pos);
         bullet->setDirection(direction);
+        bullet->setLifePoint(lifePoint);
         bullet->setTag(TAG_OPPOPENT_BULLET);
 
-        gameState.newBullet = bullet;
-    } else {
-        gameState.newBullet = nullptr;
+        gameState.newBullets.push_back(bullet);
     }
 
     rapidjson::Value &eggPosition = document["egg"]["position"];
@@ -78,23 +84,27 @@ std::string packGameStateJSON(const GameState gameState) {
 
     document.AddMember("position", positionJson, document.GetAllocator());
 
-    // Bullet
-    if (gameState.newBullet) {
+    // Bullets
+    rapidjson::Value bulletArray(rapidjson::kArrayType);
+    for (Bullet *bullet : gameState.newBullets) {
         rapidjson::Value bulletJson(rapidjson::kObjectType);
 
         rapidjson::Value bulletPositionJson(rapidjson::kObjectType);
-        bulletPositionJson.AddMember("x", gameState.newBullet->getPosition().x, document.GetAllocator());
-        bulletPositionJson.AddMember("y", gameState.newBullet->getPosition().y, document.GetAllocator());
+        bulletPositionJson.AddMember("x", bullet->getPosition().x, document.GetAllocator());
+        bulletPositionJson.AddMember("y", bullet->getPosition().y, document.GetAllocator());
 
         rapidjson::Value bulletDirection(rapidjson::kObjectType);
-        bulletDirection.AddMember("x", gameState.newBullet->getDirectionVec().x, document.GetAllocator());
-        bulletDirection.AddMember("y", gameState.newBullet->getDirectionVec().y, document.GetAllocator());
+        bulletDirection.AddMember("x", bullet->getDirectionVec().x, document.GetAllocator());
+        bulletDirection.AddMember("y", bullet->getDirectionVec().y, document.GetAllocator());
 
         bulletJson.AddMember("position", bulletPositionJson, document.GetAllocator());
         bulletJson.AddMember("direction", bulletDirection, document.GetAllocator());
 
-        document.AddMember("bullet", bulletJson, document.GetAllocator());
+        bulletJson.AddMember("lifePoint", bullet->getLifePoint(), document.GetAllocator());
+
+        bulletArray.PushBack(bulletJson, document.GetAllocator());
     }
+    document.AddMember("bulletArray", bulletArray, document.GetAllocator());
 
     // Egg
     rapidjson::Value eggJson(rapidjson::kObjectType);

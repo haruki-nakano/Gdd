@@ -30,7 +30,7 @@ static const bool HIGH_SPEED_IN_WATER = true;
 
 static const int MAX_PLAYERS = 2;
 
-static const int INITIAL_PLAYER_LIFE = 32;
+static const int INITIAL_PLAYER_LIFE = 50;
 static const float INITIAL_BULLET_LIFE = 0.32;
 static const float INITIAL_EGG_LIFE = 50;
 

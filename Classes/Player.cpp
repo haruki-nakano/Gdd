@@ -186,6 +186,12 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
             bullet->setDirection(v);
             bullet->setTag(this->getTag() == TAG_PLAYER ? TAG_PLAYER_BULLET : TAG_OPPOPENT_BULLET);
             bullets.push_back(bullet);
+            
+            bullet = Bullet::create();
+            bullet->setPosition(this->getPosition());
+            bullet->setDirection(v * 0.8f);
+            bullet->setTag(this->getTag() == TAG_PLAYER ? TAG_PLAYER_BULLET : TAG_OPPOPENT_BULLET);
+            bullets.push_back(bullet);
             break;
         }
         case Gun::THREE_WAY_GUN: {

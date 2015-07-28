@@ -51,7 +51,8 @@ protected:
     LifeBar *_opponentsLifeBar;
 
     // Networking
-    void sendGameStateOverNetwork(EventType event, Bullet *newBullet = nullptr, bool newEgg = false);
+    void sendGameStateOverNetwork(EventType event, std::vector<Bullet *> newBullets = std::vector<Bullet *>(),
+                                  bool newEgg = false);
 };
 
 #endif /* defined(__Yuzu__GameScene__) */

@@ -84,8 +84,7 @@ void GameScene::onEnter() {
     gunLabel->setColor(LABEL_COLOR);
     this->addChild(gunLabel);
 
-    labelString = _stage->getOpponent()->getGunName();
-    gunLabel = ui::Text::create(labelString, FONT_NAME, FONT_SIZE);
+    gunLabel = ui::Text::create("?", FONT_NAME, FONT_SIZE);
     gunLabel->setAnchorPoint(Vec2(0.5f, 1.0f));
     gunLabel->setPosition(_opponentsLifeBar->getPosition() - Vec2(0.0f, 24.0f));
     gunLabel->setColor(LABEL_COLOR);
@@ -121,7 +120,7 @@ void GameScene::update(float dt) {
     if (_isHost && _stage->getEgg()->getLifePoint() <= 0 && _stage->getEgg()->getLastBrokenTime() + delta < clock()) {
         delta = random(MIN_EGG_INTERVAL_SEC, MAX_EGG_INTERVAL_SEC) * CLOCKS_PER_SEC;
         _stage->generateEgg();
-        sendGameStateOverNetwork(EventType::APPEAR_EGG, nullptr, true);
+        sendGameStateOverNetwork(EventType::APPEAR_EGG, std::vector<Bullet *>(), true);
     }
 }
 
@@ -206,10 +205,10 @@ void GameScene::setupTouchHandling() {
             // FIXME: Do this at once
             for (Bullet *bullet : bullets) {
                 _stage->addBullet(bullet);
-                if (_networkedSession) {
-                    // FIXME: Improvement
-                    sendGameStateOverNetwork(EventType::FIRE_BULLT, bullet);
-                }
+            }
+            if (_networkedSession) {
+                // FIXME: Improvement
+                sendGameStateOverNetwork(EventType::FIRE_BULLT, bullets);
             }
         } else if (!isTap && touch->getID() == firstFingerId) {
             _stage->getPlayer()->setMoveState(MoveState::STOP);
@@ -359,7 +358,7 @@ void GameScene::receivedData(const void *data, unsigned long length) {
     }
 }
 
-void GameScene::sendGameStateOverNetwork(EventType event, Bullet *newBullet, bool newEgg) {
+void GameScene::sendGameStateOverNetwork(EventType event, std::vector<Bullet *> newBullets, bool newEgg) {
     JSONPacker::GameState state;
 
     // FIXME: Improve
@@ -372,7 +371,7 @@ void GameScene::sendGameStateOverNetwork(EventType event, Bullet *newBullet, boo
     state.opponentsHitCount = _stage->getPlayer()->getHitCount();
     state.playersHealCount = _stage->getOpponent()->getHealCount();
     state.opponentsHealCount = _stage->getPlayer()->getHealCount();
-    state.newBullet = newBullet;
+    state.newBullets = newBullets;
 
     Egg *egg = _stage->getEgg();
     state.eggLifePoint = egg->getLifePoint();

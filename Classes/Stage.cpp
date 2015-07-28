@@ -205,8 +205,8 @@ void Stage::setState(JSONPacker::GameState state) {
     player->setHealCount(MAX(state.playersHealCount, player->getHealCount()));
     opponent->setHealCount(MAX(state.opponentsHealCount, opponent->getHealCount()));
 
-    if (state.newBullet) {
-        addBullet(state.newBullet);
+    for (Bullet *bullet : state.newBullets) {
+        addBullet(bullet);
     }
 
     if (state.eggPosition != Vec2::ZERO) {
