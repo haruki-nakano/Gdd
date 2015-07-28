@@ -111,12 +111,15 @@ enum class FieldItem {
     SUPER_STAR = 4,
 };
 
+static const char *GUN_NAMES[] = {"Straight Water Gun", "Basic Water Gun",   "3 Way Water Gun",
+                                  "Sprinkler",          "V-Laser Water Gun", "Marathon Water Gun"};
 enum class Gun {
     STRAIGHT_GUN = 0,
     BASIC_GUN,
     THREE_WAY_GUN,
     SPRINKLER,
     V_LASER_GUN,
+    MARATHON_GUN,
     SIZE,
 };
 

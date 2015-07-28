@@ -202,8 +202,8 @@ void GameScene::setupTouchHandling() {
             // FIXME: Improvement
             Vec2 touchPos = this->convertTouchToNodeSpace(touch);
             std::vector<Bullet *> bullets = _stage->getPlayer()->createBullets(touchPos, _stage->getPosition());
-            // FIXME: Do this at once
             for (Bullet *bullet : bullets) {
+                // Use addBullets
                 _stage->addBullet(bullet);
             }
             if (_networkedSession) {

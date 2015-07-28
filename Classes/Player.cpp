@@ -186,7 +186,7 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
             bullet->setDirection(v);
             bullet->setTag(this->getTag() == TAG_PLAYER ? TAG_PLAYER_BULLET : TAG_OPPOPENT_BULLET);
             bullets.push_back(bullet);
-            
+
             bullet = Bullet::create();
             bullet->setPosition(this->getPosition());
             bullet->setDirection(v * 0.8f);
@@ -225,6 +225,15 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
                 bullet->setTag(this->getTag() == TAG_PLAYER ? TAG_PLAYER_BULLET : TAG_OPPOPENT_BULLET);
                 bullets.push_back(bullet);
             }
+            break;
+        }
+        case Gun::MARATHON_GUN: {
+            Bullet *bullet = Bullet::create();
+            bullet->setPosition(this->getPosition());
+            bullet->setDirection(v);
+            bullet->setLifePoint(INITIAL_BULLET_LIFE * 10.0f);
+            bullet->setTag(this->getTag() == TAG_PLAYER ? TAG_PLAYER_BULLET : TAG_OPPOPENT_BULLET);
+            bullets.push_back(bullet);
             break;
         }
         default:
@@ -288,7 +297,5 @@ void Player::setLifeBar(LifeBar *lifeBar) {
 }
 
 const char *Player::getGunName() {
-    const char *gunList[] = {"Straight Water Gun", "Basic Water Gun", "3 Way Water Gun", "Sprinkler",
-                             "V-Laser Water Gun"};
-    return gunList[static_cast<int>(_gun)];
+    return GUN_NAMES[static_cast<int>(_gun)];
 }
