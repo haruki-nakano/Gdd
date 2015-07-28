@@ -39,10 +39,11 @@ private:
     void onEnter() override;
 
     cocos2d::Vec2 convertPositionToTileCoordinate(cocos2d::Vec2 position);
-    bool isCorrectTileCoordinate(cocos2d::Vec2 tileCoordinate);
+    bool isCorrectTileCoordinate(cocos2d::Vec2 tileCoordinate, bool checkWallCollision = false);
 
     cocos2d::experimental::TMXTiledMap *_map;
     cocos2d::experimental::TMXLayer *_backgroundLayer;
+    cocos2d::experimental::TMXLayer *_collisionLayer;
     cocos2d::Size _size;
     std::vector<Player *> _players;
     std::vector<Bullet *> _bullets;

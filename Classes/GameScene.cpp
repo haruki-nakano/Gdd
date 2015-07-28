@@ -165,7 +165,6 @@ void GameScene::setupTouchHandling() {
 
     touchListener->onTouchMoved = [&](Touch *touch, Event *event) {
         if (touch->getID() != firstFingerId) {
-            CCLOG("not 1st");
             return;
         }
         Vec2 touchPos = this->convertTouchToNodeSpace(touch);

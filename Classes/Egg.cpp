@@ -12,7 +12,7 @@
 using namespace cocos2d;
 
 bool Egg::init() {
-    if (!Sprite::initWithFile("kaihuku.png")) {
+    if (!Sprite::initWithFile("egg.png")) {
         return false;
     }
 

@@ -35,7 +35,8 @@ bool Player::init() {
     _directionVec = Vec2::ZERO;
 
     // Exclude STRAIGHT_GUN(0)
-    _gun = static_cast<Gun>(random(1, static_cast<int>(Gun::SIZE)));
+    _gun = static_cast<Gun>(random(1, static_cast<int>(Gun::SIZE) - 1));
+    CCLOG("%d", static_cast<int>(_gun));
 
     _lifePoint = INITIAL_PLAYER_LIFE;
     _hitCount = 0;

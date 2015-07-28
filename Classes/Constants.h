@@ -19,17 +19,17 @@ static const std::string DEFAULT_COLLISION_LAYER_NAME = "collision";
 // Game Options
 static const bool USE_SIMPLE_AIMING = false;
 static const bool ALLOW_MORE_THAN_TWO_TAP = false;
-static const bool ALLOW_WATER_SHOT = false;
+static const bool ALLOW_WATER_SHOT = true;
 static const bool HIGH_SPEED_IN_WATER = true;
 
 static const int MAX_PLAYERS = 2;
 
 static const int INITIAL_PLAYER_LIFE = 32;
 static const float INITIAL_BULLET_LIFE = 0.32;
-static const float INITIAL_EGG_LIFE = 10;
+static const float INITIAL_EGG_LIFE = 50;
 
-static const int MAX_EGG_INTERVAL_SEC = 3;
-static const int MIN_EGG_INTERVAL_SEC = 3;
+static const int MAX_EGG_INTERVAL_SEC = 1;
+static const int MIN_EGG_INTERVAL_SEC = 1;
 
 static const float DEFAULT_BULLET_SPEED = 1000.0f;
 static const float DEFAULT_PLAYER_SPEED = 200.0f;

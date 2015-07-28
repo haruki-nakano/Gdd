@@ -44,11 +44,11 @@ void Stage::onEnter() {
             }
         }
     }
-    auto collisionLayer = _map->getLayer(DEFAULT_COLLISION_LAYER_NAME);
-    auto size = collisionLayer->getLayerSize();
+    _collisionLayer = _map->getLayer(DEFAULT_COLLISION_LAYER_NAME);
+    auto size = _collisionLayer->getLayerSize();
     for (int y = 0; y < size.height; y++) {
         for (int x = 0; x < size.width; x++) {
-            auto tile = collisionLayer->getTileAt(Vec2(x, y));
+            auto tile = _collisionLayer->getTileAt(Vec2(x, y));
             if (tile) {
                 tile->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
                 // FIXME: Critical
@@ -162,10 +162,10 @@ void Stage::addBullet(Bullet *bullet) {
 
 void Stage::generateEgg() {
     // FIXME: Critical
-    float x = (float)random(1, (int)_size.width-1);
-    float y = (float)random(1, (int)_size.height-1);
+    float x = (float)random(1, (int)_size.width - 1);
+    float y = (float)random(1, (int)_size.height - 1);
     Vec2 coordinate = Vec2(x, y);
-    if (!isCorrectTileCoordinate(coordinate) || _backgroundLayer->getTileGIDAt(coordinate) >= 8) {
+    if (!isCorrectTileCoordinate(coordinate, true) || _backgroundLayer->getTileGIDAt(coordinate) >= 8) {
         return;
     }
 
@@ -221,9 +221,9 @@ void Stage::setState(JSONPacker::GameState state) {
 #pragma mark -
 #pragma mark Utility
 
-bool Stage::isCorrectTileCoordinate(Vec2 tileCoordinate) {
+bool Stage::isCorrectTileCoordinate(Vec2 tileCoordinate, bool checkWallCollision) {
     return tileCoordinate.x < _size.width && tileCoordinate.y < _size.height && tileCoordinate.x >= 0 &&
-           tileCoordinate.y >= 0;
+           tileCoordinate.y >= 0 && (!checkWallCollision || _collisionLayer->getTileGIDAt(tileCoordinate) == 0);
 }
 
 Vec2 Stage::convertPositionToTileCoordinate(Vec2 pos) {
