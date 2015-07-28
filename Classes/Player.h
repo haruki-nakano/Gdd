@@ -58,6 +58,7 @@ private:
     cocos2d::Vec2 _directionVec;
     MoveState _moving;
     Direction _direction;
+    Gun _gun;
     std::string _name;
     int _lifePoint;
     bool _isSwimming;

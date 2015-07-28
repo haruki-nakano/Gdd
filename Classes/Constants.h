@@ -12,7 +12,7 @@
 static const std::string CODE_NAME = "Yuzu";
 static const std::string GAME_NAME = "Rubber Duck Wars";
 
-static const std::string DEFAULT_STAGE_FILE = "stage1.tmx";
+static const std::string DEFAULT_STAGE_FILE = "stage2.tmx";
 static const std::string DEFAULT_BACKGROUND_LAYER_NAME = "background";
 static const std::string DEFAULT_COLLISION_LAYER_NAME = "collision";
 
@@ -103,6 +103,13 @@ enum class FieldItem {
     SPEED_UP = 2,
     SUPER_SHOT = 3,
     SUPER_STAR = 4,
+};
+
+enum class Gun {
+    STRAIGHT_GUN = 0,
+    BASIC_GUN,
+    THREE_WAY_GUN,
+    SIZE,
 };
 
 #endif

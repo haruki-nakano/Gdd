@@ -104,6 +104,16 @@
 		71A052441B5EE0370051813D /* life_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 71A052411B5EE0370051813D /* life_bg.png */; };
 		71A052451B5EE0370051813D /* life.png in Resources */ = {isa = PBXBuildFile; fileRef = 71A052421B5EE0370051813D /* life.png */; };
 		71A052461B5EE0370051813D /* life.png in Resources */ = {isa = PBXBuildFile; fileRef = 71A052421B5EE0370051813D /* life.png */; };
+		71BE7A601B674F240055D6A8 /* isometric_grass_and_water.png in Resources */ = {isa = PBXBuildFile; fileRef = 71BE7A5F1B674F240055D6A8 /* isometric_grass_and_water.png */; };
+		71BE7A611B674F240055D6A8 /* isometric_grass_and_water.png in Resources */ = {isa = PBXBuildFile; fileRef = 71BE7A5F1B674F240055D6A8 /* isometric_grass_and_water.png */; };
+		71BE7A661B674FE00055D6A8 /* egg2.png in Resources */ = {isa = PBXBuildFile; fileRef = 71BE7A621B674FE00055D6A8 /* egg2.png */; };
+		71BE7A671B674FE00055D6A8 /* egg2.png in Resources */ = {isa = PBXBuildFile; fileRef = 71BE7A621B674FE00055D6A8 /* egg2.png */; };
+		71BE7A681B674FE00055D6A8 /* egg3.png in Resources */ = {isa = PBXBuildFile; fileRef = 71BE7A631B674FE00055D6A8 /* egg3.png */; };
+		71BE7A691B674FE00055D6A8 /* egg3.png in Resources */ = {isa = PBXBuildFile; fileRef = 71BE7A631B674FE00055D6A8 /* egg3.png */; };
+		71BE7A6A1B674FE00055D6A8 /* kaihuku.png in Resources */ = {isa = PBXBuildFile; fileRef = 71BE7A641B674FE00055D6A8 /* kaihuku.png */; };
+		71BE7A6B1B674FE00055D6A8 /* kaihuku.png in Resources */ = {isa = PBXBuildFile; fileRef = 71BE7A641B674FE00055D6A8 /* kaihuku.png */; };
+		71BE7A6C1B674FE00055D6A8 /* muteki.png in Resources */ = {isa = PBXBuildFile; fileRef = 71BE7A651B674FE00055D6A8 /* muteki.png */; };
+		71BE7A6D1B674FE00055D6A8 /* muteki.png in Resources */ = {isa = PBXBuildFile; fileRef = 71BE7A651B674FE00055D6A8 /* muteki.png */; };
 		71DCDF181B583337006CDC3E /* playerDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 71DCDF161B583337006CDC3E /* playerDown.png */; };
 		71DCDF191B583337006CDC3E /* playerDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 71DCDF161B583337006CDC3E /* playerDown.png */; };
 		71DCDF1A1B583337006CDC3E /* playerUp.png in Resources */ = {isa = PBXBuildFile; fileRef = 71DCDF171B583337006CDC3E /* playerUp.png */; };
@@ -240,6 +250,11 @@
 		71A052381B5EC11A0051813D /* LifeBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifeBar.h; sourceTree = "<group>"; };
 		71A052411B5EE0370051813D /* life_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = life_bg.png; sourceTree = "<group>"; };
 		71A052421B5EE0370051813D /* life.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = life.png; sourceTree = "<group>"; };
+		71BE7A5F1B674F240055D6A8 /* isometric_grass_and_water.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = isometric_grass_and_water.png; sourceTree = "<group>"; };
+		71BE7A621B674FE00055D6A8 /* egg2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = egg2.png; sourceTree = "<group>"; };
+		71BE7A631B674FE00055D6A8 /* egg3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = egg3.png; sourceTree = "<group>"; };
+		71BE7A641B674FE00055D6A8 /* kaihuku.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kaihuku.png; sourceTree = "<group>"; };
+		71BE7A651B674FE00055D6A8 /* muteki.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = muteki.png; sourceTree = "<group>"; };
 		71DCDF161B583337006CDC3E /* playerDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playerDown.png; sourceTree = "<group>"; };
 		71DCDF171B583337006CDC3E /* playerUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playerUp.png; sourceTree = "<group>"; };
 		71DCDF1C1B58379F006CDC3E /* bullet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bullet.png; sourceTree = "<group>"; };
@@ -374,9 +389,14 @@
 				3EACC98E19EE6D4300EB3C5E /* res */,
 				46880B7619C43A67006E1F66 /* CloseNormal.png */,
 				46880B7719C43A67006E1F66 /* CloseSelected.png */,
+				71BE7A621B674FE00055D6A8 /* egg2.png */,
+				71BE7A631B674FE00055D6A8 /* egg3.png */,
+				71BE7A641B674FE00055D6A8 /* kaihuku.png */,
+				71BE7A651B674FE00055D6A8 /* muteki.png */,
 				71DCDF1C1B58379F006CDC3E /* bullet.png */,
 				710AD8931B616A7E0062580E /* egg.png */,
 				711290021B58191C00B9216A /* isometric_grass_and_water_light.png */,
+				71BE7A5F1B674F240055D6A8 /* isometric_grass_and_water.png */,
 				71A052411B5EE0370051813D /* life_bg.png */,
 				71A052421B5EE0370051813D /* life.png */,
 				71DCDF161B583337006CDC3E /* playerDown.png */,
@@ -611,6 +631,7 @@
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
 				46880B8119C43A67006E1F66 /* HelloWorld.png in Resources */,
 				46880B7D19C43A67006E1F66 /* CloseSelected.png in Resources */,
+				71BE7A681B674FE00055D6A8 /* egg3.png in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
 				711290071B582F7800B9216A /* playerLeft.png in Resources */,
 				71128FFD1B57134400B9216A /* stage2.tmx in Resources */,
@@ -619,14 +640,18 @@
 				71A052431B5EE0370051813D /* life_bg.png in Resources */,
 				71069D011B6297C900438AD9 /* playerLowerLeft.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
+				71BE7A661B674FE00055D6A8 /* egg2.png in Resources */,
 				71A052451B5EE0370051813D /* life.png in Resources */,
 				521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */,
 				521A8EA919F11F5000D177D7 /* fonts in Resources */,
 				71069CFD1B6297C100438AD9 /* playerUpperRight.png in Resources */,
+				71BE7A6A1B674FE00055D6A8 /* kaihuku.png in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
+				71BE7A601B674F240055D6A8 /* isometric_grass_and_water.png in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
+				71BE7A6C1B674FE00055D6A8 /* muteki.png in Resources */,
 				71DCDF1A1B583337006CDC3E /* playerUp.png in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
 				3EACC98F19EE6D4300EB3C5E /* res in Resources */,
@@ -650,7 +675,9 @@
 			files = (
 				71069CFE1B6297C100438AD9 /* playerUpperRight.png in Resources */,
 				46880B8219C43A67006E1F66 /* HelloWorld.png in Resources */,
+				71BE7A671B674FE00055D6A8 /* egg2.png in Resources */,
 				71DCDF1E1B58379F006CDC3E /* bullet.png in Resources */,
+				71BE7A6B1B674FE00055D6A8 /* kaihuku.png in Resources */,
 				71069D021B6297C900438AD9 /* playerLowerLeft.png in Resources */,
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
 				3EACC99019EE6D4300EB3C5E /* res in Resources */,
@@ -664,8 +691,11 @@
 				7112900A1B582F7800B9216A /* playerRight.png in Resources */,
 				71A052461B5EE0370051813D /* life.png in Resources */,
 				46880B7E19C43A67006E1F66 /* CloseSelected.png in Resources */,
+				71BE7A691B674FE00055D6A8 /* egg3.png in Resources */,
 				710AD8951B616A7E0062580E /* egg.png in Resources */,
 				71128FFE1B57134400B9216A /* stage2.tmx in Resources */,
+				71BE7A611B674F240055D6A8 /* isometric_grass_and_water.png in Resources */,
+				71BE7A6D1B674FE00055D6A8 /* muteki.png in Resources */,
 				71A052441B5EE0370051813D /* life_bg.png in Resources */,
 				71DCDF1B1B583337006CDC3E /* playerUp.png in Resources */,
 				711290081B582F7800B9216A /* playerLeft.png in Resources */,

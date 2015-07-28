@@ -34,6 +34,9 @@ bool Player::init() {
     _moving = MoveState::STOP;
     _directionVec = Vec2::ZERO;
 
+    // Exclude STRAIGHT_GUN(0)
+    _gun = static_cast<Gun>(random(1, static_cast<int>(Gun::SIZE)));
+
     _lifePoint = INITIAL_PLAYER_LIFE;
     _hitCount = 0;
     _healCount = 0;
@@ -163,19 +166,41 @@ Direction Player::getDirection() {
 
 std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
     std::vector<Bullet *> bullets;
-    for (int i = 0; i < 3; i++) {
-        Bullet *bullet = Bullet::create();
-        bullet->setPosition(this->getPosition());
-        bullet->setDirection(_directionVec);
-        if (!USE_SIMPLE_AIMING) {
-            Vec2 playerVisiblePos = this->getPosition() + stagePos;
-            float distance = touchPos.distance(playerVisiblePos);
-            Vec2 v = (touchPos - playerVisiblePos) / distance;
-            float angle = MathUtils::degreesAngle(v);
-            bullet->setDirection(MathUtils::forDegreesAngle(angle - 10.0f * (i - 1)));
+    Vec2 playerVisiblePos = this->getPosition() + stagePos;
+    float distance = touchPos.distance(playerVisiblePos);
+    Vec2 v = (touchPos - playerVisiblePos) / distance;
+    float angle = MathUtils::degreesAngle(v);
+    // TODO
+    switch (USE_SIMPLE_AIMING ? Gun::STRAIGHT_GUN : _gun) {
+        case Gun::STRAIGHT_GUN: {
+            Bullet *bullet = Bullet::create();
+            bullet->setPosition(this->getPosition());
+            bullet->setDirection(_directionVec);
+            bullet->setTag(this->getTag() == TAG_PLAYER ? TAG_PLAYER_BULLET : TAG_OPPOPENT_BULLET);
+            bullets.push_back(bullet);
+            break;
         }
-        bullet->setTag(this->getTag() == TAG_PLAYER ? TAG_PLAYER_BULLET : TAG_OPPOPENT_BULLET);
-        bullets.push_back(bullet);
+        case Gun::BASIC_GUN: {
+            Bullet *bullet = Bullet::create();
+            bullet->setPosition(this->getPosition());
+            bullet->setDirection(v);
+            bullet->setTag(this->getTag() == TAG_PLAYER ? TAG_PLAYER_BULLET : TAG_OPPOPENT_BULLET);
+            bullets.push_back(bullet);
+            break;
+        }
+        case Gun::THREE_WAY_GUN: {
+            for (int i = 0; i < 3; i++) {
+                Bullet *bullet = Bullet::create();
+                bullet->setPosition(this->getPosition());
+                bullet->setDirection(MathUtils::forDegreesAngle(angle - 10.0f * (i - 1)));
+                bullet->setLifePoint(INITIAL_BULLET_LIFE * 0.5f);
+                bullet->setTag(this->getTag() == TAG_PLAYER ? TAG_PLAYER_BULLET : TAG_OPPOPENT_BULLET);
+                bullets.push_back(bullet);
+            }
+            break;
+        }
+        default:
+            break;
     }
 
     return bullets;
