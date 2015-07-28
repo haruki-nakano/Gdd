@@ -25,6 +25,10 @@ private:
 
     clock_t _lastBrokenTime;
     int _lifePoint;
+
+    cocos2d::Texture2D *_egg;
+    cocos2d::Texture2D *_egg2;
+    cocos2d::Texture2D *_egg3;
 };
 
 #endif /* defined(__Yuzu__Egg__) */

@@ -21,6 +21,9 @@ bool Egg::init() {
     _lifePoint = INITIAL_EGG_LIFE;
     _lastBrokenTime = 0;
 
+    _egg = Director::getInstance()->getTextureCache()->addImage("egg.png");
+    _egg2 = Director::getInstance()->getTextureCache()->addImage("egg2.png");
+    _egg3 = Director::getInstance()->getTextureCache()->addImage("egg3.png");
     return true;
 }
 
@@ -51,11 +54,12 @@ int Egg::getLifePoint() {
 void Egg::setLifePoint(int lifePoint) {
     int lastLifePoint = _lifePoint;
     _lifePoint = lifePoint;
+
     if (lifePoint <= 0) {
         // Set disable if egg is broken
-        setVisible(false);
+        this->setVisible(false);
         // FIXME: Critical
-        setPosition(-1, -1);
+        this->setPosition(-1, -1);
         _lastBrokenTime = clock();
     } else {
         setVisible(true);
@@ -63,6 +67,14 @@ void Egg::setLifePoint(int lifePoint) {
             Sequence *blink = Sequence::create(Blink::create(0.4f, 4), Show::create(), NULL);
             this->runAction(blink);
         }
+    }
+
+    if (_lifePoint > INITIAL_EGG_LIFE * 0.7) {
+        this->setTexture(_egg);
+    } else if (_lifePoint > INITIAL_EGG_LIFE * 0.3) {
+        this->setTexture(_egg2);
+    } else {
+        this->setTexture(_egg3);
     }
 }
 
