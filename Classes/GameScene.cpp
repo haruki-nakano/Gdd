@@ -76,6 +76,21 @@ void GameScene::onEnter() {
     _stage->getPlayer()->setLifeBar(_playerLifeBar);
     _stage->getOpponent()->setLifeBar(_opponentsLifeBar);
 
+    // FIXME: Use foreach
+    auto labelString = _stage->getPlayer()->getGunName();
+    auto gunLabel = ui::Text::create(labelString, FONT_NAME, FONT_SIZE);
+    gunLabel->setAnchorPoint(Vec2(0.5f, 1.0f));
+    gunLabel->setPosition(_playerLifeBar->getPosition() - Vec2(0.0f, 24.0f));
+    gunLabel->setColor(LABEL_COLOR);
+    this->addChild(gunLabel);
+
+    labelString = _stage->getOpponent()->getGunName();
+    gunLabel = ui::Text::create(labelString, FONT_NAME, FONT_SIZE);
+    gunLabel->setAnchorPoint(Vec2(0.5f, 1.0f));
+    gunLabel->setPosition(_opponentsLifeBar->getPosition() - Vec2(0.0f, 24.0f));
+    gunLabel->setColor(LABEL_COLOR);
+    this->addChild(gunLabel);
+
     setupTouchHandling();
 
     // setup contact handling
@@ -188,6 +203,7 @@ void GameScene::setupTouchHandling() {
             // FIXME: Improvement
             Vec2 touchPos = this->convertTouchToNodeSpace(touch);
             std::vector<Bullet *> bullets = _stage->getPlayer()->createBullets(touchPos, _stage->getPosition());
+            // FIXME: Do this at once
             for (Bullet *bullet : bullets) {
                 _stage->addBullet(bullet);
                 if (_networkedSession) {

@@ -48,6 +48,8 @@ public:
     int getLifePoint();
     void setLifeBar(LifeBar *lifeBar);
 
+    const char *getGunName();
+
 private:
     bool init() override;
     void onEnter() override;

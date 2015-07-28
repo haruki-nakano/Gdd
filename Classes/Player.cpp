@@ -36,7 +36,6 @@ bool Player::init() {
 
     // Exclude STRAIGHT_GUN(0)
     _gun = static_cast<Gun>(random(1, static_cast<int>(Gun::SIZE) - 1));
-    CCLOG("%d", static_cast<int>(_gun));
 
     _lifePoint = INITIAL_PLAYER_LIFE;
     _hitCount = 0;
@@ -200,6 +199,28 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
             }
             break;
         }
+        case Gun::SPRINKLER: {
+            for (int i = 0; i < 8; i++) {
+                Bullet *bullet = Bullet::create();
+                bullet->setPosition(this->getPosition());
+                bullet->setDirection(MathUtils::forDegreesAngle(angle - 45.0f * i));
+                bullet->setLifePoint(INITIAL_BULLET_LIFE * 0.2f);
+                bullet->setTag(this->getTag() == TAG_PLAYER ? TAG_PLAYER_BULLET : TAG_OPPOPENT_BULLET);
+                bullets.push_back(bullet);
+            }
+            break;
+        }
+        case Gun::V_LASER_GUN: {
+            for (int i = 0; i < 2; i++) {
+                Bullet *bullet = Bullet::create();
+                bullet->setPosition(this->getPosition());
+                bullet->setDirection(MathUtils::forDegreesAngle(angle + 25.0f * (i == 0 ? -1 : 1)));
+                bullet->setLifePoint(INITIAL_BULLET_LIFE * 1.2f);
+                bullet->setTag(this->getTag() == TAG_PLAYER ? TAG_PLAYER_BULLET : TAG_OPPOPENT_BULLET);
+                bullets.push_back(bullet);
+            }
+            break;
+        }
         default:
             break;
     }
@@ -258,4 +279,10 @@ int Player::getLifePoint() {
 
 void Player::setLifeBar(LifeBar *lifeBar) {
     _lifeBar = lifeBar;
+}
+
+const char *Player::getGunName() {
+    const char *gunList[] = {"Straight Water Gun", "Basic Water Gun", "3 Way Water Gun", "Sprinkler",
+                             "V-Laser Water Gun"};
+    return gunList[static_cast<int>(_gun)];
 }
