@@ -125,6 +125,10 @@ void GameScene::update(float dt) {
 }
 
 void GameScene::gameOver() {
+    if (!_active) {
+        // The game is already over
+        return;
+    }
     this->setGameActive(false);
 
     if (_networkedSession) {

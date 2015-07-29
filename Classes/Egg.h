@@ -9,6 +9,8 @@
 #ifndef __Yuzu__Egg__
 #define __Yuzu__Egg__
 
+#include "Constants.h"
+
 class Player;
 
 class Egg : public cocos2d::Sprite {
@@ -25,6 +27,8 @@ private:
 
     clock_t _lastBrokenTime;
     int _lifePoint;
+
+    EggItemType _item;
 
     cocos2d::Texture2D *_egg;
     cocos2d::Texture2D *_egg2;

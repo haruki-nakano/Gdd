@@ -58,7 +58,7 @@ void Stage::onEnter() {
                 v[1] = Vec2(0, s.y);
                 v[2] = Vec2(s.x, 0);
                 v[3] = Vec2(0, -s.y);
-                PhysicsBody *tilePhysics = PhysicsBody::createEdgePolygon(v, 4);
+                PhysicsBody *tilePhysics = PhysicsBody::createPolygon(v, 4);
                 tilePhysics->setDynamic(false);
                 tilePhysics->setCategoryBitmask(CATEGORY_MASK_WALL);
                 tilePhysics->setCollisionBitmask(COLLISION_MASK_WALL);

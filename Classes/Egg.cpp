@@ -7,7 +7,6 @@
 //
 
 #include "Egg.h"
-#include "Constants.h"
 
 using namespace cocos2d;
 
@@ -20,6 +19,8 @@ bool Egg::init() {
 
     _lifePoint = INITIAL_EGG_LIFE;
     _lastBrokenTime = 0;
+
+    _item = EggItemType::HEALING;
 
     _egg = Director::getInstance()->getTextureCache()->addImage("egg.png");
     _egg2 = Director::getInstance()->getTextureCache()->addImage("egg2.png");

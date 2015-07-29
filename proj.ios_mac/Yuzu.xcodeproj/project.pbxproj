@@ -98,6 +98,10 @@
 		7125E7CB1B5485980005D5B1 /* JSONPacker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7125E7C91B5485980005D5B1 /* JSONPacker.cpp */; };
 		7125E7CC1B5485980005D5B1 /* JSONPacker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7125E7C91B5485980005D5B1 /* JSONPacker.cpp */; };
 		7125E7CE1B54C11E0005D5B1 /* MultipeerConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7125E7CD1B54C11D0005D5B1 /* MultipeerConnectivity.framework */; };
+		71992B881B6829FC0065EA2A /* EggItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 71992B861B6829FC0065EA2A /* EggItem.cpp */; };
+		71992B891B6829FC0065EA2A /* EggItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 71992B861B6829FC0065EA2A /* EggItem.cpp */; };
+		71992B8B1B6832EF0065EA2A /* stage3.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 71992B8A1B6832EF0065EA2A /* stage3.tmx */; };
+		71992B8C1B6832EF0065EA2A /* stage3.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 71992B8A1B6832EF0065EA2A /* stage3.tmx */; };
 		71A052391B5EC11A0051813D /* LifeBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 71A052371B5EC11A0051813D /* LifeBar.cpp */; };
 		71A0523A1B5EC11A0051813D /* LifeBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 71A052371B5EC11A0051813D /* LifeBar.cpp */; };
 		71A052431B5EE0370051813D /* life_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 71A052411B5EE0370051813D /* life_bg.png */; };
@@ -246,6 +250,9 @@
 		7125E7C91B5485980005D5B1 /* JSONPacker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JSONPacker.cpp; sourceTree = "<group>"; };
 		7125E7CA1B5485980005D5B1 /* JSONPacker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONPacker.h; sourceTree = "<group>"; };
 		7125E7CD1B54C11D0005D5B1 /* MultipeerConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultipeerConnectivity.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/MultipeerConnectivity.framework; sourceTree = DEVELOPER_DIR; };
+		71992B861B6829FC0065EA2A /* EggItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EggItem.cpp; sourceTree = "<group>"; };
+		71992B871B6829FC0065EA2A /* EggItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EggItem.h; sourceTree = "<group>"; };
+		71992B8A1B6832EF0065EA2A /* stage3.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = stage3.tmx; sourceTree = "<group>"; };
 		71A052371B5EC11A0051813D /* LifeBar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LifeBar.cpp; sourceTree = "<group>"; };
 		71A052381B5EC11A0051813D /* LifeBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifeBar.h; sourceTree = "<group>"; };
 		71A052411B5EE0370051813D /* life_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = life_bg.png; sourceTree = "<group>"; };
@@ -389,26 +396,12 @@
 				3EACC98E19EE6D4300EB3C5E /* res */,
 				46880B7619C43A67006E1F66 /* CloseNormal.png */,
 				46880B7719C43A67006E1F66 /* CloseSelected.png */,
-				71BE7A621B674FE00055D6A8 /* egg2.png */,
-				71BE7A631B674FE00055D6A8 /* egg3.png */,
-				71BE7A641B674FE00055D6A8 /* kaihuku.png */,
-				71BE7A651B674FE00055D6A8 /* muteki.png */,
 				71DCDF1C1B58379F006CDC3E /* bullet.png */,
-				710AD8931B616A7E0062580E /* egg.png */,
-				711290021B58191C00B9216A /* isometric_grass_and_water_light.png */,
-				71BE7A5F1B674F240055D6A8 /* isometric_grass_and_water.png */,
 				71A052411B5EE0370051813D /* life_bg.png */,
 				71A052421B5EE0370051813D /* life.png */,
-				71DCDF161B583337006CDC3E /* playerDown.png */,
-				71DCDF171B583337006CDC3E /* playerUp.png */,
-				711290051B582F7800B9216A /* playerLeft.png */,
-				711290061B582F7800B9216A /* playerRight.png */,
-				71069CF91B6297C100438AD9 /* playerUpperLeft.png */,
-				71069CFA1B6297C100438AD9 /* playerUpperRight.png */,
-				71069CFF1B6297C900438AD9 /* playerLowerLeft.png */,
-				71069D001B6297C900438AD9 /* playerLowerRight.png */,
-				71128FFA1B57134400B9216A /* stage2.tmx */,
-				71128FF61B56D1C400B9216A /* stage1.tmx */,
+				71992B901B6931D60065EA2A /* items */,
+				71992B8E1B6931930065EA2A /* players */,
+				71992B8F1B69319A0065EA2A /* stages */,
 				46880B7A19C43A67006E1F66 /* HelloWorld.png */,
 			);
 			name = Resources;
@@ -497,6 +490,8 @@
 			children = (
 				7125E7AC1B5456A10005D5B1 /* Bullet.cpp */,
 				7125E7AD1B5456A10005D5B1 /* Bullet.h */,
+				71992B861B6829FC0065EA2A /* EggItem.cpp */,
+				71992B871B6829FC0065EA2A /* EggItem.h */,
 				710AD88F1B6165280062580E /* Egg.cpp */,
 				710AD8901B6165280062580E /* Egg.h */,
 				71A052371B5EC11A0051813D /* LifeBar.cpp */,
@@ -521,6 +516,45 @@
 				7125E7C51B5481600005D5B1 /* NetworkManagerDelegate.h */,
 			);
 			name = Networking;
+			sourceTree = "<group>";
+		};
+		71992B8E1B6931930065EA2A /* players */ = {
+			isa = PBXGroup;
+			children = (
+				71DCDF161B583337006CDC3E /* playerDown.png */,
+				71DCDF171B583337006CDC3E /* playerUp.png */,
+				711290051B582F7800B9216A /* playerLeft.png */,
+				711290061B582F7800B9216A /* playerRight.png */,
+				71069CF91B6297C100438AD9 /* playerUpperLeft.png */,
+				71069CFA1B6297C100438AD9 /* playerUpperRight.png */,
+				71069CFF1B6297C900438AD9 /* playerLowerLeft.png */,
+				71069D001B6297C900438AD9 /* playerLowerRight.png */,
+			);
+			name = players;
+			sourceTree = "<group>";
+		};
+		71992B8F1B69319A0065EA2A /* stages */ = {
+			isa = PBXGroup;
+			children = (
+				711290021B58191C00B9216A /* isometric_grass_and_water_light.png */,
+				71BE7A5F1B674F240055D6A8 /* isometric_grass_and_water.png */,
+				71128FF61B56D1C400B9216A /* stage1.tmx */,
+				71128FFA1B57134400B9216A /* stage2.tmx */,
+				71992B8A1B6832EF0065EA2A /* stage3.tmx */,
+			);
+			name = stages;
+			sourceTree = "<group>";
+		};
+		71992B901B6931D60065EA2A /* items */ = {
+			isa = PBXGroup;
+			children = (
+				71BE7A621B674FE00055D6A8 /* egg2.png */,
+				71BE7A631B674FE00055D6A8 /* egg3.png */,
+				71BE7A641B674FE00055D6A8 /* kaihuku.png */,
+				71BE7A651B674FE00055D6A8 /* muteki.png */,
+				710AD8931B616A7E0062580E /* egg.png */,
+			);
+			name = items;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -635,6 +669,7 @@
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
 				711290071B582F7800B9216A /* playerLeft.png in Resources */,
 				71128FFD1B57134400B9216A /* stage2.tmx in Resources */,
+				71992B8B1B6832EF0065EA2A /* stage3.tmx in Resources */,
 				71069CFB1B6297C100438AD9 /* playerUpperLeft.png in Resources */,
 				711290031B58191C00B9216A /* isometric_grass_and_water_light.png in Resources */,
 				71A052431B5EE0370051813D /* life_bg.png in Resources */,
@@ -686,6 +721,7 @@
 				71069CFC1B6297C100438AD9 /* playerUpperLeft.png in Resources */,
 				711290041B58191C00B9216A /* isometric_grass_and_water_light.png in Resources */,
 				71069D041B6297C900438AD9 /* playerLowerRight.png in Resources */,
+				71992B8C1B6832EF0065EA2A /* stage3.tmx in Resources */,
 				46880B7C19C43A67006E1F66 /* CloseNormal.png in Resources */,
 				71128FF81B56D1C400B9216A /* stage1.tmx in Resources */,
 				7112900A1B582F7800B9216A /* playerRight.png in Resources */,
@@ -720,6 +756,7 @@
 				7125E7AE1B5456A10005D5B1 /* Bullet.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				7125E7CB1B5485980005D5B1 /* JSONPacker.cpp in Sources */,
+				71992B881B6829FC0065EA2A /* EggItem.cpp in Sources */,
 				710AD8911B6165280062580E /* Egg.cpp in Sources */,
 				7125E7931B542CA80005D5B1 /* GameScene.cpp in Sources */,
 				7125E7C71B5481600005D5B1 /* NetworkManager.mm in Sources */,
@@ -732,6 +769,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71992B891B6829FC0065EA2A /* EggItem.cpp in Sources */,
 				7125E7941B542CA80005D5B1 /* GameScene.cpp in Sources */,
 				7125E79D1B54342B0005D5B1 /* Player.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,

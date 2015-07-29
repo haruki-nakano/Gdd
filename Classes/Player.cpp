@@ -36,7 +36,7 @@ bool Player::init() {
 
     // Exclude STRAIGHT_GUN: 0
     _gun = static_cast<Gun>(random(1, static_cast<int>(Gun::SIZE) - 1));
-    _gun = Gun::CHARGER;
+    _gun = Gun::THREE_WAY_GUN;
 
     _lifePoint = INITIAL_PLAYER_LIFE;
     _hitCount = 0;
@@ -52,7 +52,8 @@ void Player::onEnter() {
 
     this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 
-    PhysicsBody *playerPhysics = PhysicsBody::createBox(this->getBoundingBox().size);
+    PhysicsMaterial material = PhysicsMaterial(99.0f, 0.0f,1.0f);
+    PhysicsBody *playerPhysics = PhysicsBody::createBox(this->getBoundingBox().size, material);
     playerPhysics->setDynamic(true);
     playerPhysics->setGravityEnable(false);
     playerPhysics->setRotationEnable(false);
@@ -101,12 +102,12 @@ void Player::setMoveState(const MoveState MoveState) {
 
         case MoveState::UP:
             this->setTexture(_imgUp);
-            _directionVec = Vec2(0.0f, 0.75f);
+            _directionVec = Vec2(0.0f, 0.95f);
             break;
 
         case MoveState::DOWN:
             this->setTexture(_imgDown);
-            _directionVec = Vec2(0.0f, -0.75f);
+            _directionVec = Vec2(0.0f, -0.95f);
             break;
 
         case MoveState::UPPER_LEFT:
@@ -137,6 +138,7 @@ MoveState Player::getMoveState() {
     return _moving;
 }
 
+// TODO: Set direction when fired
 void Player::setDirection(const Direction direction) {
     if (_direction == direction) {
         return;
@@ -202,7 +204,7 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
                 Bullet *bullet = Bullet::create();
                 bullet->setPosition(this->getPosition());
                 bullet->setDirection(MathUtils::forDegreesAngle(angle - 10.0f * (i - 1)));
-                bullet->setLifePoint(INITIAL_BULLET_LIFE * 0.5f);
+                bullet->setLifePoint(INITIAL_BULLET_LIFE * 0.7f);
                 bullet->setTag(this->getTag() == TAG_PLAYER ? TAG_PLAYER_BULLET : TAG_OPPOPENT_BULLET);
                 bullets.push_back(bullet);
             }
@@ -240,7 +242,7 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
             break;
         }
         case Gun::CHARGER: {
-            if (clock() - lastCreatedTime < CLOCKS_PER_SEC * 2) {
+            if (clock() - lastCreatedTime < CLOCKS_PER_SEC * 3) {
                 break;
             }
 
