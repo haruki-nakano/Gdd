@@ -214,6 +214,9 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
     // TODO: this function is too big
     switch (USE_SIMPLE_AIMING ? Gun::STRAIGHT_GUN : _gun) {
         case Gun::STRAIGHT_GUN: {
+            if (clock() - _lastTimeBulletCreated < CLOCKS_PER_SEC * 0.1f) {
+                break;
+            }
             _lastTimeBulletCreated = clock();
 
             Bullet *bullet = Bullet::create();
@@ -224,6 +227,9 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
             break;
         }
         case Gun::BASIC_GUN: {
+            if (clock() - _lastTimeBulletCreated < CLOCKS_PER_SEC * 0.1f) {
+                break;
+            }
             _lastTimeBulletCreated = clock();
 
             Bullet *bullet = Bullet::create();
@@ -240,7 +246,7 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
             break;
         }
         case Gun::THREE_WAY_GUN: {
-            if (clock() - _lastTimeBulletCreated < CLOCKS_PER_SEC * 0.1f) {
+            if (clock() - _lastTimeBulletCreated < ABNORMAL_FIRING_THRESHOLD) {
                 break;
             }
             _lastTimeBulletCreated = clock();
@@ -256,6 +262,9 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
             break;
         }
         case Gun::SPRINKLER: {
+            if (clock() - _lastTimeBulletCreated < ABNORMAL_FIRING_THRESHOLD) {
+                break;
+            }
             _lastTimeBulletCreated = clock();
 
             for (int i = 0; i < 8; i++) {
@@ -269,6 +278,9 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
             break;
         }
         case Gun::V_LASER_GUN: {
+            if (clock() - _lastTimeBulletCreated < ABNORMAL_FIRING_THRESHOLD) {
+                break;
+            }
             _lastTimeBulletCreated = clock();
 
             for (int i = 0; i < 2; i++) {
@@ -282,6 +294,9 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
             break;
         }
         case Gun::MARATHON_GUN: {
+            if (clock() - _lastTimeBulletCreated < ABNORMAL_FIRING_THRESHOLD * 2) {
+                break;
+            }
             _lastTimeBulletCreated = clock();
 
             Bullet *bullet = Bullet::create();
@@ -296,8 +311,8 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
             if (clock() - _lastTimeBulletCreated < CLOCKS_PER_SEC * 3) {
                 break;
             }
-
             _lastTimeBulletCreated = clock();
+
             for (int i = 0; i < 10; i++) {
                 Bullet *bullet = Bullet::create();
                 bullet->setPosition(this->getPosition());
