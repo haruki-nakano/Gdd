@@ -33,7 +33,7 @@ struct GameState {
     std::vector<Bullet *> newBullets;
 };
 
-GameState unpackGameStateJSON(std::string json);
+GameState unpackGameStateJSON(const std::string &json);
 std::string packGameStateJSON(const GameState data);
 }
 

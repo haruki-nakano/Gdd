@@ -13,7 +13,7 @@ class LifeBar : public cocos2d::Node {
 public:
     CREATE_FUNC(LifeBar);
 
-    void setLifePoint(int lifePoints);
+    void setLifePoint(const int lifePoints);
 
 private:
     bool init() override;

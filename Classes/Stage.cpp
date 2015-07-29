@@ -134,23 +134,16 @@ void Stage::step(float dt) {
     }
 
     // Set water state
-    Vec2 coordinate = convertPositionToTileCoordinate(pos);
-    if (isCorrectTileCoordinate(coordinate)) {
-        int gid = _backgroundLayer->getTileGIDAt(coordinate);
-        if (gid < 8) {
-            getPlayer()->setIsSwimming(false, false);
-        } else if (gid >= 8) {
-            getPlayer()->setIsSwimming(true, false);
-        }
-    }
-
-    coordinate = convertPositionToTileCoordinate(getOpponent()->getPosition());
-    if (isCorrectTileCoordinate(coordinate)) {
-        int gid = _backgroundLayer->getTileGIDAt(coordinate);
-        if (gid < 8) {
-            getOpponent()->setIsSwimming(false, true);
-        } else if (gid >= 8) {
-            getOpponent()->setIsSwimming(true, true);
+    auto players = getPlayers();
+    for (Player *player : players) {
+        Vec2 coordinate = convertPositionToTileCoordinate(pos);
+        if (isCorrectTileCoordinate(coordinate)) {
+            int gid = _backgroundLayer->getTileGIDAt(coordinate);
+            if (gid < 8) {
+                player->setIsSwimming(false, false);
+            } else if (gid >= 8) {
+                player->setIsSwimming(true, false);
+            }
         }
     }
 }
@@ -178,15 +171,19 @@ void Stage::generateEgg() {
 #pragma mark -
 #pragma mark Getter/Setter
 
-Player *Stage::getPlayer() {
+std::vector<Player *> Stage::getPlayers() const {
+    return _players;
+}
+
+Player *Stage::getPlayer() const {
     return _players[0];
 }
 
-Player *Stage::getOpponent() {
+Player *Stage::getOpponent() const {
     return _players[1];
 }
 
-Egg *Stage::getEgg() {
+Egg *Stage::getEgg() const {
     return _egg;
 }
 

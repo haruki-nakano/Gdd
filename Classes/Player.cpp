@@ -36,7 +36,7 @@ bool Player::init() {
 
     // Exclude STRAIGHT_GUN: 0
     _gun = static_cast<Gun>(random(1, static_cast<int>(Gun::SIZE) - 1));
-    _gun = Gun::THREE_WAY_GUN;
+    // _gun = Gun::THREE_WAY_GUN;
 
     _lastTimeBulletCreated = 0;
     _lifePoint = INITIAL_PLAYER_LIFE;
@@ -66,19 +66,19 @@ void Player::onEnter() {
     this->setPhysicsBody(playerPhysics);
 }
 
-bool Player::isCorrectUpdate(const Vec2 position) {
+bool Player::isCorrectUpdate(const Vec2 position) const {
     return MathUtils::convertVec2ToMoveState(position - this->getPosition()) == _moving;
 }
 
-bool Player::isSwimming() {
+bool Player::isSwimming() const {
     return _isSwimming;
 }
 
-bool Player::isFiring() {
+bool Player::isFiring() const {
     return clock() - _lastTimeBulletCreated < KEEP_FIRING_THRESHOLD;
 }
 
-void Player::setIsSwimming(bool swimming, bool isOpponent) {
+void Player::setIsSwimming(const bool swimming, const bool isOpponent) {
     int waterOpacity = isOpponent ? 0 : 128;
     if (_isSwimming != swimming) {
         this->setOpacity(swimming ? waterOpacity : 255);
@@ -162,7 +162,7 @@ void Player::setMoveState(const MoveState MoveState) {
     this->getPhysicsBody()->setVelocity(newVelocity);
 }
 
-MoveState Player::getMoveState() {
+MoveState Player::getMoveState() const {
     return _moving;
 }
 
@@ -335,12 +335,12 @@ void Player::bulletHits(Bullet *bullet) {
     updateLifePoint();
 }
 
-void Player::setHitCount(int hitCount) {
+void Player::setHitCount(const int hitCount) {
     _hitCount = hitCount;
     updateLifePoint();
 }
 
-int Player::getHitCount() {
+int Player::getHitCount() const {
     return _hitCount;
 }
 
@@ -351,12 +351,12 @@ void Player::gotHeal() {
     updateLifePoint();
 }
 
-void Player::setHealCount(int healCount) {
+void Player::setHealCount(const int healCount) {
     _healCount = healCount;
     updateLifePoint();
 }
 
-int Player::getHealCount() {
+int Player::getHealCount() const {
     return _healCount;
 }
 
@@ -375,7 +375,7 @@ void Player::updateLifePoint() {
         this->runAction(blink);
     }
 }
-int Player::getLifePoint() {
+int Player::getLifePoint() const {
     return _lifePoint;
 }
 

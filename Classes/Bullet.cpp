@@ -40,11 +40,11 @@ void Bullet::onEnter() {
     this->setPhysicsBody(bulletPhysics);
 }
 
-void Bullet::step(float dt) {
+void Bullet::step(const float dt) {
     _lifePoint -= dt;
 }
 
-float Bullet::getLifePoint() {
+float Bullet::getLifePoint() const {
     return _lifePoint;
 }
 
@@ -52,7 +52,7 @@ void Bullet::setLifePoint(float lifePoint) {
     _lifePoint = lifePoint;
 }
 
-void Bullet::setDirection(Vec2 v) {
+void Bullet::setDirection(const Vec2 v) {
     _direction = v;
 
     auto physics = this->getPhysicsBody();
@@ -61,6 +61,6 @@ void Bullet::setDirection(Vec2 v) {
     }
 }
 
-cocos2d::Vec2 Bullet::getDirectionVec() {
+cocos2d::Vec2 Bullet::getDirectionVec() const {
     return _direction;
 }

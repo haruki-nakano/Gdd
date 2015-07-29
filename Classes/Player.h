@@ -22,31 +22,30 @@ public:
 
     void step(float dt);
 
-    bool isCorrectUpdate(const cocos2d::Vec2 position);
-    bool isSwimming();
-    bool isFiring();
+    bool isCorrectUpdate(const cocos2d::Vec2 position) const;
+    bool isSwimming() const;
+    bool isFiring() const;
 
     // Fix argument
-    void setIsSwimming(bool swimming, bool opponent);
+    void setIsSwimming(const bool swimming, const bool opponent);
 
+    MoveState getMoveState() const;
     void setMoveState(const MoveState MoveState);
-    MoveState getMoveState();
 
     void setDirection(const Direction direction);
-    Direction getDirection();
 
     // Players action
     std::vector<Bullet *> createBullets(cocos2d::Vec2 touchPos, cocos2d::Vec2 stagePos);
 
     void bulletHits(Bullet *bullet);
-    void setHitCount(int hitCount);
-    int getHitCount();
+    int getHitCount() const;
+    void setHitCount(const int hitCount);
 
     void gotHeal();
-    void setHealCount(int healCount);
-    int getHealCount();
+    void setHealCount(const int healCount);
+    int getHealCount() const;
 
-    int getLifePoint();
+    int getLifePoint() const;
     void setLifeBar(LifeBar *lifeBar);
 
     const char *getGunName();

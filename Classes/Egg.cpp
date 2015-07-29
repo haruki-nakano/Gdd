@@ -48,11 +48,11 @@ void Egg::onEnter() {
 #pragma mark -
 #pragma mark Getter/Setter
 
-int Egg::getLifePoint() {
+int Egg::getLifePoint() const {
     return _lifePoint;
 }
 
-void Egg::setLifePoint(int lifePoint) {
+void Egg::setLifePoint(const int lifePoint) {
     int lastLifePoint = _lifePoint;
     _lifePoint = lifePoint;
 
@@ -79,6 +79,6 @@ void Egg::setLifePoint(int lifePoint) {
     }
 }
 
-clock_t Egg::getLastBrokenTime() {
+clock_t Egg::getLastBrokenTime() const {
     return _lastBrokenTime;
 }

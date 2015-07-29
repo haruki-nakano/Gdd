@@ -356,8 +356,12 @@ void GameScene::receivedData(const void *data, unsigned long length) {
 
     _stage->setState(state);
 
-    if (_stage->getPlayer()->getLifePoint() <= 0 || _stage->getOpponent()->getLifePoint() <= 0) {
-        gameOver();
+    auto players = _stage->getPlayers();
+    for (Player *player : players) {
+        if (player->getLifePoint() <= 0) {
+            gameOver();
+            break;
+        }
     }
 }
 

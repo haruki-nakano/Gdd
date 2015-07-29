@@ -25,12 +25,11 @@ public:
     void addBullet(Bullet *);
     void generateEgg();
 
-    Player *getPlayer();
-    Player *getOpponent();
-    // FIXME: Improve
-    // replace around getOpponent
-    // std::vector<Player *> getPlayers();
-    Egg *getEgg();
+    std::vector<Player *> getPlayers() const;
+    Player *getPlayer() const;
+    Player *getOpponent() const;
+    Egg *getEgg() const;
+
     void setState(JSONPacker::GameState state);
     void initializePlayersPosition(bool isHost);
 

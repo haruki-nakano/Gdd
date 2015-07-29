@@ -17,7 +17,7 @@ using namespace cocos2d;
 
 namespace JSONPacker {
 
-GameState unpackGameStateJSON(std::string json) {
+GameState unpackGameStateJSON(const std::string &json) {
     rapidjson::Document document;
     document.Parse<0>(json.c_str());
 

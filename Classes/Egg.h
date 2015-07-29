@@ -17,9 +17,10 @@ class Egg : public cocos2d::Sprite {
 public:
     CREATE_FUNC(Egg);
 
-    int getLifePoint();
-    void setLifePoint(int lifePoint);
-    clock_t getLastBrokenTime();
+    int getLifePoint() const;
+    void setLifePoint(const int lifePoint);
+
+    clock_t getLastBrokenTime() const;
 
 private:
     bool init() override;

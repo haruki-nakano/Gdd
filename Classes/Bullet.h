@@ -14,12 +14,14 @@
 class Bullet : public cocos2d::Sprite {
 public:
     CREATE_FUNC(Bullet);
-    void setDirection(cocos2d::Vec2 v);
-    cocos2d::Vec2 getDirectionVec();
 
-    void step(float dt);
-    float getLifePoint();
-    void setLifePoint(float lifePoint);
+    void step(const float dt);
+
+    float getLifePoint() const;
+    void setLifePoint(const float lifePoint);
+
+    cocos2d::Vec2 getDirectionVec() const;
+    void setDirection(const cocos2d::Vec2 v);
 
 private:
     bool init() override;
