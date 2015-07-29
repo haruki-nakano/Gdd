@@ -22,6 +22,31 @@ static inline float degreesAngle(const cocos2d::Vec2 v) {
     return CC_RADIANS_TO_DEGREES(atan2f(v.x, v.y));
 }
 
+static Direction convertVec2ToDirection(const cocos2d::Vec2 v) {
+    float angle = degreesAngle(v);
+
+    if (angle < (-180.0f + 22.5f) || (180.0f - 22.5f) < angle) {
+        return Direction::DOWN;
+    } else if ((-135.0f - 22.5f) <= angle && angle < (-135.0f + 22.5f)) {
+        return Direction::LOWER_LEFT;
+    } else if ((-90.0f - 22.5f) <= angle && angle < (-90.0f + 22.5f)) {
+        return Direction::LEFT;
+    } else if ((-45.0f - 22.5f) <= angle && angle < (-45.0f + 22.5f)) {
+        return Direction::UPPER_LEFT;
+    } else if ((0.0f - 22.5f) <= angle && angle < (0.0f + 22.5f)) {
+        return Direction::UP;
+    } else if ((45.0f - 22.5f) <= angle && angle < (45.0f + 22.5f)) {
+        return Direction::UPPER_RIGHT;
+    } else if ((90.0f - 22.5f) <= angle && angle < (90.0f + 22.5f)) {
+        return Direction::RIGHT;
+    } else if ((135.0f - 22.5f) <= angle && angle < (135.0f + 22.5f)) {
+        return Direction::LOWER_RIGHT;
+    }
+
+    // It can't reach here
+    return Direction::DOWN;
+}
+
 static MoveState convertVec2ToMoveState(const cocos2d::Vec2 v) {
     if (v.distance(cocos2d::Vec2(0.0f, 0.0f)) < 1.0f) {
         return MoveState::STOP;

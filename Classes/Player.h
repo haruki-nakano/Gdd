@@ -24,6 +24,7 @@ public:
 
     bool isCorrectUpdate(const cocos2d::Vec2 position);
     bool isSwimming();
+    bool isFiring();
 
     // Fix argument
     void setIsSwimming(bool swimming, bool opponent);
@@ -62,6 +63,7 @@ private:
     Direction _direction;
     Gun _gun;
     std::string _name;
+    clock_t _lastTimeBulletCreated;
     int _lifePoint;
     bool _isSwimming;
     int _hitCount;

@@ -37,6 +37,8 @@ static const float INITIAL_EGG_LIFE = 50;
 static const int MAX_EGG_INTERVAL_SEC = 1;
 static const int MIN_EGG_INTERVAL_SEC = 1;
 
+static const clock_t KEEP_FIRING_THRESHOLD = CLOCKS_PER_SEC * 0.3f;
+
 static const float DEFAULT_BULLET_SPEED = 1000.0f;
 static const float DEFAULT_PLAYER_SPEED = 200.0f;
 
@@ -98,9 +100,13 @@ enum class MoveState {
 
 enum class Direction {
     RIGHT = 0,
-    LEFT = 1,
-    UP = 2,
-    DOWN = 3,
+    LEFT,
+    UP,
+    DOWN,
+    UPPER_RIGHT,
+    UPPER_LEFT,
+    LOWER_RIGHT,
+    LOWER_LEFT,
 };
 
 enum class EggState {

@@ -38,6 +38,7 @@ bool Player::init() {
     _gun = static_cast<Gun>(random(1, static_cast<int>(Gun::SIZE) - 1));
     _gun = Gun::THREE_WAY_GUN;
 
+    _lastTimeBulletCreated = 0;
     _lifePoint = INITIAL_PLAYER_LIFE;
     _hitCount = 0;
     _healCount = 0;
@@ -52,7 +53,7 @@ void Player::onEnter() {
 
     this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 
-    PhysicsMaterial material = PhysicsMaterial(99.0f, 0.0f,1.0f);
+    PhysicsMaterial material = PhysicsMaterial(99.0f, 0.0f, 1.0f);
     PhysicsBody *playerPhysics = PhysicsBody::createBox(this->getBoundingBox().size, material);
     playerPhysics->setDynamic(true);
     playerPhysics->setGravityEnable(false);
@@ -73,6 +74,11 @@ bool Player::isSwimming() {
     return _isSwimming;
 }
 
+bool Player::isFiring() {
+    CCLOG("%lu, %lu", clock() - _lastTimeBulletCreated, KEEP_FIRING_THRESHOLD);
+    return clock() - _lastTimeBulletCreated < KEEP_FIRING_THRESHOLD;
+}
+
 void Player::setIsSwimming(bool swimming, bool isOpponent) {
     int waterOpacity = isOpponent ? 0 : 128;
     if (_isSwimming != swimming) {
@@ -83,66 +89,85 @@ void Player::setIsSwimming(bool swimming, bool isOpponent) {
 }
 
 void Player::setMoveState(const MoveState MoveState) {
-    _moving = MoveState;
     switch (MoveState) {
         case MoveState::STOP:
+            _moving = MoveState;
             this->getPhysicsBody()->setVelocity(Vec2::ZERO);
             return;
 
         case MoveState::LEFT:
-            this->setTexture(_imgLeft);
+            if (_moving == MoveState::STOP || !isFiring()) {
+                this->setTexture(_imgLeft);
+            }
             // FIXME: Improvement
             _directionVec = Vec2(-1.18f, 0.0f);
             break;
 
         case MoveState::RIGHT:
-            this->setTexture(_imgRight);
+            if (_moving == MoveState::STOP || !isFiring()) {
+                this->setTexture(_imgRight);
+            }
             _directionVec = Vec2(1.18f, 0.0f);
             break;
 
         case MoveState::UP:
-            this->setTexture(_imgUp);
+            if (_moving == MoveState::STOP || !isFiring()) {
+                this->setTexture(_imgUp);
+            }
             _directionVec = Vec2(0.0f, 0.95f);
             break;
 
         case MoveState::DOWN:
-            this->setTexture(_imgDown);
+            if (_moving == MoveState::STOP || !isFiring()) {
+                this->setTexture(_imgDown);
+            }
             _directionVec = Vec2(0.0f, -0.95f);
             break;
 
         case MoveState::UPPER_LEFT:
-            this->setTexture(_imgUpperLeft);
+            if (_moving == MoveState::STOP || !isFiring()) {
+                this->setTexture(_imgUpperLeft);
+            }
             _directionVec = Vec2(-1.0f, 0.5f);
             break;
 
         case MoveState::UPPER_RIGHT:
-            this->setTexture(_imgUpperRight);
+            if (_moving == MoveState::STOP || !isFiring()) {
+                this->setTexture(_imgUpperRight);
+            }
             _directionVec = Vec2(1.0f, 0.5f);
             break;
 
         case MoveState::LOWER_LEFT:
-            this->setTexture(_imgLowerLeft);
+            if (_moving == MoveState::STOP || !isFiring()) {
+                this->setTexture(_imgLowerLeft);
+            }
             _directionVec = Vec2(-1.0f, -0.5f);
             break;
 
         case MoveState::LOWER_RIGHT:
-            this->setTexture(_imgLowerRight);
+            if (_moving == MoveState::STOP || !isFiring()) {
+                this->setTexture(_imgLowerRight);
+            }
             _directionVec = Vec2(1.0f, -0.5f);
             break;
     }
-    this->getPhysicsBody()->setVelocity(_directionVec * DEFAULT_PLAYER_SPEED *
-                                        (isSwimming() && HIGH_SPEED_IN_WATER ? 1.8f : 1.0f));
+    _moving = MoveState;
+    Vec2 newVelocity = _directionVec * DEFAULT_PLAYER_SPEED;
+    if (isSwimming() && HIGH_SPEED_IN_WATER) {
+        newVelocity *= 1.8f;
+    }
+    if (isFiring()) {
+        newVelocity *= 0.5f;
+    }
+    this->getPhysicsBody()->setVelocity(newVelocity);
 }
 
 MoveState Player::getMoveState() {
     return _moving;
 }
 
-// TODO: Set direction when fired
 void Player::setDirection(const Direction direction) {
-    if (_direction == direction) {
-        return;
-    }
     _direction = direction;
     switch (direction) {
         case Direction::LEFT:
@@ -160,24 +185,38 @@ void Player::setDirection(const Direction direction) {
         case Direction::DOWN:
             this->setTexture(_imgDown);
             break;
+
+        case Direction::UPPER_LEFT:
+            this->setTexture(_imgUpperLeft);
+            break;
+
+        case Direction::UPPER_RIGHT:
+            this->setTexture(_imgUpperRight);
+            break;
+        case Direction::LOWER_LEFT:
+            this->setTexture(_imgLowerLeft);
+            break;
+
+        case Direction::LOWER_RIGHT:
+            this->setTexture(_imgLowerRight);
+            break;
     }
 }
 
-Direction Player::getDirection() {
-    return _direction;
-}
-
 std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
-    static clock_t lastCreatedTime;
-
     std::vector<Bullet *> bullets;
     Vec2 playerVisiblePos = this->getPosition() + stagePos;
     float distance = touchPos.distance(playerVisiblePos);
     Vec2 v = (touchPos - playerVisiblePos) / distance;
     float angle = MathUtils::degreesAngle(v);
-    // TODO
+
+    setDirection(MathUtils::convertVec2ToDirection(v));
+
+    // TODO: this function is too big
     switch (USE_SIMPLE_AIMING ? Gun::STRAIGHT_GUN : _gun) {
         case Gun::STRAIGHT_GUN: {
+            _lastTimeBulletCreated = clock();
+
             Bullet *bullet = Bullet::create();
             bullet->setPosition(this->getPosition());
             bullet->setDirection(_directionVec);
@@ -186,6 +225,8 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
             break;
         }
         case Gun::BASIC_GUN: {
+            _lastTimeBulletCreated = clock();
+
             Bullet *bullet = Bullet::create();
             bullet->setPosition(this->getPosition());
             bullet->setDirection(v);
@@ -200,6 +241,8 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
             break;
         }
         case Gun::THREE_WAY_GUN: {
+            _lastTimeBulletCreated = clock();
+
             for (int i = 0; i < 3; i++) {
                 Bullet *bullet = Bullet::create();
                 bullet->setPosition(this->getPosition());
@@ -211,6 +254,8 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
             break;
         }
         case Gun::SPRINKLER: {
+            _lastTimeBulletCreated = clock();
+
             for (int i = 0; i < 8; i++) {
                 Bullet *bullet = Bullet::create();
                 bullet->setPosition(this->getPosition());
@@ -222,6 +267,8 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
             break;
         }
         case Gun::V_LASER_GUN: {
+            _lastTimeBulletCreated = clock();
+
             for (int i = 0; i < 2; i++) {
                 Bullet *bullet = Bullet::create();
                 bullet->setPosition(this->getPosition());
@@ -233,6 +280,8 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
             break;
         }
         case Gun::MARATHON_GUN: {
+            _lastTimeBulletCreated = clock();
+
             Bullet *bullet = Bullet::create();
             bullet->setPosition(this->getPosition());
             bullet->setDirection(v);
@@ -242,11 +291,11 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
             break;
         }
         case Gun::CHARGER: {
-            if (clock() - lastCreatedTime < CLOCKS_PER_SEC * 3) {
+            if (clock() - _lastTimeBulletCreated < CLOCKS_PER_SEC * 3) {
                 break;
             }
 
-            lastCreatedTime = clock();
+            _lastTimeBulletCreated = clock();
             for (int i = 0; i < 10; i++) {
                 Bullet *bullet = Bullet::create();
                 bullet->setPosition(this->getPosition());
