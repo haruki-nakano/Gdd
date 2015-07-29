@@ -75,7 +75,6 @@ bool Player::isSwimming() {
 }
 
 bool Player::isFiring() {
-    CCLOG("%lu, %lu", clock() - _lastTimeBulletCreated, KEEP_FIRING_THRESHOLD);
     return clock() - _lastTimeBulletCreated < KEEP_FIRING_THRESHOLD;
 }
 
@@ -241,6 +240,9 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
             break;
         }
         case Gun::THREE_WAY_GUN: {
+            if (clock() - _lastTimeBulletCreated < CLOCKS_PER_SEC * 0.1f) {
+                break;
+            }
             _lastTimeBulletCreated = clock();
 
             for (int i = 0; i < 3; i++) {

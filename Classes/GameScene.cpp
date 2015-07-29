@@ -158,80 +158,83 @@ void GameScene::gameOver() {
 #pragma mark Event
 
 void GameScene::setupTouchHandling() {
-    static Vec2 firstTouchPos;
-    static Vec2 lastSyncPos;
-    static bool isTap;
-    static int firstFingerId = -1;
-    static int numFingers = 0;
+    // Index in these vector must follow the touch order
+    static std::vector<int> sTouchIds;
+    static std::vector<Vec2> sTouchBeganPositions;
+    static Vec2 sLastSyncPos;
 
     auto touchListener = EventListenerTouchOneByOne::create();
 
     touchListener->onTouchBegan = [&](Touch *touch, Event *event) {
-        numFingers++;
-        if (numFingers != 1) {
-            return true;
+        Vec2 touchPos = this->convertTouchToNodeSpace(touch);
+        sTouchIds.push_back(touch->getID());
+        sTouchBeganPositions.push_back(touchPos);
+
+        // If it is first touch finger
+        if (sTouchIds.size() == 1) {
+            sLastSyncPos = this->convertTouchToNodeSpace(touch);
         }
-        firstFingerId = touch->getID();
-        auto player = _stage->getPlayer()->getPosition();
-        firstTouchPos = this->convertTouchToNodeSpace(touch);
-        lastSyncPos = firstTouchPos;
-        isTap = true;
+
         return true;
     };
 
     touchListener->onTouchMoved = [&](Touch *touch, Event *event) {
-        if (touch->getID() != firstFingerId) {
+        if (sTouchIds.size() == 0 || sTouchBeganPositions.size() == 0 || touch->getID() != sTouchIds[0]) {
             return;
         }
         Vec2 touchPos = this->convertTouchToNodeSpace(touch);
-        isTap = false;
-        float distance = touchPos.distance(firstTouchPos);
-        // FIXME: Improvement
-        distance = sqrtf(distance);
-        MoveState move = MathUtils::convertVec2ToMoveState((touchPos - firstTouchPos) / distance);
+        MoveState move = MathUtils::convertVec2ToMoveState(touchPos - sTouchBeganPositions[0]);
         MoveState lastMoveState = _stage->getPlayer()->getMoveState();
         _stage->getPlayer()->setMoveState(move);
-        if (_networkedSession && (move != lastMoveState || lastSyncPos.distance(touchPos) > 10.0f)) {
-            // if (_networkedSession && move != lastMoveState) {
+        // FIXME: this conditions
+        if (_networkedSession && move != lastMoveState) {
             sendGameStateOverNetwork(EventType::CHANGE_PLAYERS_DIRECTION);
-            lastSyncPos = touchPos;
+            sLastSyncPos = touchPos;
         }
     };
 
     touchListener->onTouchEnded = [&](Touch *touch, Event *event) {
-        if ((!_stage->getPlayer()->isSwimming() || ALLOW_WATER_SHOT) && (isTap || touch->getID() != firstFingerId) &&
-            (ALLOW_MORE_THAN_TWO_TAP || numFingers < 3)) {
-            // FIXME: Improvement
-            Vec2 touchPos = this->convertTouchToNodeSpace(touch);
-            std::vector<Bullet *> bullets = _stage->getPlayer()->createBullets(touchPos, _stage->getPosition());
-            for (Bullet *bullet : bullets) {
-                // Use addBullets
-                _stage->addBullet(bullet);
-            }
-            if (_networkedSession) {
-                // FIXME: Improvement
-                sendGameStateOverNetwork(EventType::FIRE_BULLT, bullets);
-            }
-        } else if (!isTap && touch->getID() == firstFingerId) {
+        Vec2 touchPos = this->convertTouchToNodeSpace(touch);
+        int touchId = touch->getID();
+        // Fire the bullet or stop moving
+        if (touchId == sTouchIds[0] && _stage->getPlayer()->getMoveState() != MoveState::STOP) {
             _stage->getPlayer()->setMoveState(MoveState::STOP);
             if (_networkedSession) {
                 // FIXME: Improvement
                 sendGameStateOverNetwork(EventType::STOP_PLAYERS_MOVING);
                 sendGameStateOverNetwork(EventType::STOP_PLAYERS_MOVING);
             }
+        } else if ((!_stage->getPlayer()->isSwimming() || ALLOW_WATER_SHOT) &&
+                   (ALLOW_MORE_THAN_TWO_TAP || sTouchIds.size() < 3)) {
+            // FIXME: Improvement
+            std::vector<Bullet *> bullets = _stage->getPlayer()->createBullets(touchPos, _stage->getPosition());
+            for (Bullet *bullet : bullets) {
+                // Use addBullets
+                _stage->addBullet(bullet);
+            }
+            if (_networkedSession && bullets.size() > 0) {
+                // FIXME: Improvement
+                sendGameStateOverNetwork(EventType::FIRE_BULLT, bullets);
+            }
         }
 
-        if (numFingers == 1) {
-            firstFingerId = -1;
+        for (size_t i = 0; sTouchIds.size(); i++) {
+            if (sTouchIds[i] == touchId) {
+                sTouchIds.erase(sTouchIds.begin() + i);
+                sTouchBeganPositions.erase(sTouchBeganPositions.begin() + i);
+                break;
+            }
         }
-        numFingers--;
     };
 
     touchListener->onTouchCancelled = [&](Touch *touch, Event *event) {
-        if (numFingers == 1) {
-            firstFingerId = -1;
+        for (size_t i = 0; sTouchIds.size(); i++) {
+            if (sTouchIds[i] == touch->getID()) {
+                sTouchIds.erase(sTouchIds.begin() + i);
+                sTouchBeganPositions.erase(sTouchBeganPositions.begin() + i);
+                break;
+            }
         }
-        numFingers--;
     };
 
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
