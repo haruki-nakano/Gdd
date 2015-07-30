@@ -62,7 +62,7 @@ void Player::onEnter() {
     v[1] = Vec2(0, s.y);
     v[2] = Vec2(s.x, 0);
     v[3] = Vec2(0, -s.y);
-    PhysicsBody *playerPhysics= PhysicsBody::createPolygon(v, 4, material);
+    PhysicsBody *playerPhysics = PhysicsBody::createPolygon(v, 4, material);
     // PhysicsBody *playerPhysics = PhysicsBody::createBox(this->getBoundingBox().size, material);
     playerPhysics->setDynamic(true);
     playerPhysics->setGravityEnable(false);
@@ -97,7 +97,7 @@ bool Player::isFiring() const {
 }
 
 void Player::setIsSwimming(const bool swimming, const bool isOpponent) {
-    int waterOpacity = isOpponent ? 0 : 128;
+    int waterOpacity = isOpponent ? 0 : 32;
     if (_isSwimming != swimming) {
         // We update _isSwimming here because updateVelocity() accesses _isSwimming.
         _isSwimming = swimming;

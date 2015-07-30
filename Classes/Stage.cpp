@@ -82,10 +82,10 @@ void Stage::onEnter() {
                 Vec2 s = Vec2(32, 16);
                 v[0] = Vec2(-s.x, -s.y);
                 v[1] = Vec2(-s.x, s.y);
-                v[2] = Vec2(0, s.y*2);
+                v[2] = Vec2(0, s.y * 2);
                 v[3] = Vec2(s.x, s.y);
                 v[4] = Vec2(s.x, -s.y);
-                v[5] = Vec2(0, -s.y*2);
+                v[5] = Vec2(0, -s.y * 2);
                 PhysicsBody *tilePhysics = PhysicsBody::createPolygon(v, 6);
                 tilePhysics->setDynamic(false);
                 tilePhysics->setCategoryBitmask(CATEGORY_MASK_WALL);
@@ -169,9 +169,9 @@ void Stage::step(float dt) {
         if (isCorrectTileCoordinate(coordinate)) {
             int gid = _backgroundLayer->getTileGIDAt(coordinate);
             if (gid < 8) {
-                player->setIsSwimming(false, false);
+                player->setIsSwimming(false, player == getOpponent());
             } else if (gid >= 8) {
-                player->setIsSwimming(true, false);
+                player->setIsSwimming(true, player == getOpponent());
             }
         }
     }
