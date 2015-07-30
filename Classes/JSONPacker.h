@@ -27,6 +27,7 @@ struct GameState {
     cocos2d::Vec2 eggPosition;
     cocos2d::Vec2 opponentPosition;
     MoveState opponentMoveState;
+    Direction opponentDirection;
     EventType event;
 
     // Optional data

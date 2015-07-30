@@ -33,6 +33,7 @@ public:
     void setMoveState(const MoveState moveState);
 
     void setDirection(const Direction direction);
+    Direction getDirection() const;
 
     // Players action
     std::vector<Bullet *> createBullets(cocos2d::Vec2 touchPos, cocos2d::Vec2 stagePos);

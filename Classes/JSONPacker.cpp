@@ -25,6 +25,7 @@ GameState unpackGameStateJSON(const std::string &json) {
 
     gameState.name = document["name"].GetString();
     gameState.opponentMoveState = static_cast<MoveState>(document["moveState"].GetInt());
+    gameState.opponentDirection = static_cast<Direction>(document["direction"].GetInt());
     gameState.event = static_cast<EventType>(document["eventType"].GetInt());
     gameState.playersHitCount = document["playersHitCount"].GetInt();
     gameState.opponentsHitCount = document["oponentsHitCount"].GetInt();
@@ -73,6 +74,7 @@ std::string packGameStateJSON(const GameState gameState) {
     document.AddMember("name", gameState.name.c_str(), document.GetAllocator());
     document.AddMember("eventType", static_cast<int>(gameState.event), document.GetAllocator());
     document.AddMember("moveState", static_cast<int>(gameState.opponentMoveState), document.GetAllocator());
+    document.AddMember("direction", static_cast<int>(gameState.opponentDirection), document.GetAllocator());
     document.AddMember("playersHitCount", gameState.playersHitCount, document.GetAllocator());
     document.AddMember("oponentsHitCount", gameState.opponentsHitCount, document.GetAllocator());
     document.AddMember("playersHealCount", gameState.playersHealCount, document.GetAllocator());

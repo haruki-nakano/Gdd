@@ -106,7 +106,7 @@ void Player::setMoveState(const MoveState moveState) {
 
         case MoveState::LEFT:
             if (_moving == MoveState::STOP || !isFiring()) {
-                this->setTexture(_imgLeft);
+                setDirection(Direction::LEFT);
             }
             // FIXME: Improvement
             _directionVec = Vec2(-1.18f, 0.0f);
@@ -114,6 +114,7 @@ void Player::setMoveState(const MoveState moveState) {
 
         case MoveState::RIGHT:
             if (_moving == MoveState::STOP || !isFiring()) {
+                setDirection(Direction::RIGHT);
                 this->setTexture(_imgRight);
             }
             _directionVec = Vec2(1.18f, 0.0f);
@@ -121,6 +122,7 @@ void Player::setMoveState(const MoveState moveState) {
 
         case MoveState::UP:
             if (_moving == MoveState::STOP || !isFiring()) {
+                setDirection(Direction::UP);
                 this->setTexture(_imgUp);
             }
             _directionVec = Vec2(0.0f, 0.95f);
@@ -128,6 +130,7 @@ void Player::setMoveState(const MoveState moveState) {
 
         case MoveState::DOWN:
             if (_moving == MoveState::STOP || !isFiring()) {
+                setDirection(Direction::DOWN);
                 this->setTexture(_imgDown);
             }
             _directionVec = Vec2(0.0f, -0.95f);
@@ -135,28 +138,28 @@ void Player::setMoveState(const MoveState moveState) {
 
         case MoveState::UPPER_LEFT:
             if (_moving == MoveState::STOP || !isFiring()) {
-                this->setTexture(_imgUpperLeft);
+                setDirection(Direction::UPPER_LEFT);
             }
             _directionVec = Vec2(-1.0f, 0.5f);
             break;
 
         case MoveState::UPPER_RIGHT:
             if (_moving == MoveState::STOP || !isFiring()) {
-                this->setTexture(_imgUpperRight);
+                setDirection(Direction::UPPER_RIGHT);
             }
             _directionVec = Vec2(1.0f, 0.5f);
             break;
 
         case MoveState::LOWER_LEFT:
             if (_moving == MoveState::STOP || !isFiring()) {
-                this->setTexture(_imgLowerLeft);
+                setDirection(Direction::LOWER_LEFT);
             }
             _directionVec = Vec2(-1.0f, -0.5f);
             break;
 
         case MoveState::LOWER_RIGHT:
             if (_moving == MoveState::STOP || !isFiring()) {
-                this->setTexture(_imgLowerRight);
+                setDirection(Direction::LOWER_RIGHT);
             }
             _directionVec = Vec2(1.0f, -0.5f);
             break;
@@ -203,6 +206,10 @@ void Player::setDirection(const Direction direction) {
             this->setTexture(_imgLowerRight);
             break;
     }
+}
+
+Direction Player::getDirection() const {
+    return _direction;
 }
 
 std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {

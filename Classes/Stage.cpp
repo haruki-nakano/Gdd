@@ -195,6 +195,7 @@ void Stage::setState(JSONPacker::GameState state) {
     opponent->setPosition(state.opponentPosition);
     //}
     opponent->setMoveState(state.opponentMoveState);
+    opponent->setDirection(state.opponentDirection);
 
     // We accept false positive due to the network deplay
     player->setHitCount(MAX(state.playersHitCount, player->getHitCount()));

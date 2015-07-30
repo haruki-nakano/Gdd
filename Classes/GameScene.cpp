@@ -376,6 +376,7 @@ void GameScene::sendGameStateOverNetwork(EventType event, std::vector<Bullet *> 
     state.name = NetworkingWrapper::getDeviceName();
     state.opponentPosition = _stage->getPlayer()->getPosition();
     state.opponentMoveState = _stage->getPlayer()->getMoveState();
+    state.opponentDirection = _stage->getPlayer()->getDirection();
     state.playersHitCount = _stage->getOpponent()->getHitCount();
     state.opponentsHitCount = _stage->getPlayer()->getHitCount();
     state.playersHealCount = _stage->getOpponent()->getHealCount();
