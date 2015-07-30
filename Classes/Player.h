@@ -30,7 +30,7 @@ public:
     void setIsSwimming(const bool swimming, const bool opponent);
 
     MoveState getMoveState() const;
-    void setMoveState(const MoveState MoveState);
+    void setMoveState(const MoveState moveState);
 
     void setDirection(const Direction direction);
 
@@ -48,6 +48,8 @@ public:
     int getLifePoint() const;
     void setLifeBar(LifeBar *lifeBar);
 
+    void setLastTimeBulletCreated(clock_t t);
+
     const char *getGunName();
 
 private:
@@ -55,6 +57,7 @@ private:
     void onEnter() override;
 
     void updateLifePoint();
+    void updateVelocity();
 
     LifeBar *_lifeBar;
     cocos2d::Vec2 _directionVec;
@@ -65,6 +68,7 @@ private:
     clock_t _lastTimeBulletCreated;
     int _lifePoint;
     bool _isSwimming;
+    bool _lastFiring;
     int _hitCount;
     int _healCount;
 

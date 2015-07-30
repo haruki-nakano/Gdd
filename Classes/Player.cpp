@@ -35,14 +35,15 @@ bool Player::init() {
     _directionVec = Vec2::ZERO;
 
     // Exclude STRAIGHT_GUN: 0
-    _gun = static_cast<Gun>(random(1, static_cast<int>(Gun::SIZE) - 1));
-    // _gun = Gun::THREE_WAY_GUN;
+    //_gun = static_cast<Gun>(random(1, static_cast<int>(Gun::SIZE) - 1));
+    _gun = Gun::THREE_WAY_GUN;
 
     _lastTimeBulletCreated = 0;
     _lifePoint = INITIAL_PLAYER_LIFE;
     _hitCount = 0;
     _healCount = 0;
 
+    _lastFiring = false;
     _isSwimming = false;
 
     return true;
@@ -53,7 +54,7 @@ void Player::onEnter() {
 
     this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 
-    PhysicsMaterial material = PhysicsMaterial(99.0f, 0.0f, 1.0f);
+    PhysicsMaterial material = PhysicsMaterial(10.0f, 0.0f, 1.0f);
     PhysicsBody *playerPhysics = PhysicsBody::createBox(this->getBoundingBox().size, material);
     playerPhysics->setDynamic(true);
     playerPhysics->setGravityEnable(false);
@@ -64,6 +65,15 @@ void Player::onEnter() {
 
     this->setTag(CATEGORY_MASK_PLAYER);
     this->setPhysicsBody(playerPhysics);
+}
+
+void Player::step(float dt) {
+    // FIXME: this is ugly way to change the speed
+    bool firing = isFiring();
+    if (_lastFiring != firing) {
+        setMoveState(getMoveState());
+    }
+    _lastFiring = firing;
 }
 
 bool Player::isCorrectUpdate(const Vec2 position) const {
@@ -81,18 +91,18 @@ bool Player::isFiring() const {
 void Player::setIsSwimming(const bool swimming, const bool isOpponent) {
     int waterOpacity = isOpponent ? 0 : 128;
     if (_isSwimming != swimming) {
+        // We update _isSwimming here because updateVelocity() accesses _isSwimming.
+        _isSwimming = swimming;
         this->setOpacity(swimming ? waterOpacity : 255);
-        setMoveState(getMoveState());
+        updateVelocity();
     }
-    _isSwimming = swimming;
 }
 
-void Player::setMoveState(const MoveState MoveState) {
-    switch (MoveState) {
+void Player::setMoveState(const MoveState moveState) {
+    switch (moveState) {
         case MoveState::STOP:
-            _moving = MoveState;
-            this->getPhysicsBody()->setVelocity(Vec2::ZERO);
-            return;
+            _directionVec = Vec2::ZERO;
+            break;
 
         case MoveState::LEFT:
             if (_moving == MoveState::STOP || !isFiring()) {
@@ -151,15 +161,8 @@ void Player::setMoveState(const MoveState MoveState) {
             _directionVec = Vec2(1.0f, -0.5f);
             break;
     }
-    _moving = MoveState;
-    Vec2 newVelocity = _directionVec * DEFAULT_PLAYER_SPEED;
-    if (isSwimming() && HIGH_SPEED_IN_WATER) {
-        newVelocity *= 1.8f;
-    }
-    if (isFiring()) {
-        newVelocity *= 0.5f;
-    }
-    this->getPhysicsBody()->setVelocity(newVelocity);
+    _moving = moveState;
+    updateVelocity();
 }
 
 MoveState Player::getMoveState() const {
@@ -375,12 +378,30 @@ void Player::updateLifePoint() {
         this->runAction(blink);
     }
 }
+
+void Player::updateVelocity() {
+    Vec2 newVelocity = _directionVec * DEFAULT_PLAYER_SPEED;
+    if (isSwimming() && HIGH_SPEED_IN_WATER) {
+        // FIXME: magic number
+        newVelocity *= 1.8f;
+    }
+    if (isFiring()) {
+        newVelocity *= 0.5f;
+    }
+    this->getPhysicsBody()->setVelocity(newVelocity);
+}
+
+// FIXME: Add pragma
 int Player::getLifePoint() const {
     return _lifePoint;
 }
 
 void Player::setLifeBar(LifeBar *lifeBar) {
     _lifeBar = lifeBar;
+}
+
+void Player::setLastTimeBulletCreated(const clock_t t) {
+    _lastTimeBulletCreated = t;
 }
 
 const char *Player::getGunName() {

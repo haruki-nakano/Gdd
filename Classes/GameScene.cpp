@@ -185,7 +185,9 @@ void GameScene::setupTouchHandling() {
         Vec2 touchPos = this->convertTouchToNodeSpace(touch);
         MoveState move = MathUtils::convertVec2ToMoveState(touchPos - sTouchBeganPositions[0]);
         MoveState lastMoveState = _stage->getPlayer()->getMoveState();
-        _stage->getPlayer()->setMoveState(move);
+        if (move != lastMoveState) {
+            _stage->getPlayer()->setMoveState(move);
+        }
         // FIXME: this conditions
         if (_networkedSession && move != lastMoveState) {
             sendGameStateOverNetwork(EventType::CHANGE_PLAYERS_DIRECTION);

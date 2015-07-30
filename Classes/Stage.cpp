@@ -136,7 +136,8 @@ void Stage::step(float dt) {
     // Set water state
     auto players = getPlayers();
     for (Player *player : players) {
-        Vec2 coordinate = convertPositionToTileCoordinate(pos);
+        player->step(dt);
+        Vec2 coordinate = convertPositionToTileCoordinate(player->getPosition());
         if (isCorrectTileCoordinate(coordinate)) {
             int gid = _backgroundLayer->getTileGIDAt(coordinate);
             if (gid < 8) {
@@ -202,6 +203,9 @@ void Stage::setState(JSONPacker::GameState state) {
     player->setHealCount(MAX(state.playersHealCount, player->getHealCount()));
     opponent->setHealCount(MAX(state.opponentsHealCount, opponent->getHealCount()));
 
+    if (state.newBullets.size() > 0) {
+        opponent->setLastTimeBulletCreated(clock());
+    }
     for (Bullet *bullet : state.newBullets) {
         addBullet(bullet);
     }
