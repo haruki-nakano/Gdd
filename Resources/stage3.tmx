@@ -35,6 +35,9 @@
  <tileset firstgid="25" name="isometric_grass_and_water_light" tilewidth="64" tileheight="64">
   <image source="isometric_grass_and_water_light.png" width="256" height="384"/>
  </tileset>
+ <tileset firstgid="49" name="wall" tilewidth="64" tileheight="64">
+  <image source="wall.png" width="64" height="64"/>
+ </tileset>
  <layer name="background" width="42" height="42">
   <properties>
    <property name="clientInitialPositionX" value="20"/>
@@ -49,6 +52,11 @@
  <layer name="collision" width="42" height="42">
   <data encoding="base64" compression="zlib">
    eJztzrENwCAQxdDfQgiw/7S5IVxcJD/JvZ8kp3mr2unvxk+Snyw/WX6y/GT5yfKT5SfLT5afLD9ZfrL8ZPnJ8pPlJ8tPlp8sP1l/+pzV27xRfa1xCTs=
+  </data>
+ </layer>
+ <layer name="wall" width="42" height="42">
+  <data encoding="base64" compression="zlib">
+   eJzt1kEKACAIBMC+1P8/1xMKStCcAW+y7EkcAwAgt3kwN/sve2bOi8rt3hMgmyr389eeu/3InhX+JQCArhba5Qli
   </data>
  </layer>
 </map>
