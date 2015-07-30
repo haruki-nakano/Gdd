@@ -41,7 +41,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
 
-    glview->setDesignResolutionSize(1136, 640, ResolutionPolicy::FIXED_WIDTH);
+    glview->setDesignResolutionSize(RESOLUTION_WIDTH, RESOLUTION_HEIGHT, ResolutionPolicy::FIXED_WIDTH);
 
     cocos2d::Size frameSize = glview->getFrameSize();
     // float targetSize = frameSize.height > frameSize.width ? frameSize.height : frameSize.width;

@@ -29,6 +29,19 @@ bool GameScene::init() {
     LayerColor *background = LayerColor::create(Color4B(255, 255, 255, 255));
     this->addChild(background);
 
+    // FIXME: position, magic number
+    auto size = Director::getInstance()->getVisibleSize();
+    auto height = MAX(size.height - RESOLUTION_HEIGHT, 0) * 0.5f;
+
+    LayerColor *statusArea1 = LayerColor::create(Color4B(0, 0, 0, 255), size.width, height);
+    // FIXME: magic number
+    this->addChild(statusArea1, 999);
+
+    LayerColor *statusArea2 = LayerColor::create(Color4B(0, 0, 0, 255), size.width, height);
+    statusArea2->setPosition(0.0f, size.height - height);
+    // FIXME: magic number
+    this->addChild(statusArea2, 100);
+
     _active = false;
     _networkedSession = false;
     _isHost = true;
@@ -62,7 +75,7 @@ void GameScene::onEnter() {
     backButton->loadTextures("backButton.png", "backButtonPressed.png");
     backButton->addTouchEventListener(CC_CALLBACK_2(GameScene::backButtonPressed, this));
 
-    this->addChild(backButton);
+    this->addChild(backButton, 504);
 
     _playerLifeBar = LifeBar::create();
     _playerLifeBar->setPosition(Vec2(visibleSize.width * 0.5 - 256.0f, visibleSize.height - 32.0f));
@@ -70,8 +83,8 @@ void GameScene::onEnter() {
     _opponentsLifeBar = LifeBar::create();
     _opponentsLifeBar->setPosition(Vec2(visibleSize.width * 0.5 + 256.0f, visibleSize.height - 32.0f));
 
-    this->addChild(_playerLifeBar);
-    this->addChild(_opponentsLifeBar);
+    this->addChild(_playerLifeBar, 500);
+    this->addChild(_opponentsLifeBar, 501);
 
     _stage->getPlayer()->setLifeBar(_playerLifeBar);
     _stage->getOpponent()->setLifeBar(_opponentsLifeBar);
@@ -82,13 +95,13 @@ void GameScene::onEnter() {
     gunLabel->setAnchorPoint(Vec2(0.5f, 1.0f));
     gunLabel->setPosition(_playerLifeBar->getPosition() - Vec2(0.0f, 24.0f));
     gunLabel->setColor(LABEL_COLOR);
-    this->addChild(gunLabel);
+    this->addChild(gunLabel, 502);
 
     gunLabel = ui::Text::create("?", FONT_NAME, FONT_SIZE);
     gunLabel->setAnchorPoint(Vec2(0.5f, 1.0f));
     gunLabel->setPosition(_opponentsLifeBar->getPosition() - Vec2(0.0f, 24.0f));
     gunLabel->setColor(LABEL_COLOR);
-    this->addChild(gunLabel);
+    this->addChild(gunLabel, 503);
 
     setupTouchHandling();
 
