@@ -70,6 +70,34 @@ void Stage::onEnter() {
         }
     }
 
+    _wallLayer = _map->getLayer(DEFAULT_WALL_LAYER_NAME);
+    size = _wallLayer->getLayerSize();
+    for (int y = 0; y < size.height; y++) {
+        for (int x = 0; x < size.width; x++) {
+            auto tile = _wallLayer->getTileAt(Vec2(x, y));
+            if (tile) {
+                tile->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+                // FIXME: Critical
+                Vec2 v[6];
+                Vec2 s = Vec2(32, 16);
+                v[0] = Vec2(-s.x, -s.y);
+                v[1] = Vec2(-s.x, s.y);
+                v[2] = Vec2(0, s.y*2);
+                v[3] = Vec2(s.x, s.y);
+                v[4] = Vec2(s.x, -s.y);
+                v[5] = Vec2(0, -s.y*2);
+                PhysicsBody *tilePhysics = PhysicsBody::createPolygon(v, 6);
+                tilePhysics->setDynamic(false);
+                tilePhysics->setCategoryBitmask(CATEGORY_MASK_WALL);
+                tilePhysics->setCollisionBitmask(COLLISION_MASK_WALL);
+                tilePhysics->setContactTestBitmask(CONTACT_MASK_WALL);
+
+                tile->setTag(TAG_WALL);
+                tile->setPhysicsBody(tilePhysics);
+            }
+        }
+    }
+
     // setup map
     _map->setAnchorPoint(Vec2::ZERO);
     _map->setPosition(Vec2::ZERO);

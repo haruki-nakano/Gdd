@@ -43,6 +43,7 @@ private:
     cocos2d::experimental::TMXTiledMap *_map;
     cocos2d::experimental::TMXLayer *_backgroundLayer;
     cocos2d::experimental::TMXLayer *_collisionLayer;
+    cocos2d::experimental::TMXLayer *_wallLayer;
     cocos2d::Size _size;
     std::vector<Player *> _players;
     std::vector<Bullet *> _bullets;
