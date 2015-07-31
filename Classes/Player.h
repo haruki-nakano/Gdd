@@ -53,6 +53,8 @@ public:
 
     const char *getGunName();
 
+    void setGun(const Gun gun);
+
 private:
     bool init() override;
     void onEnter() override;

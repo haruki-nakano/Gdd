@@ -35,8 +35,8 @@ bool Player::init() {
     _directionVec = Vec2::ZERO;
 
     // Exclude STRAIGHT_GUN: 0
-    //_gun = static_cast<Gun>(random(1, static_cast<int>(Gun::SIZE) - 1));
-    _gun = Gun::THREE_WAY_GUN;
+    _gun = static_cast<Gun>(random(1, static_cast<int>(Gun::SIZE) - 1));
+    //_gun = Gun::THREE_WAY_GUN;
 
     _lastTimeBulletCreated = 0;
     _lifePoint = INITIAL_PLAYER_LIFE;
@@ -421,4 +421,8 @@ void Player::setLastTimeBulletCreated(const clock_t t) {
 
 const char *Player::getGunName() {
     return GUN_NAMES[static_cast<int>(_gun)];
+}
+
+void Player::setGun(const Gun gun) {
+    _gun = gun;
 }
