@@ -51,4 +51,9 @@
    eJztzksKgDAUxdA7VesHu/+9+roGKaGQQObnSNInfk+81W/W7Yl+Mv1s+tn0s+ln08+mn00/m342/Wz62Yb/ohE/0s+mn00/m342/Wz62fSz6WfTz6afTT/b8O/1uehb/QHe+QtP
   </data>
  </layer>
+ <layer name="wall" width="48" height="48">
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20ON6AAAAAAAAAAAIBXAyQAAAE=
+  </data>
+ </layer>
 </map>

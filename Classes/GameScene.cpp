@@ -314,16 +314,21 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
         return false;
     }
 
-    // If a player contacts egg
-    if (tagA == TAG_EGG && (tagB == TAG_PLAYER || tagB == TAG_OPPOPENT)) {
+    // If a player contacts item
+    if (tagA == TAG_ITEM && (tagB == TAG_PLAYER || tagB == TAG_OPPOPENT)) {
         egg = dynamic_cast<Egg *>(nodeA);
-    } else if (tagB == TAG_EGG && (tagA == TAG_PLAYER || tagA == TAG_OPPOPENT)) {
+    } else if (tagB == TAG_ITEM && (tagA == TAG_PLAYER || tagA == TAG_OPPOPENT)) {
         egg = dynamic_cast<Egg *>(nodeB);
     }
 
     if (egg) {
-        egg->setState(EggState::IDLE);
-        // Do something for player.
+        if (egg->getState() == EggState::ITEM) {
+            egg->setState(EggState::IDLE);
+            // Do something for player.
+            return false;
+        } else {
+            return true;
+        }
     }
 
     // If a bullet contacts egg

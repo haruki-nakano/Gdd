@@ -55,13 +55,23 @@ EggState Egg::getState() const {
     return _state;
 }
 void Egg::setState(const EggState state) {
+    if(_state == state) {
+        return;
+    }
     _state = state;
 
+    PhysicsBody *physics;
     switch (state) {
         case EggState::IDLE:
             this->setVisible(false);
             this->setPosition(-1, -1);
+            this->setTexture(_egg);
             _lastBrokenTime = clock();
+            physics = this->getPhysicsBody();
+            this->setTag(TAG_EGG);
+            physics->setCategoryBitmask(CATEGORY_MASK_EGG);
+            physics->setCollisionBitmask(COLLISION_MASK_EGG);
+            physics->setContactTestBitmask(CONTACT_MASK_EGG);
             break;
         case EggState::EGG:
             setVisible(true);
@@ -69,6 +79,11 @@ void Egg::setState(const EggState state) {
         case EggState::ITEM:
             this->setTexture(_item);
             this->stopAllActions();
+            this->setTag(TAG_ITEM);
+            physics = this->getPhysicsBody();
+            physics->setCategoryBitmask(CATEGORY_MASK_ITEM);
+            physics->setCollisionBitmask(COLLISION_MASK_ITEM);
+            physics->setContactTestBitmask(CONTACT_MASK_ITEM);
             break;
 
         default:
@@ -81,6 +96,10 @@ int Egg::getLifePoint() const {
 }
 
 void Egg::setLifePoint(const int lifePoint) {
+    if (getState() != EggState::EGG) {
+        return;
+    }
+
     int lastLifePoint = _lifePoint;
     _lifePoint = MAX(lifePoint, 0);
 
