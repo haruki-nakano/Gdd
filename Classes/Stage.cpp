@@ -114,7 +114,6 @@ void Stage::onEnter() {
     getOpponent()->setTag(TAG_OPPOPENT);
 
     _egg = Egg::create();
-    _egg->setLifePoint(-1);
     this->addChild(_egg);
 }
 

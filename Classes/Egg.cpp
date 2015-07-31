@@ -55,7 +55,7 @@ EggState Egg::getState() const {
     return _state;
 }
 void Egg::setState(const EggState state) {
-    if(_state == state) {
+    if (_state == state) {
         return;
     }
     _state = state;
@@ -66,6 +66,7 @@ void Egg::setState(const EggState state) {
             this->setVisible(false);
             this->setPosition(-1, -1);
             this->setTexture(_egg);
+            _lifePoint = INITIAL_EGG_LIFE;
             _lastBrokenTime = clock();
             physics = this->getPhysicsBody();
             this->setTag(TAG_EGG);
@@ -79,6 +80,7 @@ void Egg::setState(const EggState state) {
         case EggState::ITEM:
             this->setTexture(_item);
             this->stopAllActions();
+            this->setVisible(true);
             this->setTag(TAG_ITEM);
             physics = this->getPhysicsBody();
             physics->setCategoryBitmask(CATEGORY_MASK_ITEM);
