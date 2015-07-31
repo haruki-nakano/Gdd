@@ -114,7 +114,7 @@ enum class Direction {
 };
 
 enum class EggState {
-    INVISIBLE = 0,
+    IDLE = 0,
     EGG,
     ITEM,
 };
@@ -138,6 +138,13 @@ enum class Gun {
     MARATHON_GUN,
     CHARGER,
     SIZE,
+};
+
+enum class PlayerColor {
+    DEFAULT = 0,
+    YELLOW,
+    GREEN,
+    NUM_COLORS,
 };
 
 #endif

@@ -130,7 +130,8 @@ void GameScene::update(float dt) {
     _stage->step(dt);
 
     //  Host is in charge of generating egg.
-    if (_isHost && _stage->getEgg()->getLifePoint() <= 0 && _stage->getEgg()->getLastBrokenTime() + delta < clock()) {
+    Egg *egg = _stage->getEgg();
+    if (_isHost && egg->getState() == EggState::IDLE && egg->getLastBrokenTime() + delta < clock()) {
         delta = random(MIN_EGG_INTERVAL_SEC, MAX_EGG_INTERVAL_SEC) * CLOCKS_PER_SEC;
         _stage->generateEgg();
         sendGameStateOverNetwork(EventType::APPEAR_EGG, std::vector<Bullet *>(), true);

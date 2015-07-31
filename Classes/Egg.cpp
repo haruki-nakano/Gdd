@@ -18,9 +18,11 @@ bool Egg::init() {
     this->setTag(TAG_EGG);
 
     _lifePoint = INITIAL_EGG_LIFE;
+    _state = EggState::IDLE;
     _lastBrokenTime = 0;
 
-    _item = EggItemType::HEALING;
+    _itemType = EggItemType::HEALING;
+    _item = Director::getInstance()->getTextureCache()->addImage("healing.png");
 
     _egg = Director::getInstance()->getTextureCache()->addImage("egg.png");
     _egg2 = Director::getInstance()->getTextureCache()->addImage("egg2.png");
@@ -48,27 +50,20 @@ void Egg::onEnter() {
 #pragma mark -
 #pragma mark Getter/Setter
 
+EggState Egg::getState() const {
+    return _state;
+}
+void Egg::setState(const EggState state) {
+    _state = state;
+}
+
 int Egg::getLifePoint() const {
     return _lifePoint;
 }
 
 void Egg::setLifePoint(const int lifePoint) {
     int lastLifePoint = _lifePoint;
-    _lifePoint = lifePoint;
-
-    if (lifePoint <= 0) {
-        // Set disable if egg is broken
-        this->setVisible(false);
-        // FIXME: Critical
-        this->setPosition(-1, -1);
-        _lastBrokenTime = clock();
-    } else {
-        setVisible(true);
-        if (lastLifePoint > lifePoint) {
-            Sequence *blink = Sequence::create(Blink::create(0.4f, 4), Show::create(), NULL);
-            this->runAction(blink);
-        }
-    }
+    _lifePoint = MAX(lifePoint, 0);
 
     if (_lifePoint > INITIAL_EGG_LIFE * 0.7) {
         this->setTexture(_egg);
@@ -76,6 +71,25 @@ void Egg::setLifePoint(const int lifePoint) {
         this->setTexture(_egg2);
     } else {
         this->setTexture(_egg3);
+    }
+
+    if (lifePoint <= 0) {
+        // Set disable if egg is broken
+        /*
+        this->setVisible(false);
+        // FIXME: Critical
+        this->setPosition(-1, -1);
+         */
+        this->setTexture(_item);
+        this->stopAllActions();
+        Vec2 pos = this->getPosition();
+        //_lastBrokenTime = clock();
+    } else {
+        setVisible(true);
+        if (lastLifePoint > lifePoint) {
+            Sequence *blink = Sequence::create(Blink::create(0.4f, 4), Show::create(), NULL);
+            this->runAction(blink);
+        }
     }
 }
 

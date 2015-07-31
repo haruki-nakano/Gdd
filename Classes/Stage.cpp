@@ -195,6 +195,7 @@ void Stage::generateEgg() {
     Vec2 pos = sp->getPosition();
     _egg->setPosition(pos);
     _egg->setLifePoint(INITIAL_EGG_LIFE);
+    _egg->setState(EggState::EGG);
 }
 
 #pragma mark -
@@ -253,7 +254,8 @@ void Stage::setState(JSONPacker::GameState state) {
 
 bool Stage::isCorrectTileCoordinate(Vec2 tileCoordinate, bool checkWallCollision) {
     return tileCoordinate.x < _size.width && tileCoordinate.y < _size.height && tileCoordinate.x >= 0 &&
-           tileCoordinate.y >= 0 && (!checkWallCollision || _collisionLayer->getTileGIDAt(tileCoordinate) == 0);
+           tileCoordinate.y >= 0 && (!checkWallCollision || (_collisionLayer->getTileGIDAt(tileCoordinate) == 0 &&
+                                                             _wallLayer->getTileGIDAt(tileCoordinate) == 0));
 }
 
 Vec2 Stage::convertPositionToTileCoordinate(Vec2 pos) {
