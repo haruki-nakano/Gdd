@@ -263,11 +263,13 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
     int tagA = nodeA->getTag();
     int tagB = nodeB->getTag();
 
+    Player *player = nullptr;
+    Bullet *bullet = nullptr;
+    Egg *egg = nullptr;
+
     // CCLOG("onContactBegin: %d %d", nodeA->getTag(), nodeB->getTag());
 
     // My shot hits other player
-    Player *player = nullptr;
-    Bullet *bullet = nullptr;
     if (tagA == TAG_OPPOPENT && tagB == TAG_PLAYER_BULLET) {
         player = dynamic_cast<Player *>(nodeA);
         bullet = dynamic_cast<Bullet *>(nodeB);
@@ -314,15 +316,17 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
 
     // If a player contacts egg
     if (tagA == TAG_EGG && (tagB == TAG_PLAYER || tagB == TAG_OPPOPENT)) {
-        CCLOG("bar");
-        return false;
+        egg = dynamic_cast<Egg *>(nodeA);
     } else if (tagB == TAG_EGG && (tagA == TAG_PLAYER || tagA == TAG_OPPOPENT)) {
-        CCLOG("foo");
-        return false;
+        egg = dynamic_cast<Egg *>(nodeB);
+    }
+
+    if (egg) {
+        egg->setState(EggState::IDLE);
+        // Do something for player.
     }
 
     // If a bullet contacts egg
-    Egg *egg = nullptr;
     if (tagA == TAG_EGG && (tagB == TAG_PLAYER_BULLET || tagB == TAG_OPPOPENT_BULLET)) {
         egg = dynamic_cast<Egg *>(nodeA);
         bullet = dynamic_cast<Bullet *>(nodeB);
@@ -335,10 +339,6 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
     if (egg && bullet) {
         bullet->setLifePoint(-1.0f);
         egg->setLifePoint(egg->getLifePoint() - 1);
-        // Egg is broken
-        if (egg->getLifePoint() == 0) {
-            player->gotHeal();
-        }
         sendGameStateOverNetwork(EventType::HIT_EGG);
         return false;
     }

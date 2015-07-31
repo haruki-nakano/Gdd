@@ -43,8 +43,9 @@ void Egg::onEnter() {
     physics->setCategoryBitmask(CATEGORY_MASK_EGG);
     physics->setCollisionBitmask(COLLISION_MASK_EGG);
     physics->setContactTestBitmask(CONTACT_MASK_EGG);
-
     this->setPhysicsBody(physics);
+
+    setState(EggState::IDLE);
 }
 
 #pragma mark -
@@ -55,6 +56,24 @@ EggState Egg::getState() const {
 }
 void Egg::setState(const EggState state) {
     _state = state;
+
+    switch (state) {
+        case EggState::IDLE:
+            this->setVisible(false);
+            this->setPosition(-1, -1);
+            _lastBrokenTime = clock();
+            break;
+        case EggState::EGG:
+            setVisible(true);
+            break;
+        case EggState::ITEM:
+            this->setTexture(_item);
+            this->stopAllActions();
+            break;
+
+        default:
+            break;
+    }
 }
 
 int Egg::getLifePoint() const {
@@ -65,31 +84,19 @@ void Egg::setLifePoint(const int lifePoint) {
     int lastLifePoint = _lifePoint;
     _lifePoint = MAX(lifePoint, 0);
 
+    if (lastLifePoint > lifePoint) {
+        Sequence *blink = Sequence::create(Blink::create(0.4f, 4), Show::create(), NULL);
+        this->runAction(blink);
+    }
+
     if (_lifePoint > INITIAL_EGG_LIFE * 0.7) {
         this->setTexture(_egg);
     } else if (_lifePoint > INITIAL_EGG_LIFE * 0.3) {
         this->setTexture(_egg2);
-    } else {
+    } else if (_lifePoint > 0) {
         this->setTexture(_egg3);
-    }
-
-    if (lifePoint <= 0) {
-        // Set disable if egg is broken
-        /*
-        this->setVisible(false);
-        // FIXME: Critical
-        this->setPosition(-1, -1);
-         */
-        this->setTexture(_item);
-        this->stopAllActions();
-        Vec2 pos = this->getPosition();
-        //_lastBrokenTime = clock();
     } else {
-        setVisible(true);
-        if (lastLifePoint > lifePoint) {
-            Sequence *blink = Sequence::create(Blink::create(0.4f, 4), Show::create(), NULL);
-            this->runAction(blink);
-        }
+        setState(EggState::ITEM);
     }
 }
 
