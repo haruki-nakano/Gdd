@@ -106,7 +106,8 @@ void Stage::onEnter() {
 
     // setup player
     for (int i = 0; i < MAX_PLAYERS; i++) {
-        Player *player = Player::create();
+        bool isOpponent = i > 0;
+        Player *player = Player::create(isOpponent);
         this->addChild(player);
         _players.push_back(player);
     }
@@ -168,9 +169,9 @@ void Stage::step(float dt) {
         if (isCorrectTileCoordinate(coordinate)) {
             int gid = _backgroundLayer->getTileGIDAt(coordinate);
             if (gid < 8) {
-                player->setIsSwimming(false, player == getOpponent());
+                player->setIsSwimming(false);
             } else if (gid >= 8) {
-                player->setIsSwimming(true, player == getOpponent());
+                player->setIsSwimming(true);
             }
         }
     }

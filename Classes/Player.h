@@ -18,16 +18,28 @@ class LifeBar;
 
 class Player : public cocos2d::Sprite {
 public:
-    CREATE_FUNC(Player);
+    static Player *create(bool opponent) {
+        Player *pRet = new (std::nothrow) Player;
+        if (pRet && pRet->init()) {
+            pRet->autorelease();
+            pRet->_isOpponent = opponent;
+            return pRet;
+        } else {
+            delete pRet;
+            pRet = NULL;
+            return NULL;
+        }
+    }
 
     void step(float dt);
 
     bool isCorrectUpdate(const cocos2d::Vec2 position) const;
     bool isSwimming() const;
     bool isFiring() const;
+    bool isOpponent() const;
 
     // Fix argument
-    void setIsSwimming(const bool swimming, const bool opponent);
+    void setIsSwimming(const bool swimming);
 
     MoveState getMoveState() const;
     void setMoveState(const MoveState moveState);
@@ -66,14 +78,19 @@ private:
     cocos2d::Vec2 _directionVec;
     MoveState _moving;
     Direction _direction;
+    Sprite *_splash;
     Gun _gun;
+
     std::string _name;
     clock_t _lastTimeBulletCreated;
     int _lifePoint;
     bool _isSwimming;
+    bool _isOpponent;
     bool _lastFiring;
     int _hitCount;
     int _healCount;
+
+    // Splash
 
     // PlayerImages
     cocos2d::Texture2D *_imgLeft;

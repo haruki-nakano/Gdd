@@ -74,6 +74,10 @@ void Player::onEnter() {
 
     this->setTag(CATEGORY_MASK_PLAYER);
     this->setPhysicsBody(playerPhysics);
+
+    _splash = Sprite::create();
+    _splash->setPosition(Vec2(0.0f, getBoundingBox().size.height - 40.0f));
+    this->addChild(_splash);
 }
 
 void Player::step(float dt) {
@@ -97,29 +101,52 @@ bool Player::isFiring() const {
     return clock() - _lastTimeBulletCreated < KEEP_FIRING_THRESHOLD;
 }
 
-void Player::setIsSwimming(const bool swimming, const bool isOpponent) {
-    int waterOpacity = isOpponent ? 0 : 32;
+void Player::setIsSwimming(const bool swimming) {
+    int waterOpacity = _isOpponent ? 0 : 32;
     if (_isSwimming != swimming) {
         // We update _isSwimming here because updateVelocity() accesses _isSwimming.
         _isSwimming = swimming;
         this->setOpacity(swimming ? waterOpacity : 255);
-        updateVelocity();
+        setMoveState(getMoveState());
     }
 }
 
 void Player::setMoveState(const MoveState moveState) {
+    _splash->stopAllActions();
+    _splash->setVisible(false);
+
     switch (moveState) {
         case MoveState::STOP:
             _directionVec = Vec2::ZERO;
             break;
 
-        case MoveState::LEFT:
+        case MoveState::LEFT: {
             if (_moving == MoveState::STOP || !isFiring()) {
                 setDirection(Direction::LEFT);
             }
             // FIXME: Improvement
             _directionVec = Vec2(-1.18f, 0.0f);
+
+            // FIXME: should use sprite sheet
+            if (isSwimming() && !isFiring() && !_isOpponent) {
+                _splash->setVisible(true);
+                _splash->setPosition(Vec2(getBoundingBox().size.width, getBoundingBox().size.height - 40.0f));
+                Animation *animation = Animation::create();
+
+                // TODO: Use batchnode
+                animation->addSpriteFrameWithFileName("splashLeft1.png");
+                animation->addSpriteFrameWithFileName("splashLeft2.png");
+                animation->addSpriteFrameWithFileName("splashLeft3.png");
+
+                animation->setDelayPerUnit(0.1);
+                //(4コマかける5回ループで2秒になり、移動同時に終了するようにしている)
+
+                // 4. アニメーションの実行
+                Animate *animate = Animate::create(animation);
+                _splash->runAction(RepeatForever::create(animate));
+            }
             break;
+        }
 
         case MoveState::RIGHT:
             if (_moving == MoveState::STOP || !isFiring()) {
@@ -127,6 +154,24 @@ void Player::setMoveState(const MoveState moveState) {
                 this->setTexture(_imgRight);
             }
             _directionVec = Vec2(1.18f, 0.0f);
+
+            if (isSwimming() && !isFiring() && !_isOpponent) {
+                _splash->setVisible(true);
+                _splash->setPosition(Vec2(0.0f, getBoundingBox().size.height - 40.0f));
+                Animation *animation = Animation::create();
+
+                // TODO: Use batchnode
+                animation->addSpriteFrameWithFileName("splashRight1.png");
+                animation->addSpriteFrameWithFileName("splashRight2.png");
+                animation->addSpriteFrameWithFileName("splashRight3.png");
+
+                animation->setDelayPerUnit(0.1);
+                //(4コマかける5回ループで2秒になり、移動同時に終了するようにしている)
+
+                // 4. アニメーションの実行
+                Animate *animate = Animate::create(animation);
+                _splash->runAction(RepeatForever::create(animate));
+            }
             break;
 
         case MoveState::UP:
@@ -135,6 +180,24 @@ void Player::setMoveState(const MoveState moveState) {
                 this->setTexture(_imgUp);
             }
             _directionVec = Vec2(0.0f, 0.95f);
+
+            if (isSwimming() && !isFiring() && !_isOpponent) {
+                _splash->setVisible(true);
+                _splash->setPosition(Vec2(getBoundingBox().size.width * 0.5f, getBoundingBox().size.height - 64.0f));
+                Animation *animation = Animation::create();
+
+                // TODO: Use batchnode
+                animation->addSpriteFrameWithFileName("splashUp1.png");
+                animation->addSpriteFrameWithFileName("splashUp2.png");
+                animation->addSpriteFrameWithFileName("splashUp3.png");
+
+                animation->setDelayPerUnit(0.1);
+                //(4コマかける5回ループで2秒になり、移動同時に終了するようにしている)
+
+                // 4. アニメーションの実行
+                Animate *animate = Animate::create(animation);
+                _splash->runAction(RepeatForever::create(animate));
+            }
             break;
 
         case MoveState::DOWN:
@@ -143,6 +206,24 @@ void Player::setMoveState(const MoveState moveState) {
                 this->setTexture(_imgDown);
             }
             _directionVec = Vec2(0.0f, -0.95f);
+
+            if (isSwimming() && !isFiring() && !_isOpponent) {
+                _splash->setVisible(true);
+                _splash->setPosition(Vec2(getBoundingBox().size.width * 0.5f, getBoundingBox().size.height - 8.0f));
+                Animation *animation = Animation::create();
+
+                // TODO: Use batchnode
+                animation->addSpriteFrameWithFileName("splashDown1.png");
+                animation->addSpriteFrameWithFileName("splashDown2.png");
+                animation->addSpriteFrameWithFileName("splashDown3.png");
+
+                animation->setDelayPerUnit(0.1);
+                //(4コマかける5回ループで2秒になり、移動同時に終了するようにしている)
+
+                // 4. アニメーションの実行
+                Animate *animate = Animate::create(animation);
+                _splash->runAction(RepeatForever::create(animate));
+            }
             break;
 
         case MoveState::UPPER_LEFT:
@@ -150,6 +231,24 @@ void Player::setMoveState(const MoveState moveState) {
                 setDirection(Direction::UPPER_LEFT);
             }
             _directionVec = Vec2(-1.0f, 0.5f);
+
+            if (isSwimming() && !isFiring() && !_isOpponent) {
+                _splash->setVisible(true);
+                _splash->setPosition(Vec2(getBoundingBox().size.width - 16.0f, getBoundingBox().size.height - 56.0f));
+                Animation *animation = Animation::create();
+
+                // TODO: Use batchnode
+                animation->addSpriteFrameWithFileName("splashUpperLeft1.png");
+                animation->addSpriteFrameWithFileName("splashUpperLeft2.png");
+                animation->addSpriteFrameWithFileName("splashUpperLeft3.png");
+
+                animation->setDelayPerUnit(0.1);
+                //(4コマかける5回ループで2秒になり、移動同時に終了するようにしている)
+
+                // 4. アニメーションの実行
+                Animate *animate = Animate::create(animation);
+                _splash->runAction(RepeatForever::create(animate));
+            }
             break;
 
         case MoveState::UPPER_RIGHT:
@@ -157,6 +256,24 @@ void Player::setMoveState(const MoveState moveState) {
                 setDirection(Direction::UPPER_RIGHT);
             }
             _directionVec = Vec2(1.0f, 0.5f);
+
+            if (isSwimming() && !isFiring() && !_isOpponent) {
+                _splash->setVisible(true);
+                _splash->setPosition(Vec2(16.0f, getBoundingBox().size.height - 56.0f));
+                Animation *animation = Animation::create();
+
+                // TODO: Use batchnode
+                animation->addSpriteFrameWithFileName("splashUpperRight1.png");
+                animation->addSpriteFrameWithFileName("splashUpperRight2.png");
+                animation->addSpriteFrameWithFileName("splashUpperRight3.png");
+
+                animation->setDelayPerUnit(0.1);
+                //(4コマかける5回ループで2秒になり、移動同時に終了するようにしている)
+
+                // 4. アニメーションの実行
+                Animate *animate = Animate::create(animation);
+                _splash->runAction(RepeatForever::create(animate));
+            }
             break;
 
         case MoveState::LOWER_LEFT:
@@ -164,6 +281,24 @@ void Player::setMoveState(const MoveState moveState) {
                 setDirection(Direction::LOWER_LEFT);
             }
             _directionVec = Vec2(-1.0f, -0.5f);
+
+            if (isSwimming() && !isFiring() && !_isOpponent) {
+                _splash->setVisible(true);
+                _splash->setPosition(Vec2(getBoundingBox().size.width + 16.0f, getBoundingBox().size.height));
+                Animation *animation = Animation::create();
+
+                // TODO: Use batchnode
+                animation->addSpriteFrameWithFileName("splashLowerLeft1.png");
+                animation->addSpriteFrameWithFileName("splashLowerLeft2.png");
+                animation->addSpriteFrameWithFileName("splashLowerLeft3.png");
+
+                animation->setDelayPerUnit(0.1);
+                //(4コマかける5回ループで2秒になり、移動同時に終了するようにしている)
+
+                // 4. アニメーションの実行
+                Animate *animate = Animate::create(animation);
+                _splash->runAction(RepeatForever::create(animate));
+            }
             break;
 
         case MoveState::LOWER_RIGHT:
@@ -171,6 +306,24 @@ void Player::setMoveState(const MoveState moveState) {
                 setDirection(Direction::LOWER_RIGHT);
             }
             _directionVec = Vec2(1.0f, -0.5f);
+
+            if (isSwimming() && !isFiring() && !_isOpponent) {
+                _splash->setVisible(true);
+                _splash->setPosition(Vec2(-16.0f, getBoundingBox().size.height));
+                Animation *animation = Animation::create();
+
+                // TODO: Use batchnode
+                animation->addSpriteFrameWithFileName("splashLowerRight1.png");
+                animation->addSpriteFrameWithFileName("splashLowerRight2.png");
+                animation->addSpriteFrameWithFileName("splashLowerRight3.png");
+
+                animation->setDelayPerUnit(0.1);
+                //(4コマかける5回ループで2秒になり、移動同時に終了するようにしている)
+
+                // 4. アニメーションの実行
+                Animate *animate = Animate::create(animation);
+                _splash->runAction(RepeatForever::create(animate));
+            }
             break;
     }
     _moving = moveState;

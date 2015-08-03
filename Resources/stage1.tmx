@@ -53,7 +53,7 @@
  </layer>
  <layer name="wall" width="48" height="48">
   <data encoding="base64" compression="zlib">
-   eJztwQENAAAAwqD3T20ON6AAAAAAAAAAAIBXAyQAAAE=
+   eJztzgENAAAIA6Dbv7QxrhskIOGjaQcAAAAAAAAAADhhAUZIAAI=
   </data>
  </layer>
 </map>
