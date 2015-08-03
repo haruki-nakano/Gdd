@@ -21,8 +21,7 @@ bool Egg::init() {
     _state = EggState::IDLE;
     _lastBrokenTime = 0;
 
-    _itemType = EggItemType::HEALING;
-    _item = Director::getInstance()->getTextureCache()->addImage("healing.png");
+    setItemType(static_cast<EggItemType>(random(0, static_cast<int>(EggItemType::SIZE))));
 
     _egg = Director::getInstance()->getTextureCache()->addImage("egg.png");
     _egg2 = Director::getInstance()->getTextureCache()->addImage("egg2.png");
@@ -118,6 +117,19 @@ void Egg::setLifePoint(const int lifePoint) {
         this->setTexture(_egg3);
     } else {
         setState(EggState::ITEM);
+    }
+}
+
+EggItemType Egg::getItemType() const {
+    return _itemType;
+}
+
+void Egg::setItemType(const EggItemType itemType) {
+    _itemType = itemType;
+    if (_itemType == EggItemType::SUPER_STAR) {
+        _item = Director::getInstance()->getTextureCache()->addImage("superStar.png");
+    } else {
+        _item = Director::getInstance()->getTextureCache()->addImage("healing.png");
     }
 }
 

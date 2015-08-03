@@ -25,6 +25,7 @@ struct GameState {
     int opponentsHealCount;
     int eggLifePoint;
     cocos2d::Vec2 eggPosition;
+    EggItemType eggItemType;
     cocos2d::Vec2 opponentPosition;
     MoveState opponentMoveState;
     Direction opponentDirection;

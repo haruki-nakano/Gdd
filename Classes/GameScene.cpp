@@ -407,8 +407,10 @@ void GameScene::sendGameStateOverNetwork(EventType event, std::vector<Bullet *> 
     state.eggLifePoint = egg->getLifePoint();
     if (newEgg) {
         state.eggPosition = egg->getPosition();
+        state.eggItemType = egg->getItemType();
     } else {
         state.eggPosition = Vec2::ZERO;
+        state.eggItemType = EggItemType::SIZE;
     }
 
     std::string json = JSONPacker::packGameStateJSON(state);

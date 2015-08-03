@@ -196,6 +196,7 @@ void Stage::generateEgg() {
     _egg->setPosition(pos);
     _egg->setLifePoint(INITIAL_EGG_LIFE);
     _egg->setState(EggState::EGG);
+    _egg->setItemType(static_cast<EggItemType>(random(0, static_cast<int>(EggItemType::SIZE))));
 }
 
 #pragma mark -
@@ -245,6 +246,7 @@ void Stage::setState(JSONPacker::GameState state) {
         _egg->setPosition(state.eggPosition);
         _egg->setLifePoint(state.eggLifePoint);
         _egg->setState(EggState::EGG);
+        _egg->setItemType(state.eggItemType);
     } else {
         CCLOG("%d %d", state.eggLifePoint, _egg->getLifePoint());
         _egg->setLifePoint(MIN(state.eggLifePoint, _egg->getLifePoint()));

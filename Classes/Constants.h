@@ -56,13 +56,13 @@ static const int TAG_OPPOPENT = 3;
 static const int TAG_OPPOPENT_BULLET = 4;
 static const int TAG_WALL = 5;
 static const int TAG_EGG = 6;
-static const int TAG_ITEM = 6;
+static const int TAG_ITEM = 7;
 
 static const int CATEGORY_MASK_PLAYER = 1;
 static const int CATEGORY_MASK_BULLET = 2;
 static const int CATEGORY_MASK_WALL = 4;
 static const int CATEGORY_MASK_EGG = 8;
-static const int CATEGORY_MASK_ITEM = 8;
+static const int CATEGORY_MASK_ITEM = 16;
 
 static const int CONTACT_MASK_PLAYER = CATEGORY_MASK_BULLET | CATEGORY_MASK_ITEM;
 static const int CONTACT_MASK_WALL = CATEGORY_MASK_BULLET;
@@ -124,11 +124,11 @@ enum class EggState {
 };
 
 enum class EggItemType {
-    NONE = 0,
-    HEALING = 1,
-    SPEED_UP = 2,
-    SUPER_SHOT = 3,
-    SUPER_STAR = 4,
+    HEALING,
+    // SPEED_UP,
+    // SUPER_SHOT,
+    SUPER_STAR,
+    SIZE
 };
 
 static const char *GUN_NAMES[] = {"Straight Water Gun", "Basic Water Gun",    "3 Way Water Gun", "Sprinkler",

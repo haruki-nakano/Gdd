@@ -63,6 +63,7 @@ GameState unpackGameStateJSON(const std::string &json) {
     Vec2 pos = Vec2(eggPosition["x"].GetDouble(), eggPosition["y"].GetDouble());
 
     gameState.eggLifePoint = document["egg"]["lifePoint"].GetInt();
+    gameState.eggItemType = static_cast<EggItemType>(document["egg"]["itemType"].GetInt());
     gameState.eggPosition = pos;
 
     return gameState;
@@ -117,6 +118,7 @@ std::string packGameStateJSON(const GameState gameState) {
 
     eggJson.AddMember("position", eggPositionJson, document.GetAllocator());
     eggJson.AddMember("lifePoint", gameState.eggLifePoint, document.GetAllocator());
+    eggJson.AddMember("itemType", static_cast<int>(gameState.eggItemType), document.GetAllocator());
 
     document.AddMember("egg", eggJson, document.GetAllocator());
 

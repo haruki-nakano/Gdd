@@ -23,6 +23,9 @@ public:
     int getLifePoint() const;
     void setLifePoint(const int lifePoint);
 
+    EggItemType getItemType() const;
+    void setItemType(const EggItemType itemType);
+
     clock_t getLastBrokenTime() const;
 
 private:
