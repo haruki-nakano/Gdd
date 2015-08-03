@@ -244,7 +244,9 @@ void Stage::setState(JSONPacker::GameState state) {
         // New egg is created
         _egg->setPosition(state.eggPosition);
         _egg->setLifePoint(state.eggLifePoint);
+        _egg->setState(EggState::EGG);
     } else {
+        CCLOG("%d %d", state.eggLifePoint, _egg->getLifePoint());
         _egg->setLifePoint(MIN(state.eggLifePoint, _egg->getLifePoint()));
     }
 }

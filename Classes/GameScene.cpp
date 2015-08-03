@@ -317,14 +317,17 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
     // If a player contacts item
     if (tagA == TAG_ITEM && (tagB == TAG_PLAYER || tagB == TAG_OPPOPENT)) {
         egg = dynamic_cast<Egg *>(nodeA);
+        player = dynamic_cast<Player *>(nodeB);
     } else if (tagB == TAG_ITEM && (tagA == TAG_PLAYER || tagA == TAG_OPPOPENT)) {
         egg = dynamic_cast<Egg *>(nodeB);
+        player = dynamic_cast<Player *>(nodeA);
     }
 
-    if (egg) {
+    if (egg && player) {
         if (egg->getState() == EggState::ITEM) {
             egg->setState(EggState::IDLE);
             // Do something for player.
+            player->gotHeal();
             return false;
         } else {
             return true;
@@ -335,11 +338,9 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
     if (tagA == TAG_EGG && (tagB == TAG_PLAYER_BULLET || tagB == TAG_OPPOPENT_BULLET)) {
         egg = dynamic_cast<Egg *>(nodeA);
         bullet = dynamic_cast<Bullet *>(nodeB);
-        player = tagB == TAG_PLAYER_BULLET ? _stage->getPlayer() : _stage->getOpponent();
     } else if (tagB == TAG_EGG && (tagA == TAG_PLAYER_BULLET || tagA == TAG_OPPOPENT_BULLET)) {
         egg = dynamic_cast<Egg *>(nodeB);
         bullet = dynamic_cast<Bullet *>(nodeA);
-        player = tagA == TAG_PLAYER_BULLET ? _stage->getPlayer() : _stage->getOpponent();
     }
     if (egg && bullet) {
         bullet->setLifePoint(-1.0f);
