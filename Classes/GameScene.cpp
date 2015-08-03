@@ -130,7 +130,8 @@ void GameScene::update(float dt) {
     _stage->step(dt);
 
     //  Host is in charge of generating egg.
-    if (_isHost && _stage->getEgg()->getLifePoint() <= 0 && _stage->getEgg()->getLastBrokenTime() + delta < clock()) {
+    Egg *egg = _stage->getEgg();
+    if (_isHost && egg->getState() == EggState::IDLE && egg->getLastBrokenTime() + delta < clock()) {
         delta = random(MIN_EGG_INTERVAL_SEC, MAX_EGG_INTERVAL_SEC) * CLOCKS_PER_SEC;
         _stage->generateEgg();
         sendGameStateOverNetwork(EventType::APPEAR_EGG, std::vector<Bullet *>(), true);
@@ -262,11 +263,13 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
     int tagA = nodeA->getTag();
     int tagB = nodeB->getTag();
 
+    Player *player = nullptr;
+    Bullet *bullet = nullptr;
+    Egg *egg = nullptr;
+
     // CCLOG("onContactBegin: %d %d", nodeA->getTag(), nodeB->getTag());
 
     // My shot hits other player
-    Player *player = nullptr;
-    Bullet *bullet = nullptr;
     if (tagA == TAG_OPPOPENT && tagB == TAG_PLAYER_BULLET) {
         player = dynamic_cast<Player *>(nodeA);
         bullet = dynamic_cast<Bullet *>(nodeB);
@@ -311,33 +314,37 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
         return false;
     }
 
-    // If a player contacts egg
-    if (tagA == TAG_EGG && (tagB == TAG_PLAYER || tagB == TAG_OPPOPENT)) {
-        CCLOG("bar");
-        return false;
-    } else if (tagB == TAG_EGG && (tagA == TAG_PLAYER || tagA == TAG_OPPOPENT)) {
-        CCLOG("foo");
-        return false;
+    // If a player contacts item
+    if (tagA == TAG_ITEM && (tagB == TAG_PLAYER || tagB == TAG_OPPOPENT)) {
+        egg = dynamic_cast<Egg *>(nodeA);
+        player = dynamic_cast<Player *>(nodeB);
+    } else if (tagB == TAG_ITEM && (tagA == TAG_PLAYER || tagA == TAG_OPPOPENT)) {
+        egg = dynamic_cast<Egg *>(nodeB);
+        player = dynamic_cast<Player *>(nodeA);
+    }
+
+    if (egg && player) {
+        if (egg->getState() == EggState::ITEM) {
+            egg->setState(EggState::IDLE);
+            // Do something for player.
+            player->gotHeal();
+            return false;
+        } else {
+            return true;
+        }
     }
 
     // If a bullet contacts egg
-    Egg *egg = nullptr;
     if (tagA == TAG_EGG && (tagB == TAG_PLAYER_BULLET || tagB == TAG_OPPOPENT_BULLET)) {
         egg = dynamic_cast<Egg *>(nodeA);
         bullet = dynamic_cast<Bullet *>(nodeB);
-        player = tagB == TAG_PLAYER_BULLET ? _stage->getPlayer() : _stage->getOpponent();
     } else if (tagB == TAG_EGG && (tagA == TAG_PLAYER_BULLET || tagA == TAG_OPPOPENT_BULLET)) {
         egg = dynamic_cast<Egg *>(nodeB);
         bullet = dynamic_cast<Bullet *>(nodeA);
-        player = tagA == TAG_PLAYER_BULLET ? _stage->getPlayer() : _stage->getOpponent();
     }
     if (egg && bullet) {
         bullet->setLifePoint(-1.0f);
         egg->setLifePoint(egg->getLifePoint() - 1);
-        // Egg is broken
-        if (egg->getLifePoint() == 0) {
-            player->gotHeal();
-        }
         sendGameStateOverNetwork(EventType::HIT_EGG);
         return false;
     }

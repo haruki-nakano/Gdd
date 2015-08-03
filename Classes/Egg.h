@@ -17,6 +17,9 @@ class Egg : public cocos2d::Sprite {
 public:
     CREATE_FUNC(Egg);
 
+    EggState getState() const;
+    void setState(const EggState state);
+
     int getLifePoint() const;
     void setLifePoint(const int lifePoint);
 
@@ -29,7 +32,9 @@ private:
     clock_t _lastBrokenTime;
     int _lifePoint;
 
-    EggItemType _item;
+    EggState _state;
+    EggItemType _itemType;
+    cocos2d::Texture2D *_item;
 
     cocos2d::Texture2D *_egg;
     cocos2d::Texture2D *_egg2;

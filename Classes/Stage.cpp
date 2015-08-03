@@ -106,7 +106,8 @@ void Stage::onEnter() {
 
     // setup player
     for (int i = 0; i < MAX_PLAYERS; i++) {
-        Player *player = Player::create();
+        bool isOpponent = i > 0;
+        Player *player = Player::create(isOpponent);
         this->addChild(player);
         _players.push_back(player);
     }
@@ -114,7 +115,6 @@ void Stage::onEnter() {
     getOpponent()->setTag(TAG_OPPOPENT);
 
     _egg = Egg::create();
-    _egg->setLifePoint(-1);
     this->addChild(_egg);
 }
 
@@ -169,9 +169,9 @@ void Stage::step(float dt) {
         if (isCorrectTileCoordinate(coordinate)) {
             int gid = _backgroundLayer->getTileGIDAt(coordinate);
             if (gid < 8) {
-                player->setIsSwimming(false, player == getOpponent());
+                player->setIsSwimming(false);
             } else if (gid >= 8) {
-                player->setIsSwimming(true, player == getOpponent());
+                player->setIsSwimming(true);
             }
         }
     }
@@ -195,6 +195,7 @@ void Stage::generateEgg() {
     Vec2 pos = sp->getPosition();
     _egg->setPosition(pos);
     _egg->setLifePoint(INITIAL_EGG_LIFE);
+    _egg->setState(EggState::EGG);
 }
 
 #pragma mark -
@@ -243,7 +244,9 @@ void Stage::setState(JSONPacker::GameState state) {
         // New egg is created
         _egg->setPosition(state.eggPosition);
         _egg->setLifePoint(state.eggLifePoint);
+        _egg->setState(EggState::EGG);
     } else {
+        CCLOG("%d %d", state.eggLifePoint, _egg->getLifePoint());
         _egg->setLifePoint(MIN(state.eggLifePoint, _egg->getLifePoint()));
     }
 }
@@ -253,7 +256,8 @@ void Stage::setState(JSONPacker::GameState state) {
 
 bool Stage::isCorrectTileCoordinate(Vec2 tileCoordinate, bool checkWallCollision) {
     return tileCoordinate.x < _size.width && tileCoordinate.y < _size.height && tileCoordinate.x >= 0 &&
-           tileCoordinate.y >= 0 && (!checkWallCollision || _collisionLayer->getTileGIDAt(tileCoordinate) == 0);
+           tileCoordinate.y >= 0 && (!checkWallCollision || (_collisionLayer->getTileGIDAt(tileCoordinate) == 0 &&
+                                                             _wallLayer->getTileGIDAt(tileCoordinate) == 0));
 }
 
 Vec2 Stage::convertPositionToTileCoordinate(Vec2 pos) {

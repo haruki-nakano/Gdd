@@ -25,6 +25,10 @@ private:
 
     void singlePlayerPressed(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType eEventType);
     void multiPlayerPressed(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType eEventType);
+    void howToPlayPressed(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType eEventType);
+    void dialogTouched(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType eEventType);
+
+    cocos2d::ui::Button *_dialog;
 };
 
 #endif /* defined(__Yuzu__Lobby__) */
