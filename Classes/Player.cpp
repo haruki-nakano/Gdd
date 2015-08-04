@@ -39,7 +39,7 @@ bool Player::init() {
     _gun = Gun::THREE_WAY_GUN;
 
     _lastTimeBulletCreated = 0;
-    _invincibleStartTime = -INVINCIBLE_TIME;
+    _invincibleTimeCount = INVINCIBLE_TIME + 1.0f;
     _lifePoint = INITIAL_PLAYER_LIFE;
     _hitCount = 0;
     _healCount = 0;
@@ -90,6 +90,8 @@ void Player::step(float dt) {
     _lastFiring = firing;
 
     //
+    _invincibleTimeCount = MIN(_invincibleTimeCount + dt, INVINCIBLE_TIME + 1.0f);
+    CCLOG("%f %f", _invincibleTimeCount, INVINCIBLE_TIME);
     bool invincible = isInvincible();
     if (!invincible && _lastInvincible) {
         // FIXME: All action?
@@ -113,7 +115,11 @@ bool Player::isFiring() const {
 }
 
 bool Player::isInvincible() const {
-    return clock() - _invincibleStartTime < INVINCIBLE_TIME;
+    return _invincibleTimeCount < INVINCIBLE_TIME;
+}
+
+bool Player::isOpponent() const {
+    return _isOpponent;
 }
 
 void Player::setIsSwimming(const bool swimming) {
@@ -547,7 +553,8 @@ void Player::gotInvincible() {
     auto action3 = TintTo::create(0.1, 64, 255, 255);
     auto seq = Sequence::create(action, action2, action3, NULL);
     this->runAction(RepeatForever::create(seq));
-    setInvincibleStartTime(clock());
+    _invincibleTimeCount = 0.0;
+    // setInvincibleStartTime(clock());
 }
 
 void Player::setHealCount(const int healCount) {
@@ -602,7 +609,7 @@ void Player::setLastTimeBulletCreated(const clock_t t) {
 }
 
 void Player::setInvincibleStartTime(const clock_t t) {
-    _invincibleStartTime = t;
+    // _invincibleStartTime = t;
 }
 
 const char *Player::getGunName() {

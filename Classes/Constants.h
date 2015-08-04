@@ -41,7 +41,7 @@ static const int MAX_EGG_INTERVAL_SEC = 1;
 static const int MIN_EGG_INTERVAL_SEC = 1;
 
 static const clock_t KEEP_FIRING_THRESHOLD = CLOCKS_PER_SEC * 0.3f;
-static const clock_t INVINCIBLE_TIME = CLOCKS_PER_SEC * 10.0f;
+static const float INVINCIBLE_TIME = 10.0f; // 10 sec
 static const clock_t ABNORMAL_FIRING_THRESHOLD = CLOCKS_PER_SEC * 0.1f;
 
 static const float DEFAULT_BULLET_SPEED = 1000.0f;
@@ -86,7 +86,8 @@ enum class EventType {
     HIT_EGG = 5,
     APPEAR_EGG = 6,
     GET_HEAL = 7,
-    GET_INVINCIBLE = 8,
+    PLAYER_GET_INVINCIBLE = 8,
+    OPPONENT_GET_INVINCIBLE = 9,
 };
 
 enum class FieldType {

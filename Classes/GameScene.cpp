@@ -332,7 +332,8 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
                 sendGameStateOverNetwork(EventType::GET_HEAL);
             } else if (egg->getItemType() == EggItemType::SUPER_STAR) {
                 player->gotInvincible();
-                sendGameStateOverNetwork(EventType::GET_INVINCIBLE);
+                sendGameStateOverNetwork(player->isOpponent() ? EventType::PLAYER_GET_INVINCIBLE
+                                                              : EventType::OPPONENT_GET_INVINCIBLE);
             }
             return false;
         } else {

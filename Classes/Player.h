@@ -87,7 +87,7 @@ private:
 
     std::string _name;
     clock_t _lastTimeBulletCreated;
-    clock_t _invincibleStartTime;
+    float _invincibleTimeCount;
     int _lifePoint;
     bool _isSwimming;
     bool _isOpponent;
