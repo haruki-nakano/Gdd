@@ -36,7 +36,7 @@ bool Player::init() {
 
     // Exclude STRAIGHT_GUN: 0
     _gun = static_cast<Gun>(random(1, static_cast<int>(Gun::SIZE) - 1));
-    _gun = Gun::THREE_WAY_GUN;
+    // _gun = Gun::THREE_WAY_GUN;
 
     _lastTimeBulletCreated = 0;
     _invincibleTimeCount = INVINCIBLE_TIME + 1.0f;
