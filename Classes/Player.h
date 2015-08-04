@@ -36,6 +36,7 @@ public:
     bool isCorrectUpdate(const cocos2d::Vec2 position) const;
     bool isSwimming() const;
     bool isFiring() const;
+    bool isInvincible() const;
     bool isOpponent() const;
 
     // Fix argument
@@ -55,6 +56,8 @@ public:
     void setHitCount(const int hitCount);
 
     void gotHeal();
+    void gotInvincible();
+
     void setHealCount(const int healCount);
     int getHealCount() const;
 
@@ -62,6 +65,7 @@ public:
     void setLifeBar(LifeBar *lifeBar);
 
     void setLastTimeBulletCreated(clock_t t);
+    void setInvincibleStartTime(clock_t t);
 
     const char *getGunName();
 
@@ -83,10 +87,12 @@ private:
 
     std::string _name;
     clock_t _lastTimeBulletCreated;
+    clock_t _invincibleStartTime;
     int _lifePoint;
     bool _isSwimming;
     bool _isOpponent;
     bool _lastFiring;
+    bool _lastInvincible;
     int _hitCount;
     int _healCount;
 

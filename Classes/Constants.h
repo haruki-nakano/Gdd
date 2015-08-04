@@ -12,7 +12,7 @@
 static const std::string CODE_NAME = "Yuzu";
 static const std::string GAME_NAME = "Rubber Duck Wars";
 
-static const std::string DEFAULT_STAGE_FILE = "stage3.tmx";
+static const std::string DEFAULT_STAGE_FILE = "stage2.tmx";
 static const std::string DEFAULT_BACKGROUND_LAYER_NAME = "background";
 static const std::string DEFAULT_COLLISION_LAYER_NAME = "collision";
 static const std::string DEFAULT_WALL_LAYER_NAME = "wall";
@@ -33,7 +33,7 @@ static const bool HIGH_SPEED_IN_WATER = true;
 
 static const int MAX_PLAYERS = 2;
 
-static const int INITIAL_PLAYER_LIFE = 50;
+static const int INITIAL_PLAYER_LIFE = 30;
 static const float INITIAL_BULLET_LIFE = 0.32;
 static const float INITIAL_EGG_LIFE = 50;
 
@@ -41,6 +41,7 @@ static const int MAX_EGG_INTERVAL_SEC = 1;
 static const int MIN_EGG_INTERVAL_SEC = 1;
 
 static const clock_t KEEP_FIRING_THRESHOLD = CLOCKS_PER_SEC * 0.3f;
+static const clock_t INVINCIBLE_TIME = CLOCKS_PER_SEC * 10.0f;
 static const clock_t ABNORMAL_FIRING_THRESHOLD = CLOCKS_PER_SEC * 0.1f;
 
 static const float DEFAULT_BULLET_SPEED = 1000.0f;

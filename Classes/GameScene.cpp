@@ -327,7 +327,11 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
         if (egg->getState() == EggState::ITEM) {
             egg->setState(EggState::IDLE);
             // Do something for player.
-            player->gotHeal();
+            if (egg->getItemType() == EggItemType::HEALING) {
+                player->gotHeal();
+            } else if (egg->getItemType() == EggItemType::SUPER_STAR) {
+                player->gotInvincible();
+            }
             return false;
         } else {
             return true;

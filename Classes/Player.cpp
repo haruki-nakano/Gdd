@@ -36,14 +36,16 @@ bool Player::init() {
 
     // Exclude STRAIGHT_GUN: 0
     _gun = static_cast<Gun>(random(1, static_cast<int>(Gun::SIZE) - 1));
-    // _gun = Gun::THREE_WAY_GUN;
+    _gun = Gun::THREE_WAY_GUN;
 
     _lastTimeBulletCreated = 0;
+    _invincibleStartTime = -INVINCIBLE_TIME;
     _lifePoint = INITIAL_PLAYER_LIFE;
     _hitCount = 0;
     _healCount = 0;
 
     _lastFiring = false;
+    _lastInvincible = false;
     _isSwimming = false;
 
     return true;
@@ -86,6 +88,15 @@ void Player::step(float dt) {
         setMoveState(getMoveState());
     }
     _lastFiring = firing;
+
+    //
+    bool invincible = isInvincible();
+    if (!invincible && _lastInvincible) {
+        // FIXME: All action?
+        this->stopAllActions();
+        this->setColor(Color3B::WHITE);
+    }
+    _lastInvincible = invincible;
 }
 
 bool Player::isCorrectUpdate(const Vec2 position) const {
@@ -98,6 +109,10 @@ bool Player::isSwimming() const {
 
 bool Player::isFiring() const {
     return clock() - _lastTimeBulletCreated < KEEP_FIRING_THRESHOLD;
+}
+
+bool Player::isInvincible() const {
+    return clock() - _invincibleStartTime < INVINCIBLE_TIME;
 }
 
 void Player::setIsSwimming(const bool swimming) {
@@ -502,6 +517,9 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
 }
 
 void Player::bulletHits(Bullet *bullet) {
+    if (isInvincible()) {
+        return;
+    }
     _hitCount++;
     updateLifePoint();
 }
@@ -520,6 +538,15 @@ void Player::gotHeal() {
     int heal = MIN(5, INITIAL_PLAYER_LIFE - getLifePoint());
     _healCount += heal;
     updateLifePoint();
+}
+
+void Player::gotInvincible() {
+    auto action = TintTo::create(0.1, 255, 255, 64);
+    auto action2 = TintTo::create(0.1, 255, 64, 255);
+    auto action3 = TintTo::create(0.1, 64, 255, 255);
+    auto seq = Sequence::create(action, action2, action3, NULL);
+    this->runAction(RepeatForever::create(seq));
+    setInvincibleStartTime(clock());
 }
 
 void Player::setHealCount(const int healCount) {
@@ -549,13 +576,14 @@ void Player::updateLifePoint() {
 
 void Player::updateVelocity() {
     Vec2 newVelocity = _directionVec * DEFAULT_PLAYER_SPEED;
-    if (isSwimming() && HIGH_SPEED_IN_WATER) {
+    if (isInvincible() || (isSwimming() && HIGH_SPEED_IN_WATER)) {
         // FIXME: magic number
         newVelocity *= 1.8f;
     }
     if (isFiring()) {
         newVelocity *= 0.5f;
     }
+
     this->getPhysicsBody()->setVelocity(newVelocity);
 }
 
@@ -570,6 +598,10 @@ void Player::setLifeBar(LifeBar *lifeBar) {
 
 void Player::setLastTimeBulletCreated(const clock_t t) {
     _lastTimeBulletCreated = t;
+}
+
+void Player::setInvincibleStartTime(const clock_t t) {
+    _invincibleStartTime = t;
 }
 
 const char *Player::getGunName() {

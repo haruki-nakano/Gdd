@@ -72,6 +72,7 @@ GameState unpackGameStateJSON(const std::string &json) {
 std::string packGameStateJSON(const GameState gameState) {
     rapidjson::Document document;
     document.SetObject();
+    // FIXME: reduce sending size
     document.AddMember("name", gameState.name.c_str(), document.GetAllocator());
     document.AddMember("eventType", static_cast<int>(gameState.event), document.GetAllocator());
     document.AddMember("moveState", static_cast<int>(gameState.opponentMoveState), document.GetAllocator());

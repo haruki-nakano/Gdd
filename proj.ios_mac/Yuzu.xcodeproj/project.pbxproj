@@ -170,8 +170,6 @@
 		715725541B6F47940050EBCC /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 715725521B6F47940050EBCC /* logo.png */; };
 		716E16471B6BFBD600592129 /* healing.png in Resources */ = {isa = PBXBuildFile; fileRef = 716E16461B6BFBD600592129 /* healing.png */; };
 		716E16481B6BFBD600592129 /* healing.png in Resources */ = {isa = PBXBuildFile; fileRef = 716E16461B6BFBD600592129 /* healing.png */; };
-		71992B881B6829FC0065EA2A /* EggItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 71992B861B6829FC0065EA2A /* EggItem.cpp */; };
-		71992B891B6829FC0065EA2A /* EggItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 71992B861B6829FC0065EA2A /* EggItem.cpp */; };
 		71992B8B1B6832EF0065EA2A /* stage3.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 71992B8A1B6832EF0065EA2A /* stage3.tmx */; };
 		71992B8C1B6832EF0065EA2A /* stage3.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 71992B8A1B6832EF0065EA2A /* stage3.tmx */; };
 		71A052391B5EC11A0051813D /* LifeBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 71A052371B5EC11A0051813D /* LifeBar.cpp */; };
@@ -355,8 +353,6 @@
 		7157254F1B6F41790050EBCC /* backgroundTitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroundTitle.png; sourceTree = "<group>"; };
 		715725521B6F47940050EBCC /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		716E16461B6BFBD600592129 /* healing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = healing.png; sourceTree = "<group>"; };
-		71992B861B6829FC0065EA2A /* EggItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EggItem.cpp; sourceTree = "<group>"; };
-		71992B871B6829FC0065EA2A /* EggItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EggItem.h; sourceTree = "<group>"; };
 		71992B8A1B6832EF0065EA2A /* stage3.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = stage3.tmx; sourceTree = "<group>"; };
 		71A052371B5EC11A0051813D /* LifeBar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LifeBar.cpp; sourceTree = "<group>"; };
 		71A052381B5EC11A0051813D /* LifeBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifeBar.h; sourceTree = "<group>"; };
@@ -633,8 +629,6 @@
 			children = (
 				7125E7AC1B5456A10005D5B1 /* Bullet.cpp */,
 				7125E7AD1B5456A10005D5B1 /* Bullet.h */,
-				71992B861B6829FC0065EA2A /* EggItem.cpp */,
-				71992B871B6829FC0065EA2A /* EggItem.h */,
 				710AD88F1B6165280062580E /* Egg.cpp */,
 				710AD8901B6165280062580E /* Egg.h */,
 				71A052371B5EC11A0051813D /* LifeBar.cpp */,
@@ -968,7 +962,6 @@
 				7125E7AE1B5456A10005D5B1 /* Bullet.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				7125E7CB1B5485980005D5B1 /* JSONPacker.cpp in Sources */,
-				71992B881B6829FC0065EA2A /* EggItem.cpp in Sources */,
 				71166DFB1B6AD01100704D28 /* StatusArea.cpp in Sources */,
 				710AD8911B6165280062580E /* Egg.cpp in Sources */,
 				7125E7931B542CA80005D5B1 /* GameScene.cpp in Sources */,
@@ -982,7 +975,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				71992B891B6829FC0065EA2A /* EggItem.cpp in Sources */,
 				7125E7941B542CA80005D5B1 /* GameScene.cpp in Sources */,
 				7125E79D1B54342B0005D5B1 /* Player.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
@@ -1038,6 +1030,7 @@
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
+				INSTALL_GROUP = admin;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
@@ -1072,6 +1065,7 @@
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
+				INSTALL_GROUP = admin;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
@@ -1109,6 +1103,7 @@
 					"$(SRCROOT)/../cocos2d/external/glfw3/include/mac",
 				);
 				INFOPLIST_FILE = mac/Info.plist;
+				INSTALL_GROUP = admin;
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_MAC_BEGIN)",
@@ -1140,6 +1135,7 @@
 					"$(SRCROOT)/../cocos2d/external/glfw3/include/mac",
 				);
 				INFOPLIST_FILE = mac/Info.plist;
+				INSTALL_GROUP = admin;
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_MAC_BEGIN)",
@@ -1152,6 +1148,7 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALTERNATE_GROUP = admin;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				COPY_PHASE_STRIP = NO;
@@ -1174,6 +1171,7 @@
 					"$(SRCROOT)/../cocos2d/external",
 					"$(SRCROOT)/../cocos2d/external/chipmunk/include/chipmunk",
 				);
+				INSTALL_GROUP = admin;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1184,6 +1182,7 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALTERNATE_GROUP = admin;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -1204,6 +1203,7 @@
 					"$(SRCROOT)/../cocos2d/external",
 					"$(SRCROOT)/../cocos2d/external/chipmunk/include/chipmunk",
 				);
+				INSTALL_GROUP = admin;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
