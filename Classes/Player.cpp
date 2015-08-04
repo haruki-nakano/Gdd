@@ -108,6 +108,7 @@ bool Player::isSwimming() const {
 }
 
 bool Player::isFiring() const {
+    // TODO: Do not use clock. it depends on device.
     return clock() - _lastTimeBulletCreated < KEEP_FIRING_THRESHOLD;
 }
 

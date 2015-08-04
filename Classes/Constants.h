@@ -85,7 +85,8 @@ enum class EventType {
     GAME_OVER = 4,
     HIT_EGG = 5,
     APPEAR_EGG = 6,
-    GET_ITEM = 7,
+    GET_HEAL = 7,
+    GET_INVINCIBLE = 8,
 };
 
 enum class FieldType {

@@ -252,6 +252,10 @@ void Stage::setState(JSONPacker::GameState state) {
         CCLOG("%d %d", state.eggLifePoint, _egg->getLifePoint());
         _egg->setLifePoint(MIN(state.eggLifePoint, _egg->getLifePoint()));
     }
+
+    if (state.event == EventType::GET_INVINCIBLE) {
+        opponent->setInvincibleStartTime(clock());
+    }
 }
 
 #pragma mark -
