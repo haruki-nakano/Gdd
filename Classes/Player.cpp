@@ -20,8 +20,6 @@ bool Player::init() {
         return false;
     }
 
-    // FIXME: Improve
-    // Use initialier
     _imgLeft = Director::getInstance()->getTextureCache()->addImage("playerLeft.png");
     _imgUp = Director::getInstance()->getTextureCache()->addImage("playerUp.png");
     _imgRight = Director::getInstance()->getTextureCache()->addImage("playerRight.png");
@@ -36,7 +34,7 @@ bool Player::init() {
 
     // Exclude STRAIGHT_GUN: 0
     _gun = static_cast<Gun>(random(1, static_cast<int>(Gun::SIZE) - 1));
-    // _gun = Gun::THREE_WAY_GUN;
+    // _gun = Gun::V_LASER_GUN;
 
     _lastTimeBulletCreated = 0;
     _invincibleTimeCount = INVINCIBLE_TIME + 1.0f;
@@ -93,7 +91,7 @@ void Player::step(float dt) {
     _invincibleTimeCount = MIN(_invincibleTimeCount + dt, INVINCIBLE_TIME + 1.0f);
     bool invincible = isInvincible();
     if (!invincible && _lastInvincible) {
-        // FIXME: All action?
+        // FIXME: All action? Use setTag
         this->stopAllActions();
         this->setColor(Color3B::WHITE);
     }
@@ -144,7 +142,6 @@ void Player::setMoveState(const MoveState moveState) {
             if (_moving == MoveState::STOP || !isFiring()) {
                 setDirection(Direction::LEFT);
             }
-            // FIXME: Improvement
             _directionVec = Vec2(-1.18f, 0.0f);
 
             // FIXME: should use sprite sheet
@@ -475,10 +472,11 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
             }
             _lastTimeBulletCreated = clock();
 
-            for (int i = 0; i < 2; i++) {
+            for (int i = 0; i < 4; i++) {
                 Bullet *bullet = Bullet::create();
                 bullet->setPosition(this->getPosition());
-                bullet->setDirection(MathUtils::forDegreesAngle(angle + 25.0f * (i == 0 ? -1 : 1)));
+                v = MathUtils::forDegreesAngle(angle + 20.0f * (i % 2 == 0 ? -1 : 1));
+                bullet->setDirection(i > 1 ? v : v * 0.8);
                 bullet->setLifePoint(INITIAL_BULLET_LIFE * 1.2f);
                 bullet->setTag(this->getTag() == TAG_PLAYER ? TAG_PLAYER_BULLET : TAG_OPPOPENT_BULLET);
                 bullets.push_back(bullet);
@@ -490,13 +488,13 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
                 break;
             }
             _lastTimeBulletCreated = clock();
-
             Bullet *bullet = Bullet::create();
             bullet->setPosition(this->getPosition());
             bullet->setDirection(v);
             bullet->setLifePoint(INITIAL_BULLET_LIFE * 10.0f);
             bullet->setTag(this->getTag() == TAG_PLAYER ? TAG_PLAYER_BULLET : TAG_OPPOPENT_BULLET);
             bullets.push_back(bullet);
+
             break;
         }
         case Gun::CHARGER: {
@@ -530,18 +528,8 @@ void Player::bulletHits(Bullet *bullet) {
     updateLifePoint();
 }
 
-void Player::setHitCount(const int hitCount) {
-    _hitCount = hitCount;
-    updateLifePoint();
-}
-
-int Player::getHitCount() const {
-    return _hitCount;
-}
-
 void Player::gotHeal() {
-    // FIXME: Do not use magic number
-    int heal = MIN(5, INITIAL_PLAYER_LIFE - getLifePoint());
+    int heal = MIN(HEALING_POINTS, INITIAL_PLAYER_LIFE - getLifePoint());
     _healCount += heal;
     updateLifePoint();
 }
@@ -553,16 +541,6 @@ void Player::gotInvincible() {
     auto seq = Sequence::create(action, action2, action3, NULL);
     this->runAction(RepeatForever::create(seq));
     _invincibleTimeCount = 0.0;
-    // setInvincibleStartTime(clock());
-}
-
-void Player::setHealCount(const int healCount) {
-    _healCount = healCount;
-    updateLifePoint();
-}
-
-int Player::getHealCount() const {
-    return _healCount;
 }
 
 void Player::updateLifePoint() {
@@ -584,7 +562,6 @@ void Player::updateLifePoint() {
 void Player::updateVelocity() {
     Vec2 newVelocity = _directionVec * DEFAULT_PLAYER_SPEED;
     if (isInvincible() || (isSwimming() && HIGH_SPEED_IN_WATER)) {
-        // FIXME: magic number
         newVelocity *= 1.8f;
     }
     if (isFiring()) {
@@ -594,7 +571,27 @@ void Player::updateVelocity() {
     this->getPhysicsBody()->setVelocity(newVelocity);
 }
 
-// FIXME: Add pragma
+#pragma mark -
+#pragma Getter / Setter
+
+void Player::setHitCount(const int hitCount) {
+    _hitCount = hitCount;
+    updateLifePoint();
+}
+
+int Player::getHitCount() const {
+    return _hitCount;
+}
+
+void Player::setHealCount(const int healCount) {
+    _healCount = healCount;
+    updateLifePoint();
+}
+
+int Player::getHealCount() const {
+    return _healCount;
+}
+
 int Player::getLifePoint() const {
     return _lifePoint;
 }

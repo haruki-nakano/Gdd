@@ -44,7 +44,7 @@ void SceneManager::enterGameScene(bool networked) {
     }
     Scene *scene = Scene::createWithPhysics();
 #if defined(COCOS2D_DEBUG)
-// scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+    scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 #endif
     _gameScene = GameScene::create();
 
@@ -52,7 +52,6 @@ void SceneManager::enterGameScene(bool networked) {
     if (networked) {
         std::vector<std::string> peers = _networkingWrapper->getPeerList();
         auto me = _networkingWrapper->getDeviceName();
-        // FIXME: Sometime peers size gets zero.
         isHost = peers[0].compare(me) > 0;
     }
     _gameScene->setNetworkedSession(networked, isHost);

@@ -34,8 +34,7 @@ void Egg::onEnter() {
 
     this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 
-    // FIXME: Critical
-    PhysicsBody *physics = PhysicsBody::createBox(this->getBoundingBox().size);
+    PhysicsBody *physics = PhysicsBody::createBox(this->getBoundingBox().size * 0.5);
     physics->setDynamic(false);
     physics->setGravityEnable(false);
     physics->setRotationEnable(false);

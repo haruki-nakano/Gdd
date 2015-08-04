@@ -51,9 +51,8 @@ void Stage::onEnter() {
             auto tile = _collisionLayer->getTileAt(Vec2(x, y));
             if (tile) {
                 tile->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-                // FIXME: Critical
                 Vec2 v[4];
-                Vec2 s = Vec2(32, 16);
+                Vec2 s = Vec2(TILE_WIDTH * 0.5f, TILE_HEIGHT * 0.5f);
                 v[0] = Vec2(-s.x, 0);
                 v[1] = Vec2(0, s.y);
                 v[2] = Vec2(s.x, 0);
@@ -77,15 +76,14 @@ void Stage::onEnter() {
             auto tile = _wallLayer->getTileAt(Vec2(x, y));
             if (tile) {
                 tile->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-                // FIXME: Critical
                 Vec2 v[6];
-                Vec2 s = Vec2(32, 16);
+                Vec2 s = Vec2(TILE_WIDTH * 0.5f, TILE_HEIGHT * 0.5f);
                 v[0] = Vec2(-s.x, -s.y);
                 v[1] = Vec2(-s.x, s.y);
-                v[2] = Vec2(0, s.y * 2);
+                v[2] = Vec2(0, s.y * 2.0f);
                 v[3] = Vec2(s.x, s.y);
                 v[4] = Vec2(s.x, -s.y);
-                v[5] = Vec2(0, -s.y * 2);
+                v[5] = Vec2(0, -s.y * 2.0f);
                 PhysicsBody *tilePhysics = PhysicsBody::createPolygon(v, 6);
                 tilePhysics->setDynamic(false);
                 tilePhysics->setCategoryBitmask(CATEGORY_MASK_WALL);

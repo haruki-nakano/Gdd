@@ -42,7 +42,6 @@ void Lobby::setupUI() {
 
     ui::Button *howToPlayButton = ui::Button::create();
     howToPlayButton->setAnchorPoint(Vec2(0.5f, 0.0f));
-    // FIXME: height
     howToPlayButton->setPosition(Vec2(visibleSize.width / 2.0f, visibleSize.height * 0.3f));
     howToPlayButton->loadTextures("buttonHowToPlay.png", "buttonPressedHowToPlay.png");
     howToPlayButton->addTouchEventListener(CC_CALLBACK_2(Lobby::howToPlayPressed, this));

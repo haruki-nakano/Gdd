@@ -25,21 +25,17 @@ bool GameScene::init() {
         return false;
     }
 
-    // TODO: Add background image
     LayerColor *background = LayerColor::create(Color4B(255, 255, 255, 255));
     this->addChild(background);
 
-    // FIXME: position, magic number
     auto size = Director::getInstance()->getVisibleSize();
     auto height = MAX(size.height - RESOLUTION_HEIGHT, 0) * 0.5f;
 
     LayerColor *statusArea1 = LayerColor::create(Color4B(0, 0, 0, 255), size.width, height);
-    // FIXME: magic number
-    this->addChild(statusArea1, 999);
+    this->addChild(statusArea1, 101);
 
     LayerColor *statusArea2 = LayerColor::create(Color4B(0, 0, 0, 255), size.width, height);
     statusArea2->setPosition(0.0f, size.height - height);
-    // FIXME: magic number
     this->addChild(statusArea2, 100);
 
     _active = false;
@@ -68,14 +64,13 @@ void GameScene::onEnter() {
     }
 
     // setup menus
-    // TODO: Use other button image
     ui::Button *backButton = ui::Button::create();
     backButton->setAnchorPoint(Vec2(0.0f, 1.0f));
     backButton->setPosition(Vec2(0.0f, visibleSize.height));
     backButton->loadTextures("backButton.png", "backButtonPressed.png");
     backButton->addTouchEventListener(CC_CALLBACK_2(GameScene::backButtonPressed, this));
 
-    this->addChild(backButton, 504);
+    this->addChild(backButton, 500);
 
     _playerLifeBar = LifeBar::create();
     _playerLifeBar->setPosition(Vec2(visibleSize.width * 0.5 - 256.0f, visibleSize.height - 32.0f));
@@ -83,25 +78,21 @@ void GameScene::onEnter() {
     _opponentsLifeBar = LifeBar::create();
     _opponentsLifeBar->setPosition(Vec2(visibleSize.width * 0.5 + 256.0f, visibleSize.height - 32.0f));
 
-    this->addChild(_playerLifeBar, 500);
-    this->addChild(_opponentsLifeBar, 501);
+    this->addChild(_playerLifeBar, 501);
+    this->addChild(_opponentsLifeBar, 502);
 
     _stage->getPlayer()->setLifeBar(_playerLifeBar);
     _stage->getOpponent()->setLifeBar(_opponentsLifeBar);
 
-    // FIXME: Use foreach
     auto labelString = _stage->getPlayer()->getGunName();
-    auto gunLabel = ui::Text::create(labelString, FONT_NAME, FONT_SIZE);
-    gunLabel->setAnchorPoint(Vec2(0.5f, 1.0f));
-    gunLabel->setPosition(_playerLifeBar->getPosition() - Vec2(0.0f, 24.0f));
-    gunLabel->setColor(LABEL_COLOR);
-    this->addChild(gunLabel, 502);
-
-    gunLabel = ui::Text::create("?", FONT_NAME, FONT_SIZE);
-    gunLabel->setAnchorPoint(Vec2(0.5f, 1.0f));
-    gunLabel->setPosition(_opponentsLifeBar->getPosition() - Vec2(0.0f, 24.0f));
-    gunLabel->setColor(LABEL_COLOR);
-    this->addChild(gunLabel, 503);
+    for (int i = 0; i < 2; i++) {
+        auto gunLabel = ui::Text::create(i == 0 ? labelString : "?", FONT_NAME, FONT_SIZE);
+        gunLabel->setAnchorPoint(Vec2(0.5f, 1.0f));
+        auto bar = i == 0 ? _playerLifeBar : _opponentsLifeBar;
+        gunLabel->setPosition(bar->getPosition() - Vec2(0.0f, 24.0f));
+        gunLabel->setColor(LABEL_COLOR);
+        this->addChild(gunLabel, 503 + i);
+    }
 
     setupTouchHandling();
 
@@ -202,7 +193,6 @@ void GameScene::setupTouchHandling() {
         if (move != lastMoveState) {
             _stage->getPlayer()->setMoveState(move);
         }
-        // FIXME: this conditions
         if (_networkedSession && move != lastMoveState) {
             sendGameStateOverNetwork(EventType::CHANGE_PLAYERS_DIRECTION);
             sLastSyncPos = touchPos;
@@ -216,20 +206,17 @@ void GameScene::setupTouchHandling() {
         if (touchId == sTouchIds[0] && _stage->getPlayer()->getMoveState() != MoveState::STOP) {
             _stage->getPlayer()->setMoveState(MoveState::STOP);
             if (_networkedSession) {
-                // FIXME: Improvement
                 sendGameStateOverNetwork(EventType::STOP_PLAYERS_MOVING);
                 sendGameStateOverNetwork(EventType::STOP_PLAYERS_MOVING);
             }
         } else if ((!_stage->getPlayer()->isSwimming() || ALLOW_WATER_SHOT) &&
                    (ALLOW_MORE_THAN_TWO_TAP || sTouchIds.size() < 3)) {
-            // FIXME: Improvement
             std::vector<Bullet *> bullets = _stage->getPlayer()->createBullets(touchPos, _stage->getPosition());
             for (Bullet *bullet : bullets) {
                 // Use addBullets
                 _stage->addBullet(bullet);
             }
             if (_networkedSession && bullets.size() > 0) {
-                // FIXME: Improvement
                 sendGameStateOverNetwork(EventType::FIRE_BULLT, bullets);
             }
         }
@@ -397,8 +384,6 @@ void GameScene::receivedData(const void *data, unsigned long length) {
 void GameScene::sendGameStateOverNetwork(EventType event, std::vector<Bullet *> newBullets, bool newEgg) {
     JSONPacker::GameState state;
 
-    // FIXME: Improve
-    // What contents should be send?
     state.event = event;
     state.name = NetworkingWrapper::getDeviceName();
     state.opponentPosition = _stage->getPlayer()->getPosition();
