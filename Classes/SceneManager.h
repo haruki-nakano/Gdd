@@ -12,6 +12,7 @@
 #include "NetworkingWrapper.h"
 
 class GameScene;
+class Lobby;
 
 class SceneManager : public NetworkingDelegate {
 public:
@@ -24,9 +25,12 @@ public:
     void receiveMultiplayerInvitations();
     void sendData(const void *data, unsigned long length);
 
+    void setLobby(Lobby *lobby);
+
 private:
     std::unique_ptr<NetworkingWrapper> _networkingWrapper;
     GameScene *_gameScene;
+    Lobby *_lobby;
 
     SceneManager();
     ~SceneManager();

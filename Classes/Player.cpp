@@ -91,7 +91,6 @@ void Player::step(float dt) {
 
     //
     _invincibleTimeCount = MIN(_invincibleTimeCount + dt, INVINCIBLE_TIME + 1.0f);
-    CCLOG("%f %f", _invincibleTimeCount, INVINCIBLE_TIME);
     bool invincible = isInvincible();
     if (!invincible && _lastInvincible) {
         // FIXME: All action?

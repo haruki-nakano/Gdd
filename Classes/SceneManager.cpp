@@ -8,6 +8,7 @@
 
 #include "SceneManager.h"
 #include "GameScene.h"
+#include "Lobby.h"
 
 using namespace cocos2d;
 
@@ -26,6 +27,7 @@ SceneManager *SceneManager::getInstance() {
 
 SceneManager::SceneManager() {
     _gameScene = nullptr;
+    _lobby = nullptr;
     _networkingWrapper = std::unique_ptr<NetworkingWrapper>(new NetworkingWrapper());
     _networkingWrapper->setDelegate(this);
 }
@@ -37,6 +39,9 @@ SceneManager::~SceneManager() {
 #pragma mark Public Methods
 
 void SceneManager::enterGameScene(bool networked) {
+    if (_lobby) {
+        _lobby->dismissAllDialogs();
+    }
     Scene *scene = Scene::createWithPhysics();
 #if defined(COCOS2D_DEBUG)
 // scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
@@ -76,6 +81,10 @@ void SceneManager::sendData(const void *data, unsigned long length) {
     _networkingWrapper->sendData(data, length);
 }
 
+void SceneManager::setLobby(Lobby *lobby) {
+    _lobby = lobby;
+}
+
 #pragma mark -
 #pragma mark NetworkingWrapperDelegate Methods
 
@@ -99,12 +108,6 @@ void SceneManager::stateChanged(ConnectionState state) {
             break;
         case ConnectionState::CONNECTED:
             _networkingWrapper->stopAdvertisingAvailability();
-            /*
-            // FIXME: this is ugly hack
-            CCLOG(_networkingWrapper->getPeerList().size() != 0 ? "Success" : "Failed");
-            std::chrono::seconds duration(1);
-            std::this_thread::sleep_for(duration);
-            */
             enterGameScene(true);
             break;
     }

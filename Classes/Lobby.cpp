@@ -102,3 +102,11 @@ void Lobby::dialogTouched(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEvent
         _dialog->runAction(action);
     }
 }
+
+void Lobby::dismissAllDialogs() {
+    if (_dialog) {
+        _dialog->setEnabled(false);
+        auto action = FadeOut::create(0.0);
+        _dialog->runAction(action);
+    }
+}

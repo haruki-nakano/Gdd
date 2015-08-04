@@ -9,6 +9,7 @@
 #include "TitleScene.h"
 
 #include "Lobby.h"
+#include "SceneManager.h"
 
 USING_NS_CC;
 
@@ -27,6 +28,7 @@ bool TitleScene::init() {
     }
 
     Lobby *lobby = Lobby::create();
+    SceneManager::getInstance()->setLobby(lobby);
 
     this->addChild(lobby);
 
