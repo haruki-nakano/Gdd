@@ -101,7 +101,7 @@ void SceneManager::stateChanged(ConnectionState state) {
             break;
         case ConnectionState::NOT_CONNECTED:
             if (_gameScene) {
-                MessageBox("Return to lobby", "CONNECTION ERROR");
+                MessageBox("Unable to connect, please check your internet connection", "CONNECTION ERROR");
                 SceneManager::getInstance()->returnToLobby();
             }
             CCLOG("Not connected");
