@@ -27,6 +27,8 @@ public:
     void setNetworkedSession(bool networkedSession, bool isHost);
     void receivedData(const void *data, unsigned long length);
 
+    void setStageId(int stageId);
+
 protected:
     // Lifecycle
     bool init() override;
@@ -43,6 +45,7 @@ protected:
     bool onContactBegin(cocos2d::PhysicsContact &contact);
     void backButtonPressed(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType eEventType);
 
+    int _stageId;
     bool _active;
     bool _networkedSession;
     bool _isHost;

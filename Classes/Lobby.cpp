@@ -8,6 +8,7 @@
 
 #include "Lobby.h"
 
+#include "Constants.h"
 #include "SceneManager.h"
 
 using namespace cocos2d;
@@ -76,7 +77,7 @@ void Lobby::setupUI() {
 
 void Lobby::singlePlayerPressed(cocos2d::Ref *pSender, ui::Widget::TouchEventType eEventType) {
     if (eEventType == ui::Widget::TouchEventType::ENDED) {
-        SceneManager::getInstance()->enterGameScene(false);
+        SceneManager::getInstance()->enterGameScene(false, DEFAULT_STAGE_ID);
     }
 }
 

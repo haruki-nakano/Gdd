@@ -26,6 +26,9 @@ static const float RESOLUTION_HEIGHT = 640.0f;
 static const cocos2d::Color3B LABEL_COLOR = cocos2d::Color3B(196, 196, 196);
 
 // Game Options
+static const int DEFAULT_STAGE_ID = 2;
+static const int NUM_STAGES = 2;
+
 static const bool USE_SIMPLE_AIMING = false;
 static const bool ALLOW_MORE_THAN_TWO_TAP = false;
 static const bool ALLOW_WATER_SHOT = true;

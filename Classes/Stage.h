@@ -19,7 +19,7 @@ class Player;
 
 class Stage : public cocos2d::Node {
 public:
-    CREATE_FUNC(Stage);
+    static Stage *createWithFileName(std::string filename);
 
     void step(float dt);
     void addBullet(Bullet *);
@@ -34,12 +34,13 @@ public:
     void initializePlayersPosition(bool isHost);
 
 private:
-    bool init() override;
+    bool initWithFileName(std::string filename);
     void onEnter() override;
 
     cocos2d::Vec2 convertPositionToTileCoordinate(cocos2d::Vec2 position);
     bool isCorrectTileCoordinate(cocos2d::Vec2 tileCoordinate, bool checkWallCollision = false);
 
+    std::string _stageFileName;
     cocos2d::experimental::TMXTiledMap *_map;
     cocos2d::experimental::TMXLayer *_backgroundLayer;
     cocos2d::experimental::TMXLayer *_collisionLayer;

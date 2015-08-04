@@ -18,7 +18,7 @@ class SceneManager : public NetworkingDelegate {
 public:
     static SceneManager *getInstance();
 
-    void enterGameScene(bool networked);
+    void enterGameScene(bool networked, int stageId);
     void returnToLobby();
 
     void showPeerList();
@@ -34,6 +34,8 @@ private:
 
     SceneManager();
     ~SceneManager();
+
+    bool _waiting;
 
     void receivedData(const void *data, unsigned long length);
     void stateChanged(ConnectionState state);

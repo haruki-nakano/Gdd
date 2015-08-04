@@ -46,6 +46,8 @@ public:
 
     void disconnect();
 
+    bool isHost();
+
 private:
     NetworkManager *networkManager;
     NetworkingDelegate *delegate;

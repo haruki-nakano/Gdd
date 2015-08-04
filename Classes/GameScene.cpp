@@ -41,6 +41,7 @@ bool GameScene::init() {
     _active = false;
     _networkedSession = false;
     _isHost = true;
+    _stageId = DEFAULT_STAGE_ID;
 
     return true;
 }
@@ -51,7 +52,9 @@ void GameScene::onEnter() {
     Size visibleSize = Director::getInstance()->getVisibleSize();
 
     // setup stage
-    _stage = Stage::create();
+    std::stringstream ss;
+    ss << "stage" << _stageId << ".tmx";
+    _stage = Stage::createWithFileName(ss.str());
     _stage->setAnchorPoint(Vec2(0.0f, 0.0f));
     _stage->setPosition(Vec2(0.0f, 0.0f));
 
@@ -102,6 +105,10 @@ void GameScene::onEnter() {
     _eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 
     setGameActive(true);
+}
+
+void GameScene::setStageId(int stageId) {
+    _stageId = stageId;
 }
 
 #pragma mark -

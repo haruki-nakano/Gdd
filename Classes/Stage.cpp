@@ -18,11 +18,24 @@ using namespace cocos2d;
 #pragma mark -
 #pragma mark Initialize
 
-bool Stage::init() {
+Stage *Stage::createWithFileName(std::string filename) {
+    Stage *stage = new (std::nothrow) Stage();
+
+    if (stage && stage->initWithFileName(filename)) {
+        stage->autorelease();
+        return stage;
+    }
+
+    CC_SAFE_DELETE(stage);
+    return nullptr;
+}
+
+bool Stage::initWithFileName(std::string filename) {
     if (!Node::init()) {
         return false;
     }
 
+    _stageFileName = filename;
     _players.reserve(MAX_PLAYERS);
 
     return true;
@@ -33,7 +46,7 @@ void Stage::onEnter() {
 
     Size contentSize = getContentSize();
 
-    _map = cocos2d::experimental::TMXTiledMap::create(DEFAULT_STAGE_FILE);
+    _map = cocos2d::experimental::TMXTiledMap::create(_stageFileName);
     _backgroundLayer = _map->getLayer(DEFAULT_BACKGROUND_LAYER_NAME);
     _size = _backgroundLayer->getLayerSize();
     for (int y = 0; y < _size.height; y++) {

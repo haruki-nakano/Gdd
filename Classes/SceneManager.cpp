@@ -28,6 +28,7 @@ SceneManager *SceneManager::getInstance() {
 SceneManager::SceneManager() {
     _gameScene = nullptr;
     _lobby = nullptr;
+    _waiting = false;
     _networkingWrapper = std::unique_ptr<NetworkingWrapper>(new NetworkingWrapper());
     _networkingWrapper->setDelegate(this);
 }
@@ -38,23 +39,22 @@ SceneManager::~SceneManager() {
 #pragma mark -
 #pragma mark Public Methods
 
-void SceneManager::enterGameScene(bool networked) {
+void SceneManager::enterGameScene(bool networked, int stageId) {
     if (_lobby) {
         _lobby->dismissAllDialogs();
     }
     Scene *scene = Scene::createWithPhysics();
 #if defined(COCOS2D_DEBUG)
-    scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+// scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 #endif
     _gameScene = GameScene::create();
 
     bool isHost = true;
     if (networked) {
-        std::vector<std::string> peers = _networkingWrapper->getPeerList();
-        auto me = _networkingWrapper->getDeviceName();
-        isHost = peers[0].compare(me) > 0;
+        isHost = _networkingWrapper->isHost();
     }
     _gameScene->setNetworkedSession(networked, isHost);
+    _gameScene->setStageId(stageId);
 
     scene->addChild(_gameScene);
 
@@ -65,6 +65,7 @@ void SceneManager::returnToLobby() {
     if (_gameScene) {
         Director::getInstance()->popScene();
         _gameScene = nullptr;
+        _waiting = false;
     }
 }
 
@@ -90,6 +91,11 @@ void SceneManager::setLobby(Lobby *lobby) {
 void SceneManager::receivedData(const void *data, unsigned long length) {
     if (_gameScene) {
         _gameScene->receivedData(data, length);
+    } else if (_waiting) {
+        _waiting = false;
+        const char *cstr = reinterpret_cast<const char *>(data);
+        int stageId = atoi(cstr);
+        enterGameScene(true, stageId);
     }
 }
 
@@ -107,7 +113,18 @@ void SceneManager::stateChanged(ConnectionState state) {
             break;
         case ConnectionState::CONNECTED:
             _networkingWrapper->stopAdvertisingAvailability();
-            enterGameScene(true);
+            _waiting = true;
+
+            if (_networkingWrapper->isHost()) {
+                // Select stage
+                int stageId = random(1, NUM_STAGES);
+                std::stringstream ss;
+                ss << stageId;
+                std::string str = ss.str();
+                // We must ensure that data is sent
+                sendData(str.c_str(), str.size());
+                enterGameScene(true, stageId);
+            }
             break;
     }
 }

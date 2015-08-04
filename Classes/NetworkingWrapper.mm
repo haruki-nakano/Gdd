@@ -68,6 +68,12 @@ std::vector<std::string> NetworkingWrapper::getPeerList() {
     return returnVector;
 }
 
+bool NetworkingWrapper::isHost() {
+    std::vector<std::string> peers = this->getPeerList();
+    auto me = this->getDeviceName();
+    return peers[0].compare(me) > 0;
+}
+
 #pragma mark -
 #pragma mark NetworkManager Delegate Methods
 
