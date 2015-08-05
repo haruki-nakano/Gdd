@@ -368,7 +368,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
 #pragma mark UI Methods
 
 void GameScene::backButtonPressed(cocos2d::Ref *pSender, ui::Widget::TouchEventType eEventType) {
-    if (eEventType == ui::Widget::TouchEventType::ENDED) {
+    if (eEventType == ui::Widget::TouchEventType::ENDED && _active) {
         SceneManager::getInstance()->returnToLobby();
     }
 }
