@@ -9,6 +9,7 @@
 #include "GameScene.h"
 
 #include "Constants.h"
+#include "GameOverDialog.h"
 #include "MathUtils.h"
 #include "JSONPacker.h"
 #include "Player.h"
@@ -154,16 +155,24 @@ void GameScene::gameOver() {
     std::string playerScoreString = StringUtils::toString(playerLife);
     std::string opponentScoreString = StringUtils::toString(opponentLife);
     if (playerLife > opponentLife) {
+        _stage->getOpponent()->stopAllActions();
+        _stage->getOpponent()->setMoveState(MoveState::STOP);
+        _stage->getOpponent()->setVisible(false);
         messageContent = "You win! (" + playerScoreString + ", " + opponentScoreString + ")";
     } else if (opponentLife > playerLife) {
+        _stage->getPlayer()->stopAllActions();
+        _stage->getPlayer()->setMoveState(MoveState::STOP);
+        _stage->getPlayer()->setVisible(false);
         messageContent = "You lose... (" + playerScoreString + ", " + opponentScoreString + ")";
     } else {
         messageContent = "Draw";
     }
 
-    MessageBox(messageContent.c_str(), "GAMEOVER");
+    auto dialog = GameOverDialog::createWithLifePoints(playerLife, opponentLife);
+    this->addChild(dialog, 999);
+    // MessageBox(messageContent.c_str(), "GAMEOVER");
 
-    SceneManager::getInstance()->returnToLobby();
+    // SceneManager::getInstance()->returnToLobby();
 }
 
 #pragma mark -

@@ -113,6 +113,18 @@
 		71000E671B71D0F700AF4F23 /* particle_texture.plist in Resources */ = {isa = PBXBuildFile; fileRef = 71000E651B71D0F700AF4F23 /* particle_texture.plist */; };
 		71000E691B7265C000AF4F23 /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = 71000E681B7265C000AF4F23 /* title.png */; };
 		71000E6A1B7265C000AF4F23 /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = 71000E681B7265C000AF4F23 /* title.png */; };
+		71000E6D1B72802200AF4F23 /* GameOverDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 71000E6B1B72802200AF4F23 /* GameOverDialog.cpp */; };
+		71000E6E1B72802200AF4F23 /* GameOverDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 71000E6B1B72802200AF4F23 /* GameOverDialog.cpp */; };
+		71000E741B72858E00AF4F23 /* buttonOk.png in Resources */ = {isa = PBXBuildFile; fileRef = 71000E6F1B72858E00AF4F23 /* buttonOk.png */; };
+		71000E751B72858E00AF4F23 /* buttonOk.png in Resources */ = {isa = PBXBuildFile; fileRef = 71000E6F1B72858E00AF4F23 /* buttonOk.png */; };
+		71000E761B72858E00AF4F23 /* buttonOkPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 71000E701B72858E00AF4F23 /* buttonOkPressed.png */; };
+		71000E771B72858E00AF4F23 /* buttonOkPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 71000E701B72858E00AF4F23 /* buttonOkPressed.png */; };
+		71000E781B72858E00AF4F23 /* draw.png in Resources */ = {isa = PBXBuildFile; fileRef = 71000E711B72858E00AF4F23 /* draw.png */; };
+		71000E791B72858E00AF4F23 /* draw.png in Resources */ = {isa = PBXBuildFile; fileRef = 71000E711B72858E00AF4F23 /* draw.png */; };
+		71000E7A1B72858E00AF4F23 /* youLose.png in Resources */ = {isa = PBXBuildFile; fileRef = 71000E721B72858E00AF4F23 /* youLose.png */; };
+		71000E7B1B72858E00AF4F23 /* youLose.png in Resources */ = {isa = PBXBuildFile; fileRef = 71000E721B72858E00AF4F23 /* youLose.png */; };
+		71000E7C1B72858E00AF4F23 /* youWin.png in Resources */ = {isa = PBXBuildFile; fileRef = 71000E731B72858E00AF4F23 /* youWin.png */; };
+		71000E7D1B72858E00AF4F23 /* youWin.png in Resources */ = {isa = PBXBuildFile; fileRef = 71000E731B72858E00AF4F23 /* youWin.png */; };
 		71069CFB1B6297C100438AD9 /* playerUpperLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 71069CF91B6297C100438AD9 /* playerUpperLeft.png */; };
 		71069CFC1B6297C100438AD9 /* playerUpperLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 71069CF91B6297C100438AD9 /* playerUpperLeft.png */; };
 		71069CFD1B6297C100438AD9 /* playerUpperRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 71069CFA1B6297C100438AD9 /* playerUpperRight.png */; };
@@ -312,6 +324,13 @@
 		71000E601B71898100AF4F23 /* particle_texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = particle_texture.png; path = "res/resources-4x/particle_texture.png"; sourceTree = "<group>"; };
 		71000E651B71D0F700AF4F23 /* particle_texture.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = particle_texture.plist; sourceTree = "<group>"; };
 		71000E681B7265C000AF4F23 /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title.png; sourceTree = "<group>"; };
+		71000E6B1B72802200AF4F23 /* GameOverDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameOverDialog.cpp; sourceTree = "<group>"; };
+		71000E6C1B72802200AF4F23 /* GameOverDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverDialog.h; sourceTree = "<group>"; };
+		71000E6F1B72858E00AF4F23 /* buttonOk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonOk.png; sourceTree = "<group>"; };
+		71000E701B72858E00AF4F23 /* buttonOkPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonOkPressed.png; sourceTree = "<group>"; };
+		71000E711B72858E00AF4F23 /* draw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = draw.png; sourceTree = "<group>"; };
+		71000E721B72858E00AF4F23 /* youLose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = youLose.png; sourceTree = "<group>"; };
+		71000E731B72858E00AF4F23 /* youWin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = youWin.png; sourceTree = "<group>"; };
 		71069CF91B6297C100438AD9 /* playerUpperLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playerUpperLeft.png; sourceTree = "<group>"; };
 		71069CFA1B6297C100438AD9 /* playerUpperRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playerUpperRight.png; sourceTree = "<group>"; };
 		71069CFF1B6297C900438AD9 /* playerLowerLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playerLowerLeft.png; sourceTree = "<group>"; };
@@ -501,9 +520,14 @@
 				46880B7619C43A67006E1F66 /* CloseNormal.png */,
 				46880B7719C43A67006E1F66 /* CloseSelected.png */,
 				71000E651B71D0F700AF4F23 /* particle_texture.plist */,
+				71000E711B72858E00AF4F23 /* draw.png */,
+				71000E721B72858E00AF4F23 /* youLose.png */,
+				71000E731B72858E00AF4F23 /* youWin.png */,
 				71000E601B71898100AF4F23 /* particle_texture.png */,
 				7157254F1B6F41790050EBCC /* backgroundTitle.png */,
 				71DCDF1C1B58379F006CDC3E /* bullet.png */,
+				71000E6F1B72858E00AF4F23 /* buttonOk.png */,
+				71000E701B72858E00AF4F23 /* buttonOkPressed.png */,
 				7157253D1B6EEC880050EBCC /* buttonHowToPlay.png */,
 				7157253E1B6EEC880050EBCC /* buttonPressedHowToPlay.png */,
 				7157253F1B6EEC880050EBCC /* buttonPressedTraining.png */,
@@ -639,6 +663,8 @@
 				7125E7AD1B5456A10005D5B1 /* Bullet.h */,
 				710AD88F1B6165280062580E /* Egg.cpp */,
 				710AD8901B6165280062580E /* Egg.h */,
+				71000E6B1B72802200AF4F23 /* GameOverDialog.cpp */,
+				71000E6C1B72802200AF4F23 /* GameOverDialog.h */,
 				71A052371B5EC11A0051813D /* LifeBar.cpp */,
 				71A052381B5EC11A0051813D /* LifeBar.h */,
 				7125E79A1B54342B0005D5B1 /* Player.cpp */,
@@ -815,6 +841,7 @@
 				71000E2F1B6FE38800AF4F23 /* splashUp1.png in Resources */,
 				71000E441B6FEBBB00AF4F23 /* splashLeft1.png in Resources */,
 				46880B8119C43A67006E1F66 /* HelloWorld.png in Resources */,
+				71000E741B72858E00AF4F23 /* buttonOk.png in Resources */,
 				715725471B6EEC880050EBCC /* buttonPressedTraining.png in Resources */,
 				46880B7D19C43A67006E1F66 /* CloseSelected.png in Resources */,
 				71000E691B7265C000AF4F23 /* title.png in Resources */,
@@ -844,6 +871,7 @@
 				715725501B6F41790050EBCC /* backgroundTitle.png in Resources */,
 				521A8EA919F11F5000D177D7 /* fonts in Resources */,
 				71069CFD1B6297C100438AD9 /* playerUpperRight.png in Resources */,
+				71000E7A1B72858E00AF4F23 /* youLose.png in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
 				715725531B6F47940050EBCC /* logo.png in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
@@ -852,10 +880,12 @@
 				71BE7A601B674F240055D6A8 /* isometric_grass_and_water.png in Resources */,
 				71000E251B6FE38800AF4F23 /* splashLowerRight2.png in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
+				71000E781B72858E00AF4F23 /* draw.png in Resources */,
 				71DCDF1A1B583337006CDC3E /* playerUp.png in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
 				715725431B6EEC880050EBCC /* buttonHowToPlay.png in Resources */,
 				71000E1D1B6FE38800AF4F23 /* splashDown1.png in Resources */,
+				71000E761B72858E00AF4F23 /* buttonOkPressed.png in Resources */,
 				3EACC98F19EE6D4300EB3C5E /* res in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
 				71000E461B6FEBBB00AF4F23 /* splashLeft2.png in Resources */,
@@ -872,6 +902,7 @@
 				71000E3C1B6FE46100AF4F23 /* splashRight3.png in Resources */,
 				71069D031B6297C900438AD9 /* playerLowerRight.png in Resources */,
 				7157254D1B6EEC880050EBCC /* buttonVsMode.png in Resources */,
+				71000E7C1B72858E00AF4F23 /* youWin.png in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
 				710AD8941B616A7E0062580E /* egg.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
@@ -911,6 +942,7 @@
 				71000E4D1B6FEBBB00AF4F23 /* splashLowerLeft2.png in Resources */,
 				715725441B6EEC880050EBCC /* buttonHowToPlay.png in Resources */,
 				71000E341B6FE38800AF4F23 /* splashUp3.png in Resources */,
+				71000E751B72858E00AF4F23 /* buttonOk.png in Resources */,
 				71000E281B6FE38800AF4F23 /* splashLowerRight3.png in Resources */,
 				71000E5D1B70116300AF4F23 /* superStar.png in Resources */,
 				521A8EAA19F11F5000D177D7 /* fonts in Resources */,
@@ -930,6 +962,7 @@
 				71000E261B6FE38800AF4F23 /* splashLowerRight2.png in Resources */,
 				46880B7C19C43A67006E1F66 /* CloseNormal.png in Resources */,
 				71000E221B6FE38800AF4F23 /* splashDown3.png in Resources */,
+				71000E791B72858E00AF4F23 /* draw.png in Resources */,
 				71000E541B6FEBC600AF4F23 /* splashUpperLeft1.png in Resources */,
 				71128FF81B56D1C400B9216A /* stage1.tmx in Resources */,
 				715725541B6F47940050EBCC /* logo.png in Resources */,
@@ -942,12 +975,15 @@
 				46880B7E19C43A67006E1F66 /* CloseSelected.png in Resources */,
 				71BE7A691B674FE00055D6A8 /* egg3.png in Resources */,
 				7157254C1B6EEC880050EBCC /* buttonTraining.png in Resources */,
+				71000E7B1B72858E00AF4F23 /* youLose.png in Resources */,
 				710AD8951B616A7E0062580E /* egg.png in Resources */,
+				71000E7D1B72858E00AF4F23 /* youWin.png in Resources */,
 				71128FFE1B57134400B9216A /* stage2.tmx in Resources */,
 				71BE7A611B674F240055D6A8 /* isometric_grass_and_water.png in Resources */,
 				7157254A1B6EEC880050EBCC /* buttonPressedVsMode.png in Resources */,
 				71000E671B71D0F700AF4F23 /* particle_texture.plist in Resources */,
 				71000E471B6FEBBB00AF4F23 /* splashLeft2.png in Resources */,
+				71000E771B72858E00AF4F23 /* buttonOkPressed.png in Resources */,
 				71A052441B5EE0370051813D /* life_bg.png in Resources */,
 				71000E581B6FEBC600AF4F23 /* splashUpperLeft3.png in Resources */,
 				71DCDF1B1B583337006CDC3E /* playerUp.png in Resources */,
@@ -974,6 +1010,7 @@
 				7125E7AE1B5456A10005D5B1 /* Bullet.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				7125E7CB1B5485980005D5B1 /* JSONPacker.cpp in Sources */,
+				71000E6D1B72802200AF4F23 /* GameOverDialog.cpp in Sources */,
 				710AD8911B6165280062580E /* Egg.cpp in Sources */,
 				7125E7931B542CA80005D5B1 /* GameScene.cpp in Sources */,
 				7125E7C71B5481600005D5B1 /* NetworkManager.mm in Sources */,
@@ -995,6 +1032,7 @@
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				7125E7901B5429FA0005D5B1 /* Lobby.cpp in Sources */,
 				7125E7CC1B5485980005D5B1 /* JSONPacker.cpp in Sources */,
+				71000E6E1B72802200AF4F23 /* GameOverDialog.cpp in Sources */,
 				7125E78A1B5423680005D5B1 /* TitleScene.cpp in Sources */,
 				7125E7B31B545A800005D5B1 /* Stage.cpp in Sources */,
 				71A0523A1B5EC11A0051813D /* LifeBar.cpp in Sources */,
