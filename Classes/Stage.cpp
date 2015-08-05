@@ -57,36 +57,13 @@ void Stage::onEnter() {
             }
         }
     }
+
     _collisionLayer = _map->getLayer(DEFAULT_COLLISION_LAYER_NAME);
+    _collisionLayer->setPosition(Vec2(TILE_WIDTH * 0.25f, TILE_HEIGHT * 0.25f));
     auto size = _collisionLayer->getLayerSize();
     for (int y = 0; y < size.height; y++) {
         for (int x = 0; x < size.width; x++) {
             auto tile = _collisionLayer->getTileAt(Vec2(x, y));
-            if (tile) {
-                tile->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-                Vec2 v[4];
-                Vec2 s = Vec2(TILE_WIDTH * 0.5f, TILE_HEIGHT * 0.5f);
-                v[0] = Vec2(-s.x, 0);
-                v[1] = Vec2(0, s.y);
-                v[2] = Vec2(s.x, 0);
-                v[3] = Vec2(0, -s.y);
-                PhysicsBody *tilePhysics = PhysicsBody::createPolygon(v, 4);
-                tilePhysics->setDynamic(false);
-                tilePhysics->setCategoryBitmask(CATEGORY_MASK_WALL);
-                tilePhysics->setCollisionBitmask(COLLISION_MASK_WALL);
-                tilePhysics->setContactTestBitmask(CONTACT_MASK_WALL);
-
-                tile->setTag(TAG_WALL);
-                tile->setPhysicsBody(tilePhysics);
-            }
-        }
-    }
-
-    _wallLayer = _map->getLayer(DEFAULT_WALL_LAYER_NAME);
-    size = _wallLayer->getLayerSize();
-    for (int y = 0; y < size.height; y++) {
-        for (int x = 0; x < size.width; x++) {
-            auto tile = _wallLayer->getTileAt(Vec2(x, y));
             if (tile) {
                 tile->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
                 Vec2 v[6];
@@ -276,8 +253,8 @@ void Stage::setState(JSONPacker::GameState state) {
 
 bool Stage::isCorrectTileCoordinate(Vec2 tileCoordinate, bool checkWallCollision) {
     return tileCoordinate.x < _size.width && tileCoordinate.y < _size.height && tileCoordinate.x >= 0 &&
-           tileCoordinate.y >= 0 && (!checkWallCollision || (_collisionLayer->getTileGIDAt(tileCoordinate) == 0 &&
-                                                             _wallLayer->getTileGIDAt(tileCoordinate) == 0));
+           tileCoordinate.y >= 0 && (!checkWallCollision || (_collisionLayer->getTileGIDAt(tileCoordinate) == 0)); //&&
+    //_wallLayer->getTileGIDAt(tileCoordinate) == 0));
 }
 
 Vec2 Stage::convertPositionToTileCoordinate(Vec2 pos) {
