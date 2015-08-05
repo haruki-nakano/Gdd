@@ -207,8 +207,8 @@ void Stage::generateEgg() {
     _egg->setPosition(pos);
     _egg->setLifePoint(INITIAL_EGG_LIFE);
     _egg->setState(EggState::EGG);
-    _egg->setItemType(static_cast<EggItemType>(random(0, static_cast<int>(EggItemType::SIZE))));
-    // _egg->setItemType(EggItemType::SUPER_STAR);
+    _egg->setItemType(static_cast<EggItemType>(random(0, static_cast<int>(EggItemType::SIZE) - 1)));
+    _egg->setItemType(EggItemType::HEALING);
 }
 
 #pragma mark -

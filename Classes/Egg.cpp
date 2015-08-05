@@ -127,7 +127,7 @@ void Egg::setItemType(const EggItemType itemType) {
     _itemType = itemType;
     if (_itemType == EggItemType::SUPER_STAR) {
         _item = Director::getInstance()->getTextureCache()->addImage("superStar.png");
-    } else {
+    } else if (_itemType == EggItemType::HEALING) {
         _item = Director::getInstance()->getTextureCache()->addImage("healing.png");
     }
 }
