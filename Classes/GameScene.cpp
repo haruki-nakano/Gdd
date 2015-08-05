@@ -130,7 +130,8 @@ void GameScene::update(float dt) {
 
     //  Host is in charge of generating egg.
     Egg *egg = _stage->getEgg();
-    if (_isHost && egg->getState() == EggState::IDLE && egg->getLastBrokenTime() + delta < clock()) {
+    if (_networkedSession && _isHost && egg->getState() == EggState::IDLE &&
+        egg->getLastBrokenTime() + delta < clock()) {
         delta = random(MIN_EGG_INTERVAL_SEC, MAX_EGG_INTERVAL_SEC) * CLOCKS_PER_SEC;
         _stage->generateEgg();
         sendGameStateOverNetwork(EventType::APPEAR_EGG, std::vector<Bullet *>(), true);
@@ -333,11 +334,15 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
             // Do something for player.
             if (egg->getItemType() == EggItemType::HEALING) {
                 player->gotHeal();
-                sendGameStateOverNetwork(EventType::GET_HEAL);
+                if (_networkedSession) {
+                    sendGameStateOverNetwork(EventType::GET_HEAL);
+                }
             } else if (egg->getItemType() == EggItemType::SUPER_STAR) {
                 player->gotInvincible();
-                sendGameStateOverNetwork(player->isOpponent() ? EventType::PLAYER_GET_INVINCIBLE
-                                                              : EventType::OPPONENT_GET_INVINCIBLE);
+                if (_networkedSession) {
+                    sendGameStateOverNetwork(player->isOpponent() ? EventType::PLAYER_GET_INVINCIBLE
+                                                                  : EventType::OPPONENT_GET_INVINCIBLE);
+                }
             }
             return false;
         } else {
@@ -356,7 +361,9 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
     if (egg && bullet) {
         bullet->setLifePoint(-1.0f);
         egg->setLifePoint(egg->getLifePoint() - 1);
-        sendGameStateOverNetwork(EventType::HIT_EGG);
+        if (_networkedSession) {
+            sendGameStateOverNetwork(EventType::HIT_EGG);
+        }
         return false;
     }
 
@@ -382,7 +389,8 @@ void GameScene::setNetworkedSession(bool networkedSession, bool isHost) {
 }
 
 void GameScene::receivedData(const void *data, unsigned long length) {
-    if (!_stage) {
+    // length 1 means stage select
+    if (!_stage || length <= 1 || !_networkedSession) {
         return;
     }
     const char *cstr = reinterpret_cast<const char *>(data);

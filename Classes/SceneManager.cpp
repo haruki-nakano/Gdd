@@ -28,7 +28,6 @@ SceneManager *SceneManager::getInstance() {
 SceneManager::SceneManager() {
     _gameScene = nullptr;
     _lobby = nullptr;
-    _waiting = false;
     _networkingWrapper = std::unique_ptr<NetworkingWrapper>(new NetworkingWrapper());
     _networkingWrapper->setDelegate(this);
 }
@@ -40,6 +39,9 @@ SceneManager::~SceneManager() {
 #pragma mark Public Methods
 
 void SceneManager::enterGameScene(bool networked, int stageId) {
+    _state = networked ? SceneState::VS_MODE : SceneState::TRAINING;
+    _networkingWrapper->stopAdvertisingAvailability();
+
     if (_lobby) {
         _lobby->dismissAllDialogs();
     }
@@ -63,9 +65,10 @@ void SceneManager::enterGameScene(bool networked, int stageId) {
 
 void SceneManager::returnToLobby() {
     if (_gameScene) {
+        _state = SceneState::LOBBY;
+        SceneManager::getInstance()->receiveMultiplayerInvitations();
         Director::getInstance()->popScene();
         _gameScene = nullptr;
-        _waiting = false;
     }
 }
 
@@ -82,6 +85,7 @@ void SceneManager::sendData(const void *data, unsigned long length) {
 }
 
 void SceneManager::setLobby(Lobby *lobby) {
+    _state = SceneState::LOBBY;
     _lobby = lobby;
 }
 
@@ -89,10 +93,9 @@ void SceneManager::setLobby(Lobby *lobby) {
 #pragma mark NetworkingWrapperDelegate Methods
 
 void SceneManager::receivedData(const void *data, unsigned long length) {
-    if (_gameScene) {
+    if (_gameScene && _state == SceneState::VS_MODE) {
         _gameScene->receivedData(data, length);
-    } else if (_waiting) {
-        _waiting = false;
+    } else if (_state == SceneState::WAITING_FOR_VS_MODE) {
         const char *cstr = reinterpret_cast<const char *>(data);
         int stageId = atoi(cstr);
         enterGameScene(true, stageId);
@@ -112,9 +115,7 @@ void SceneManager::stateChanged(ConnectionState state) {
             CCLOG("Not connected");
             break;
         case ConnectionState::CONNECTED:
-            _networkingWrapper->stopAdvertisingAvailability();
-            _waiting = true;
-
+            _state = SceneState::WAITING_FOR_VS_MODE;
             if (_networkingWrapper->isHost()) {
                 // Select stage
                 int stageId = random(1, NUM_STAGES);

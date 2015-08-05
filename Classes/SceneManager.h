@@ -10,6 +10,7 @@
 #define __Yuzu__SceneManager__
 
 #include "NetworkingWrapper.h"
+#include "Constants.h"
 
 class GameScene;
 class Lobby;
@@ -35,7 +36,7 @@ private:
     SceneManager();
     ~SceneManager();
 
-    bool _waiting;
+    SceneState _state;
 
     void receivedData(const void *data, unsigned long length);
     void stateChanged(ConnectionState state);

@@ -159,4 +159,12 @@ enum class PlayerColor {
     NUM_COLORS,
 };
 
+enum class SceneState {
+    LOBBY = 0,
+    WAITING_FOR_VS_MODE,
+    TRAINING,
+    VS_MODE,
+    NUM_STATES,
+};
+
 #endif
