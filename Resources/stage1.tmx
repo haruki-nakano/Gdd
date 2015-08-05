@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="isometric" renderorder="right-down" width="48" height="48" tilewidth="64" tileheight="32" nextobjectid="7">
+<map version="1.0" orientation="isometric" renderorder="right-down" width="25" height="25" tilewidth="64" tileheight="32" nextobjectid="7">
  <tileset firstgid="1" name="isometric_grass_and_water" tilewidth="64" tileheight="64">
   <tileoffset x="0" y="16"/>
   <image source="isometric_grass_and_water.png" width="256" height="384"/>
@@ -32,28 +32,31 @@
   <tile id="22" terrain="1,1,1,1"/>
   <tile id="23" terrain="1,1,1,1"/>
  </tileset>
- <tileset firstgid="25" name="isometric_grass_and_water_light" tilewidth="64" tileheight="64">
-  <image source="isometric_grass_and_water_light.png" width="256" height="384"/>
+ <tileset firstgid="25" name="walls" tilewidth="64" tileheight="64">
+  <image source="wall.png" width="64" height="64"/>
  </tileset>
- <layer name="background" width="48" height="48">
+ <tileset firstgid="26" name="isometric_grass_and_water99" tilewidth="64" tileheight="64">
+  <image source="isometric_grass_and_water99.png" width="256" height="384"/>
+ </tileset>
+ <layer name="background" width="25" height="25">
   <properties>
    <property name="clientInitialPositionX" value="11"/>
-   <property name="clientInitialPositionY" value="1"/>
+   <property name="clientInitialPositionY" value="2"/>
    <property name="hostInitialPositionX" value="11"/>
-   <property name="hostInitialPositionY" value="22"/>
+   <property name="hostInitialPositionY" value="21"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJztWGtz2kAMPIzTPEoIIQ/4/7+09tQ7rBdJpzOQpp1+0ADG9u2tVq87llKOgx0G+znY2/Rd7Uj3fScbMXVkq4St5Xs/Gf/X03+Zdy4x4F/JHrC23o/9rcs59rVw0DfwcQ38vH5n4Me+gJV5ZszM991gP74IP2Ox9DRieZ3wrMlYJ+q3nbz/1vpRDhnfw2CbwZ6mPVja0GsRfs+fl/Dfyfvg//HzebDH8jtH3Zd5bGo8ePgz/lyKH9oB5m7i/HPCjXuVf6zJz+Ga4m/1Z2v8rqb33hOPWIdz/5Nwx8/xuxR/1p+t+KEbzj3M1Xuxa9e+nOcrjh/Fn/HnEvzQ+nM55TvguqP1cD8+t8I3vnv8Z/y5VD9Yi/noJ+4VO+Nn3/VlnvMVf82fhwvwv5dzn3Kc6XrMP3wPX+0d/DV/4lo2t7L+gRPX9vQ8cBxlPeBUvWzlN9eWyJ/MTya3av1irrdlnoNexA/IGx09vyunuPbyZ+RP1VIttvEc91/j+98IG+cj7AP/gxPoAutyXKgGIn8q/lpuZf1o7tNaxv0Q51bO5czbeM3TgOdP9UeWf/YvcAPTVrhjXsf7PiZ/bMo5f5YGIn8+GL6IcqvWXxjnIsRxX+Z1akXrHYR/tUx9zdTKCD/rRnnhvK65/jXA3VJfs7XS07/Gm85R3BfBD7tic2VpCBqI5qBarazpn7UJf3PMdmUeu/DTS2IPMK9vztbKSP86t3A+Ut/w/eDU05CVH1VX2Vrp6cfSDOcMne15H5yXoliI4jpTK2v6Yf65nm3KqVf2ahJrysMbxXW2Vkb4vbyA2K3NfJYGWuK65Qwqi79l5rM0kIlp1XZ2Dxn8LTOfagD9XC2u0S/dAv8lM1+mPlwTPzjGHJmd4Wv4M7md899S/Oxv4FvSlyj+bG7XeskxmMk/lr+X9CUWfo1rK7dz3fFm6lb82ttn+hJ9X8scpDGgM3WEH7HqxVy2L7H0z9fX8gmz9KMzdS3/eHGGezN9ieK3sEbnCtFMHeHPnM+wH7y+JIPfM52pHxv4t2JVLdOXWPize9CZGv7O8t86Q0RmnR/W9qAz9THws+JfMkO04q8Z94rQgZ6T1fTfMkNcGz96XGAfuR9zIp8tR/jBQXaGuDb+nbGml4Os+G2dIW6hH8zUOC/gM8EI/7VtCX6dqaOe7jvib7H/+P+s/Sv4/2b7Bde+THk=
+   eJxjYKAPEEfDfEDMAsSMUBrGZsQiBqIFsJgBw6TawUQHO+jhj1E7Ru2gth2sQMwLxGw0tEMATW6o2sEBxPxAzE5DO4ZLuhq1Y2TaMVrX0h4AAKyHGo4=
   </data>
  </layer>
- <layer name="collision" width="48" height="48">
+ <layer name="collision" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJztzksKgDAUxdA7VesHu/+9+roGKaGQQObnSNInfk+81W/W7Yl+Mv1s+tn0s+ln08+mn00/m342/Wz62Yb/ohE/0s+mn00/m342/Wz62fSz6WfTz6afTT/b8O/1uehb/QHe+QtP
+   eJyTZGBgkKQDpiUYtWPUjlE7Ru0YtWPUjlE7Ru0YbHbQGgMA5ecJYQ==
   </data>
  </layer>
- <layer name="wall" width="48" height="48">
+ <layer name="wall" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJztzgENAAAIA6Dbv7QxrhskIOGjaQcAAAAAAAAAADhhAUZIAAI=
+   eJyTZGBgkKQDpiUYtWPUjlE7Ru0YtWPUjlE7Ru0YbHbQGgMA5ecJYQ==
   </data>
  </layer>
 </map>

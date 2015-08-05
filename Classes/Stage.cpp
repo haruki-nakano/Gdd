@@ -134,8 +134,9 @@ void Stage::initializePlayersPosition(bool isHost) {
                                       _backgroundLayer->getProperty("hostInitialPositionY").asFloat());
     auto clientInitialCoordinate = Vec2(_backgroundLayer->getProperty("clientInitialPositionX").asFloat(),
                                         _backgroundLayer->getProperty("clientInitialPositionY").asFloat());
-    Vec2 hostInitialPosition = _backgroundLayer->getPositionAt(hostInitialCoordinate);
-    Vec2 clientInitialPosition = _backgroundLayer->getPositionAt(clientInitialCoordinate);
+    Vec2 hostInitialPosition = _backgroundLayer->getPositionAt(hostInitialCoordinate) + Vec2(0.0f, TILE_HEIGHT * 0.5f);
+    Vec2 clientInitialPosition =
+        _backgroundLayer->getPositionAt(clientInitialCoordinate) + Vec2(0.0f, TILE_HEIGHT * 0.5f);
 
     if (isHost) {
         getPlayer()->setPosition(hostInitialPosition);
