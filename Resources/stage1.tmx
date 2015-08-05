@@ -46,17 +46,12 @@
    <property name="hostInitialPositionY" value="21"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYKAPEEfDfEDMAsSMUBrGZsQiBqIFsJgBw6TawUQHO+jhj1E7Ru2gth2sQMwLxGw0tEMATW6o2sEBxPxAzE5DO4ZLuhq1Y2TaMVrX0h4AAKyHGo4=
+   eJwTZ2BgEEfDfAykAQEsZsAwAw5xkB0sQMwIpWFsRixiLFS2g4kOdtDDH6N2jNpBbTtYgZgXiNloaIcAmtxQtYMDiPmBmJ2GdgyXdDVqx8i0Y6TXtfQAAMKeHbo=
   </data>
  </layer>
  <layer name="collision" width="25" height="25">
   <data encoding="base64" compression="zlib">
    eJyTZGBgkKQDpiUYtWPUjlE7Ru0YtWPUjlE7Ru0YbHbQGgMA5ecJYQ==
-  </data>
- </layer>
- <layer name="wall" width="25" height="25" visible="0">
-  <data encoding="base64" compression="zlib">
-   eJyTZGBgkKQDpiUYtWPUjlE7BpcdtLBvuIbVqB2jdozaMXztoDUGAG2CCXo=
   </data>
  </layer>
 </map>

@@ -45,7 +45,7 @@ void SceneManager::enterGameScene(bool networked, int stageId) {
     }
     Scene *scene = Scene::createWithPhysics();
 #if defined(COCOS2D_DEBUG)
- scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+ //scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 #endif
     _gameScene = GameScene::create();
 

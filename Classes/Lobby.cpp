@@ -36,28 +36,28 @@ void Lobby::onEnter() {
 void Lobby::setupUI() {
     Size visibleSize = Director::getInstance()->getVisibleSize();
 
-    Sprite *logo = Sprite::create("logo.png");
-    logo->setAnchorPoint(Vec2(0.5f, 0.5f));
-    logo->setPosition(Vec2(visibleSize.width * 0.5f, visibleSize.height * 0.7f));
+    Sprite *logo = Sprite::create("title.png");
+    logo->setAnchorPoint(Vec2(0.0f, 0.0f));
+    logo->setPosition(Vec2::ZERO);
     this->addChild(logo);
 
     ui::Button *howToPlayButton = ui::Button::create();
     howToPlayButton->setAnchorPoint(Vec2(0.5f, 0.0f));
-    howToPlayButton->setPosition(Vec2(visibleSize.width / 2.0f, visibleSize.height * 0.3f));
+    howToPlayButton->setPosition(Vec2(visibleSize.width / 2.0f, 108.0f));
     howToPlayButton->loadTextures("buttonHowToPlay.png", "buttonPressedHowToPlay.png");
     howToPlayButton->addTouchEventListener(CC_CALLBACK_2(Lobby::howToPlayPressed, this));
     this->addChild(howToPlayButton);
 
     ui::Button *singlePlayerButton = ui::Button::create();
     singlePlayerButton->setAnchorPoint(Vec2(1.0f, 0.0f));
-    singlePlayerButton->setPosition(Vec2(visibleSize.width / 2.0f - 48.0f, visibleSize.height * 0.1f));
+    singlePlayerButton->setPosition(Vec2(visibleSize.width / 2.0f - 48.0f, 16.0f));
     singlePlayerButton->loadTextures("buttonTraining.png", "buttonPressedTraining.png");
     singlePlayerButton->addTouchEventListener(CC_CALLBACK_2(Lobby::singlePlayerPressed, this));
     this->addChild(singlePlayerButton);
 
     ui::Button *multiPlayerButton = ui::Button::create();
     multiPlayerButton->setAnchorPoint(Vec2(0.0f, 0.0f));
-    multiPlayerButton->setPosition(Vec2(visibleSize.width / 2.0f + 48.0f, visibleSize.height * 0.1f));
+    multiPlayerButton->setPosition(Vec2(visibleSize.width / 2.0f + 48.0f, 16.0f));
     multiPlayerButton->loadTextures("buttonVsMode.png", "buttonPressedVsMode.png");
     multiPlayerButton->addTouchEventListener(CC_CALLBACK_2(Lobby::multiPlayerPressed, this));
     this->addChild(multiPlayerButton);
