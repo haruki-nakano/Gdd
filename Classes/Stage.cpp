@@ -181,7 +181,7 @@ void Stage::generateEgg() {
     }
 
     auto sp = _backgroundLayer->getTileAt(coordinate);
-    Vec2 pos = sp->getPosition();
+    Vec2 pos = sp->getPosition() + Vec2(0.0f, TILE_HEIGHT * 0.5f);
     _egg->setPosition(pos);
     _egg->setLifePoint(INITIAL_EGG_LIFE);
     _egg->setState(EggState::EGG);

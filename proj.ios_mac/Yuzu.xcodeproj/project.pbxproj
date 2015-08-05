@@ -137,8 +137,6 @@
 		7112900A1B582F7800B9216A /* playerRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 711290061B582F7800B9216A /* playerRight.png */; };
 		71166DF71B6AC42200704D28 /* wall.png in Resources */ = {isa = PBXBuildFile; fileRef = 71166DF61B6AC42200704D28 /* wall.png */; };
 		71166DF81B6AC42200704D28 /* wall.png in Resources */ = {isa = PBXBuildFile; fileRef = 71166DF61B6AC42200704D28 /* wall.png */; };
-		71166DFB1B6AD01100704D28 /* StatusArea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 71166DF91B6AD01100704D28 /* StatusArea.cpp */; };
-		71166DFC1B6AD01100704D28 /* StatusArea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 71166DF91B6AD01100704D28 /* StatusArea.cpp */; };
 		7125E7891B5423680005D5B1 /* TitleScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7125E7871B5423680005D5B1 /* TitleScene.cpp */; };
 		7125E78A1B5423680005D5B1 /* TitleScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7125E7871B5423680005D5B1 /* TitleScene.cpp */; };
 		7125E78F1B5429FA0005D5B1 /* Lobby.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7125E78D1B5429FA0005D5B1 /* Lobby.cpp */; };
@@ -327,8 +325,6 @@
 		711290051B582F7800B9216A /* playerLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playerLeft.png; sourceTree = "<group>"; };
 		711290061B582F7800B9216A /* playerRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playerRight.png; sourceTree = "<group>"; };
 		71166DF61B6AC42200704D28 /* wall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wall.png; sourceTree = "<group>"; };
-		71166DF91B6AD01100704D28 /* StatusArea.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StatusArea.cpp; sourceTree = "<group>"; };
-		71166DFA1B6AD01100704D28 /* StatusArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusArea.h; sourceTree = "<group>"; };
 		7125E7871B5423680005D5B1 /* TitleScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TitleScene.cpp; sourceTree = "<group>"; };
 		7125E7881B5423680005D5B1 /* TitleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleScene.h; sourceTree = "<group>"; };
 		7125E78B1B5423A40005D5B1 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -649,8 +645,6 @@
 				7125E79B1B54342B0005D5B1 /* Player.h */,
 				7125E7B01B545A800005D5B1 /* Stage.cpp */,
 				7125E7B11B545A800005D5B1 /* Stage.h */,
-				71166DF91B6AD01100704D28 /* StatusArea.cpp */,
-				71166DFA1B6AD01100704D28 /* StatusArea.h */,
 			);
 			name = GameSprites;
 			sourceTree = "<group>";
@@ -980,7 +974,6 @@
 				7125E7AE1B5456A10005D5B1 /* Bullet.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				7125E7CB1B5485980005D5B1 /* JSONPacker.cpp in Sources */,
-				71166DFB1B6AD01100704D28 /* StatusArea.cpp in Sources */,
 				710AD8911B6165280062580E /* Egg.cpp in Sources */,
 				7125E7931B542CA80005D5B1 /* GameScene.cpp in Sources */,
 				7125E7C71B5481600005D5B1 /* NetworkManager.mm in Sources */,
@@ -996,7 +989,6 @@
 				7125E7941B542CA80005D5B1 /* GameScene.cpp in Sources */,
 				7125E79D1B54342B0005D5B1 /* Player.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
-				71166DFC1B6AD01100704D28 /* StatusArea.cpp in Sources */,
 				710AD8921B6165280062580E /* Egg.cpp in Sources */,
 				7125E7AF1B5456A10005D5B1 /* Bullet.cpp in Sources */,
 				7125E7991B54307F0005D5B1 /* SceneManager.cpp in Sources */,
