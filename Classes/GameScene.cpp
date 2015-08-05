@@ -170,6 +170,7 @@ void GameScene::gameOver() {
 
     auto dialog = GameOverDialog::createWithLifePoints(playerLife, opponentLife);
     this->addChild(dialog, 999);
+
     // MessageBox(messageContent.c_str(), "GAMEOVER");
 
     // SceneManager::getInstance()->returnToLobby();

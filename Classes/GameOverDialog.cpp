@@ -69,6 +69,10 @@ void GameOverDialog::onEnter() {
     this->addChild(title);
     this->addChild(scoreLabel);
     this->addChild(_button);
+
+    auto action = cocos2d::FadeTo::create(0.1, 178);
+    background->setOpacity(0);
+    background->runAction(action);
 }
 
 void GameOverDialog::buttonPressed(cocos2d::Ref *pSender, ui::Widget::TouchEventType eEventType) {

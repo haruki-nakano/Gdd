@@ -484,7 +484,7 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
             break;
         }
         case Gun::MARATHON_GUN: {
-            if (clock() - _lastTimeBulletCreated < ABNORMAL_FIRING_THRESHOLD * 1.2f) {
+            if (clock() - _lastTimeBulletCreated < ABNORMAL_FIRING_THRESHOLD) {
                 break;
             }
             _lastTimeBulletCreated = clock();
