@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  Yuzu
+
+  Created by Haruki Nakano on 2015/08/05.
+
+*/
+
+//IndoPlist.strings(Base)
+CFBundleDisplayName = "RubberDuckWars";
