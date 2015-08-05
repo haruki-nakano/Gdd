@@ -37,10 +37,10 @@
  </tileset>
  <layer name="background" width="48" height="48">
   <properties>
-   <property name="clientInitialPositionX" value="11"/>
-   <property name="clientInitialPositionY" value="1"/>
-   <property name="hostInitialPositionX" value="11"/>
-   <property name="hostInitialPositionY" value="22"/>
+   <property name="clientInitialPositionX" value="23"/>
+   <property name="clientInitialPositionY" value="3"/>
+   <property name="hostInitialPositionX" value="23"/>
+   <property name="hostInitialPositionY" value="43"/>
   </properties>
   <data encoding="base64" compression="zlib">
    eJztmdEOgjAMRVERfBF58///1O3BhJDbQctaKHTJiTGZ9ngls9Sm8b9uTtH0byd49X/s4P9MvAGdUf6c+sh/THwBg2KO0vrhv3wdcK+7o/iPG19n5d8CkD+17wj+9wklf7Qv/MM//Ov5vxIfQG/kz6mP/LlQ5+Lfo1/YJ2W6trzPniB/lJN2Hy+tT/mXHjNUjyulY9Zfmz96nqHOCCkDs/7W/LX9I//IP/KP/KnPT/UoUnpm/bX5e/z99UQNfyqn+fxE4/tE/tz5Yfao2f9bzw9r+1/9/jH8w9/aH52LXuafFF7mzxTz+Yk3fylX9+fODymkfY71/LDkv8f/vzX9te8bNP0tOIu/5/UDZyI0yg==
