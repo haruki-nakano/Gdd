@@ -38,7 +38,7 @@ static const int MAX_PLAYERS = 2;
 
 static const int INITIAL_PLAYER_LIFE = 30;
 static const float INITIAL_BULLET_LIFE = 0.32;
-static const float INITIAL_EGG_LIFE = 5;
+static const float INITIAL_EGG_LIFE = 20;
 
 static const int MAX_EGG_INTERVAL_SEC = 1;
 static const int MIN_EGG_INTERVAL_SEC = 1;
