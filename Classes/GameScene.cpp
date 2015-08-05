@@ -382,6 +382,9 @@ void GameScene::setNetworkedSession(bool networkedSession, bool isHost) {
 }
 
 void GameScene::receivedData(const void *data, unsigned long length) {
+    if (!_stage) {
+        return;
+    }
     const char *cstr = reinterpret_cast<const char *>(data);
     std::string json = std::string(cstr, length);
 

@@ -301,7 +301,7 @@ void Player::setMoveState(const MoveState moveState) {
 
             if (isSwimming() && !isFiring() && !_isOpponent) {
                 _splash->setVisible(true);
-                _splash->setPosition(Vec2(getBoundingBox().size.width + 16.0f, getBoundingBox().size.height));
+                _splash->setPosition(Vec2(getBoundingBox().size.width, getBoundingBox().size.height - 32.0f));
                 Animation *animation = Animation::create();
 
                 // TODO: Use batchnode
@@ -326,7 +326,7 @@ void Player::setMoveState(const MoveState moveState) {
 
             if (isSwimming() && !isFiring() && !_isOpponent) {
                 _splash->setVisible(true);
-                _splash->setPosition(Vec2(-16.0f, getBoundingBox().size.height));
+                _splash->setPosition(Vec2(0.0f, getBoundingBox().size.height - 32.0f));
                 Animation *animation = Animation::create();
 
                 // TODO: Use batchnode
