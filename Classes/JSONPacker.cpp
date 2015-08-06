@@ -17,6 +17,34 @@ using namespace cocos2d;
 
 namespace JSONPacker {
 
+DataType dataTypeForData(const std::string &json) {
+    rapidjson::Document document;
+    document.Parse<0>(json.c_str());
+    return static_cast<DataType>(document["dataType"].GetInt());
+}
+
+int unpackStageSelectJSON(const std::string &json) {
+    rapidjson::Document document;
+    document.Parse<0>(json.c_str());
+    return document["stageId"].GetInt();
+}
+
+std::string packStageSelectJSON(const int data) {
+    rapidjson::Document document;
+    document.SetObject();
+    document.AddMember("dataType", static_cast<int>(DataType::STAGE_SELECT), document.GetAllocator());
+    document.AddMember("stageId", data, document.GetAllocator());
+
+    // Flush
+    rapidjson::StringBuffer buffer;
+    rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+    document.Accept(writer);
+
+    std::string returnString(buffer.GetString(), buffer.Size());
+
+    return returnString;
+}
+
 GameState unpackGameStateJSON(const std::string &json) {
     rapidjson::Document document;
     document.Parse<0>(json.c_str());
@@ -72,6 +100,8 @@ GameState unpackGameStateJSON(const std::string &json) {
 std::string packGameStateJSON(const GameState gameState) {
     rapidjson::Document document;
     document.SetObject();
+
+    document.AddMember("dataType", static_cast<int>(DataType::GAME_STATE), document.GetAllocator());
 
     document.AddMember("name", gameState.name.c_str(), document.GetAllocator());
     document.AddMember("eventType", static_cast<int>(gameState.event), document.GetAllocator());

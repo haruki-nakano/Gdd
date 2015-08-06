@@ -35,6 +35,16 @@ struct GameState {
     std::vector<Bullet *> newBullets;
 };
 
+enum class DataType {
+    STAGE_SELECT = 0,
+    GAME_STATE = 1,
+};
+
+DataType dataTypeForData(const std::string &json);
+
+int unpackStageSelectJSON(const std::string &json);
+std::string packStageSelectJSON(const int data);
+
 GameState unpackGameStateJSON(const std::string &json);
 std::string packGameStateJSON(const GameState data);
 }

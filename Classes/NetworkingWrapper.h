@@ -11,6 +11,11 @@
 
 #include "NetworkManagerDelegate.h"
 
+enum class SendDataMode {
+    Reliable,  // TCP
+    Unreliable // UDP
+};
+
 #ifdef __OBJC__
 @class NetworkManager;
 #else
@@ -38,7 +43,7 @@ public:
 
     void showPeerList();
 
-    void sendData(const void *data, unsigned long length);
+    void sendData(const void *data, unsigned long length, SendDataMode mode);
 
     static const char *getDeviceName();
 

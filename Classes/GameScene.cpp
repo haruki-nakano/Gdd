@@ -115,6 +115,10 @@ void GameScene::setStageId(int stageId) {
 #pragma mark -
 #pragma mark Game Logics
 
+bool GameScene::isGameActive() const {
+    return _active;
+}
+
 void GameScene::setGameActive(bool active) {
     _active = active;
     if (active) {
@@ -390,7 +394,8 @@ void GameScene::setNetworkedSession(bool networkedSession, bool isHost) {
 
 void GameScene::receivedData(const void *data, unsigned long length) {
     // length 1 means stage select
-    if (!_stage || length <= 1 || !_networkedSession) {
+    if (!_stage || !_networkedSession) {
+        CCLOG("ignored %p %lu %d", _stage, length, _networkedSession);
         return;
     }
     const char *cstr = reinterpret_cast<const char *>(data);

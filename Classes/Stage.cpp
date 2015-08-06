@@ -59,7 +59,8 @@ void Stage::onEnter() {
     }
 
     _collisionLayer = _map->getLayer(DEFAULT_COLLISION_LAYER_NAME);
-    _collisionLayer->setPosition(Vec2(TILE_WIDTH * 0.25f, TILE_HEIGHT * 0.25f));
+    //_collisionLayer->setPosition(Vec2(TILE_WIDTH * 0.25, TILE_HEIGHT * 0.25));
+    _collisionLayer->setPosition(Vec2(0.0f, TILE_HEIGHT * 0.50f));
     auto size = _collisionLayer->getLayerSize();
     for (int y = 0; y < size.height; y++) {
         for (int x = 0; x < size.width; x++) {

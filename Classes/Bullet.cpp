@@ -28,7 +28,7 @@ void Bullet::onEnter() {
 
     this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 
-    PhysicsBody *bulletPhysics = PhysicsBody::createBox(this->getBoundingBox().size);
+    PhysicsBody *bulletPhysics = PhysicsBody::createBox(this->getBoundingBox().size * 0.5f);
     bulletPhysics->setDynamic(true);
     bulletPhysics->setGravityEnable(false);
     bulletPhysics->setRotationEnable(false);

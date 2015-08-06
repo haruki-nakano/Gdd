@@ -41,9 +41,21 @@ void NetworkingWrapper::showPeerList() {
     [this->networkManager showPeerList];
 }
 
-void NetworkingWrapper::sendData(const void *data, unsigned long length) {
+void NetworkingWrapper::sendData(const void *data, unsigned long length, SendDataMode mode) {
+    MCSessionSendDataMode mcSessionMode = MCSessionSendDataReliable;
+
+    switch (mode) {
+        case SendDataMode::Reliable:
+            mcSessionMode = MCSessionSendDataReliable;
+            break;
+
+        case SendDataMode::Unreliable:
+            mcSessionMode = MCSessionSendDataUnreliable;
+            break;
+    }
+
     NSData *dataToSend = [NSData dataWithBytes:data length:length];
-    [this->networkManager sendData:dataToSend];
+    [this->networkManager sendData:dataToSend withMode:mcSessionMode];
 }
 
 void NetworkingWrapper::disconnect() {
@@ -71,6 +83,8 @@ std::vector<std::string> NetworkingWrapper::getPeerList() {
 bool NetworkingWrapper::isHost() {
     std::vector<std::string> peers = this->getPeerList();
     auto me = this->getDeviceName();
+    // CCLOG("isHost(): %d", peers[0].compare(me));
+    CCLOG("%s isHost -> %d", me, peers[0].compare(me));
     return peers[0].compare(me) > 0;
 }
 
@@ -80,6 +94,8 @@ bool NetworkingWrapper::isHost() {
 void NetworkingWrapper::receivedData(const void *data, unsigned long length) {
     if (this->delegate) {
         this->delegate->receivedData(data, length);
+    } else {
+        CCLOG("No delegata");
     }
 }
 

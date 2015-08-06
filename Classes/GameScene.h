@@ -28,6 +28,8 @@ public:
     void receivedData(const void *data, unsigned long length);
 
     void setStageId(int stageId);
+    
+    bool isGameActive() const;
 
 protected:
     // Lifecycle
@@ -35,6 +37,7 @@ protected:
     void onEnter() override;
 
     // Game Logic
+    
     void setGameActive(bool active);
     void step(float dt);
     void update(float dt) override;

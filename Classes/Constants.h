@@ -12,7 +12,6 @@
 static const std::string CODE_NAME = "Yuzu";
 static const std::string GAME_NAME = "Rubber Duck Wars";
 
-static const std::string DEFAULT_STAGE_FILE = "stage2.tmx";
 static const std::string DEFAULT_BACKGROUND_LAYER_NAME = "background";
 static const std::string DEFAULT_COLLISION_LAYER_NAME = "collision";
 static const std::string DEFAULT_WALL_LAYER_NAME = "wall";
@@ -27,7 +26,7 @@ static const cocos2d::Color3B LABEL_COLOR = cocos2d::Color3B(196, 196, 196);
 
 // Game Options
 static const int DEFAULT_STAGE_ID = 1;
-static const int NUM_STAGES = 3;
+static const int NUM_STAGES = 4;
 
 static const bool USE_SIMPLE_AIMING = false;
 static const bool ALLOW_MORE_THAN_TWO_TAP = false;
@@ -161,7 +160,6 @@ enum class PlayerColor {
 
 enum class SceneState {
     LOBBY = 0,
-    WAITING_FOR_VS_MODE,
     TRAINING,
     VS_MODE,
     NUM_STATES,
