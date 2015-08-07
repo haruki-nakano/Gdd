@@ -32,6 +32,7 @@ private:
     std::unique_ptr<NetworkingWrapper> _networkingWrapper;
     GameScene *_gameScene;
     Lobby *_lobby;
+    ConnectionState _connectionState;
 
     SceneManager();
     ~SceneManager();
