@@ -30,7 +30,6 @@ SceneManager *SceneManager::getInstance() {
 SceneManager::SceneManager() {
     _gameScene = nullptr;
     _lobby = nullptr;
-    _connectionState = ConnectionState::NOT_CONNECTED;
     _networkingWrapper = std::unique_ptr<NetworkingWrapper>(new NetworkingWrapper());
     _networkingWrapper->setDelegate(this);
     _networkingWrapper->setServiceName(SERVICE_NAME);
@@ -69,15 +68,11 @@ void SceneManager::enterGameScene(bool networked, int stageId) {
 }
 
 void SceneManager::returnToLobby() {
-    if (_connectionState != ConnectionState::NOT_CONNECTED && _state == SceneState::VS_MODE) {
-        _networkingWrapper->disconnect();
-    }
-
     if (_state == SceneState::TRAINING || _state == SceneState::VS_MODE) {
         _state = SceneState::LOBBY;
-        receiveMultiplayerInvitations();
         Director::getInstance()->popScene();
         _gameScene = nullptr;
+        _networkingWrapper->disconnect();
     }
 }
 
@@ -90,13 +85,12 @@ void SceneManager::receiveMultiplayerInvitations() {
 }
 
 void SceneManager::sendData(const void *data, unsigned long length, SendDataMode mode) {
-    CCLOG("Send data %lu", length);
+    // CCLOG("Send data %lu", length);
     _networkingWrapper->sendData(data, length, mode);
 }
 
 void SceneManager::setLobby(Lobby *lobby) {
     _state = SceneState::LOBBY;
-    receiveMultiplayerInvitations();
     _lobby = lobby;
 }
 
@@ -104,8 +98,7 @@ void SceneManager::setLobby(Lobby *lobby) {
 #pragma mark NetworkingWrapperDelegate Methods
 
 void SceneManager::receivedData(const void *data, unsigned long length) {
-    // TODO: Do not use magic number
-    CCLOG("ReceivedData is called. length: %lu", length);
+    // CCLOG("ReceivedData is called. length: %lu", length);
     const char *cstr = reinterpret_cast<const char *>(data);
     std::string json = std::string(cstr, length);
     if (_state == SceneState::VS_MODE && JSONPacker::dataTypeForData(json) == JSONPacker::DataType::GAME_STATE) {
@@ -116,23 +109,15 @@ void SceneManager::receivedData(const void *data, unsigned long length) {
             int stageId = JSONPacker::unpackStageSelectJSON(json);
             enterGameScene(true, stageId);
         }
-    } else if (length <= 3) {
-        CCLOG("ignored new game");
-        ;
-    } else {
-        CCLOG("ignored some commands");
     }
 }
 
 void SceneManager::stateChanged(ConnectionState state) {
     switch (state) {
         case ConnectionState::CONNECTING:
-            _connectionState = ConnectionState::CONNECTING;
             CCLOG("Connecting...");
             break;
         case ConnectionState::NOT_CONNECTED:
-            _connectionState = ConnectionState::NOT_CONNECTED;
-            _networkingWrapper->disconnect();
             if (_state == SceneState::VS_MODE && _gameScene && _gameScene->isGameActive()) {
                 MessageBox("Unable to connect, please check your internet connection", "CONNECTION ERROR");
                 SceneManager::getInstance()->returnToLobby();
@@ -140,9 +125,8 @@ void SceneManager::stateChanged(ConnectionState state) {
             CCLOG("Not connected");
             break;
         case ConnectionState::CONNECTED:
-            _connectionState = ConnectionState::CONNECTED;
+            _networkingWrapper->stopAdvertisingAvailability();
             if (_state == SceneState::LOBBY) {
-                _networkingWrapper->stopAdvertisingAvailability();
                 if (this->isHost()) {
                     int stageId = random(1, NUM_STAGES);
                     std::string json = JSONPacker::packStageSelectJSON(stageId);

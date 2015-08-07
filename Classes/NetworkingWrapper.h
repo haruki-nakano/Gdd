@@ -11,10 +11,9 @@
 
 #include "NetworkManagerDelegate.h"
 
-enum class SendDataMode
-{
-    Reliable,   // Not guaranteed by Multipeer Connectivity, but probably TCP
-    Unreliable  // Not guaranteed by Multipeer Connectivity, but probably UDP
+enum class SendDataMode {
+    Reliable,  // Not guaranteed by Multipeer Connectivity, but probably TCP
+    Unreliable // Not guaranteed by Multipeer Connectivity, but probably UDP
 };
 
 #ifdef __OBJC__
@@ -25,82 +24,82 @@ typedef struct objc_object NetworkManager;
 
 // Classes that want to be notified by networking activity should inherit from this class
 // and set themselves as the delegate of NetworkingWrapper
-class NetworkingDelegate
-{
+class NetworkingDelegate {
 public:
-    virtual void receivedData(const void* data, unsigned long length) = 0;
+    virtual void receivedData(const void *data, unsigned long length) = 0;
     virtual void stateChanged(ConnectionState state) = 0;
 };
 
-class NetworkingWrapper : public NetworkManagerDelegate
-{
+class NetworkingWrapper : public NetworkManagerDelegate {
 public:
     NetworkingWrapper();
     ~NetworkingWrapper();
-    
+
     /**
      *  Set the name that will be used to advertise your networking service.
-     *  It should be in the same format as a Bonjour service type: up to 15 characters long 
+     *  It should be in the same format as a Bonjour service type: up to 15 characters long
      *  valid characters include ASCII lowercase letters, numbers, and the hyphen.
      */
-    void setServiceName(const std::string& serviceName);
-    
+    void setServiceName(const std::string &serviceName);
+
     /**
      * The minimum number of peers the session should expect.
      */
     void setMinimumPeers(unsigned int minimumPeers);
-    
+
     /**
      * The maximum number of peers the session should expect.
      */
     void setMaximumPeers(unsigned int maximumPeers);
-    
+
     /**
-     *  Set the delegate class that will be informed of connection state changes, and will be given the data recieved from the network
+     *  Set the delegate class that will be informed of connection state changes, and will be given the data recieved
+     * from the network
      */
-    void setDelegate(NetworkingDelegate* delegate);
-    
+    void setDelegate(NetworkingDelegate *delegate);
+
     /**
      *   Allow this device to be discovered and invited to connect by other devices
      */
     void startAdvertisingAvailability();
-    
+
     /**
      *  Stop this device from being discoverable
      */
     void stopAdvertisingAvailability();
-    
+
     /**
      *  Displays a built-in modal view that displays peers and allows this device to invite them to connect
      */
     void showPeerList();
-    
+
     /**
      *  Sends the data in the specified address in memory with a given length over the network to the connected peers
-     *  Mode options include reliable (probably, but not guaranteed to be TCP) and unreliable (probably but not guaranteed to be UDP)
+     *  Mode options include reliable (probably, but not guaranteed to be TCP) and unreliable (probably but not
+     * guaranteed to be UDP)
      */
-    void sendData(const void* data, unsigned long length, SendDataMode mode);
-    
+    void sendData(const void *data, unsigned long length, SendDataMode mode);
+
     /**
      *  Retrieves the name of the this device
      */
-    static const char * getDeviceName();
-    
+    static const char *getDeviceName();
+
     /**
      *  Disconnect from the current session
      */
     void disconnect();
-    
+
     /**
      *  Retrieves a list of the device names of any currently connected peers
      */
     std::vector<std::string> getPeerList();
-    
+
 private:
-    NetworkManager* networkManager;
-    NetworkingDelegate* delegate;
-    
-    void receivedData(const void* data, unsigned long length);
+    NetworkManager *networkManager;
+    NetworkingDelegate *delegate;
+
+    void receivedData(const void *data, unsigned long length);
     void stateChanged(ConnectionState state);
 };
 
