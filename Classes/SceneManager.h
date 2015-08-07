@@ -39,6 +39,8 @@ private:
 
     SceneState _state;
 
+    bool isHost();
+
     void receivedData(const void *data, unsigned long length);
     void stateChanged(ConnectionState state);
 };

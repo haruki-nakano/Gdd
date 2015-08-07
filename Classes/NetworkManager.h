@@ -1,6 +1,6 @@
 //
 //  NetworkManager.h
-//  Doodler
+//  MultipeerConnectivityCpp
 //
 //  Created by Daniel Haaser on 5/25/15.
 //
@@ -11,9 +11,15 @@
 
 class NetworkManagerDelegate;
 
-@interface NetworkManager : NSObject<MCBrowserViewControllerDelegate, MCSessionDelegate>
+@interface NetworkManager : NSObject <MCBrowserViewControllerDelegate, MCSessionDelegate>
 
-- (void)setDelegate:(NetworkManagerDelegate *)delegate;
+@property (nonatomic, copy) NSString* serviceName;
+@property (nonatomic, assign) NSUInteger minPeers;
+@property (nonatomic, assign) NSUInteger maxPeers;
+
+- (instancetype)initWithServiceName:(NSString*)serviceName minumumNumberOfPeers:(NSUInteger)minimum andMaximumNumberOfPeers:(NSUInteger)maximum;
+
+- (void)setDelegate:(NetworkManagerDelegate*)delegate;
 
 - (void)startAdvertisingAvailability;
 
@@ -21,10 +27,10 @@ class NetworkManagerDelegate;
 
 - (void)showPeerList;
 
-- (void)sendData:(NSData *)data withMode:(MCSessionSendDataMode)mode;
+- (void)sendData:(NSData*)data withMode:(MCSessionSendDataMode)mode;
 
 - (void)disconnect;
 
-- (NSArray *)getPeerList;
+- (NSArray*)getPeerList;
 
 @end

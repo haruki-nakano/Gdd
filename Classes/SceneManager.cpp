@@ -33,6 +33,9 @@ SceneManager::SceneManager() {
     _connectionState = ConnectionState::NOT_CONNECTED;
     _networkingWrapper = std::unique_ptr<NetworkingWrapper>(new NetworkingWrapper());
     _networkingWrapper->setDelegate(this);
+    _networkingWrapper->setServiceName(SERVICE_NAME);
+    _networkingWrapper->setMinimumPeers(MAX_PLAYERS - 1);
+    _networkingWrapper->setMaximumPeers(MAX_PLAYERS - 1);
 }
 
 SceneManager::~SceneManager() {
@@ -49,13 +52,13 @@ void SceneManager::enterGameScene(bool networked, int stageId) {
     }
     Scene *scene = Scene::createWithPhysics();
 #if defined(COCOS2D_DEBUG)
-    // scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+// scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 #endif
     _gameScene = GameScene::create();
 
     bool isHost = true;
     if (networked) {
-        isHost = _networkingWrapper->isHost();
+        isHost = this->isHost();
     }
     _gameScene->setNetworkedSession(networked, isHost);
     _gameScene->setStageId(stageId);
@@ -109,7 +112,7 @@ void SceneManager::receivedData(const void *data, unsigned long length) {
         // TODO: we can send std::string
         _gameScene->receivedData(data, length);
     } else if (_state == SceneState::LOBBY && JSONPacker::dataTypeForData(json) == JSONPacker::DataType::STAGE_SELECT) {
-        if (!_networkingWrapper->isHost()) {
+        if (!this->isHost()) {
             int stageId = JSONPacker::unpackStageSelectJSON(json);
             enterGameScene(true, stageId);
         }
@@ -140,7 +143,7 @@ void SceneManager::stateChanged(ConnectionState state) {
             _connectionState = ConnectionState::CONNECTED;
             if (_state == SceneState::LOBBY) {
                 _networkingWrapper->stopAdvertisingAvailability();
-                if (_networkingWrapper->isHost()) {
+                if (this->isHost()) {
                     int stageId = random(1, NUM_STAGES);
                     std::string json = JSONPacker::packStageSelectJSON(stageId);
                     // We must ensure that data is sent
@@ -151,4 +154,10 @@ void SceneManager::stateChanged(ConnectionState state) {
                 _networkingWrapper->disconnect();
             }
     }
+}
+
+bool SceneManager::isHost() {
+    auto peers = _networkingWrapper->getPeerList();
+    std::string me = _networkingWrapper->getDeviceName();
+    return peers[0].compare(me) > 0;
 }
