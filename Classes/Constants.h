@@ -45,6 +45,7 @@ static const int MIN_EGG_INTERVAL_SEC = 5;
 
 static const clock_t KEEP_FIRING_THRESHOLD = CLOCKS_PER_SEC * 0.3f;
 static const float INVINCIBLE_TIME = 10.0f; // 10 sec
+static const float GOGGLES_TIME = 10.0f;    // 10 sec
 static const clock_t ABNORMAL_FIRING_THRESHOLD = CLOCKS_PER_SEC * 0.1f;
 
 static const int HEALING_POINTS = 5;
@@ -91,8 +92,9 @@ enum class EventType {
     HIT_EGG = 5,
     APPEAR_EGG = 6,
     GET_HEAL = 7,
-    PLAYER_GET_INVINCIBLE = 8,
-    OPPONENT_GET_INVINCIBLE = 9,
+    GET_GOGGLES = 8,
+    PLAYER_GET_INVINCIBLE = 9,
+    OPPONENT_GET_INVINCIBLE = 10,
 };
 
 enum class FieldType {
@@ -133,7 +135,7 @@ enum class EggState {
 
 enum class EggItemType {
     HEALING,
-    // SPEED_UP,
+    GOGGLES,
     // SUPER_SHOT,
     SUPER_STAR,
     SIZE

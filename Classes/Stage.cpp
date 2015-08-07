@@ -187,7 +187,7 @@ void Stage::generateEgg() {
     _egg->setLifePoint(INITIAL_EGG_LIFE);
     _egg->setState(EggState::EGG);
     _egg->setItemType(static_cast<EggItemType>(random(0, static_cast<int>(EggItemType::SIZE) - 1)));
-    // _egg->setItemType(EggItemType::HEALING);
+    _egg->setItemType(EggItemType::GOGGLES);
 }
 
 #pragma mark -

@@ -36,11 +36,12 @@ public:
     bool isCorrectUpdate(const cocos2d::Vec2 position) const;
     bool isSwimming() const;
     bool isFiring() const;
+    bool isCaptured() const;
     bool isInvincible() const;
     bool isOpponent() const;
 
     // Fix argument
-    void setIsSwimming(const bool swimming);
+    void setIsSwimming(const bool swimming, const bool forceUpdate = false);
 
     MoveState getMoveState() const;
     void setMoveState(const MoveState moveState);
@@ -56,6 +57,7 @@ public:
     void setHitCount(const int hitCount);
 
     void gotHeal();
+    void captured();
     void gotInvincible();
 
     void setHealCount(const int healCount);
@@ -88,11 +90,13 @@ private:
     std::string _name;
     clock_t _lastTimeBulletCreated;
     float _invincibleTimeCount;
+    float _capturedTimeCount;
     int _lifePoint;
     bool _isSwimming;
     bool _isOpponent;
     bool _lastFiring;
     bool _lastInvincible;
+    bool _lastCaptured;
     int _hitCount;
     int _healCount;
 

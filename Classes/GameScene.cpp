@@ -134,8 +134,7 @@ void GameScene::update(float dt) {
 
     //  Host is in charge of generating egg.
     Egg *egg = _stage->getEgg();
-    if (_networkedSession && _isHost && egg->getState() == EggState::IDLE &&
-        egg->getLastBrokenTime() + delta < clock()) {
+    if (_isHost && egg->getState() == EggState::IDLE && egg->getLastBrokenTime() + delta < clock()) {
         delta = random(MIN_EGG_INTERVAL_SEC, MAX_EGG_INTERVAL_SEC) * CLOCKS_PER_SEC;
         _stage->generateEgg();
         sendGameStateOverNetwork(EventType::APPEAR_EGG, std::vector<Bullet *>(), true);
@@ -340,6 +339,13 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
                 player->gotHeal();
                 if (_networkedSession) {
                     sendGameStateOverNetwork(EventType::GET_HEAL);
+                }
+            } else if (egg->getItemType() == EggItemType::GOGGLES) {
+                if (!player->isOpponent()) {
+                    _stage->getOpponent()->captured();
+                }
+                if (_networkedSession) {
+                    sendGameStateOverNetwork(EventType::GET_GOGGLES);
                 }
             } else if (egg->getItemType() == EggItemType::SUPER_STAR) {
                 player->gotInvincible();

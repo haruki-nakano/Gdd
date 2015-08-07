@@ -38,12 +38,14 @@ bool Player::init() {
 
     _lastTimeBulletCreated = 0;
     _invincibleTimeCount = INVINCIBLE_TIME + 1.0f;
+    _capturedTimeCount = GOGGLES_TIME + 1.0f;
     _lifePoint = INITIAL_PLAYER_LIFE;
     _hitCount = 0;
     _healCount = 0;
 
     _lastFiring = false;
     _lastInvincible = false;
+    _lastCaptured = false;
     _isSwimming = false;
 
     return true;
@@ -96,6 +98,14 @@ void Player::step(float dt) {
         this->setColor(Color3B::WHITE);
     }
     _lastInvincible = invincible;
+
+    //
+    _capturedTimeCount = MIN(_capturedTimeCount + dt, GOGGLES_TIME + 1.0f);
+    bool captured = isCaptured();
+    if (captured != _lastCaptured) {
+        setIsSwimming(isSwimming(), true);
+    }
+    _lastCaptured = captured;
 }
 
 bool Player::isCorrectUpdate(const Vec2 position) const {
@@ -111,6 +121,10 @@ bool Player::isFiring() const {
     return clock() - _lastTimeBulletCreated < KEEP_FIRING_THRESHOLD;
 }
 
+bool Player::isCaptured() const {
+    return _capturedTimeCount < GOGGLES_TIME;
+}
+
 bool Player::isInvincible() const {
     return _invincibleTimeCount < INVINCIBLE_TIME;
 }
@@ -119,9 +133,9 @@ bool Player::isOpponent() const {
     return _isOpponent;
 }
 
-void Player::setIsSwimming(const bool swimming) {
-    int waterOpacity = _isOpponent ? 0 : 32;
-    if (_isSwimming != swimming) {
+void Player::setIsSwimming(const bool swimming, const bool forceUpdate) {
+    int waterOpacity = _isOpponent ? (isCaptured() ? 64 : 0) : 32;
+    if (_isSwimming != swimming || forceUpdate) {
         // We update _isSwimming here because updateVelocity() accesses _isSwimming.
         _isSwimming = swimming;
         this->setOpacity(swimming ? waterOpacity : 255);
@@ -537,6 +551,10 @@ void Player::gotHeal() {
     // TODO here
     particle->setAutoRemoveOnFinish(true);
     this->addChild(particle);
+}
+
+void Player::captured() {
+    _capturedTimeCount = 0.0;
 }
 
 void Player::gotInvincible() {
