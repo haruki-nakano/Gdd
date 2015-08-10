@@ -43,6 +43,8 @@ public:
     // Fix argument
     void setIsSwimming(const bool swimming, const bool forceUpdate = false);
 
+    void setPlayerColor(const bool isHost);
+
     MoveState getMoveState() const;
     void setMoveState(const MoveState moveState);
 

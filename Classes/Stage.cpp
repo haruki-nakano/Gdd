@@ -130,6 +130,9 @@ void Stage::initializePlayersPosition(bool isHost) {
         getOpponent()->setDirection(Direction::UP);
     }
 
+    getPlayer()->setPlayerColor(isHost);
+    getOpponent()->setPlayerColor(!isHost);
+
     // Scroll to put a player center on the screen
     step(0);
 }

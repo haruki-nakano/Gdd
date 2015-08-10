@@ -190,7 +190,7 @@ void GameScene::gameOver() {
     loser->addChild(particle);
 
     // Wait for explosion
-    DelayTime *delay = DelayTime::create(0.5f);
+    DelayTime *delay = DelayTime::create(2.0f);
     CallFunc *callfunc = CallFunc::create(CC_CALLBACK_0(GameScene::showDialog, this));
     auto seq = Sequence::createWithTwoActions(delay, callfunc);
     loser->runAction(seq);

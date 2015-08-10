@@ -187,6 +187,22 @@
 		712E1BDB1B79205E004E8B23 /* particle_texture_heal.plist in Resources */ = {isa = PBXBuildFile; fileRef = 712E1BD41B79205E004E8B23 /* particle_texture_heal.plist */; };
 		712E1BDC1B79205E004E8B23 /* particle_texture_heal.png in Resources */ = {isa = PBXBuildFile; fileRef = 712E1BD51B79205E004E8B23 /* particle_texture_heal.png */; };
 		712E1BDD1B79205E004E8B23 /* particle_texture_heal.png in Resources */ = {isa = PBXBuildFile; fileRef = 712E1BD51B79205E004E8B23 /* particle_texture_heal.png */; };
+		712E1BE61B7947E9004E8B23 /* player2Down.png in Resources */ = {isa = PBXBuildFile; fileRef = 712E1BDE1B7947E9004E8B23 /* player2Down.png */; };
+		712E1BE71B7947E9004E8B23 /* player2Down.png in Resources */ = {isa = PBXBuildFile; fileRef = 712E1BDE1B7947E9004E8B23 /* player2Down.png */; };
+		712E1BE81B7947E9004E8B23 /* player2Left.png in Resources */ = {isa = PBXBuildFile; fileRef = 712E1BDF1B7947E9004E8B23 /* player2Left.png */; };
+		712E1BE91B7947E9004E8B23 /* player2Left.png in Resources */ = {isa = PBXBuildFile; fileRef = 712E1BDF1B7947E9004E8B23 /* player2Left.png */; };
+		712E1BEA1B7947E9004E8B23 /* player2LowerLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 712E1BE01B7947E9004E8B23 /* player2LowerLeft.png */; };
+		712E1BEB1B7947E9004E8B23 /* player2LowerLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 712E1BE01B7947E9004E8B23 /* player2LowerLeft.png */; };
+		712E1BEC1B7947E9004E8B23 /* player2LowerRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 712E1BE11B7947E9004E8B23 /* player2LowerRight.png */; };
+		712E1BED1B7947E9004E8B23 /* player2LowerRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 712E1BE11B7947E9004E8B23 /* player2LowerRight.png */; };
+		712E1BEE1B7947E9004E8B23 /* player2Right.png in Resources */ = {isa = PBXBuildFile; fileRef = 712E1BE21B7947E9004E8B23 /* player2Right.png */; };
+		712E1BEF1B7947E9004E8B23 /* player2Right.png in Resources */ = {isa = PBXBuildFile; fileRef = 712E1BE21B7947E9004E8B23 /* player2Right.png */; };
+		712E1BF01B7947E9004E8B23 /* player2Up.png in Resources */ = {isa = PBXBuildFile; fileRef = 712E1BE31B7947E9004E8B23 /* player2Up.png */; };
+		712E1BF11B7947E9004E8B23 /* player2Up.png in Resources */ = {isa = PBXBuildFile; fileRef = 712E1BE31B7947E9004E8B23 /* player2Up.png */; };
+		712E1BF21B7947E9004E8B23 /* player2UpperLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 712E1BE41B7947E9004E8B23 /* player2UpperLeft.png */; };
+		712E1BF31B7947E9004E8B23 /* player2UpperLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 712E1BE41B7947E9004E8B23 /* player2UpperLeft.png */; };
+		712E1BF41B7947E9004E8B23 /* player2UpperRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 712E1BE51B7947E9004E8B23 /* player2UpperRight.png */; };
+		712E1BF51B7947E9004E8B23 /* player2UpperRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 712E1BE51B7947E9004E8B23 /* player2UpperRight.png */; };
 		715725431B6EEC880050EBCC /* buttonHowToPlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 7157253D1B6EEC880050EBCC /* buttonHowToPlay.png */; };
 		715725441B6EEC880050EBCC /* buttonHowToPlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 7157253D1B6EEC880050EBCC /* buttonHowToPlay.png */; };
 		715725451B6EEC880050EBCC /* buttonPressedHowToPlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 7157253E1B6EEC880050EBCC /* buttonPressedHowToPlay.png */; };
@@ -385,6 +401,14 @@
 		712E1BD31B79205E004E8B23 /* particle_texture_explosion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particle_texture_explosion.png; sourceTree = "<group>"; };
 		712E1BD41B79205E004E8B23 /* particle_texture_heal.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = particle_texture_heal.plist; sourceTree = "<group>"; };
 		712E1BD51B79205E004E8B23 /* particle_texture_heal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particle_texture_heal.png; sourceTree = "<group>"; };
+		712E1BDE1B7947E9004E8B23 /* player2Down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player2Down.png; sourceTree = "<group>"; };
+		712E1BDF1B7947E9004E8B23 /* player2Left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player2Left.png; sourceTree = "<group>"; };
+		712E1BE01B7947E9004E8B23 /* player2LowerLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player2LowerLeft.png; sourceTree = "<group>"; };
+		712E1BE11B7947E9004E8B23 /* player2LowerRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player2LowerRight.png; sourceTree = "<group>"; };
+		712E1BE21B7947E9004E8B23 /* player2Right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player2Right.png; sourceTree = "<group>"; };
+		712E1BE31B7947E9004E8B23 /* player2Up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player2Up.png; sourceTree = "<group>"; };
+		712E1BE41B7947E9004E8B23 /* player2UpperLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player2UpperLeft.png; sourceTree = "<group>"; };
+		712E1BE51B7947E9004E8B23 /* player2UpperRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player2UpperRight.png; sourceTree = "<group>"; };
 		7157253D1B6EEC880050EBCC /* buttonHowToPlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonHowToPlay.png; sourceTree = "<group>"; };
 		7157253E1B6EEC880050EBCC /* buttonPressedHowToPlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonPressedHowToPlay.png; sourceTree = "<group>"; };
 		7157253F1B6EEC880050EBCC /* buttonPressedTraining.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonPressedTraining.png; sourceTree = "<group>"; };
@@ -705,6 +729,14 @@
 		71992B8E1B6931930065EA2A /* players */ = {
 			isa = PBXGroup;
 			children = (
+				712E1BDE1B7947E9004E8B23 /* player2Down.png */,
+				712E1BDF1B7947E9004E8B23 /* player2Left.png */,
+				712E1BE01B7947E9004E8B23 /* player2LowerLeft.png */,
+				712E1BE11B7947E9004E8B23 /* player2LowerRight.png */,
+				712E1BE21B7947E9004E8B23 /* player2Right.png */,
+				712E1BE31B7947E9004E8B23 /* player2Up.png */,
+				712E1BE41B7947E9004E8B23 /* player2UpperLeft.png */,
+				712E1BE51B7947E9004E8B23 /* player2UpperRight.png */,
 				71DCDF161B583337006CDC3E /* playerDown.png */,
 				71DCDF171B583337006CDC3E /* playerUp.png */,
 				711290051B582F7800B9216A /* playerLeft.png */,
@@ -844,6 +876,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				712E1BEC1B7947E9004E8B23 /* player2LowerRight.png in Resources */,
 				715725451B6EEC880050EBCC /* buttonPressedHowToPlay.png in Resources */,
 				712E1BB71B784E35004E8B23 /* labelDraw.png in Resources */,
 				712E1BDA1B79205E004E8B23 /* particle_texture_heal.plist in Resources */,
@@ -881,6 +914,7 @@
 				71000E231B6FE38800AF4F23 /* splashLowerRight1.png in Resources */,
 				71000E4E1B6FEBBB00AF4F23 /* splashLowerLeft3.png in Resources */,
 				521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */,
+				712E1BE61B7947E9004E8B23 /* player2Down.png in Resources */,
 				712E1BAA1B784DF7004E8B23 /* itemEgg3.png in Resources */,
 				715725501B6F41790050EBCC /* backgroundTitle.png in Resources */,
 				712E1BC11B784E42004E8B23 /* uiLifeBg.png in Resources */,
@@ -905,12 +939,14 @@
 				712E1BB01B784DF7004E8B23 /* itemHot.png in Resources */,
 				71000E1D1B6FE38800AF4F23 /* splashDown1.png in Resources */,
 				71000E761B72858E00AF4F23 /* buttonOkPressed.png in Resources */,
+				712E1BEA1B7947E9004E8B23 /* player2LowerLeft.png in Resources */,
 				3EACC98F19EE6D4300EB3C5E /* res in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
 				71000E461B6FEBBB00AF4F23 /* splashLeft2.png in Resources */,
 				71000E291B6FE38800AF4F23 /* splashRight1.png in Resources */,
 				71DCDF181B583337006CDC3E /* playerDown.png in Resources */,
 				71000E571B6FEBC600AF4F23 /* splashUpperLeft3.png in Resources */,
+				712E1BEE1B7947E9004E8B23 /* player2Right.png in Resources */,
 				711290091B582F7800B9216A /* playerRight.png in Resources */,
 				71000E531B6FEBC600AF4F23 /* splashUpperLeft1.png in Resources */,
 				7157254B1B6EEC880050EBCC /* buttonTraining.png in Resources */,
@@ -923,14 +959,18 @@
 				71000E3C1B6FE46100AF4F23 /* splashRight3.png in Resources */,
 				71069D031B6297C900438AD9 /* playerLowerRight.png in Resources */,
 				7157254D1B6EEC880050EBCC /* buttonVsMode.png in Resources */,
+				712E1BF41B7947E9004E8B23 /* player2UpperRight.png in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
+				712E1BF01B7947E9004E8B23 /* player2Up.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
+				712E1BE81B7947E9004E8B23 /* player2Left.png in Resources */,
 				71000E1F1B6FE38800AF4F23 /* splashDown2.png in Resources */,
 				712E1BA81B784DF7004E8B23 /* itemEgg2.png in Resources */,
 				521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */,
 				71000E2B1B6FE38800AF4F23 /* splashRight2.png in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
 				71000E311B6FE38800AF4F23 /* splashUp2.png in Resources */,
+				712E1BF21B7947E9004E8B23 /* player2UpperLeft.png in Resources */,
 				71000E331B6FE38800AF4F23 /* splashUp3.png in Resources */,
 				712E1BD81B79205E004E8B23 /* particle_texture_explosion.png in Resources */,
 			);
@@ -941,6 +981,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				712E1BD71B79205E004E8B23 /* particle_texture_explosion.plist in Resources */,
+				712E1BE71B7947E9004E8B23 /* player2Down.png in Resources */,
 				71000E301B6FE38800AF4F23 /* splashUp1.png in Resources */,
 				712E1BDB1B79205E004E8B23 /* particle_texture_heal.plist in Resources */,
 				71000E201B6FE38800AF4F23 /* splashDown2.png in Resources */,
@@ -948,11 +989,15 @@
 				71000E491B6FEBBB00AF4F23 /* splashLeft3.png in Resources */,
 				71000E2A1B6FE38800AF4F23 /* splashRight1.png in Resources */,
 				71000E3D1B6FE46100AF4F23 /* splashRight3.png in Resources */,
+				712E1BED1B7947E9004E8B23 /* player2LowerRight.png in Resources */,
+				712E1BF51B7947E9004E8B23 /* player2UpperRight.png in Resources */,
 				71DCDF1E1B58379F006CDC3E /* bullet.png in Resources */,
 				71069D021B6297C900438AD9 /* playerLowerLeft.png in Resources */,
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
 				712E1BAF1B784DF7004E8B23 /* itemHealing.png in Resources */,
 				71000E3A1B6FE38800AF4F23 /* splashUpperRight3.png in Resources */,
+				712E1BF31B7947E9004E8B23 /* player2UpperLeft.png in Resources */,
+				712E1BEB1B7947E9004E8B23 /* player2LowerLeft.png in Resources */,
 				3EACC99019EE6D4300EB3C5E /* res in Resources */,
 				715725481B6EEC880050EBCC /* buttonPressedTraining.png in Resources */,
 				71000E4F1B6FEBBB00AF4F23 /* splashLowerLeft3.png in Resources */,
@@ -960,6 +1005,7 @@
 				71DCDF191B583337006CDC3E /* playerDown.png in Resources */,
 				71000E4D1B6FEBBB00AF4F23 /* splashLowerLeft2.png in Resources */,
 				715725441B6EEC880050EBCC /* buttonHowToPlay.png in Resources */,
+				712E1BF11B7947E9004E8B23 /* player2Up.png in Resources */,
 				71000E341B6FE38800AF4F23 /* splashUp3.png in Resources */,
 				712E1BBA1B784E35004E8B23 /* labelYouLose.png in Resources */,
 				712E1BCC1B784EE4004E8B23 /* backButton.png in Resources */,
@@ -989,6 +1035,7 @@
 				71000E541B6FEBC600AF4F23 /* splashUpperLeft1.png in Resources */,
 				71128FF81B56D1C400B9216A /* stage1.tmx in Resources */,
 				712E1BBC1B784E35004E8B23 /* labelYouWin.png in Resources */,
+				712E1BEF1B7947E9004E8B23 /* player2Right.png in Resources */,
 				712E1BB31B784DF7004E8B23 /* itemSuperStar.png in Resources */,
 				7112900A1B582F7800B9216A /* playerRight.png in Resources */,
 				712E1BCE1B784EE4004E8B23 /* backButtonPressed.png in Resources */,
@@ -997,6 +1044,7 @@
 				71000E561B6FEBC600AF4F23 /* splashUpperLeft2.png in Resources */,
 				712E1BB81B784E35004E8B23 /* labelDraw.png in Resources */,
 				71000E851B7419AA00AF4F23 /* stage4.tmx in Resources */,
+				712E1BE91B7947E9004E8B23 /* player2Left.png in Resources */,
 				71000E2C1B6FE38800AF4F23 /* splashRight2.png in Resources */,
 				712E1BAB1B784DF7004E8B23 /* itemEgg3.png in Resources */,
 				7157254C1B6EEC880050EBCC /* buttonTraining.png in Resources */,

@@ -142,6 +142,22 @@ void Player::setIsSwimming(const bool swimming, const bool forceUpdate) {
     }
 }
 
+void Player::setPlayerColor(const bool isHost) {
+    if (isHost) {
+        return;
+    }
+    _imgLeft = Director::getInstance()->getTextureCache()->addImage("player2Left.png");
+    _imgUp = Director::getInstance()->getTextureCache()->addImage("player2Up.png");
+    _imgRight = Director::getInstance()->getTextureCache()->addImage("player2Right.png");
+    _imgDown = Director::getInstance()->getTextureCache()->addImage("player2Down.png");
+    _imgUpperLeft = Director::getInstance()->getTextureCache()->addImage("player2UpperLeft.png");
+    _imgUpperRight = Director::getInstance()->getTextureCache()->addImage("player2UpperRight.png");
+    _imgLowerLeft = Director::getInstance()->getTextureCache()->addImage("player2LowerLeft.png");
+    _imgLowerRight = Director::getInstance()->getTextureCache()->addImage("player2LowerRight.png");
+
+    setDirection(getDirection());
+}
+
 void Player::setMoveState(const MoveState moveState) {
     _splash->stopAllActions();
     _splash->setVisible(false);
