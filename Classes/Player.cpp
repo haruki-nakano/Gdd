@@ -545,7 +545,7 @@ void Player::gotHeal() {
     int heal = MIN(HEALING_POINTS, INITIAL_PLAYER_LIFE - getLifePoint());
     _healCount += heal;
     updateLifePoint();
-    ParticleSystemQuad *particle = ParticleSystemQuad::create("particle_texture.plist");
+    ParticleSystemQuad *particle = ParticleSystemQuad::create("particle_texture_heal.plist");
     particle->setPosition(Vec2(this->getBoundingBox().size.width * 0.5, 0.0f));
     // TODO here
     particle->setAutoRemoveOnFinish(true);

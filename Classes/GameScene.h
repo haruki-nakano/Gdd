@@ -28,7 +28,7 @@ public:
     void receivedData(const void *data, unsigned long length);
 
     void setStageId(int stageId);
-    
+
     bool isGameActive() const;
 
 protected:
@@ -37,7 +37,7 @@ protected:
     void onEnter() override;
 
     // Game Logic
-    
+
     void setGameActive(bool active);
     void step(float dt);
     void update(float dt) override;
@@ -47,6 +47,9 @@ protected:
     void setupTouchHandling();
     bool onContactBegin(cocos2d::PhysicsContact &contact);
     void backButtonPressed(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType eEventType);
+
+    //
+    void showDialog();
 
     int _stageId;
     bool _active;

@@ -158,26 +158,49 @@ void GameScene::gameOver() {
     std::string messageContent;
     std::string playerScoreString = StringUtils::toString(playerLife);
     std::string opponentScoreString = StringUtils::toString(opponentLife);
+    Player *loser;
     if (playerLife > opponentLife) {
-        _stage->getOpponent()->stopAllActions();
-        _stage->getOpponent()->setMoveState(MoveState::STOP);
-        _stage->getOpponent()->setVisible(false);
-        messageContent = "You win! (" + playerScoreString + ", " + opponentScoreString + ")";
+        loser = _stage->getOpponent();
     } else if (opponentLife > playerLife) {
-        _stage->getPlayer()->stopAllActions();
-        _stage->getPlayer()->setMoveState(MoveState::STOP);
-        _stage->getPlayer()->setVisible(false);
-        messageContent = "You lose... (" + playerScoreString + ", " + opponentScoreString + ")";
+        loser = _stage->getPlayer();
     } else {
-        messageContent = "Draw";
+        // Draw
+        loser = _stage->getOpponent();
+        Player *winner = _stage->getPlayer();
+
+        winner->setMoveState(MoveState::STOP);
+        // Explosion effect
+        ParticleSystemQuad *particle = ParticleSystemQuad::create("particle_texture_explosion.plist");
+        particle->setPosition(Vec2(winner->getBoundingBox().size * 0.5));
+        particle->setAutoRemoveOnFinish(true);
+        winner->setOpacity(0);
+        winner->addChild(particle);
+
+        // Wait for explosion
+        DelayTime *delay = DelayTime::create(0.5f);
+        winner->runAction(delay);
     }
 
+    loser->setMoveState(MoveState::STOP);
+    // Explosion effect
+    ParticleSystemQuad *particle = ParticleSystemQuad::create("particle_texture_explosion.plist");
+    particle->setPosition(Vec2(loser->getBoundingBox().size * 0.5));
+    particle->setAutoRemoveOnFinish(true);
+    loser->setOpacity(0);
+    loser->addChild(particle);
+
+    // Wait for explosion
+    DelayTime *delay = DelayTime::create(0.5f);
+    CallFunc *callfunc = CallFunc::create(CC_CALLBACK_0(GameScene::showDialog, this));
+    auto seq = Sequence::createWithTwoActions(delay, callfunc);
+    loser->runAction(seq);
+}
+
+void GameScene::showDialog() {
+    int playerLife = _stage->getPlayer()->getLifePoint();
+    int opponentLife = _stage->getOpponent()->getLifePoint();
     auto dialog = GameOverDialog::createWithLifePoints(playerLife, opponentLife);
     this->addChild(dialog, 999);
-
-    // MessageBox(messageContent.c_str(), "GAMEOVER");
-
-    // SceneManager::getInstance()->returnToLobby();
 }
 
 #pragma mark -
