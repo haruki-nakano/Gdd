@@ -60,22 +60,23 @@ void Stage::onEnter() {
 
     _collisionLayer = _map->getLayer(DEFAULT_COLLISION_LAYER_NAME);
     //_collisionLayer->setPosition(Vec2(TILE_WIDTH * 0.25, TILE_HEIGHT * 0.25));
-    _collisionLayer->setPosition(Vec2(0.0f, TILE_HEIGHT * 0.50f));
+    _collisionLayer->setPosition(Vec2(0.0f, TILE_HEIGHT * 0.5f));
+    Node *tmp;
     auto size = _collisionLayer->getLayerSize();
     for (int y = 0; y < size.height; y++) {
         for (int x = 0; x < size.width; x++) {
             auto tile = _collisionLayer->getTileAt(Vec2(x, y));
             if (tile) {
+                tmp = tile->getParent();
                 tile->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-                Vec2 v[6];
+                Vec2 v[4];
                 Vec2 s = Vec2(TILE_WIDTH * 0.5f, TILE_HEIGHT * 0.5f);
                 v[0] = Vec2(-s.x, -s.y);
-                v[1] = Vec2(-s.x, s.y);
-                v[2] = Vec2(0, s.y * 2.0f);
-                v[3] = Vec2(s.x, s.y);
-                v[4] = Vec2(s.x, -s.y);
-                v[5] = Vec2(0, -s.y * 2.0f);
-                PhysicsBody *tilePhysics = PhysicsBody::createPolygon(v, 6);
+                v[1] = Vec2(0.0f, 0);
+                v[2] = Vec2(s.x, -s.y);
+                v[3] = Vec2(0.0f, -s.y * 2.0f);
+
+                PhysicsBody *tilePhysics = PhysicsBody::createPolygon(v, 4);
                 tilePhysics->setDynamic(false);
                 tilePhysics->setCategoryBitmask(CATEGORY_MASK_WALL);
                 tilePhysics->setCollisionBitmask(COLLISION_MASK_WALL);
@@ -83,6 +84,8 @@ void Stage::onEnter() {
 
                 tile->setTag(TAG_WALL);
                 tile->setPhysicsBody(tilePhysics);
+
+                tile->setLocalZOrder(x + y);
             }
         }
     }
@@ -97,14 +100,14 @@ void Stage::onEnter() {
     for (int i = 0; i < MAX_PLAYERS; i++) {
         bool isOpponent = i > 0;
         Player *player = Player::create(isOpponent);
-        this->addChild(player);
+        _collisionLayer->addChild(player);
         _players.push_back(player);
     }
     getPlayer()->setTag(TAG_PLAYER);
     getOpponent()->setTag(TAG_OPPOPENT);
 
     _egg = Egg::create();
-    this->addChild(_egg);
+    _collisionLayer->addChild(_egg);
 }
 
 void Stage::initializePlayersPosition(bool isHost) {
@@ -112,9 +115,8 @@ void Stage::initializePlayersPosition(bool isHost) {
                                       _backgroundLayer->getProperty("hostInitialPositionY").asFloat());
     auto clientInitialCoordinate = Vec2(_backgroundLayer->getProperty("clientInitialPositionX").asFloat(),
                                         _backgroundLayer->getProperty("clientInitialPositionY").asFloat());
-    Vec2 hostInitialPosition = _backgroundLayer->getPositionAt(hostInitialCoordinate) + Vec2(0.0f, TILE_HEIGHT * 0.5f);
-    Vec2 clientInitialPosition =
-        _backgroundLayer->getPositionAt(clientInitialCoordinate) + Vec2(0.0f, TILE_HEIGHT * 0.5f);
+    Vec2 hostInitialPosition = _backgroundLayer->getPositionAt(hostInitialCoordinate);
+    Vec2 clientInitialPosition = _backgroundLayer->getPositionAt(clientInitialCoordinate);
 
     if (isHost) {
         getPlayer()->setPosition(hostInitialPosition);
@@ -164,6 +166,8 @@ void Stage::step(float dt) {
                 player->setIsSwimming(true);
             }
         }
+        // FIX ME: magic number
+        player->setLocalZOrder(coordinate.x + coordinate.y - 3.0f);
     }
 }
 
@@ -176,6 +180,7 @@ void Stage::generateEgg() {
     // FIXME: Critical
     float x = (float)random(1, (int)_size.width - 1);
     float y = (float)random(1, (int)_size.height - 1);
+
     Vec2 coordinate = Vec2(x, y);
     if (!isCorrectTileCoordinate(coordinate, true) || _backgroundLayer->getTileGIDAt(coordinate) >= 8) {
         return;
@@ -183,6 +188,8 @@ void Stage::generateEgg() {
 
     auto sp = _backgroundLayer->getTileAt(coordinate);
     Vec2 pos = sp->getPosition() + Vec2(0.0f, TILE_HEIGHT * 0.5f);
+    float newZ = coordinate.y + coordinate.x;
+    _egg->setLocalZOrder(newZ);
     _egg->setPosition(pos);
     _egg->setLifePoint(INITIAL_EGG_LIFE);
     _egg->setState(EggState::EGG);

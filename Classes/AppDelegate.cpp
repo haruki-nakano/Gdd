@@ -36,9 +36,13 @@ bool AppDelegate::applicationDidFinishLaunching() {
     }
 
 #if defined(COCOS2D_DEBUG)
-// turn on display FPS
-// director->setDisplayStats(true);
+    // turn on display FPS
+    director->setDisplayStats(true);
 #endif
+
+    // 3D test
+    director->setDepthTest(false);
+    director->setProjection(Director::Projection::_2D);
 
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
@@ -50,22 +54,6 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     FileUtils::getInstance()->addSearchPath("res");
     FileUtils::getInstance()->addSearchPath("fonts");
-
-    std::vector<std::string> searchResolutionOrder(1);
-
-    searchResolutionOrder[0] = "resources-2x";
-    /*
-    if (targetSize < 481.0f) {
-        searchResolutionOrder[0] = "resources-1x";
-    } else if (targetSize < 1335.0f) {
-        searchResolutionOrder[0] = "resources-2x";
-    } else if (targetSize < 1921.0f) {
-        searchResolutionOrder[0] = "resources-3x";
-    } else {
-        searchResolutionOrder[0] = "resources-4x";
-    }
-     */
-    FileUtils::getInstance()->setSearchResolutionsOrder(searchResolutionOrder);
 
     register_all_packages();
 

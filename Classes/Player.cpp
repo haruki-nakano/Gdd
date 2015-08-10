@@ -60,12 +60,11 @@ void Player::onEnter() {
 
     Vec2 v[4];
     Vec2 s = Vec2(32, 16);
-    v[0] = Vec2(-s.x, 0);
-    v[1] = Vec2(0, s.y);
-    v[2] = Vec2(s.x, 0);
-    v[3] = Vec2(0, -s.y);
+    v[0] = Vec2(-s.x, 0.0f);
+    v[1] = Vec2(0.0f, s.y);
+    v[2] = Vec2(s.x, 0.0f);
+    v[3] = Vec2(0.0f, -s.y);
     PhysicsBody *playerPhysics = PhysicsBody::createPolygon(v, 4, material);
-    // PhysicsBody *playerPhysics = PhysicsBody::createBox(this->getBoundingBox().size, material);
     playerPhysics->setDynamic(true);
     playerPhysics->setGravityEnable(false);
     playerPhysics->setRotationEnable(false);

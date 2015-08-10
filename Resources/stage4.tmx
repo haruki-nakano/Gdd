@@ -33,7 +33,7 @@
   <tile id="23" terrain="1,1,1,1"/>
  </tileset>
  <tileset firstgid="25" name="wall" tilewidth="64" tileheight="64">
-  <image source="wall.png" width="64" height="64"/>
+  <image source="wall.png" width="64" height="66"/>
  </tileset>
  <layer name="background" width="42" height="42">
   <properties>
@@ -48,7 +48,7 @@
  </layer>
  <layer name="collision" width="42" height="42">
   <data encoding="base64" compression="zlib">
-   eJzt1NENgDAIBNCu0f0XdQEETCkecJfwYWLbl4LutdYuUuiZ7LzRX8T7rOTkd3Q3klN6tnoQ9Y50flentcbr1PaZ5KzSd3RnduiMTff59Bqs8+ikk//5vNAZm+7zWc1prfE6tX0mOav0Hc2JGDpj8zYzaPYvs/xnNOdJZTnRQmdsTucwsx5dBDWe
+   eJzt1N0JwDAIBGDXyP6LZgFRIRfx5w58KDTJRzU9InKaVPVsdv7ob8Xv2cnJe/Q3mlN79nqAekc7f6rTWxN1Wvtscnbpe3VndujEZvp8Rg3eeXTSyf98XujEZvp8dnN6a6JOa59Nzi59r+asGDqxoRMb6869VJazWujE5nUOM+sCw/81CA==
   </data>
  </layer>
 </map>

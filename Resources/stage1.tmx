@@ -33,10 +33,10 @@
   <tile id="23" terrain="1,1,1,1"/>
  </tileset>
  <tileset firstgid="25" name="walls" tilewidth="64" tileheight="64">
-  <image source="wall.png" width="64" height="64"/>
+  <image source="wall.png" width="64" height="66"/>
  </tileset>
- <tileset firstgid="26" name="isometric_grass_and_water99" tilewidth="64" tileheight="64">
-  <image source="isometric_grass_and_water99.png" width="256" height="384"/>
+ <tileset firstgid="26" name="isometric_grass_and_water" tilewidth="64" tileheight="64">
+  <image source="isometric_grass_and_water.png" width="256" height="384"/>
  </tileset>
  <layer name="background" width="25" height="25">
   <properties>
