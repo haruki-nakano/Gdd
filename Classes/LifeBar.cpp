@@ -23,8 +23,8 @@ bool LifeBar::init() {
 void LifeBar::onEnter() {
     Node::onEnter();
 
-    _bar = Sprite::create("life.png");
-    auto bg = Sprite::create("life_bg.png");
+    _bar = Sprite::create("uiLife.png");
+    auto bg = Sprite::create("uiLifeBg.png");
 
     _bar->setAnchorPoint(Vec2::ANCHOR_MIDDLE_LEFT);
     bg->setAnchorPoint(Vec2::ANCHOR_MIDDLE);

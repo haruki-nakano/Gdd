@@ -11,7 +11,7 @@
 using namespace cocos2d;
 
 bool Egg::init() {
-    if (!Sprite::initWithFile("egg.png")) {
+    if (!Sprite::initWithFile("itemEgg.png")) {
         return false;
     }
 
@@ -23,9 +23,9 @@ bool Egg::init() {
 
     setItemType(static_cast<EggItemType>(random(0, static_cast<int>(EggItemType::SIZE))));
 
-    _egg = Director::getInstance()->getTextureCache()->addImage("egg.png");
-    _egg2 = Director::getInstance()->getTextureCache()->addImage("egg2.png");
-    _egg3 = Director::getInstance()->getTextureCache()->addImage("egg3.png");
+    _egg = Director::getInstance()->getTextureCache()->addImage("itemEgg.png");
+    _egg2 = Director::getInstance()->getTextureCache()->addImage("itemEgg2.png");
+    _egg3 = Director::getInstance()->getTextureCache()->addImage("itemEgg3.png");
     return true;
 }
 
@@ -126,11 +126,11 @@ EggItemType Egg::getItemType() const {
 void Egg::setItemType(const EggItemType itemType) {
     _itemType = itemType;
     if (_itemType == EggItemType::SUPER_STAR) {
-        _item = Director::getInstance()->getTextureCache()->addImage("superStar.png");
+        _item = Director::getInstance()->getTextureCache()->addImage("itemSuperStar.png");
     } else if (_itemType == EggItemType::GOGGLES) {
-        _item = Director::getInstance()->getTextureCache()->addImage("goggles.png");
+        _item = Director::getInstance()->getTextureCache()->addImage("itemGoggles.png");
     } else if (_itemType == EggItemType::HEALING) {
-        _item = Director::getInstance()->getTextureCache()->addImage("healing.png");
+        _item = Director::getInstance()->getTextureCache()->addImage("itemHealing.png");
     }
 }
 

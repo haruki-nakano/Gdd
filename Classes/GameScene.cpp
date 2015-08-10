@@ -401,7 +401,7 @@ void GameScene::setNetworkedSession(bool networkedSession, bool isHost) {
 void GameScene::receivedData(const void *data, unsigned long length) {
     // length 1 means stage select
     if (!_stage || !_networkedSession) {
-        CCLOG("ignored %p %lu %d", _stage, length, _networkedSession);
+        // CCLOG("ignored %p %lu %d", _stage, length, _networkedSession);
         return;
     }
     const char *cstr = reinterpret_cast<const char *>(data);

@@ -46,8 +46,8 @@ void GameOverDialog::onEnter() {
 
     // TODO: We should decide winner in the game scene
     std::string filename = _playerLifePoint == _opponentLifePoint
-                               ? "draw.png"
-                               : (_playerLifePoint > _opponentLifePoint ? "youWin.png" : "youLose.png");
+                               ? "labelDraw.png"
+                               : (_playerLifePoint > _opponentLifePoint ? "labelYouWin.png" : "labelYouLose.png");
     Sprite *title = Sprite::create(filename);
     title->setAnchorPoint(Vec2::ANCHOR_MIDDLE_TOP);
     title->setPosition(Vec2(visibleSize.width * 0.5f, visibleSize.height * 0.9f));
