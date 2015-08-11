@@ -309,11 +309,13 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
         bullet = dynamic_cast<Bullet *>(nodeA);
     }
     if (player && bullet) {
-        player->bulletHits(bullet);
-        bullet->setLifePoint(-1.0f);
-        if (player->getLifePoint() <= 0) {
-            gameOver();
+        if (_active) {
+            player->bulletHits(bullet);
+            if (player->getLifePoint() <= 0) {
+                gameOver();
+            }
         }
+        bullet->setLifePoint(-1.0f);
         return false;
     }
 
@@ -326,11 +328,13 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
         bullet = dynamic_cast<Bullet *>(nodeA);
     }
     if (player && bullet) {
-        player->bulletHits(bullet);
-        bullet->setLifePoint(-1.0f);
-        if (player->getLifePoint() <= 0) {
-            gameOver();
+        if (_active) {
+            player->bulletHits(bullet);
+            if (player->getLifePoint() <= 0) {
+                gameOver();
+            }
         }
+        bullet->setLifePoint(-1.0f);
         return false;
     }
 
@@ -423,7 +427,7 @@ void GameScene::setNetworkedSession(bool networkedSession, bool isHost) {
 
 void GameScene::receivedData(const void *data, unsigned long length) {
     // length 1 means stage select
-    if (!_stage || !_networkedSession) {
+    if (!_stage || !_networkedSession || !_active) {
         // CCLOG("ignored %p %lu %d", _stage, length, _networkedSession);
         return;
     }
