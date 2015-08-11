@@ -98,14 +98,14 @@ void Player::step(float dt) {
     _invincibleTimeCount = MIN(_invincibleTimeCount + dt, INVINCIBLE_TIME + 1.0f);
     bool invincible = isInvincible();
     if (!invincible && _lastInvincible) {
-        this->stopActionByTag(static_cast<int>(Animations::INVINCIBLE));
+        this->stopAllActionsByTag(static_cast<int>(Animations::INVINCIBLE));
         this->setColor(Color3B::WHITE);
     }
     _lastInvincible = invincible;
 
     _blinkTimeCount += dt;
     if (_isBlinking && _blinkTimeCount > BLINK_TIME) {
-        this->stopActionByTag(static_cast<int>(Animations::BULLET_HIT));
+        this->stopAllActionsByTag(static_cast<int>(Animations::BULLET_HIT));
         _isBlinking = false;
         this->setVisible(true);
         setIsSwimming(isSwimming(), true);
@@ -178,7 +178,7 @@ void Player::setPlayerColor(const bool isHost) {
 }
 
 void Player::setMoveState(const MoveState moveState) {
-    _splash->stopActionByTag(static_cast<int>(Animations::MOVING));
+    _splash->stopAllActionsByTag(static_cast<int>(Animations::MOVING));
     _splash->setVisible(false);
 
     switch (moveState) {
@@ -623,13 +623,15 @@ void Player::captured() {
 }
 
 void Player::gotInvincible() {
-    auto action = TintTo::create(0.1, 255, 255, 64);
-    auto action2 = TintTo::create(0.1, 255, 64, 255);
-    auto action3 = TintTo::create(0.1, 64, 255, 255);
-    auto seq = Sequence::create(action, action2, action3, NULL);
-    auto repeatForever = RepeatForever::create(seq);
-    repeatForever->setTag(static_cast<int>(Animations::INVINCIBLE));
-    this->runAction(repeatForever);
+    if (!isInvincible()) {
+        auto action = TintTo::create(0.1, 255, 255, 64);
+        auto action2 = TintTo::create(0.1, 255, 64, 255);
+        auto action3 = TintTo::create(0.1, 64, 255, 255);
+        auto seq = Sequence::create(action, action2, action3, NULL);
+        auto repeatForever = RepeatForever::create(seq);
+        repeatForever->setTag(static_cast<int>(Animations::INVINCIBLE));
+        this->runAction(repeatForever);
+    }
     _invincibleTimeCount = 0.0;
 }
 

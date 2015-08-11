@@ -28,6 +28,8 @@ bool Lobby::init() {
 void Lobby::onEnter() {
     Node::onEnter();
 
+    _dialog = nullptr;
+
     SceneManager::getInstance()->receiveMultiplayerInvitations();
 
     setupUI();
