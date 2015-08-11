@@ -13,7 +13,7 @@
 
 #include "Constants.h"
 #include "Bullet.h"
-#include "LifeBar.h"
+#include "Bar.h"
 
 class Egg;
 class Player;
@@ -56,8 +56,10 @@ protected:
     bool _networkedSession;
     bool _isHost;
     Stage *_stage;
-    LifeBar *_playerLifeBar;
-    LifeBar *_opponentsLifeBar;
+
+    Bar *_playerWaterBar;
+    Bar *_playerLifeBar;
+    Bar *_opponentsLifeBar;
 
     // Networking
     void sendGameStateOverNetwork(EventType event, std::vector<Bullet *> newBullets = std::vector<Bullet *>(),

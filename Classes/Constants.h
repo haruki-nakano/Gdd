@@ -37,6 +37,7 @@ static const bool HIGH_SPEED_IN_WATER = true;
 static const int MAX_PLAYERS = 2;
 
 static const int INITIAL_PLAYER_LIFE = 30;
+static const int INITIAL_WATER_LIFE = 100;
 static const float INITIAL_BULLET_LIFE = 0.32;
 static const float INITIAL_EGG_LIFE = 20;
 
@@ -44,11 +45,12 @@ static const int MAX_EGG_INTERVAL_SEC = 10;
 static const int MIN_EGG_INTERVAL_SEC = 5;
 
 static const clock_t KEEP_FIRING_THRESHOLD = CLOCKS_PER_SEC * 0.3f;
-static const float INVINCIBLE_TIME = 10.0f; // 10 sec
-static const float GOGGLES_TIME = 10.0f;    // 10 sec
+static const float INVINCIBLE_TIME = 10.0f;              // 10 sec
+static const float GOGGLES_TIME = 10.0f;                 // 10 sec
+static const float ADD_WATTER_THRESHOLD = 5.0f / 100.0f; // Need 5 sec for full charging
 static const clock_t ABNORMAL_FIRING_THRESHOLD = CLOCKS_PER_SEC * 0.1f;
 
-static const int HEALING_POINTS = 5;
+static const int HEALING_POINTS = 10;
 
 static const float DEFAULT_BULLET_SPEED = 1000.0f;
 static const float DEFAULT_PLAYER_SPEED = 200.0f;

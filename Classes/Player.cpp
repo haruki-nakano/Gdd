@@ -39,9 +39,13 @@ bool Player::init() {
     _lastTimeBulletCreated = 0;
     _invincibleTimeCount = INVINCIBLE_TIME + 1.0f;
     _capturedTimeCount = GOGGLES_TIME + 1.0f;
+    _addedWaterTimeCount = 0;
     _lifePoint = INITIAL_PLAYER_LIFE;
+    _waterPoint = INITIAL_WATER_LIFE;
     _hitCount = 0;
     _healCount = 0;
+
+    _waterBar = nullptr;
 
     _lastFiring = false;
     _lastInvincible = false;
@@ -105,6 +109,12 @@ void Player::step(float dt) {
         setIsSwimming(isSwimming(), true);
     }
     _lastCaptured = captured;
+
+    _addedWaterTimeCount += dt;
+    if (_addedWaterTimeCount > ADD_WATTER_THRESHOLD) {
+        _addedWaterTimeCount = 0;
+        setWaterPoint(getWaterPoint() + 1);
+    }
 }
 
 bool Player::isCorrectUpdate(const Vec2 position) const {
@@ -445,10 +455,12 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
             break;
         }
         case Gun::BASIC_GUN: {
-            if (clock() - _lastTimeBulletCreated < CLOCKS_PER_SEC * 0.1f) {
+            int requiredWater = 10;
+            if (clock() - _lastTimeBulletCreated < ABNORMAL_FIRING_THRESHOLD || getWaterPoint() < requiredWater) {
                 break;
             }
             _lastTimeBulletCreated = clock();
+            setWaterPoint(getWaterPoint() - requiredWater);
 
             Bullet *bullet = Bullet::create();
             bullet->setPosition(this->getPosition());
@@ -464,10 +476,12 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
             break;
         }
         case Gun::THREE_WAY_GUN: {
-            if (clock() - _lastTimeBulletCreated < ABNORMAL_FIRING_THRESHOLD) {
+            int requiredWater = 15;
+            if (clock() - _lastTimeBulletCreated < ABNORMAL_FIRING_THRESHOLD || getWaterPoint() < requiredWater) {
                 break;
             }
             _lastTimeBulletCreated = clock();
+            setWaterPoint(getWaterPoint() - requiredWater);
 
             for (int i = 0; i < 3; i++) {
                 Bullet *bullet = Bullet::create();
@@ -480,10 +494,12 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
             break;
         }
         case Gun::SPRINKLER: {
-            if (clock() - _lastTimeBulletCreated < ABNORMAL_FIRING_THRESHOLD) {
+            int requiredWater = 0;
+            if (clock() - _lastTimeBulletCreated < ABNORMAL_FIRING_THRESHOLD || getWaterPoint() < requiredWater) {
                 break;
             }
             _lastTimeBulletCreated = clock();
+            setWaterPoint(getWaterPoint() - requiredWater);
 
             for (int i = 0; i < 8; i++) {
                 Bullet *bullet = Bullet::create();
@@ -496,10 +512,12 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
             break;
         }
         case Gun::V_LASER_GUN: {
-            if (clock() - _lastTimeBulletCreated < ABNORMAL_FIRING_THRESHOLD) {
+            int requiredWater = 8;
+            if (clock() - _lastTimeBulletCreated < ABNORMAL_FIRING_THRESHOLD || getWaterPoint() < requiredWater) {
                 break;
             }
             _lastTimeBulletCreated = clock();
+            setWaterPoint(getWaterPoint() - requiredWater);
 
             for (int i = 0; i < 4; i++) {
                 Bullet *bullet = Bullet::create();
@@ -513,10 +531,13 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
             break;
         }
         case Gun::MARATHON_GUN: {
-            if (clock() - _lastTimeBulletCreated < ABNORMAL_FIRING_THRESHOLD) {
+            int requiredWater = 0;
+            if (clock() - _lastTimeBulletCreated < ABNORMAL_FIRING_THRESHOLD || getWaterPoint() < requiredWater) {
                 break;
             }
             _lastTimeBulletCreated = clock();
+            setWaterPoint(getWaterPoint() - requiredWater);
+
             Bullet *bullet = Bullet::create();
             bullet->setPosition(this->getPosition());
             bullet->setDirection(v);
@@ -527,10 +548,12 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
             break;
         }
         case Gun::CHARGER: {
-            if (clock() - _lastTimeBulletCreated < CLOCKS_PER_SEC * 3) {
+            int requiredWater = 100;
+            if (clock() - _lastTimeBulletCreated < ABNORMAL_FIRING_THRESHOLD || getWaterPoint() < requiredWater) {
                 break;
             }
             _lastTimeBulletCreated = clock();
+            setWaterPoint(getWaterPoint() - requiredWater);
 
             for (int i = 0; i < 10; i++) {
                 Bullet *bullet = Bullet::create();
@@ -560,6 +583,7 @@ void Player::bulletHits(Bullet *bullet) {
 void Player::gotHeal() {
     int heal = MIN(HEALING_POINTS, INITIAL_PLAYER_LIFE - getLifePoint());
     _healCount += heal;
+    setWaterPoint(INITIAL_WATER_LIFE);
     updateLifePoint();
     ParticleSystemQuad *particle = ParticleSystemQuad::create("particle_texture_heal.plist");
     particle->setPosition(Vec2(this->getBoundingBox().size.width * 0.5, 0.0f));
@@ -588,7 +612,7 @@ void Player::updateLifePoint() {
     _lifePoint = MAX(MIN(_lifePoint, INITIAL_PLAYER_LIFE), 0);
 
     if (_lifeBar) {
-        _lifeBar->setLifePoint(_lifePoint);
+        _lifeBar->setPoint(_lifePoint);
     }
 
     if (lastLifePoint > _lifePoint) {
@@ -634,8 +658,25 @@ int Player::getLifePoint() const {
     return _lifePoint;
 }
 
-void Player::setLifeBar(LifeBar *lifeBar) {
+void Player::setLifeBar(Bar *lifeBar) {
     _lifeBar = lifeBar;
+}
+
+int Player::getWaterPoint() const {
+    return _waterPoint;
+}
+
+void Player::setWaterPoint(const int waterPoint) {
+    // Clamp
+    _waterPoint = MAX(MIN(waterPoint, INITIAL_WATER_LIFE), 0);
+
+    if (_waterBar) {
+        _waterBar->setPoint(_waterPoint);
+    }
+}
+
+void Player::setWaterBar(Bar *waterBar) {
+    _waterBar = waterBar;
 }
 
 void Player::setLastTimeBulletCreated(const clock_t t) {

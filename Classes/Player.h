@@ -13,6 +13,7 @@
 
 #include "Constants.h"
 
+class Bar;
 class Bullet;
 class LifeBar;
 
@@ -66,7 +67,11 @@ public:
     int getHealCount() const;
 
     int getLifePoint() const;
-    void setLifeBar(LifeBar *lifeBar);
+    void setLifeBar(Bar *lifeBar);
+
+    int getWaterPoint() const;
+    void setWaterPoint(const int waterPoint);
+    void setWaterBar(Bar *waterBar);
 
     void setLastTimeBulletCreated(clock_t t);
     void setInvincibleStartTime(clock_t t);
@@ -82,7 +87,8 @@ private:
     void updateLifePoint();
     void updateVelocity();
 
-    LifeBar *_lifeBar;
+    Bar *_lifeBar;
+    Bar *_waterBar;
     cocos2d::Vec2 _directionVec;
     MoveState _moving;
     Direction _direction;
@@ -91,9 +97,11 @@ private:
 
     std::string _name;
     clock_t _lastTimeBulletCreated;
+    float _addedWaterTimeCount;
     float _invincibleTimeCount;
     float _capturedTimeCount;
     int _lifePoint;
+    int _waterPoint;
     bool _isSwimming;
     bool _isOpponent;
     bool _lastFiring;

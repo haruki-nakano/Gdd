@@ -8,6 +8,7 @@
 
 #include "GameScene.h"
 
+#include "Bar.h"
 #include "Constants.h"
 #include "GameOverDialog.h"
 #include "MathUtils.h"
@@ -76,14 +77,20 @@ void GameScene::onEnter() {
 
     this->addChild(backButton, 500);
 
-    _playerLifeBar = LifeBar::create();
+    _playerLifeBar = Bar::create(Bar::LIFE);
     _playerLifeBar->setPosition(Vec2(visibleSize.width * 0.5 - 256.0f, visibleSize.height - 32.0f));
 
-    _opponentsLifeBar = LifeBar::create();
+    _opponentsLifeBar = Bar::create(Bar::LIFE);
     _opponentsLifeBar->setPosition(Vec2(visibleSize.width * 0.5 + 256.0f, visibleSize.height - 32.0f));
 
-    this->addChild(_playerLifeBar, 501);
-    this->addChild(_opponentsLifeBar, 502);
+    _playerWaterBar = Bar::create(Bar::CHARGING);
+    _playerWaterBar->setPosition(Vec2(visibleSize.width * 0.5 - 256.0f, visibleSize.height - 70.0f));
+
+    this->addChild(_playerWaterBar, 501);
+    this->addChild(_playerLifeBar, 503);
+    this->addChild(_opponentsLifeBar, 504);
+
+    _stage->getPlayer()->setWaterBar(_playerWaterBar);
 
     _stage->getPlayer()->setLifeBar(_playerLifeBar);
     _stage->getOpponent()->setLifeBar(_opponentsLifeBar);
@@ -92,10 +99,10 @@ void GameScene::onEnter() {
     for (int i = 0; i < 2; i++) {
         auto gunLabel = ui::Text::create(i == 0 ? labelString : "?", FONT_NAME, FONT_SIZE);
         gunLabel->setAnchorPoint(Vec2(0.5f, 1.0f));
-        auto bar = i == 0 ? _playerLifeBar : _opponentsLifeBar;
+        auto bar = i == 0 ? _playerWaterBar : _opponentsLifeBar;
         gunLabel->setPosition(bar->getPosition() - Vec2(0.0f, 24.0f));
         gunLabel->setColor(LABEL_COLOR);
-        this->addChild(gunLabel, 503 + i);
+        this->addChild(gunLabel, 505 + i);
     }
 
     setupTouchHandling();
