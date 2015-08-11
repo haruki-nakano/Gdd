@@ -37,8 +37,11 @@ void Lobby::setupUI() {
     Size visibleSize = Director::getInstance()->getVisibleSize();
 
     Sprite *logo = Sprite::create("title.png");
-    logo->setAnchorPoint(Vec2(0.0f, 0.0f));
-    logo->setPosition(Vec2::ZERO);
+    logo->setAnchorPoint(Vec2::ANCHOR_MIDDLE_BOTTOM);
+    if (visibleSize.height > 800.0f) {
+        logo->setScale(1.2f);
+    }
+    logo->setPosition(Vec2(logo->getContentSize().width * 0.5, 0.0f));
     this->addChild(logo);
 
     ui::Button *howToPlayButton = ui::Button::create();

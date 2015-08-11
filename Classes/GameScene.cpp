@@ -27,7 +27,7 @@ bool GameScene::init() {
         return false;
     }
 
-    LayerColor *background = LayerColor::create(Color4B(255, 255, 255, 255));
+    LayerColor *background = LayerColor::create(Color4B(170, 230, 240, 255));
     this->addChild(background);
 
     auto size = Director::getInstance()->getVisibleSize();
