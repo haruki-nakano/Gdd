@@ -27,18 +27,20 @@ bool GameScene::init() {
         return false;
     }
 
-    LayerColor *background = LayerColor::create(Color4B(170, 230, 240, 255));
+    LayerColor *background = LayerColor::create(Color4B(140, 200, 255, 255));
     this->addChild(background);
 
     auto size = Director::getInstance()->getVisibleSize();
     auto height = MAX(size.height - RESOLUTION_HEIGHT, 0) * 0.5f;
 
-    LayerColor *statusArea1 = LayerColor::create(Color4B(0, 0, 0, 255), size.width, height);
-    this->addChild(statusArea1, 101);
+    if (USE_SAME_RESOLUTION) {
+        LayerColor *statusArea1 = LayerColor::create(Color4B(0, 0, 0, 255), size.width, height);
+        this->addChild(statusArea1, 101);
 
-    LayerColor *statusArea2 = LayerColor::create(Color4B(0, 0, 0, 255), size.width, height);
-    statusArea2->setPosition(0.0f, size.height - height);
-    this->addChild(statusArea2, 100);
+        LayerColor *statusArea2 = LayerColor::create(Color4B(0, 0, 0, 255), size.width, height);
+        statusArea2->setPosition(0.0f, size.height - height);
+        this->addChild(statusArea2, 100);
+    }
 
     _active = false;
     _networkedSession = false;
@@ -99,8 +101,8 @@ void GameScene::onEnter() {
     for (int i = 0; i < 2; i++) {
         auto gunLabel = ui::Text::create(i == 0 ? labelString : "?", FONT_NAME, FONT_SIZE);
         gunLabel->setAnchorPoint(Vec2(0.5f, 1.0f));
-        auto bar = i == 0 ? _playerWaterBar : _opponentsLifeBar;
-        gunLabel->setPosition(bar->getPosition() - Vec2(0.0f, 24.0f));
+        auto basePos = i == 0 ? _playerWaterBar->getPosition() : _opponentsLifeBar->getPosition() - Vec2(0.0f, 8.0f);
+        gunLabel->setPosition(basePos - Vec2(0.0f, 16.0f));
         gunLabel->setColor(LABEL_COLOR);
         this->addChild(gunLabel, 505 + i);
     }
