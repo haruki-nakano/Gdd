@@ -47,6 +47,7 @@ static const int MAX_EGG_INTERVAL_SEC = 10;
 static const int MIN_EGG_INTERVAL_SEC = 5;
 
 static const clock_t KEEP_FIRING_THRESHOLD = CLOCKS_PER_SEC * 0.3f;
+static const float BLINK_TIME = 0.4f;                    // 10 sec
 static const float INVINCIBLE_TIME = 10.0f;              // 10 sec
 static const float GOGGLES_TIME = 10.0f;                 // 10 sec
 static const float ADD_WATTER_THRESHOLD = 5.0f / 100.0f; // Need 5 sec for full charging
@@ -163,6 +164,13 @@ enum class PlayerColor {
     YELLOW,
     GREEN,
     NUM_COLORS,
+};
+
+enum class Animations {
+    INVINCIBLE,
+    BULLET_HIT,
+    MOVING,
+    NUM_ANIMATIONS,
 };
 
 enum class SceneState {

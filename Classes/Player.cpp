@@ -36,6 +36,8 @@ bool Player::init() {
     _gun = static_cast<Gun>(random(1, static_cast<int>(Gun::SIZE) - 1));
     // _gun = Gun::V_LASER_GUN;
 
+    _isBlinking = false;
+
     _lastTimeBulletCreated = 0;
     _invincibleTimeCount = INVINCIBLE_TIME + 1.0f;
     _capturedTimeCount = GOGGLES_TIME + 1.0f;
@@ -96,11 +98,18 @@ void Player::step(float dt) {
     _invincibleTimeCount = MIN(_invincibleTimeCount + dt, INVINCIBLE_TIME + 1.0f);
     bool invincible = isInvincible();
     if (!invincible && _lastInvincible) {
-        // FIXME: All action? Use setTag
-        this->stopAllActions();
+        this->stopActionByTag(static_cast<int>(Animations::INVINCIBLE));
         this->setColor(Color3B::WHITE);
     }
     _lastInvincible = invincible;
+
+    _blinkTimeCount += dt;
+    if (_isBlinking && _blinkTimeCount > BLINK_TIME) {
+        this->stopActionByTag(static_cast<int>(Animations::BULLET_HIT));
+        _isBlinking = false;
+        this->setVisible(true);
+        setIsSwimming(isSwimming(), true);
+    }
 
     //
     _capturedTimeCount = MIN(_capturedTimeCount + dt, GOGGLES_TIME + 1.0f);
@@ -143,7 +152,7 @@ bool Player::isOpponent() const {
 }
 
 void Player::setIsSwimming(const bool swimming, const bool forceUpdate) {
-    int waterOpacity = _isOpponent ? (isCaptured() ? 64 : 0) : 32;
+    int waterOpacity = _isOpponent ? ((isCaptured() || _isBlinking) ? 64 : 0) : 32;
     if (_isSwimming != swimming || forceUpdate) {
         // We update _isSwimming here because updateVelocity() accesses _isSwimming.
         _isSwimming = swimming;
@@ -169,7 +178,7 @@ void Player::setPlayerColor(const bool isHost) {
 }
 
 void Player::setMoveState(const MoveState moveState) {
-    _splash->stopAllActions();
+    _splash->stopActionByTag(static_cast<int>(Animations::MOVING));
     _splash->setVisible(false);
 
     switch (moveState) {
@@ -198,8 +207,11 @@ void Player::setMoveState(const MoveState moveState) {
                 //(4コマかける5回ループで2秒になり、移動同時に終了するようにしている)
 
                 // 4. アニメーションの実行
+                // FIXME: Do no repeat same code here
                 Animate *animate = Animate::create(animation);
-                _splash->runAction(RepeatForever::create(animate));
+                auto repeatForever = RepeatForever::create(animate);
+                repeatForever->setTag(static_cast<int>(Animations::MOVING));
+                _splash->runAction(repeatForever);
             }
             break;
         }
@@ -226,7 +238,9 @@ void Player::setMoveState(const MoveState moveState) {
 
                 // 4. アニメーションの実行
                 Animate *animate = Animate::create(animation);
-                _splash->runAction(RepeatForever::create(animate));
+                auto repeatForever = RepeatForever::create(animate);
+                repeatForever->setTag(static_cast<int>(Animations::MOVING));
+                _splash->runAction(repeatForever);
             }
             break;
 
@@ -252,7 +266,9 @@ void Player::setMoveState(const MoveState moveState) {
 
                 // 4. アニメーションの実行
                 Animate *animate = Animate::create(animation);
-                _splash->runAction(RepeatForever::create(animate));
+                auto repeatForever = RepeatForever::create(animate);
+                repeatForever->setTag(static_cast<int>(Animations::MOVING));
+                _splash->runAction(repeatForever);
             }
             break;
 
@@ -278,7 +294,9 @@ void Player::setMoveState(const MoveState moveState) {
 
                 // 4. アニメーションの実行
                 Animate *animate = Animate::create(animation);
-                _splash->runAction(RepeatForever::create(animate));
+                auto repeatForever = RepeatForever::create(animate);
+                repeatForever->setTag(static_cast<int>(Animations::MOVING));
+                _splash->runAction(repeatForever);
             }
             break;
 
@@ -303,7 +321,9 @@ void Player::setMoveState(const MoveState moveState) {
 
                 // 4. アニメーションの実行
                 Animate *animate = Animate::create(animation);
-                _splash->runAction(RepeatForever::create(animate));
+                auto repeatForever = RepeatForever::create(animate);
+                repeatForever->setTag(static_cast<int>(Animations::MOVING));
+                _splash->runAction(repeatForever);
             }
             break;
 
@@ -328,7 +348,9 @@ void Player::setMoveState(const MoveState moveState) {
 
                 // 4. アニメーションの実行
                 Animate *animate = Animate::create(animation);
-                _splash->runAction(RepeatForever::create(animate));
+                auto repeatForever = RepeatForever::create(animate);
+                repeatForever->setTag(static_cast<int>(Animations::MOVING));
+                _splash->runAction(repeatForever);
             }
             break;
 
@@ -353,7 +375,9 @@ void Player::setMoveState(const MoveState moveState) {
 
                 // 4. アニメーションの実行
                 Animate *animate = Animate::create(animation);
-                _splash->runAction(RepeatForever::create(animate));
+                auto repeatForever = RepeatForever::create(animate);
+                repeatForever->setTag(static_cast<int>(Animations::MOVING));
+                _splash->runAction(repeatForever);
             }
             break;
 
@@ -378,7 +402,9 @@ void Player::setMoveState(const MoveState moveState) {
 
                 // 4. アニメーションの実行
                 Animate *animate = Animate::create(animation);
-                _splash->runAction(RepeatForever::create(animate));
+                auto repeatForever = RepeatForever::create(animate);
+                repeatForever->setTag(static_cast<int>(Animations::MOVING));
+                _splash->runAction(repeatForever);
             }
             break;
     }
@@ -601,6 +627,7 @@ void Player::gotInvincible() {
     auto action2 = TintTo::create(0.1, 255, 64, 255);
     auto action3 = TintTo::create(0.1, 64, 255, 255);
     auto seq = Sequence::create(action, action2, action3, NULL);
+    seq->setTag(static_cast<int>(Animations::INVINCIBLE));
     this->runAction(RepeatForever::create(seq));
     _invincibleTimeCount = 0.0;
 }
@@ -616,8 +643,16 @@ void Player::updateLifePoint() {
     }
 
     if (lastLifePoint > _lifePoint) {
-        Sequence *blink = Sequence::create(Blink::create(0.4f, 4), Show::create(), NULL);
-        this->runAction(blink);
+        _blinkTimeCount = 0.0f;
+        if (!_isBlinking) {
+            _isBlinking = true;
+            auto blink = Blink::create(0.4, 4);
+            auto action = RepeatForever::create(blink);
+            action->setTag(static_cast<int>(Animations::BULLET_HIT));
+            this->runAction(action);
+
+            setIsSwimming(isSwimming(), true);
+        }
     }
 }
 
@@ -681,10 +716,6 @@ void Player::setWaterBar(Bar *waterBar) {
 
 void Player::setLastTimeBulletCreated(const clock_t t) {
     _lastTimeBulletCreated = t;
-}
-
-void Player::setInvincibleStartTime(const clock_t t) {
-    // _invincibleStartTime = t;
 }
 
 const char *Player::getGunName() {

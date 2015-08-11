@@ -74,7 +74,6 @@ public:
     void setWaterBar(Bar *waterBar);
 
     void setLastTimeBulletCreated(clock_t t);
-    void setInvincibleStartTime(clock_t t);
 
     const char *getGunName();
 
@@ -99,11 +98,13 @@ private:
     clock_t _lastTimeBulletCreated;
     float _addedWaterTimeCount;
     float _invincibleTimeCount;
+    float _blinkTimeCount;
     float _capturedTimeCount;
     int _lifePoint;
     int _waterPoint;
     bool _isSwimming;
     bool _isOpponent;
+    bool _isBlinking;
     bool _lastFiring;
     bool _lastInvincible;
     bool _lastCaptured;
