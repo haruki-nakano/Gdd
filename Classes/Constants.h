@@ -43,8 +43,10 @@ static const int INITIAL_WATER_LIFE = 100;
 static const float INITIAL_BULLET_LIFE = 0.32;
 static const float INITIAL_EGG_LIFE = 20;
 
-static const int MAX_EGG_INTERVAL_SEC = 10;
-static const int MIN_EGG_INTERVAL_SEC = 5;
+//static const int MAX_EGG_INTERVAL_SEC = 10;
+//static const int MIN_EGG_INTERVAL_SEC = 5;
+static const int MAX_EGG_INTERVAL_SEC = 1;
+static const int MIN_EGG_INTERVAL_SEC = 1;
 
 static const clock_t KEEP_FIRING_THRESHOLD = CLOCKS_PER_SEC * 0.3f;
 static const float BLINK_TIME = 0.4f;                    // 10 sec

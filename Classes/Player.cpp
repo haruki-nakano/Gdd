@@ -627,8 +627,9 @@ void Player::gotInvincible() {
     auto action2 = TintTo::create(0.1, 255, 64, 255);
     auto action3 = TintTo::create(0.1, 64, 255, 255);
     auto seq = Sequence::create(action, action2, action3, NULL);
-    seq->setTag(static_cast<int>(Animations::INVINCIBLE));
-    this->runAction(RepeatForever::create(seq));
+    auto repeatForever = RepeatForever::create(seq);
+    repeatForever->setTag(static_cast<int>(Animations::INVINCIBLE));
+    this->runAction(repeatForever);
     _invincibleTimeCount = 0.0;
 }
 
