@@ -18,7 +18,9 @@ static const std::string DEFAULT_COLLISION_LAYER_NAME = "collision";
 static const std::string DEFAULT_WALL_LAYER_NAME = "wall";
 
 // UI
-static const char *FONT_NAME = "arial.ttf";
+// static const char *FONT_NAME = "8bitWonder.ttf";
+static const char *FONT_NAME = "Gamegirl.ttf";
+static const char *FONT_DIGIT = "Arial.ttf";
 static const float FONT_SIZE = 32.0f;
 static const float RESOLUTION_WIDTH = 1136.0f;
 static const float RESOLUTION_HEIGHT = 640.0f;

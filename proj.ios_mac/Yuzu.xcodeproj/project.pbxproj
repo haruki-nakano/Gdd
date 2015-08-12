@@ -566,16 +566,7 @@
 				712E1BD51B79205E004E8B23 /* particle_texture_heal.png */,
 				7157254F1B6F41790050EBCC /* backgroundTitle.png */,
 				71DCDF1C1B58379F006CDC3E /* bullet.png */,
-				712E1BC91B784EE4004E8B23 /* backButton.png */,
-				712E1BCA1B784EE4004E8B23 /* backButtonPressed.png */,
-				71000E6F1B72858E00AF4F23 /* buttonOk.png */,
-				71000E701B72858E00AF4F23 /* buttonOkPressed.png */,
-				7157253D1B6EEC880050EBCC /* buttonHowToPlay.png */,
-				7157253E1B6EEC880050EBCC /* buttonPressedHowToPlay.png */,
-				7157253F1B6EEC880050EBCC /* buttonPressedTraining.png */,
-				715725401B6EEC880050EBCC /* buttonPressedVsMode.png */,
-				715725411B6EEC880050EBCC /* buttonTraining.png */,
-				715725421B6EEC880050EBCC /* buttonVsMode.png */,
+				712C5FB31B7BAE7500BF8915 /* buttons */,
 				712E1BB41B784E35004E8B23 /* labelDraw.png */,
 				712E1BB51B784E35004E8B23 /* labelYouLose.png */,
 				712E1BB61B784E35004E8B23 /* labelYouWin.png */,
@@ -729,6 +720,23 @@
 				7125E7C51B5481600005D5B1 /* NetworkManagerDelegate.h */,
 			);
 			name = Networking;
+			sourceTree = "<group>";
+		};
+		712C5FB31B7BAE7500BF8915 /* buttons */ = {
+			isa = PBXGroup;
+			children = (
+				712E1BC91B784EE4004E8B23 /* backButton.png */,
+				712E1BCA1B784EE4004E8B23 /* backButtonPressed.png */,
+				71000E6F1B72858E00AF4F23 /* buttonOk.png */,
+				71000E701B72858E00AF4F23 /* buttonOkPressed.png */,
+				7157253D1B6EEC880050EBCC /* buttonHowToPlay.png */,
+				7157253E1B6EEC880050EBCC /* buttonPressedHowToPlay.png */,
+				7157253F1B6EEC880050EBCC /* buttonPressedTraining.png */,
+				715725401B6EEC880050EBCC /* buttonPressedVsMode.png */,
+				715725411B6EEC880050EBCC /* buttonTraining.png */,
+				715725421B6EEC880050EBCC /* buttonVsMode.png */,
+			);
+			name = buttons;
 			sourceTree = "<group>";
 		};
 		712E1BFA1B7A6BFC004E8B23 /* UI */ = {

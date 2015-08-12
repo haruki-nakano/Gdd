@@ -56,7 +56,7 @@ void GameOverDialog::onEnter() {
     ss << _playerLifePoint * 100 / INITIAL_PLAYER_LIFE << "% - " << _opponentLifePoint * 100 / INITIAL_PLAYER_LIFE
        << "%";
     // TODO: Do not use magic number
-    auto scoreLabel = ui::Text::create(ss.str(), FONT_NAME, 96);
+    auto scoreLabel = ui::Text::create(ss.str(), FONT_DIGIT, 96);
     scoreLabel->setAnchorPoint(Vec2(0.5f, 0.5f));
     scoreLabel->setPosition(Vec2(visibleSize.width * 0.5f, visibleSize.height * 0.5f));
     scoreLabel->setColor(Color3B::WHITE);
