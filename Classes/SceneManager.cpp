@@ -30,6 +30,7 @@ SceneManager *SceneManager::getInstance() {
 SceneManager::SceneManager() {
     _gameScene = nullptr;
     _lobby = nullptr;
+    _isAdvertising = false;
     _connectionState = ConnectionState::NOT_CONNECTED;
     _networkingWrapper = std::unique_ptr<NetworkingWrapper>(new NetworkingWrapper());
     _networkingWrapper->setDelegate(this);
@@ -45,6 +46,7 @@ SceneManager::~SceneManager() {
 #pragma mark Public Methods
 
 void SceneManager::enterGameScene(bool networked, int stageId) {
+    _isAdvertising = false;
     _networkingWrapper->stopAdvertisingAvailability();
     _state = networked ? SceneState::VS_MODE : SceneState::TRAINING;
 
@@ -85,7 +87,12 @@ void SceneManager::showPeerList() {
 }
 
 void SceneManager::receiveMultiplayerInvitations() {
-    _networkingWrapper->startAdvertisingAvailability();
+    if (!_isAdvertising) {
+        _networkingWrapper->startAdvertisingAvailability();
+        _isAdvertising = true;
+    } else {
+        CCLOG("ERROR");
+    }
 }
 
 void SceneManager::sendData(const void *data, unsigned long length, SendDataMode mode) {

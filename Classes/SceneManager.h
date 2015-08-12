@@ -33,6 +33,7 @@ private:
     GameScene *_gameScene;
     Lobby *_lobby;
     ConnectionState _connectionState;
+    bool _isAdvertising;
 
     SceneManager();
     ~SceneManager();

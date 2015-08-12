@@ -86,12 +86,15 @@ private:
     void updateLifePoint();
     void updateVelocity();
 
+    void showToast();
+
     Bar *_lifeBar;
     Bar *_waterBar;
     cocos2d::Vec2 _directionVec;
     MoveState _moving;
     Direction _direction;
     Sprite *_splash;
+    Sprite *_toast;
     Gun _gun;
 
     std::string _name;

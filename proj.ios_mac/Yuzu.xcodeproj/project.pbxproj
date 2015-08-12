@@ -151,6 +151,8 @@
 		7125E7CB1B5485980005D5B1 /* JSONPacker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7125E7C91B5485980005D5B1 /* JSONPacker.cpp */; };
 		7125E7CC1B5485980005D5B1 /* JSONPacker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7125E7C91B5485980005D5B1 /* JSONPacker.cpp */; };
 		7125E7CE1B54C11E0005D5B1 /* MultipeerConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7125E7CD1B54C11D0005D5B1 /* MultipeerConnectivity.framework */; };
+		712C5FB11B7B114F00BF8915 /* toastNoWater.png in Resources */ = {isa = PBXBuildFile; fileRef = 712C5FB01B7B114F00BF8915 /* toastNoWater.png */; };
+		712C5FB21B7B114F00BF8915 /* toastNoWater.png in Resources */ = {isa = PBXBuildFile; fileRef = 712C5FB01B7B114F00BF8915 /* toastNoWater.png */; };
 		712E1BA61B784DF7004E8B23 /* itemEgg.png in Resources */ = {isa = PBXBuildFile; fileRef = 712E1B9F1B784DF7004E8B23 /* itemEgg.png */; };
 		712E1BA71B784DF7004E8B23 /* itemEgg.png in Resources */ = {isa = PBXBuildFile; fileRef = 712E1B9F1B784DF7004E8B23 /* itemEgg.png */; };
 		712E1BA81B784DF7004E8B23 /* itemEgg2.png in Resources */ = {isa = PBXBuildFile; fileRef = 712E1BA01B784DF7004E8B23 /* itemEgg2.png */; };
@@ -385,6 +387,7 @@
 		7125E7C91B5485980005D5B1 /* JSONPacker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JSONPacker.cpp; sourceTree = "<group>"; };
 		7125E7CA1B5485980005D5B1 /* JSONPacker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONPacker.h; sourceTree = "<group>"; };
 		7125E7CD1B54C11D0005D5B1 /* MultipeerConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultipeerConnectivity.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/MultipeerConnectivity.framework; sourceTree = DEVELOPER_DIR; };
+		712C5FB01B7B114F00BF8915 /* toastNoWater.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toastNoWater.png; sourceTree = "<group>"; };
 		712E1B9F1B784DF7004E8B23 /* itemEgg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = itemEgg.png; sourceTree = "<group>"; };
 		712E1BA01B784DF7004E8B23 /* itemEgg2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = itemEgg2.png; sourceTree = "<group>"; };
 		712E1BA11B784DF7004E8B23 /* itemEgg3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = itemEgg3.png; sourceTree = "<group>"; };
@@ -577,6 +580,7 @@
 				712E1BB51B784E35004E8B23 /* labelYouLose.png */,
 				712E1BB61B784E35004E8B23 /* labelYouWin.png */,
 				71000E681B7265C000AF4F23 /* title.png */,
+				712C5FB01B7B114F00BF8915 /* toastNoWater.png */,
 				712E1BFF1B7A8DAE004E8B23 /* uiCharging.png */,
 				712E1BBD1B784E42004E8B23 /* uiLife.png */,
 				712E1BBE1B784E42004E8B23 /* uiLifeBg.png */,
@@ -982,6 +986,7 @@
 				521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */,
 				71000E2B1B6FE38800AF4F23 /* splashRight2.png in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
+				712C5FB11B7B114F00BF8915 /* toastNoWater.png in Resources */,
 				71000E311B6FE38800AF4F23 /* splashUp2.png in Resources */,
 				712E1BF21B7947E9004E8B23 /* player2UpperLeft.png in Resources */,
 				71000E331B6FE38800AF4F23 /* splashUp3.png in Resources */,
@@ -1015,6 +1020,7 @@
 				715725481B6EEC880050EBCC /* buttonPressedTraining.png in Resources */,
 				71000E4F1B6FEBBB00AF4F23 /* splashLowerLeft3.png in Resources */,
 				712E1BC21B784E42004E8B23 /* uiLifeBg.png in Resources */,
+				712C5FB21B7B114F00BF8915 /* toastNoWater.png in Resources */,
 				71DCDF191B583337006CDC3E /* playerDown.png in Resources */,
 				71000E4D1B6FEBBB00AF4F23 /* splashLowerLeft2.png in Resources */,
 				715725441B6EEC880050EBCC /* buttonHowToPlay.png in Resources */,

@@ -34,7 +34,7 @@ bool Player::init() {
 
     // Exclude STRAIGHT_GUN: 0
     _gun = static_cast<Gun>(random(1, static_cast<int>(Gun::SIZE) - 1));
-    // _gun = Gun::V_LASER_GUN;
+    // to_gun = Gun::CHARGER;
 
     _isBlinking = false;
 
@@ -84,6 +84,12 @@ void Player::onEnter() {
     _splash = Sprite::create();
     _splash->setPosition(Vec2(0.0f, getBoundingBox().size.height - 40.0f));
     this->addChild(_splash);
+
+    _toast = Sprite::create("toastNoWater.png");
+    _toast->setPosition(Vec2(this->getContentSize().width * 0.5f, -16.0f));
+    _toast->setAnchorPoint(Vec2::ANCHOR_MIDDLE_TOP);
+    _toast->setOpacity(0);
+    this->addChild(_toast);
 }
 
 void Player::step(float dt) {
@@ -483,6 +489,9 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
         case Gun::BASIC_GUN: {
             int requiredWater = 10;
             if (clock() - _lastTimeBulletCreated < ABNORMAL_FIRING_THRESHOLD || getWaterPoint() < requiredWater) {
+                if (getWaterPoint() < requiredWater) {
+                    showToast();
+                }
                 break;
             }
             _lastTimeBulletCreated = clock();
@@ -504,6 +513,9 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
         case Gun::THREE_WAY_GUN: {
             int requiredWater = 15;
             if (clock() - _lastTimeBulletCreated < ABNORMAL_FIRING_THRESHOLD || getWaterPoint() < requiredWater) {
+                if (getWaterPoint() < requiredWater) {
+                    showToast();
+                }
                 break;
             }
             _lastTimeBulletCreated = clock();
@@ -522,6 +534,9 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
         case Gun::SPRINKLER: {
             int requiredWater = 0;
             if (clock() - _lastTimeBulletCreated < ABNORMAL_FIRING_THRESHOLD || getWaterPoint() < requiredWater) {
+                if (getWaterPoint() < requiredWater) {
+                    showToast();
+                }
                 break;
             }
             _lastTimeBulletCreated = clock();
@@ -540,6 +555,9 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
         case Gun::V_LASER_GUN: {
             int requiredWater = 8;
             if (clock() - _lastTimeBulletCreated < ABNORMAL_FIRING_THRESHOLD || getWaterPoint() < requiredWater) {
+                if (getWaterPoint() < requiredWater) {
+                    showToast();
+                }
                 break;
             }
             _lastTimeBulletCreated = clock();
@@ -557,8 +575,11 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
             break;
         }
         case Gun::MARATHON_GUN: {
-            int requiredWater = 0;
+            int requiredWater = 10;
             if (clock() - _lastTimeBulletCreated < ABNORMAL_FIRING_THRESHOLD || getWaterPoint() < requiredWater) {
+                if (getWaterPoint() < requiredWater) {
+                    showToast();
+                }
                 break;
             }
             _lastTimeBulletCreated = clock();
@@ -576,6 +597,9 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
         case Gun::CHARGER: {
             int requiredWater = 100;
             if (clock() - _lastTimeBulletCreated < ABNORMAL_FIRING_THRESHOLD || getWaterPoint() < requiredWater) {
+                if (getWaterPoint() < requiredWater) {
+                    showToast();
+                }
                 break;
             }
             _lastTimeBulletCreated = clock();
@@ -727,4 +751,12 @@ const char *Player::getGunName() {
 
 void Player::setGun(const Gun gun) {
     _gun = gun;
+}
+
+void Player::showToast() {
+    auto fadeIn = FadeIn::create(0.1f);
+    auto fadeOut = EaseIn::create(FadeOut::create(0.5f), 2.0f);
+    auto seq = Sequence::create(fadeIn, fadeOut, NULL);
+    _toast->setOpacity(0);
+    _toast->runAction(seq);
 }
