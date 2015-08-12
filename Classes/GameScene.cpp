@@ -392,8 +392,10 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
                     sendGameStateOverNetwork(EventType::GET_GOGGLES);
                 }
             } else if (egg->getItemType() == EggItemType::RED_PEPPER) {
-                player->replaceGun();
-                _playerGunLabel->setString(player->getGunName());
+                if (!player->isOpponent()) {
+                    player->replaceGun();
+                    _playerGunLabel->setString(player->getGunName());
+                }
             } else if (egg->getItemType() == EggItemType::SUPER_STAR) {
                 player->gotInvincible();
                 if (_networkedSession) {

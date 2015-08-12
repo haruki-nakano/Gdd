@@ -55,7 +55,7 @@ static const float GOGGLES_TIME = 10.0f;                 // 10 sec
 static const float ADD_WATTER_THRESHOLD = 5.0f / 100.0f; // Need 5 sec for full charging
 static const clock_t ABNORMAL_FIRING_THRESHOLD = CLOCKS_PER_SEC * 0.1f;
 
-static const int HEALING_POINTS = 10;
+static const int HEALING_POINTS = 5;
 
 static const float DEFAULT_BULLET_SPEED = 1000.0f;
 static const float DEFAULT_PLAYER_SPEED = 200.0f;

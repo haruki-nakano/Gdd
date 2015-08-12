@@ -72,9 +72,9 @@ void SceneManager::enterGameScene(bool networked, int stageId) {
 }
 
 void SceneManager::returnToLobby() {
-    if (_connectionState == ConnectionState::CONNECTED) {
+    // if (_connectionState == ConnectionState::CONNECTED) {
         _networkingWrapper->disconnect();
-    }
+    // }
     if (_state == SceneState::TRAINING || _state == SceneState::VS_MODE) {
         _state = SceneState::LOBBY;
         Director::getInstance()->popScene();
