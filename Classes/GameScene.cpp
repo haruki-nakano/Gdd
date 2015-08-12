@@ -101,7 +101,15 @@ void GameScene::onEnter() {
     for (int i = 0; i < 2; i++) {
         auto gunLabel = ui::Text::create(i == 0 ? labelString : "?", FONT_NAME, FONT_SIZE);
         gunLabel->setAnchorPoint(Vec2(0.5f, 1.0f));
-        auto basePos = i == 0 ? _playerWaterBar->getPosition() : _opponentsLifeBar->getPosition() - Vec2(0.0f, 8.0f);
+        Vec2 basePos;
+        if (i == 0) {
+            // Player
+            basePos = _playerWaterBar->getPosition();
+            _playerGunLabel = gunLabel;
+        } else {
+            // Opponent
+            basePos = _opponentsLifeBar->getPosition() - Vec2(0.0f, 8.0f);
+        }
         gunLabel->setPosition(basePos - Vec2(0.0f, 16.0f));
         gunLabel->setColor(LABEL_COLOR);
         this->addChild(gunLabel, 505 + i);
@@ -383,6 +391,9 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
                 if (_networkedSession) {
                     sendGameStateOverNetwork(EventType::GET_GOGGLES);
                 }
+            } else if (egg->getItemType() == EggItemType::RED_PEPPER) {
+                player->replaceGun();
+                _playerGunLabel->setString(player->getGunName());
             } else if (egg->getItemType() == EggItemType::SUPER_STAR) {
                 player->gotInvincible();
                 if (_networkedSession) {

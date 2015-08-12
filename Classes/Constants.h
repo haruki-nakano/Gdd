@@ -138,13 +138,7 @@ enum class EggState {
     ITEM,
 };
 
-enum class EggItemType {
-    HEALING,
-    GOGGLES,
-    // SUPER_SHOT,
-    SUPER_STAR,
-    SIZE
-};
+enum class EggItemType { HEALING, GOGGLES, RED_PEPPER, SUPER_STAR, SIZE };
 
 static const char *GUN_NAMES[] = {"Straight Water Gun", "Basic Water Gun",    "3 Way Water Gun", "Sprinkler",
                                   "V-Laser Water Gun",  "Marathon Water Gun", "Charger"};

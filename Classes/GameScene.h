@@ -61,6 +61,8 @@ protected:
     Bar *_playerLifeBar;
     Bar *_opponentsLifeBar;
 
+    cocos2d::ui::Text *_playerGunLabel;
+
     // Networking
     void sendGameStateOverNetwork(EventType event, std::vector<Bullet *> newBullets = std::vector<Bullet *>(),
                                   bool newEgg = false);
