@@ -46,7 +46,7 @@ void Lobby::setupUI() {
     Sprite *logo = Sprite::create("title.png");
     logo->setAnchorPoint(Vec2::ANCHOR_MIDDLE_BOTTOM);
     if (visibleSize.height > 800.0f) {
-        logo->setScale(1.2f);
+        logo->setScale(1.1f);
     }
     logo->setPosition(Vec2(logo->getContentSize().width * 0.5, 0.0f));
     this->addChild(logo);

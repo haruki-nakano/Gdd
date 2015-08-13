@@ -50,6 +50,7 @@ static const clock_t ABNORMAL_FIRING_THRESHOLD = CLOCKS_PER_SEC * 0.1f;
 static const float DEFAULT_BULLET_SPEED = 1000.0f;
 static const float DEFAULT_PLAYER_SPEED = 200.0f;
 
+// TODO: Refactoring
 enum class EventType {
     CHANGE_PLAYERS_DIRECTION = 0,
     HIT_PLAYER = 1,
