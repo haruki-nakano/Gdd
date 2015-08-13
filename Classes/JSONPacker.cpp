@@ -92,6 +92,13 @@ GameState unpackGameStateJSON(const std::string &json) {
     rapidjson::Value &eggPosition = document["egg"]["position"];
     Vec2 pos = Vec2(eggPosition["x"].GetDouble(), eggPosition["y"].GetDouble());
 
+    if (gameState.event == EventType::APPEAR_WEAPON) {
+        rapidjson::Value &weaponPosition = document["weaponPosition"];
+        gameState.weaponPosition = Vec2(weaponPosition["x"].GetDouble(), weaponPosition["y"].GetDouble());
+    } else {
+        gameState.weaponPosition = Vec2::ZERO;
+    }
+
     gameState.eggLifePoint = document["egg"]["lifePoint"].GetInt();
     gameState.eggItemType = static_cast<EggItemType>(document["egg"]["itemType"].GetInt());
     gameState.eggPosition = pos;
@@ -154,6 +161,13 @@ std::string packGameStateJSON(const GameState gameState) {
     eggJson.AddMember("itemType", static_cast<int>(gameState.eggItemType), document.GetAllocator());
 
     document.AddMember("egg", eggJson, document.GetAllocator());
+
+    if (gameState.event == EventType::APPEAR_WEAPON) {
+        rapidjson::Value weaponPositionJson(rapidjson::kObjectType);
+        weaponPositionJson.AddMember("x", gameState.weaponPosition.x, document.GetAllocator());
+        weaponPositionJson.AddMember("y", gameState.weaponPosition.y, document.GetAllocator());
+        document.AddMember("weaponPosition", weaponPositionJson, document.GetAllocator());
+    }
 
     // Flush
     rapidjson::StringBuffer buffer;

@@ -153,6 +153,8 @@
 		7125E7CE1B54C11E0005D5B1 /* MultipeerConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7125E7CD1B54C11D0005D5B1 /* MultipeerConnectivity.framework */; };
 		712C5FB11B7B114F00BF8915 /* toastNoWater.png in Resources */ = {isa = PBXBuildFile; fileRef = 712C5FB01B7B114F00BF8915 /* toastNoWater.png */; };
 		712C5FB21B7B114F00BF8915 /* toastNoWater.png in Resources */ = {isa = PBXBuildFile; fileRef = 712C5FB01B7B114F00BF8915 /* toastNoWater.png */; };
+		712C5FBC1B7D025C00BF8915 /* Weapon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 712C5FBA1B7D025C00BF8915 /* Weapon.cpp */; };
+		712C5FBD1B7D025C00BF8915 /* Weapon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 712C5FBA1B7D025C00BF8915 /* Weapon.cpp */; };
 		712E1BA61B784DF7004E8B23 /* itemEgg.png in Resources */ = {isa = PBXBuildFile; fileRef = 712E1B9F1B784DF7004E8B23 /* itemEgg.png */; };
 		712E1BA71B784DF7004E8B23 /* itemEgg.png in Resources */ = {isa = PBXBuildFile; fileRef = 712E1B9F1B784DF7004E8B23 /* itemEgg.png */; };
 		712E1BA81B784DF7004E8B23 /* itemEgg2.png in Resources */ = {isa = PBXBuildFile; fileRef = 712E1BA01B784DF7004E8B23 /* itemEgg2.png */; };
@@ -390,6 +392,8 @@
 		712C5FB01B7B114F00BF8915 /* toastNoWater.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toastNoWater.png; sourceTree = "<group>"; };
 		712C5FB51B7C13F900BF8915 /* UIConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIConstants.h; sourceTree = "<group>"; };
 		712C5FB81B7C146B00BF8915 /* PhysicsConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicsConstants.h; sourceTree = "<group>"; };
+		712C5FBA1B7D025C00BF8915 /* Weapon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Weapon.cpp; sourceTree = "<group>"; };
+		712C5FBB1B7D025C00BF8915 /* Weapon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Weapon.h; sourceTree = "<group>"; };
 		712E1B9F1B784DF7004E8B23 /* itemEgg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = itemEgg.png; sourceTree = "<group>"; };
 		712E1BA01B784DF7004E8B23 /* itemEgg2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = itemEgg2.png; sourceTree = "<group>"; };
 		712E1BA11B784DF7004E8B23 /* itemEgg3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = itemEgg3.png; sourceTree = "<group>"; };
@@ -706,6 +710,8 @@
 				7125E79B1B54342B0005D5B1 /* Player.h */,
 				7125E7B01B545A800005D5B1 /* Stage.cpp */,
 				7125E7B11B545A800005D5B1 /* Stage.h */,
+				712C5FBA1B7D025C00BF8915 /* Weapon.cpp */,
+				712C5FBB1B7D025C00BF8915 /* Weapon.h */,
 			);
 			name = GameSprites;
 			sourceTree = "<group>";
@@ -1116,6 +1122,7 @@
 				7125E79C1B54342B0005D5B1 /* Player.cpp in Sources */,
 				7125E7B21B545A800005D5B1 /* Stage.cpp in Sources */,
 				7125E7981B54307F0005D5B1 /* SceneManager.cpp in Sources */,
+				712C5FBC1B7D025C00BF8915 /* Weapon.cpp in Sources */,
 				7125E78F1B5429FA0005D5B1 /* Lobby.cpp in Sources */,
 				7125E7AE1B5456A10005D5B1 /* Bullet.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
@@ -1138,6 +1145,7 @@
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				712E1BFE1B7A6C44004E8B23 /* Bar.cpp in Sources */,
 				710AD8921B6165280062580E /* Egg.cpp in Sources */,
+				712C5FBD1B7D025C00BF8915 /* Weapon.cpp in Sources */,
 				7125E7AF1B5456A10005D5B1 /* Bullet.cpp in Sources */,
 				7125E7991B54307F0005D5B1 /* SceneManager.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,

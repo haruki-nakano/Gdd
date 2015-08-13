@@ -18,6 +18,7 @@
 
 namespace JSONPacker {
 struct GameState {
+    // FIXME: divide
     std::string name;
     int playersHitCount;
     int opponentsHitCount;
@@ -25,6 +26,7 @@ struct GameState {
     int opponentsHealCount;
     int eggLifePoint;
     cocos2d::Vec2 eggPosition;
+    cocos2d::Vec2 weaponPosition;
     EggItemType eggItemType;
     cocos2d::Vec2 opponentPosition;
     MoveState opponentMoveState;

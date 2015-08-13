@@ -18,6 +18,7 @@
 #include "Player.h"
 #include "SceneManager.h"
 #include "Stage.h"
+#include "Weapon.h"
 
 using namespace cocos2d;
 
@@ -149,14 +150,33 @@ void GameScene::setGameActive(bool active) {
 
 void GameScene::update(float dt) {
     static clock_t delta;
+    static float createWeaponCount = 0.0f;
+    static float createWeaponInterval = random(MIN_WEAPON_INTERVAL_SEC, MAX_WEAPON_INTERVAL_SEC);
+
     _stage->step(dt);
 
-    //  Host is in charge of generating egg.
+    // Host is in charge of generating egg.
     Egg *egg = _stage->getEgg();
     if (_isHost && egg->getState() == EggState::IDLE && egg->getLastBrokenTime() + delta < clock()) {
         delta = random(MIN_EGG_INTERVAL_SEC, MAX_EGG_INTERVAL_SEC) * CLOCKS_PER_SEC;
         _stage->generateEgg();
-        sendGameStateOverNetwork(EventType::APPEAR_EGG, std::vector<Bullet *>(), true);
+        if (_networkedSession) {
+            sendGameStateOverNetwork(EventType::APPEAR_EGG, std::vector<Bullet *>(), true);
+        }
+    }
+
+    // Host is in charge of generating weapon.
+    if (_isHost && !_stage->getWeapon()) {
+        createWeaponCount += dt;
+        // CCLOG("%f %f", createWeaponCount, createWeaponInterval);
+        if (createWeaponCount > createWeaponInterval) {
+            _stage->replaceWeapon();
+            if (_networkedSession) {
+                sendGameStateOverNetwork(EventType::APPEAR_WEAPON);
+            }
+            createWeaponCount = 0.0f;
+            createWeaponInterval = random(MIN_WEAPON_INTERVAL_SEC, MAX_WEAPON_INTERVAL_SEC);
+        }
     }
 }
 
@@ -316,6 +336,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
     Player *player = nullptr;
     Bullet *bullet = nullptr;
     Egg *egg = nullptr;
+    Weapon *weapon = nullptr;
 
     // CCLOG("onContactBegin: %d %d", nodeA->getTag(), nodeB->getTag());
 
@@ -393,11 +414,6 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
                 if (_networkedSession) {
                     sendGameStateOverNetwork(EventType::GET_GOGGLES);
                 }
-            } else if (egg->getItemType() == EggItemType::RED_PEPPER) {
-                if (!player->isOpponent()) {
-                    player->replaceGun();
-                    _playerGunLabel->setString(player->getGunName());
-                }
             } else if (egg->getItemType() == EggItemType::SUPER_STAR) {
                 player->gotInvincible();
                 if (_networkedSession) {
@@ -409,6 +425,26 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
         } else {
             return true;
         }
+    }
+
+    // If a player contacts weapon
+    if (tagA == TAG_WEAPON && (tagB == TAG_PLAYER || tagB == TAG_OPPOPENT)) {
+        weapon = dynamic_cast<Weapon *>(nodeA);
+        player = dynamic_cast<Player *>(nodeB);
+    } else if (tagB == TAG_WEAPON && (tagA == TAG_PLAYER || tagA == TAG_OPPOPENT)) {
+        weapon = dynamic_cast<Weapon *>(nodeB);
+        player = dynamic_cast<Player *>(nodeA);
+    }
+    if (player && weapon) {
+        player->replaceGun();
+        if (!player->isOpponent()) {
+            _playerGunLabel->setString(player->getGunName());
+        }
+        _stage->removeWeapon();
+        if (_networkedSession) {
+            sendGameStateOverNetwork(EventType::GET_WEAPON);
+        }
+        return true;
     }
 
     // If a bullet contacts egg
@@ -493,6 +529,12 @@ void GameScene::sendGameStateOverNetwork(EventType event, std::vector<Bullet *> 
     } else {
         state.eggPosition = Vec2::ZERO;
         state.eggItemType = EggItemType::SIZE;
+    }
+
+    if (event == EventType::APPEAR_WEAPON) {
+        state.weaponPosition = _stage->getWeapon()->getPosition();
+    } else {
+        state.weaponPosition = Vec2::ZERO;
     }
 
     std::string json = JSONPacker::packGameStateJSON(state);

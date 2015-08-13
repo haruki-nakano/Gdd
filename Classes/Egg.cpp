@@ -133,8 +133,6 @@ void Egg::setItemType(const EggItemType itemType) {
         _item = Director::getInstance()->getTextureCache()->addImage("itemGoggles.png");
     } else if (_itemType == EggItemType::HEALING) {
         _item = Director::getInstance()->getTextureCache()->addImage("itemHealing.png");
-    } else if (_itemType == EggItemType::RED_PEPPER) {
-        _item = Director::getInstance()->getTextureCache()->addImage("itemHot.png");
     }
 }
 

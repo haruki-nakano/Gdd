@@ -19,6 +19,7 @@ static const std::string DEFAULT_COLLISION_LAYER_NAME = "collision";
 static const std::string DEFAULT_WALL_LAYER_NAME = "wall";
 
 /* Debugging */
+static const bool PHYSICS_TEST = false;
 static const bool USE_SAME_RESOLUTION = false;
 static const bool USE_SIMPLE_AIMING = false;
 static const bool ALLOW_MORE_THAN_TWO_TAP = false;
@@ -34,6 +35,9 @@ static const int INITIAL_PLAYER_LIFE = 30;
 static const int INITIAL_WATER_LIFE = 100;
 static const float INITIAL_BULLET_LIFE = 0.32;
 static const float INITIAL_EGG_LIFE = 20;
+
+static const int MAX_WEAPON_INTERVAL_SEC = 5;
+static const int MIN_WEAPON_INTERVAL_SEC = 3;
 
 static const int MAX_EGG_INTERVAL_SEC = 10;
 static const int MIN_EGG_INTERVAL_SEC = 5;
@@ -63,6 +67,8 @@ enum class EventType {
     GET_GOGGLES = 8,
     PLAYER_GET_INVINCIBLE = 9,
     OPPONENT_GET_INVINCIBLE = 10,
+    GET_WEAPON = 11,
+    APPEAR_WEAPON = 12,
 };
 
 enum class FieldType {
@@ -101,7 +107,7 @@ enum class EggState {
     ITEM,
 };
 
-enum class EggItemType { HEALING, GOGGLES, RED_PEPPER, SUPER_STAR, SIZE };
+enum class EggItemType { HEALING, GOGGLES, /* RED_PEPPER, */ SUPER_STAR, SIZE };
 
 static const char *GUN_NAMES[] = {"Straight Water Gun", "Basic Water Gun",    "3 Way Water Gun", "Sprinkler",
                                   "V-Laser Water Gun",  "Marathon Water Gun", "Charger"};

@@ -78,6 +78,7 @@ public:
     const char *getGunName();
 
     Gun replaceGun();
+    void setGun(const Gun gun);
 
 private:
     bool init() override;

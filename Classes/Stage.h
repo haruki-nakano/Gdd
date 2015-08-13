@@ -16,6 +16,7 @@
 
 class Bullet;
 class Player;
+class Weapon;
 
 class Stage : public cocos2d::Node {
 public:
@@ -24,11 +25,14 @@ public:
     void step(float dt);
     void addBullet(Bullet *);
     void generateEgg();
+    void replaceWeapon();
 
     std::vector<Player *> getPlayers() const;
     Player *getPlayer() const;
     Player *getOpponent() const;
     Egg *getEgg() const;
+    Weapon *getWeapon() const;
+    void removeWeapon();
 
     void setState(JSONPacker::GameState state);
     void initializePlayersPosition(bool isHost);
@@ -48,6 +52,7 @@ private:
     std::vector<Player *> _players;
     std::vector<Bullet *> _bullets;
     Egg *_egg;
+    Weapon *_weapon;
 };
 
 #endif /* defined(__Yuzu__Stage__) */

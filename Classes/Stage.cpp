@@ -14,6 +14,7 @@
 
 #include "Bullet.h"
 #include "Egg.h"
+#include "Weapon.h"
 #include "Player.h"
 
 using namespace cocos2d;
@@ -62,7 +63,6 @@ void Stage::onEnter() {
     }
 
     _collisionLayer = _map->getLayer(DEFAULT_COLLISION_LAYER_NAME);
-    //_collisionLayer->setPosition(Vec2(TILE_WIDTH * 0.25, TILE_HEIGHT * 0.25));
     _collisionLayer->setPosition(Vec2(0.0f, TILE_HEIGHT * 0.5f));
     Node *tmp;
     auto size = _collisionLayer->getLayerSize();
@@ -111,6 +111,8 @@ void Stage::onEnter() {
 
     _egg = Egg::create();
     _collisionLayer->addChild(_egg);
+
+    _weapon = nullptr;
 }
 
 void Stage::initializePlayersPosition(bool isHost) {
@@ -202,6 +204,33 @@ void Stage::generateEgg() {
     _egg->setItemType(static_cast<EggItemType>(random(0, static_cast<int>(EggItemType::SIZE) - 1)));
 }
 
+void Stage::replaceWeapon() {
+    float x = (float)random(1, (int)_size.width - 1);
+    float y = (float)random(1, (int)_size.height - 1);
+
+    Vec2 coordinate = Vec2(x, y);
+    if (!isCorrectTileCoordinate(coordinate, true) || _backgroundLayer->getTileGIDAt(coordinate) >= 8) {
+        // FIXME: It can be endlesss.
+        replaceWeapon();
+        return;
+    }
+
+    _weapon = Weapon::create();
+    auto sp = _backgroundLayer->getTileAt(coordinate);
+    Vec2 pos = sp->getPosition() + Vec2(0.0f, TILE_HEIGHT * 0.5f);
+    float newZ = coordinate.y + coordinate.x;
+    _weapon->setLocalZOrder(newZ);
+    _weapon->setPosition(pos);
+    this->addChild(_weapon);
+}
+
+void Stage::removeWeapon() {
+    if (_weapon) {
+        _weapon->removeFromParent();
+        _weapon = nullptr;
+    }
+}
+
 #pragma mark -
 #pragma mark Getter/Setter
 
@@ -215,6 +244,10 @@ Player *Stage::getPlayer() const {
 
 Player *Stage::getOpponent() const {
     return _players[1];
+}
+
+Weapon *Stage::getWeapon() const {
+    return _weapon;
 }
 
 Egg *Stage::getEgg() const {
@@ -258,6 +291,11 @@ void Stage::setState(JSONPacker::GameState state) {
         player->gotInvincible();
     } else if (state.event == EventType::OPPONENT_GET_INVINCIBLE) {
         opponent->gotInvincible();
+    } else if (state.event == EventType::GET_WEAPON) {
+        this->removeWeapon();
+    } else if (state.event == EventType::APPEAR_WEAPON) {
+        this->replaceWeapon();
+        _weapon->setPosition(state.weaponPosition);
     }
 }
 

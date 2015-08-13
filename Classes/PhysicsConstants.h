@@ -17,6 +17,7 @@ static const int TAG_OPPOPENT_BULLET = 4;
 static const int TAG_WALL = 5;
 static const int TAG_EGG = 6;
 static const int TAG_ITEM = 7;
+static const int TAG_WEAPON = 8;
 
 /* Categories */
 static const int CATEGORY_MASK_PLAYER = 1;

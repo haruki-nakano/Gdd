@@ -752,8 +752,17 @@ const char *Player::getGunName() {
     return GUN_NAMES[static_cast<int>(_gun)];
 }
 
+void Player::setGun(const Gun gun) {
+    _gun = gun;
+}
+
 Gun Player::replaceGun() {
-    _gun = static_cast<Gun>(random(1, static_cast<int>(Gun::SIZE) - 1));
+    Gun gun = static_cast<Gun>(random(1, static_cast<int>(Gun::SIZE) - 1));
+    while (_gun == gun) {
+        gun = static_cast<Gun>(random(1, static_cast<int>(Gun::SIZE) - 1));
+    }
+    _gun = gun;
+    return _gun;
 }
 
 void Player::showToast() {
