@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="isometric" renderorder="right-down" width="36" height="36" tilewidth="64" tileheight="32" nextobjectid="7">
+ <tileset firstgid="1" name="isometric_grass_and_water" tilewidth="64" tileheight="64">
+  <tileoffset x="0" y="16"/>
+  <image source="isometric_grass_and_water.png" width="256" height="384"/>
+  <terraintypes>
+   <terrain name="Grass" tile="0"/>
+   <terrain name="Water" tile="22"/>
+  </terraintypes>
+  <tile id="0" terrain="0,0,0,0"/>
+  <tile id="1" terrain="0,0,0,0"/>
+  <tile id="2" terrain="0,0,0,0"/>
+  <tile id="3" terrain="0,0,0,0"/>
+  <tile id="4" terrain="0,0,0,1"/>
+  <tile id="5" terrain="0,0,1,0"/>
+  <tile id="6" terrain="1,0,0,0"/>
+  <tile id="7" terrain="0,1,0,0"/>
+  <tile id="8" terrain="0,1,1,1"/>
+  <tile id="9" terrain="1,0,1,1"/>
+  <tile id="10" terrain="1,1,1,0"/>
+  <tile id="11" terrain="1,1,0,1"/>
+  <tile id="12" terrain="0,0,1,1"/>
+  <tile id="13" terrain="1,0,1,0"/>
+  <tile id="14" terrain="1,1,0,0"/>
+  <tile id="15" terrain="0,1,0,1"/>
+  <tile id="16" terrain="0,0,1,1"/>
+  <tile id="17" terrain="1,0,1,0"/>
+  <tile id="18" terrain="1,1,0,0"/>
+  <tile id="19" terrain="0,1,0,1"/>
+  <tile id="20" terrain="0,1,1,0"/>
+  <tile id="21" terrain="1,0,0,1"/>
+  <tile id="22" terrain="1,1,1,1"/>
+  <tile id="23" terrain="1,1,1,1"/>
+ </tileset>
+ <tileset firstgid="25" name="wall" tilewidth="64" tileheight="64">
+  <image source="wall.png" width="64" height="66"/>
+ </tileset>
+ <layer name="background" width="36" height="36">
+  <properties>
+   <property name="clientInitialPositionX" value="3"/>
+   <property name="clientInitialPositionY" value="16"/>
+   <property name="hostInitialPositionX" value="31"/>
+   <property name="hostInitialPositionY" value="18"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztl9EOgyAMRREzN6dzvu3//3SQrEmH1bZScEt8uA+KlpvjhUrjnGtOsboEPRTqMufzSNT4HPRSaDLw0wr8DEFPRqORHwkfyTyzgR/JHJSfmCvIiv9c90F3t8ySR8974n0LP8DCo2v8TUdiHGr4DJacn7Q+Nz81XorPHn//zAcyGv1ATrukXk0+1F44Zc6fw0fix4LPWk9K94NafNZ6EpVZ2FNG952j3pCPxk+81zKsavLBPHBfle6/W+Npbap+zfysMWmT92utrzSbVD5/eX3d3PKf62rIR+uH2ytr85H4seCDvwNkaUDfojYfKrN7eluJ/p7r5+Sznw8+a2z1Xws/cU1cUX24Bn+wZqj14pPnLfxoOGrqc89z59cj/Gyd76X1cZa2BP8epfloVSo/VE+WSNMrjtAbvS0kSQ==
+  </data>
+ </layer>
+ <layer name="collision" width="36" height="36">
+  <data encoding="base64" compression="zlib">
+   eJzt18EJACEQBMFNw/wTNYMWcRZEu8HPPYY68OOoqnHZOSmxkdzS07+xs7W6b/Rt944m/y2RHk4Pp4fTw+nh9HB6OD2cHk4Pp4d70eP7tH8jufWD56YzAb9HEZU=
+  </data>
+ </layer>
+</map>

@@ -28,7 +28,7 @@ static const bool HIGH_SPEED_IN_WATER = true;
 
 /* Game Settings */
 static const int DEFAULT_STAGE_ID = 1;
-static const int NUM_STAGES = 4;
+static const int NUM_STAGES = 6;
 static const int MAX_PLAYERS = 2;
 
 static const int INITIAL_PLAYER_LIFE = 30;

@@ -155,6 +155,10 @@
 		712C5FB21B7B114F00BF8915 /* toastNoWater.png in Resources */ = {isa = PBXBuildFile; fileRef = 712C5FB01B7B114F00BF8915 /* toastNoWater.png */; };
 		712C5FBC1B7D025C00BF8915 /* Weapon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 712C5FBA1B7D025C00BF8915 /* Weapon.cpp */; };
 		712C5FBD1B7D025C00BF8915 /* Weapon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 712C5FBA1B7D025C00BF8915 /* Weapon.cpp */; };
+		712C5FBF1B7D59BD00BF8915 /* stage5.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 712C5FBE1B7D59BD00BF8915 /* stage5.tmx */; };
+		712C5FC01B7D59BD00BF8915 /* stage5.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 712C5FBE1B7D59BD00BF8915 /* stage5.tmx */; };
+		712C5FC21B7D5F0500BF8915 /* stage6.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 712C5FC11B7D5F0500BF8915 /* stage6.tmx */; };
+		712C5FC31B7D5F0500BF8915 /* stage6.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 712C5FC11B7D5F0500BF8915 /* stage6.tmx */; };
 		712E1BA61B784DF7004E8B23 /* itemEgg.png in Resources */ = {isa = PBXBuildFile; fileRef = 712E1B9F1B784DF7004E8B23 /* itemEgg.png */; };
 		712E1BA71B784DF7004E8B23 /* itemEgg.png in Resources */ = {isa = PBXBuildFile; fileRef = 712E1B9F1B784DF7004E8B23 /* itemEgg.png */; };
 		712E1BA81B784DF7004E8B23 /* itemEgg2.png in Resources */ = {isa = PBXBuildFile; fileRef = 712E1BA01B784DF7004E8B23 /* itemEgg2.png */; };
@@ -394,6 +398,8 @@
 		712C5FB81B7C146B00BF8915 /* PhysicsConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicsConstants.h; sourceTree = "<group>"; };
 		712C5FBA1B7D025C00BF8915 /* Weapon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Weapon.cpp; sourceTree = "<group>"; };
 		712C5FBB1B7D025C00BF8915 /* Weapon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Weapon.h; sourceTree = "<group>"; };
+		712C5FBE1B7D59BD00BF8915 /* stage5.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = stage5.tmx; sourceTree = "<group>"; };
+		712C5FC11B7D5F0500BF8915 /* stage6.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = stage6.tmx; sourceTree = "<group>"; };
 		712E1B9F1B784DF7004E8B23 /* itemEgg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = itemEgg.png; sourceTree = "<group>"; };
 		712E1BA01B784DF7004E8B23 /* itemEgg2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = itemEgg2.png; sourceTree = "<group>"; };
 		712E1BA11B784DF7004E8B23 /* itemEgg3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = itemEgg3.png; sourceTree = "<group>"; };
@@ -794,11 +800,13 @@
 		71992B8F1B69319A0065EA2A /* stages */ = {
 			isa = PBXGroup;
 			children = (
-				71BE7A5F1B674F240055D6A8 /* isometric_grass_and_water.png */,
 				71128FF61B56D1C400B9216A /* stage1.tmx */,
 				71128FFA1B57134400B9216A /* stage2.tmx */,
 				71992B8A1B6832EF0065EA2A /* stage3.tmx */,
 				71000E831B7419AA00AF4F23 /* stage4.tmx */,
+				712C5FBE1B7D59BD00BF8915 /* stage5.tmx */,
+				712C5FC11B7D5F0500BF8915 /* stage6.tmx */,
+				71BE7A5F1B674F240055D6A8 /* isometric_grass_and_water.png */,
 				71166DF61B6AC42200704D28 /* wall.png */,
 			);
 			name = stages;
@@ -1012,8 +1020,10 @@
 				521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */,
 				71000E2B1B6FE38800AF4F23 /* splashRight2.png in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
+				712C5FBF1B7D59BD00BF8915 /* stage5.tmx in Resources */,
 				712C5FB11B7B114F00BF8915 /* toastNoWater.png in Resources */,
 				71000E311B6FE38800AF4F23 /* splashUp2.png in Resources */,
+				712C5FC21B7D5F0500BF8915 /* stage6.tmx in Resources */,
 				712E1BF21B7947E9004E8B23 /* player2UpperLeft.png in Resources */,
 				71000E331B6FE38800AF4F23 /* splashUp3.png in Resources */,
 				712E1BD81B79205E004E8B23 /* particle_texture_explosion.png in Resources */,
@@ -1052,6 +1062,7 @@
 				715725441B6EEC880050EBCC /* buttonHowToPlay.png in Resources */,
 				712E1BF11B7947E9004E8B23 /* player2Up.png in Resources */,
 				71000E341B6FE38800AF4F23 /* splashUp3.png in Resources */,
+				712C5FC31B7D5F0500BF8915 /* stage6.tmx in Resources */,
 				712E1BBA1B784E35004E8B23 /* labelYouLose.png in Resources */,
 				712E1BCC1B784EE4004E8B23 /* backButton.png in Resources */,
 				71000E751B72858E00AF4F23 /* buttonOk.png in Resources */,
@@ -1098,6 +1109,7 @@
 				71128FFE1B57134400B9216A /* stage2.tmx in Resources */,
 				71BE7A611B674F240055D6A8 /* isometric_grass_and_water.png in Resources */,
 				7157254A1B6EEC880050EBCC /* buttonPressedVsMode.png in Resources */,
+				712C5FC01B7D59BD00BF8915 /* stage5.tmx in Resources */,
 				71000E471B6FEBBB00AF4F23 /* splashLeft2.png in Resources */,
 				712E1BA91B784DF7004E8B23 /* itemEgg2.png in Resources */,
 				71000E771B72858E00AF4F23 /* buttonOkPressed.png in Resources */,

@@ -597,7 +597,7 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
             break;
         }
         case Gun::CHARGER: {
-            int requiredWater = 100;
+            int requiredWater = 80;
             if (clock() - _lastTimeBulletCreated < ABNORMAL_FIRING_THRESHOLD || getWaterPoint() < requiredWater) {
                 if (getWaterPoint() < requiredWater) {
                     showToast();
