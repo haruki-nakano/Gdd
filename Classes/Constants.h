@@ -9,6 +9,7 @@
 #ifndef Yuzu_Constants_h
 #define Yuzu_Constants_h
 
+/* General */
 static const std::string CODE_NAME = "Yuzu";
 static const std::string GAME_NAME = "Rubber Duck Wars";
 static const std::string SERVICE_NAME = "RDW";
@@ -17,27 +18,16 @@ static const std::string DEFAULT_BACKGROUND_LAYER_NAME = "background";
 static const std::string DEFAULT_COLLISION_LAYER_NAME = "collision";
 static const std::string DEFAULT_WALL_LAYER_NAME = "wall";
 
-// UI
-// static const char *FONT_NAME = "8bitWonder.ttf";
-static const char *FONT_NAME = "Gamegirl.ttf";
-static const char *FONT_DIGIT = "Arial.ttf";
-static const float FONT_SIZE = 32.0f;
-static const float RESOLUTION_WIDTH = 1136.0f;
-static const float RESOLUTION_HEIGHT = 640.0f;
-
-static const cocos2d::Color3B LABEL_COLOR = cocos2d::Color3B(255, 255, 255);
-
-// Game Options
+/* Debugging */
 static const bool USE_SAME_RESOLUTION = false;
-
-static const int DEFAULT_STAGE_ID = 1;
-static const int NUM_STAGES = 4;
-
 static const bool USE_SIMPLE_AIMING = false;
 static const bool ALLOW_MORE_THAN_TWO_TAP = false;
 static const bool ALLOW_WATER_SHOT = true;
 static const bool HIGH_SPEED_IN_WATER = true;
 
+/* Game Settings */
+static const int DEFAULT_STAGE_ID = 1;
+static const int NUM_STAGES = 4;
 static const int MAX_PLAYERS = 2;
 
 static const int INITIAL_PLAYER_LIFE = 30;
@@ -48,47 +38,17 @@ static const float INITIAL_EGG_LIFE = 20;
 static const int MAX_EGG_INTERVAL_SEC = 10;
 static const int MIN_EGG_INTERVAL_SEC = 5;
 
-static const clock_t KEEP_FIRING_THRESHOLD = CLOCKS_PER_SEC * 0.3f;
+static const int HEALING_POINTS = 5;
 static const float BLINK_TIME = 0.4f;                    // 10 sec
 static const float INVINCIBLE_TIME = 10.0f;              // 10 sec
 static const float GOGGLES_TIME = 10.0f;                 // 10 sec
 static const float ADD_WATTER_THRESHOLD = 5.0f / 100.0f; // Need 5 sec for full charging
-static const clock_t ABNORMAL_FIRING_THRESHOLD = CLOCKS_PER_SEC * 0.1f;
 
-static const int HEALING_POINTS = 5;
+static const clock_t KEEP_FIRING_THRESHOLD = CLOCKS_PER_SEC * 0.3f;
+static const clock_t ABNORMAL_FIRING_THRESHOLD = CLOCKS_PER_SEC * 0.1f;
 
 static const float DEFAULT_BULLET_SPEED = 1000.0f;
 static const float DEFAULT_PLAYER_SPEED = 200.0f;
-
-static const float TILE_WIDTH = 64.0f;
-static const float TILE_HEIGHT = 32.0f;
-
-// Physics
-static const int TAG_PLAYER = 1;
-static const int TAG_PLAYER_BULLET = 2;
-static const int TAG_OPPOPENT = 3;
-static const int TAG_OPPOPENT_BULLET = 4;
-static const int TAG_WALL = 5;
-static const int TAG_EGG = 6;
-static const int TAG_ITEM = 7;
-
-static const int CATEGORY_MASK_PLAYER = 1;
-static const int CATEGORY_MASK_BULLET = 2;
-static const int CATEGORY_MASK_WALL = 4;
-static const int CATEGORY_MASK_EGG = 8;
-static const int CATEGORY_MASK_ITEM = 16;
-
-static const int CONTACT_MASK_PLAYER = CATEGORY_MASK_BULLET | CATEGORY_MASK_ITEM;
-static const int CONTACT_MASK_WALL = CATEGORY_MASK_BULLET;
-static const int CONTACT_MASK_BULLET = CATEGORY_MASK_PLAYER | CATEGORY_MASK_WALL | CATEGORY_MASK_EGG;
-static const int CONTACT_MASK_EGG = CATEGORY_MASK_BULLET;
-static const int CONTACT_MASK_ITEM = CATEGORY_MASK_PLAYER;
-
-static const int COLLISION_MASK_PLAYER = CATEGORY_MASK_WALL | CATEGORY_MASK_EGG;
-static const int COLLISION_MASK_WALL = CATEGORY_MASK_PLAYER | CATEGORY_MASK_EGG;
-static const int COLLISION_MASK_BULLET = 0;
-static const int COLLISION_MASK_EGG = CATEGORY_MASK_PLAYER | CATEGORY_MASK_WALL;
-static const int COLLISION_MASK_ITEM = 0;
 
 enum class EventType {
     CHANGE_PLAYERS_DIRECTION = 0,
@@ -153,13 +113,6 @@ enum class Gun {
     MARATHON_GUN,
     CHARGER,
     SIZE,
-};
-
-enum class PlayerColor {
-    DEFAULT = 0,
-    YELLOW,
-    GREEN,
-    NUM_COLORS,
 };
 
 enum class Animations {

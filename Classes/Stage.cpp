@@ -9,6 +9,9 @@
 #include "Stage.h"
 
 #include "Constants.h"
+#include "UIConstants.h"
+#include "PhysicsConstants.h"
+
 #include "Bullet.h"
 #include "Egg.h"
 #include "Player.h"

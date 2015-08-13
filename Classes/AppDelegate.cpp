@@ -1,6 +1,9 @@
 #include "AppDelegate.h"
-#include "TitleScene.h"
+
 #include "Constants.h"
+#include "UIConstants.h"
+
+#include "TitleScene.h"
 
 USING_NS_CC;
 

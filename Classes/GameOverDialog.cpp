@@ -11,6 +11,7 @@
 
 #include "CocosGUI.h"
 #include "Constants.h"
+#include "UIConstants.h"
 #include "SceneManager.h"
 
 using namespace cocos2d;

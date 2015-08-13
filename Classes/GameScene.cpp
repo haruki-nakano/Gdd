@@ -10,6 +10,8 @@
 
 #include "Bar.h"
 #include "Constants.h"
+#include "PhysicsConstants.h"
+#include "UIConstants.h"
 #include "GameOverDialog.h"
 #include "MathUtils.h"
 #include "JSONPacker.h"
@@ -159,7 +161,7 @@ void GameScene::update(float dt) {
 }
 
 void GameScene::gameOver() {
-    if (!_active) {
+    if (!isGameActive()) {
         // The game is already over
         return;
     }
@@ -326,7 +328,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
         bullet = dynamic_cast<Bullet *>(nodeA);
     }
     if (player && bullet) {
-        if (_active) {
+        if (isGameActive()) {
             player->bulletHits(bullet);
             if (player->getLifePoint() <= 0) {
                 gameOver();
@@ -345,7 +347,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
         bullet = dynamic_cast<Bullet *>(nodeA);
     }
     if (player && bullet) {
-        if (_active) {
+        if (isGameActive()) {
             player->bulletHits(bullet);
             if (player->getLifePoint() <= 0) {
                 gameOver();
@@ -434,7 +436,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
 #pragma mark UI Methods
 
 void GameScene::backButtonPressed(cocos2d::Ref *pSender, ui::Widget::TouchEventType eEventType) {
-    if (eEventType == ui::Widget::TouchEventType::ENDED && _active) {
+    if (eEventType == ui::Widget::TouchEventType::ENDED && isGameActive()) {
         SceneManager::getInstance()->returnToLobby();
     }
 }
@@ -449,7 +451,7 @@ void GameScene::setNetworkedSession(bool networkedSession, bool isHost) {
 
 void GameScene::receivedData(const void *data, unsigned long length) {
     // length 1 means stage select
-    if (!_stage || !_networkedSession || !_active) {
+    if (!_stage || !_networkedSession || !isGameActive()) {
         // CCLOG("ignored %p %lu %d", _stage, length, _networkedSession);
         return;
     }

@@ -388,6 +388,8 @@
 		7125E7CA1B5485980005D5B1 /* JSONPacker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONPacker.h; sourceTree = "<group>"; };
 		7125E7CD1B54C11D0005D5B1 /* MultipeerConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultipeerConnectivity.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/MultipeerConnectivity.framework; sourceTree = DEVELOPER_DIR; };
 		712C5FB01B7B114F00BF8915 /* toastNoWater.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toastNoWater.png; sourceTree = "<group>"; };
+		712C5FB51B7C13F900BF8915 /* UIConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIConstants.h; sourceTree = "<group>"; };
+		712C5FB81B7C146B00BF8915 /* PhysicsConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicsConstants.h; sourceTree = "<group>"; };
 		712E1B9F1B784DF7004E8B23 /* itemEgg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = itemEgg.png; sourceTree = "<group>"; };
 		712E1BA01B784DF7004E8B23 /* itemEgg2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = itemEgg2.png; sourceTree = "<group>"; };
 		712E1BA11B784DF7004E8B23 /* itemEgg3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = itemEgg3.png; sourceTree = "<group>"; };
@@ -591,9 +593,9 @@
 				7125E79F1B54345B0005D5B1 /* GameSprites */,
 				7125E7C81B5481650005D5B1 /* Networking */,
 				7125E79E1B54344B0005D5B1 /* Scenes */,
+				712C5FB91B7C150300BF8915 /* Constants */,
 				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
 				46880B8519C43A87006E1F66 /* AppDelegate.h */,
-				7125E78B1B5423A40005D5B1 /* Constants.h */,
 				7125E7B41B54781D0005D5B1 /* MathUtils.h */,
 			);
 			name = Classes;
@@ -737,6 +739,16 @@
 				715725421B6EEC880050EBCC /* buttonVsMode.png */,
 			);
 			name = buttons;
+			sourceTree = "<group>";
+		};
+		712C5FB91B7C150300BF8915 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				7125E78B1B5423A40005D5B1 /* Constants.h */,
+				712C5FB81B7C146B00BF8915 /* PhysicsConstants.h */,
+				712C5FB51B7C13F900BF8915 /* UIConstants.h */,
+			);
+			name = Constants;
 			sourceTree = "<group>";
 		};
 		712E1BFA1B7A6BFC004E8B23 /* UI */ = {

@@ -24,6 +24,7 @@ public:
 
     void showPeerList();
     void receiveMultiplayerInvitations();
+    void stopMultiplayerInvitations();
     void sendData(const void *data, unsigned long length, SendDataMode mode = SendDataMode::Unreliable);
 
     void setLobby(Lobby *lobby);
@@ -33,7 +34,6 @@ private:
     GameScene *_gameScene;
     Lobby *_lobby;
     ConnectionState _connectionState;
-    bool _isAdvertising;
 
     SceneManager();
     ~SceneManager();

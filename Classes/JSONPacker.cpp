@@ -11,7 +11,9 @@
 #include "json/document.h"
 #include "json/writer.h"
 #include "json/stringbuffer.h"
+
 #include "Constants.h"
+#include "PhysicsConstants.h"
 
 using namespace cocos2d;
 

@@ -35,6 +35,11 @@ void Lobby::onEnter() {
     setupUI();
 }
 
+void Lobby::onExit() {
+    Node::onExit();
+    SceneManager::getInstance()->stopMultiplayerInvitations();
+}
+
 void Lobby::setupUI() {
     Size visibleSize = Director::getInstance()->getVisibleSize();
 

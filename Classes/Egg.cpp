@@ -8,6 +8,8 @@
 
 #include "Egg.h"
 
+#include "PhysicsConstants.h"
+
 using namespace cocos2d;
 
 bool Egg::init() {
