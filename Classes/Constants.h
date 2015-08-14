@@ -19,7 +19,7 @@ static const std::string DEFAULT_COLLISION_LAYER_NAME = "collision";
 static const std::string DEFAULT_WALL_LAYER_NAME = "wall";
 
 /* Debugging */
-static const bool PHYSICS_TEST = false;
+static const bool PHYSICS_TEST = true;
 static const bool USE_SAME_RESOLUTION = false;
 static const bool USE_SIMPLE_AIMING = false;
 static const bool ALLOW_MORE_THAN_TWO_TAP = false;
@@ -27,7 +27,7 @@ static const bool ALLOW_WATER_SHOT = true;
 static const bool HIGH_SPEED_IN_WATER = true;
 
 /* Game Settings */
-static const int DEFAULT_STAGE_ID = 1;
+static const int DEFAULT_STAGE_ID = 3;
 static const int NUM_STAGES = 6;
 static const int MAX_PLAYERS = 2;
 
@@ -109,8 +109,8 @@ enum class EggState {
 
 enum class EggItemType { HEALING, GOGGLES, /* RED_PEPPER, */ SUPER_STAR, SIZE };
 
-static const char *GUN_NAMES[] = {"Straight Water Gun", "Basic Water Gun",    "3 Way Water Gun", "Sprinkler",
-                                  "V-Laser Water Gun",  "Marathon Water Gun", "Charger"};
+static const char *GUN_NAMES[] = {"Straight Water Gun", "Basic Water Gun", "3 Way Water Gun", "Sprinkler",
+                                  "V-Laser Water Gun", "Marathon Water Gun", "Charger", "Shotgun", "Sniper"};
 enum class Gun {
     STRAIGHT_GUN = 0,
     BASIC_GUN,
@@ -119,6 +119,8 @@ enum class Gun {
     V_LASER_GUN,
     MARATHON_GUN,
     CHARGER,
+    SHOTGUN,
+    SNIPER,
     SIZE,
 };
 

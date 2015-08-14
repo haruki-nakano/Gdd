@@ -35,6 +35,7 @@ bool Player::init() {
 
     // Exclude STRAIGHT_GUN: 0
     _gun = Gun::BASIC_GUN;
+    //_gun = Gun::SNIPER;
 
     _isBlinking = false;
 
@@ -617,6 +618,47 @@ std::vector<Bullet *> Player::createBullets(Vec2 touchPos, Vec2 stagePos) {
             }
             break;
         }
+        case Gun::SHOTGUN: {
+            int requiredWater = 60;
+            if (clock() - _lastTimeBulletCreated < ABNORMAL_FIRING_THRESHOLD || getWaterPoint() < requiredWater) {
+                if (getWaterPoint() < requiredWater) {
+                    showToast();
+                }
+                break;
+            }
+            _lastTimeBulletCreated = clock();
+            setWaterPoint(getWaterPoint() - requiredWater);
+
+            for (int i = 0; i < 9; i++) {
+                Bullet *bullet = Bullet::create();
+                bullet->setPosition(this->getPosition());
+                bullet->setDirection(MathUtils::forDegreesAngle(angle - 2.0f * (i - 4)) * 2.0f);
+                bullet->setLifePoint(INITIAL_BULLET_LIFE * 0.5f);
+                bullet->setTag(this->getTag() == TAG_PLAYER ? TAG_PLAYER_BULLET : TAG_OPPOPENT_BULLET);
+                bullets.push_back(bullet);
+            }
+            break;
+        }
+        case Gun::SNIPER: {
+            int requiredWater = 30;
+            if (clock() - _lastTimeBulletCreated < ABNORMAL_FIRING_THRESHOLD || getWaterPoint() < requiredWater) {
+                if (getWaterPoint() < requiredWater) {
+                    showToast();
+                }
+                break;
+            }
+            _lastTimeBulletCreated = clock();
+            setWaterPoint(getWaterPoint() - requiredWater);
+
+            for (int i = 0; i < 4; i++) {
+                Bullet *bullet = Bullet::create();
+                bullet->setPosition(this->getPosition());
+                bullet->setDirection(v * (2.0f - 0.4f * i));
+                bullet->setLifePoint(INITIAL_BULLET_LIFE * 1.5);
+                bullet->setTag(this->getTag() == TAG_PLAYER ? TAG_PLAYER_BULLET : TAG_OPPOPENT_BULLET);
+                bullets.push_back(bullet);
+            }
+        }
         default:
             break;
     }
@@ -756,8 +798,9 @@ void Player::setGun(const Gun gun) {
 }
 
 Gun Player::replaceGun() {
-    Gun gun = static_cast<Gun>(random(1, static_cast<int>(Gun::SIZE) - 1));
+        Gun gun = static_cast<Gun>(random(1, static_cast<int>(Gun::SIZE) - 1));
     while (_gun == gun) {
+        //gun = static_cast<Gun>(random(static_cast<int>(Gun::SHOTGUN), static_cast<int>(Gun::SIZE) - 1));
         gun = static_cast<Gun>(random(1, static_cast<int>(Gun::SIZE) - 1));
     }
     _gun = gun;
