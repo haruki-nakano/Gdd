@@ -19,7 +19,7 @@ static const std::string DEFAULT_COLLISION_LAYER_NAME = "collision";
 static const std::string DEFAULT_WALL_LAYER_NAME = "wall";
 
 /* Debugging */
-static const bool PHYSICS_TEST = true;
+static const bool PHYSICS_TEST = false;
 static const bool USE_SAME_RESOLUTION = false;
 static const bool USE_SIMPLE_AIMING = false;
 static const bool ALLOW_MORE_THAN_TWO_TAP = false;
@@ -27,7 +27,7 @@ static const bool ALLOW_WATER_SHOT = true;
 static const bool HIGH_SPEED_IN_WATER = true;
 
 /* Game Settings */
-static const int DEFAULT_STAGE_ID = 3;
+static const int DEFAULT_STAGE_ID = 1;
 static const int NUM_STAGES = 6;
 static const int MAX_PLAYERS = 2;
 

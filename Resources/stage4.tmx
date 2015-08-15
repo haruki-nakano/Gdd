@@ -35,7 +35,7 @@
  <tileset firstgid="25" name="wall" tilewidth="64" tileheight="64">
   <image source="wall.png" width="64" height="66"/>
  </tileset>
- <layer name="background" width="42" height="42">
+ <layer name="background" width="42" height="42" visible="0">
   <properties>
    <property name="clientInitialPositionX" value="38"/>
    <property name="clientInitialPositionY" value="2"/>
@@ -48,7 +48,7 @@
  </layer>
  <layer name="collision" width="42" height="42">
   <data encoding="base64" compression="zlib">
-   eJzt1MEJACEMRNFYhv03ug1kTQ5jyMT54GFh1QeK28w2yeienNjQzmWYe7guO28lJzbP6X1HbxnqH2//qc5oTtZ5WuclJ8u5d3dWJye26fcza4j2k1NOvfN1yYlt+v1kc0Zzss7TOi85Wc69m7NjcmJjd/7d+eyocnZLTmxsTobxAfF1NHQ=
+   eJzt1MENwDAIA0DWyP6LdoE08DAIgy3xqNQkp8bqMbNDMt0jJzYZzowebv6eGWF23p69DqHeuZ0/1emtiTpf+2xystx7d2d15MRmej+jBu88OeXUf74ucmIzvZ9sTm9N1PnaZ5OT5d67OTtGTmzYnX+dj06Vs1vkxIbNyTAfwHU0cg==
   </data>
  </layer>
 </map>
