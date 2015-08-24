@@ -35,7 +35,7 @@
  <tileset firstgid="25" name="wall" tilewidth="64" tileheight="64">
   <image source="wall.png" width="64" height="66"/>
  </tileset>
- <layer name="background" width="42" height="42" visible="0">
+ <layer name="background" width="42" height="42">
   <properties>
    <property name="clientInitialPositionX" value="38"/>
    <property name="clientInitialPositionY" value="2"/>
